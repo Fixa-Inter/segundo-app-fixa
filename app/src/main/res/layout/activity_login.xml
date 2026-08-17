@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".ui.auth.LoginActivity">
+
+    <ImageView
+        android:id="@+id/ivBluePanel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_login_panel"
+        app:layout_constraintBottom_toTopOf="@id/guidePanelBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidePanelBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.82" />
+
+    <ImageView
+        android:id="@+id/ivWatermark"
+        android:layout_width="360dp"
+        android:layout_height="460dp"
+        android:alpha="0.33"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_login_watermark"
+        android:translationX="45dp"
+        android:translationY="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLoginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="138dp" />
+
+    <TextView
+        android:id="@+id/tvNoAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Não possui uma conta?"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tvLoginTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvLoginTitle"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:id="@+id/tvRegisterTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Cadastrar-se"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvNoAccount"
+        app:layout_constraintStart_toEndOf="@id/tvNoAccount"
+        android:layout_marginStart="4dp" />
+
+    <TextView
+        android:id="@+id/tvEmailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="E-mail"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/tvLoginTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvNoAccount"
+        android:layout_marginTop="54dp" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_login_field"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="exemplo@gmail.com"
+        android:inputType="textEmailAddress"
+        android:paddingStart="13dp"
+        android:paddingEnd="13dp"
+        android:singleLine="true"
+        android:textColor="#14223A"
+        android:textColorHint="#5C6574"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="41dp" />
+
+    <TextView
+        android:id="@+id/tvPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Senha"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/etEmail"
+        app:layout_constraintTop_toBottomOf="@id/etEmail"
+        android:layout_marginTop="35dp" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_login_field"
+        android:drawableEnd="@drawable/ic_password_hidden"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="**************"
+        android:inputType="textPassword"
+        android:paddingStart="13dp"
+        android:paddingEnd="16dp"
+        android:singleLine="true"
+        android:textColor="#14223A"
+        android:textColorHint="#5C6574"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@id/etEmail"
+        app:layout_constraintStart_toStartOf="@id/etEmail"
+        app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
+        android:layout_marginTop="6dp" />
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Esqueceu a senha?"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@id/etPassword"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        android:layout_marginTop="12dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#130653"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Entrar"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@id/etEmail"
+        app:layout_constraintStart_toStartOf="@id/etEmail"
+        app:layout_constraintTop_toBottomOf="@id/tvForgotPassword"
+        android:layout_marginTop="60dp" />
+
+    <TextView
+        android:id="@+id/tvNoAccountBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Não tem conta?"
+        android:textColor="#A9B7CD"
+        android:textSize="12sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvRegisterBottom"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:id="@+id/tvRegisterBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Cadastre-se"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/tvNoAccountBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="13dp" />
+
+    <View
+        android:id="@+id/dividerLeft"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#B9B9B9"
+        app:layout_constraintEnd_toStartOf="@id/tvSocialTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvSocialTitle"
+        app:layout_constraintBottom_toBottomOf="@id/tvSocialTitle"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="7dp" />
+
+    <TextView
+        android:id="@+id/tvSocialTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Ou entre com"
+        android:textColor="#4B5563"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidePanelBottom"
+        android:layout_marginTop="32dp" />
+
+    <View
+        android:id="@+id/dividerRight"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#B9B9B9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvSocialTitle"
+        app:layout_constraintTop_toTopOf="@id/tvSocialTitle"
+        app:layout_constraintBottom_toBottomOf="@id/tvSocialTitle"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="47dp" />
+
+    <ImageView
+        android:id="@+id/btnGoogle"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="Google"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_google"
+        app:layout_constraintEnd_toStartOf="@id/btnFacebook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSocialTitle"
+        android:layout_marginTop="27dp" />
+
+    <ImageView
+        android:id="@+id/btnFacebook"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="Facebook"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_facebook"
+        app:layout_constraintEnd_toStartOf="@id/btnApple"
+        app:layout_constraintStart_toEndOf="@id/btnGoogle"
+        app:layout_constraintTop_toTopOf="@id/btnGoogle" />
+
+    <ImageView
+        android:id="@+id/btnApple"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="Apple"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_apple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnFacebook"
+        app:layout_constraintTop_toTopOf="@id/btnGoogle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
