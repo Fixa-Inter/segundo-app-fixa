@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_panel_background"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    tools:context=".ui.auth.RegisterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivRegisterWatermark"
+            android:layout_width="@dimen/login_watermark_width"
+            android:layout_height="@dimen/login_watermark_height"
+            android:layout_marginTop="@dimen/register_watermark_top_margin"
+            android:alpha="0.55"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_login_watermark"
+            android:tint="@color/login_watermark"
+            android:translationX="@dimen/login_watermark_translation_x"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvRegisterTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/register_first_title_top_margin"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/register_title"
+            android:textAppearance="@style/TextAppearance.FIXA.Login.Title"
+            android:textFontWeight="600"
+            app:layout_constraintStart_toStartOf="@id/actvInstitution"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvRegisterIntro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/register_intro_top_margin"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLines="2"
+            android:text="@string/register_intro"
+            android:textAppearance="@style/TextAppearance.FIXA.Register.Intro"
+            android:textFontWeight="500"
+            app:layout_constraintEnd_toEndOf="@id/actvInstitution"
+            app:layout_constraintStart_toStartOf="@id/actvInstitution"
+            app:layout_constraintTop_toBottomOf="@id/tvRegisterTitle" />
+
+        <TextView
+            android:id="@+id/tvInstitutionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/register_first_section_top_margin"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/register_institution_label"
+            android:textAppearance="@style/TextAppearance.FIXA.Login.Label"
+            android:textFontWeight="600"
+            app:layout_constraintStart_toStartOf="@id/actvInstitution"
+            app:layout_constraintTop_toBottomOf="@id/tvRegisterIntro" />
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actvInstitution"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/login_field_height"
+            android:layout_marginStart="@dimen/login_content_side_margin"
+            android:layout_marginTop="@dimen/login_field_top_margin"
+            android:layout_marginEnd="@dimen/login_content_side_margin"
+            android:background="@drawable/bg_login_field_auth"
+            android:completionThreshold="0"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown_20"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:hint="@string/register_institution_hint"
+            android:includeFontPadding="false"
+            android:inputType="none"
+            android:paddingStart="@dimen/login_field_horizontal_padding"
+            android:paddingTop="0dp"
+            android:paddingEnd="@dimen/login_field_horizontal_padding"
+            android:paddingBottom="0dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.FIXA.Login.Field"
+            android:textColor="@color/login_input_text"
+            android:textColorHint="@color/login_placeholder_text"
+            android:textFontWeight="400"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvInstitutionLabel"
+            app:layout_constraintWidth_max="@dimen/login_content_max_width" />
+
+        <TextView
+            android:id="@+id/tvUnitLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/register_first_group_spacing"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/register_unit_label"
+            android:textAppearance="@style/TextAppearance.FIXA.Login.Label"
+            android:textFontWeight="600"
+            app:layout_constraintStart_toStartOf="@id/actvUnit"
+            app:layout_constraintTop_toBottomOf="@id/actvInstitution" />
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actvUnit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/login_field_height"
+            android:layout_marginStart="@dimen/login_content_side_margin"
+            android:layout_marginTop="@dimen/login_field_top_margin"
+            android:layout_marginEnd="@dimen/login_content_side_margin"
+            android:background="@drawable/bg_login_field_auth"
+            android:completionThreshold="0"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown_20"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:hint="@string/register_unit_hint"
+            android:includeFontPadding="false"
+            android:inputType="none"
+            android:paddingStart="@dimen/login_field_horizontal_padding"
+            android:paddingTop="0dp"
+            android:paddingEnd="@dimen/login_field_horizontal_padding"
+            android:paddingBottom="0dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.FIXA.Login.Field"
+            android:textColor="@color/login_input_text"
+            android:textColorHint="@color/login_placeholder_text"
+            android:textFontWeight="400"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUnitLabel"
+            app:layout_constraintWidth_max="@dimen/login_content_max_width" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinue"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/login_button_height"
+            android:layout_marginStart="@dimen/login_content_side_margin"
+            android:layout_marginTop="@dimen/register_first_button_top_margin"
+            android:layout_marginEnd="@dimen/login_content_side_margin"
+            android:backgroundTint="@color/login_button_background"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="@string/register_continue"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.FIXA.Login.Button"
+            android:textColor="@color/login_primary_text"
+            android:textFontWeight="500"
+            app:cornerRadius="@dimen/login_field_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actvUnit"
+            app:layout_constraintWidth_max="@dimen/login_content_max_width" />
+
+        <TextView
+            android:id="@+id/tvAlreadyAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/register_account_top_margin"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/register_existing_account"
+            android:textAppearance="@style/TextAppearance.FIXA.Login.Account"
+            android:textColor="@color/login_secondary_text"
+            android:textFontWeight="400"
+            app:layout_constraintEnd_toStartOf="@id/tvLoginAction"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnContinue" />
+
+        <TextView
+            android:id="@+id/tvLoginAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="@dimen/register_account_top_margin"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/register_login"
+            android:textAppearance="@style/TextAppearance.FIXA.Login.Account"
+            android:textColor="@color/login_primary_text"
+            android:textFontWeight="400"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvAlreadyAccount"
+            app:layout_constraintTop_toBottomOf="@id/btnContinue" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="@dimen/register_content_bottom_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlreadyAccount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

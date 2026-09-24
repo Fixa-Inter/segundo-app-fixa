@@ -6,15 +6,15 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.aula.fixa.R;
-import com.aula.fixa.ui.auth.LoginActivity;
+import com.aula.fixa.ui.common.ImmersiveActivity;
+import com.aula.fixa.ui.onboarding.OnboardingActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends ImmersiveActivity {
 
     private static final long SPLASH_DURATION_MILLIS = 3000;
 
@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SplashActivity.this, OnboardingActivity.class);
             startActivity(intent);
             finish();
         }, SPLASH_DURATION_MILLIS);

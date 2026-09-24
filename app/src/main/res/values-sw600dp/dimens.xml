@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="onboarding_content_horizontal_margin">48dp</dimen>
+    <dimen name="onboarding_image_top_margin">72dp</dimen>
+    <dimen name="onboarding_actions_horizontal_margin">120dp</dimen>
+    <dimen name="onboarding_actions_bottom_margin">64dp</dimen>
+</resources>
