@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.FIXA.Onboarding.Title" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/onboarding_primary</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textSize">@dimen/onboarding_title_text_size</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.FIXA.Onboarding.Body" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/onboarding_body_text</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textScaleX">1.01</item>
+        <item name="android:textSize">@dimen/onboarding_body_text_size</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.FIXA.Onboarding.Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">@dimen/onboarding_button_text_size</item>
+    </style>
+
+    <style name="TextAppearance.FIXA.Login.Title" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">@font/poppins_semibold</item><item name="android:includeFontPadding">false</item><item name="android:textColor">@color/login_primary_text</item><item name="android:textFontWeight">600</item><item name="android:textSize">@dimen/login_title_text_size</item><item name="android:textStyle">normal</item>
+    </style>
+    <style name="TextAppearance.FIXA.Login.Label" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:fontFamily">@font/poppins_semibold</item><item name="android:includeFontPadding">false</item><item name="android:textColor">@color/login_primary_text</item><item name="android:textFontWeight">600</item><item name="android:textSize">@dimen/login_label_text_size</item><item name="android:textStyle">normal</item>
+    </style>
+    <style name="TextAppearance.FIXA.Login.Field" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/poppins_regular</item><item name="android:includeFontPadding">false</item><item name="android:textColor">@color/login_input_text</item><item name="android:textFontWeight">400</item><item name="android:textSize">@dimen/login_field_text_size</item><item name="android:textStyle">normal</item>
+    </style>
+    <style name="TextAppearance.FIXA.Login.Link" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/poppins_regular</item><item name="android:includeFontPadding">false</item><item name="android:textColor">@color/login_primary_text</item><item name="android:textFontWeight">400</item><item name="android:textSize">@dimen/login_link_text_size</item><item name="android:textStyle">normal</item>
+    </style>
+    <style name="TextAppearance.FIXA.Login.Button" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/poppins_medium</item><item name="android:includeFontPadding">false</item><item name="android:textColor">@color/login_primary_text</item><item name="android:textFontWeight">500</item><item name="android:textSize">@dimen/login_button_text_size</item><item name="android:textStyle">normal</item>
+    </style>
+    <style name="TextAppearance.FIXA.Login.Account" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/poppins_regular</item><item name="android:includeFontPadding">false</item><item name="android:textFontWeight">400</item><item name="android:textSize">@dimen/login_account_text_size</item><item name="android:textStyle">normal</item>
+    </style>
+    <style name="TextAppearance.FIXA.Login.Social" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/poppins_regular</item><item name="android:includeFontPadding">false</item><item name="android:textColor">@color/login_social_text</item><item name="android:textFontWeight">400</item><item name="android:textSize">@dimen/login_social_text_size</item><item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.FIXA.Register.Intro" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/register_intro_text</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textSize">@dimen/register_intro_text_size</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+</resources>

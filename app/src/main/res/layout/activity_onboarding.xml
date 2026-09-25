@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/onboarding_background"
+    tools:context=".ui.onboarding.OnboardingActivity">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/onboarding_back_touch_size"
+        android:layout_height="@dimen/onboarding_back_touch_size"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/onboarding_back"
+        android:padding="@dimen/onboarding_back_padding"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_arrow_back_design"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_image_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.125" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_actions_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <ImageView
+        android:id="@+id/iv_onboarding_illustration"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/onboarding_content_horizontal_margin"
+        android:layout_marginEnd="@dimen/onboarding_content_horizontal_margin"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="fitCenter"
+        android:src="@drawable/img_onboarding_tracking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.393"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_image_top"
+        app:layout_constraintWidth_max="@dimen/onboarding_image_max_width" />
+
+    <LinearLayout
+        android:id="@+id/group_onboarding_indicators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/onboarding_indicator_top_margin"
+        android:gravity="center"
+        android:importantForAccessibility="no"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_onboarding_illustration">
+
+        <View
+            android:id="@+id/indicator_first"
+            android:layout_width="@dimen/onboarding_indicator_size"
+            android:layout_height="@dimen/onboarding_indicator_size"
+            android:background="@drawable/bg_onboarding_indicator_active" />
+
+        <View
+            android:id="@+id/indicator_second"
+            android:layout_width="@dimen/onboarding_indicator_size"
+            android:layout_height="@dimen/onboarding_indicator_size"
+            android:layout_marginStart="@dimen/onboarding_indicator_spacing"
+            android:background="@drawable/bg_onboarding_indicator_inactive" />
+
+        <View
+            android:id="@+id/indicator_third"
+            android:layout_width="@dimen/onboarding_indicator_size"
+            android:layout_height="@dimen/onboarding_indicator_size"
+            android:layout_marginStart="@dimen/onboarding_indicator_spacing"
+            android:background="@drawable/bg_onboarding_indicator_inactive" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_onboarding_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/onboarding_title_horizontal_margin"
+        android:layout_marginTop="@dimen/onboarding_title_top_margin"
+        android:layout_marginEnd="@dimen/onboarding_title_horizontal_margin"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/onboarding_tracking_title"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.FIXA.Onboarding.Title"
+        android:textFontWeight="500"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/group_onboarding_indicators" />
+
+    <TextView
+        android:id="@+id/tv_onboarding_body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/onboarding_content_horizontal_margin"
+        android:layout_marginTop="@dimen/onboarding_text_top_margin"
+        android:layout_marginEnd="@dimen/onboarding_content_horizontal_margin"
+        android:layout_marginBottom="@dimen/onboarding_body_bottom_margin"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="@string/onboarding_tracking_body"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.FIXA.Onboarding.Body"
+        android:textFontWeight="400"
+        android:textScaleX="1.01"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@id/guideline_actions_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_onboarding_title"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/group_regular_actions"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/onboarding_button_height"
+        android:layout_marginStart="@dimen/onboarding_actions_horizontal_margin"
+        android:layout_marginEnd="@dimen/onboarding_actions_horizontal_margin"
+        android:layout_marginBottom="@dimen/onboarding_actions_bottom_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_skip"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="@string/onboarding_skip"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textColor="@color/onboarding_skip_text"
+            android:textSize="@dimen/onboarding_button_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next"
+            android:layout_width="@dimen/onboarding_button_width"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="@string/onboarding_next"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/onboarding_button_text_size"
+            app:backgroundTint="@color/onboarding_primary"
+            app:cornerRadius="@dimen/onboarding_button_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_start"
+        android:layout_width="@dimen/onboarding_start_button_width"
+        android:layout_height="@dimen/onboarding_button_height"
+        android:layout_marginBottom="@dimen/onboarding_actions_bottom_margin"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:text="@string/onboarding_start"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/onboarding_button_text_size"
+        android:visibility="gone"
+        app:backgroundTint="@color/onboarding_primary"
+        app:cornerRadius="@dimen/onboarding_button_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="onboarding_indicator_top_margin">28dp</dimen>
+    <dimen name="onboarding_title_top_margin">48dp</dimen>
+    <dimen name="onboarding_actions_bottom_margin">72dp</dimen>
+</resources>

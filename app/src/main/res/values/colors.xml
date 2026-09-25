@@ -2,4 +2,22 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="onboarding_background">#FFFFFFFF</color>
+    <color name="onboarding_background_second">#FFF6F9FB</color>
+    <color name="onboarding_background_third">#FFF8FAFC</color>
+    <color name="onboarding_primary">#FF153D7D</color>
+    <color name="onboarding_body_text">#FF0E223F</color>
+    <color name="onboarding_skip_text">#FF000000</color>
+    <color name="onboarding_indicator_inactive">#FFBFC4CE</color>
+    <color name="login_panel_background">#FF153D7D</color>
+    <color name="login_field_background">#FFD2D9E4</color>
+    <color name="login_field_text">#FF4C5461</color>
+    <color name="login_input_text">#FF000000</color>
+    <color name="login_placeholder_text">#FF7D8795</color>
+    <color name="login_button_background">#FF130653</color>
+    <color name="login_primary_text">#FFFFFFFF</color>
+    <color name="login_secondary_text">#80FFFFFF</color>
+    <color name="login_social_text">#FF37474F</color>
+    <color name="login_watermark">#FFF5F7FA</color>
+    <color name="register_intro_text">#FFF5F7FA</color>
 </resources>
