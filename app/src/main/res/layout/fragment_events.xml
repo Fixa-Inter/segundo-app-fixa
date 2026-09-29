@@ -63,7 +63,6 @@
                 android:id="@+id/btnCalendar"
                 android:layout_width="@dimen/app_touch_target"
                 android:layout_height="@dimen/app_touch_target"
-                android:layout_marginEnd="-15dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/app_events_pick_date"
                 android:scaleType="center"

@@ -3,7 +3,7 @@
   Bottom nav custom (Figma): barra branca 100dp; item ativo = círculo 56dp #153D7D com ícone branco
   e indicador 70x2dp no topo; inativos = ícone 26dp #637087.
   Ícones por estado exportados do Figma (ativo/inativo), sem tint: as cores fazem parte do vetor.
-  Mascote ativa é PNG (image 169, 40dp); inativa é o traçado vetorial (#637087).
+  Mascote ativa é PNG (image 169); inativa é o traçado vetorial (#637087). Tamanho reduzido para ficar proporcional aos demais.
 -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -46,8 +46,8 @@
 
             <ImageView
                 android:id="@+id/navHomeIcon"
-                android:layout_width="20dp"
-                android:layout_height="22dp"
+                android:layout_width="@dimen/app_bottom_nav_home_icon_width"
+                android:layout_height="@dimen/app_bottom_nav_home_icon_height"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 app:srcCompat="@drawable/selector_app_nav_home" />
@@ -75,8 +75,8 @@
 
             <ImageView
                 android:id="@+id/navRequestsIcon"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
+                android:layout_width="@dimen/app_bottom_nav_icon_size"
+                android:layout_height="@dimen/app_bottom_nav_icon_size"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 app:srcCompat="@drawable/selector_app_nav_requests" />
@@ -104,8 +104,8 @@
 
             <ImageView
                 android:id="@+id/navEventsIcon"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
+                android:layout_width="@dimen/app_bottom_nav_icon_size"
+                android:layout_height="@dimen/app_bottom_nav_icon_size"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 app:srcCompat="@drawable/selector_app_nav_events" />
@@ -133,8 +133,8 @@
 
             <ImageView
                 android:id="@+id/navChatIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/app_bottom_nav_chat_icon_size"
+                android:layout_height="@dimen/app_bottom_nav_chat_icon_size"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 android:scaleType="fitCenter"

@@ -86,7 +86,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
-                android:maxWidth="@dimen/app_chat_greeting_max_width"
                 android:textAppearance="@style/TextAppearance.FIXA.App.Chat.Greeting"
                 tools:text="Olá Rapha, como posso te ajudar hoje?" />
         </LinearLayout>

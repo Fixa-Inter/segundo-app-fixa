@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,7 +25,7 @@ public final class AppDialogs {
     }
 
     public static void showLogoutConfirm(Context context, Runnable onConfirm) {
-        showConfirm(context, R.drawable.img_dialog_logout, R.string.app_dialog_logout_title,
+        showConfirm(context, R.drawable.img_dialog_illustration, R.string.app_dialog_logout_title,
                 R.string.app_dialog_logout_body, R.string.app_dialog_logout_confirm, onConfirm);
     }
 
@@ -40,12 +41,23 @@ public final class AppDialogs {
         AlertDialog dialog = new AlertDialog.Builder(context, R.style.ThemeOverlay_FIXA_App_Dialog)
                 .setView(content)
                 .create();
+        sizeDialog(dialog, R.dimen.app_dialog_width);
         content.findViewById(R.id.btnDialogSecondary).setOnClickListener(v -> dialog.dismiss());
         primary.setOnClickListener(v -> {
             dialog.dismiss();
             if (onConfirm != null) onConfirm.run();
         });
         dialog.show();
+    }
+
+    /** Largura do Figma limitada a 90% da tela para caber em qualquer aparelho. */
+    private static void sizeDialog(AlertDialog dialog, int widthRes) {
+        dialog.setOnShowListener(d -> {
+            if (dialog.getWindow() == null) return;
+            int desired = dialog.getContext().getResources().getDimensionPixelSize(widthRes);
+            int max = (int) (dialog.getContext().getResources().getDisplayMetrics().widthPixels * 0.9f);
+            dialog.getWindow().setLayout(Math.min(desired, max), WindowManager.LayoutParams.WRAP_CONTENT);
+        });
     }
 
     public static void showEditRequest(Context context, RequestItem item) {
@@ -56,6 +68,7 @@ public final class AppDialogs {
         AlertDialog dialog = new AlertDialog.Builder(context, R.style.ThemeOverlay_FIXA_App_Dialog)
                 .setView(content)
                 .create();
+        sizeDialog(dialog, R.dimen.app_dialog_edit_width);
         content.findViewById(R.id.btnEditCancel).setOnClickListener(v -> dialog.dismiss());
         content.findViewById(R.id.btnEditSave).setOnClickListener(v -> dialog.dismiss());
         dialog.show();

@@ -29,8 +29,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHeight_max="@dimen/app_success_image_size"
             app:layout_constraintWidth_max="@dimen/app_success_image_size"
-            app:layout_constraintWidth_percent="0.92"
+            app:layout_constraintWidth_percent="0.8"
             app:srcCompat="@drawable/img_success_illustration" />
 
         <TextView
@@ -38,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="@dimen/app_success_title_margin_top"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
             android:gravity="center"
             android:text="@string/app_success_title"

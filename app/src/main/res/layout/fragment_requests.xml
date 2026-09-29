@@ -108,8 +108,10 @@
             android:background="@drawable/bg_app_search"
             android:elevation="2dp"
             app:layout_constraintEnd_toStartOf="@id/btnFilter"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/guideStart"
-            app:layout_constraintTop_toBottomOf="@id/scrollChips">
+            app:layout_constraintTop_toBottomOf="@id/scrollChips"
+            app:layout_constraintWidth_max="@dimen/app_requests_search_width">
 
             <EditText
                 android:id="@+id/etSearch"
@@ -145,7 +147,6 @@
             android:id="@+id/btnFilter"
             android:layout_width="@dimen/app_touch_target"
             android:layout_height="@dimen/app_touch_target"
-            android:layout_marginEnd="-12dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/app_requests_filters"
             android:scaleType="center"
@@ -184,10 +185,13 @@
             tools:visibility="gone">
 
             <ImageView
-                android:layout_width="@dimen/app_requests_empty_image_size"
-                android:layout_height="@dimen/app_requests_empty_image_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_screen_side_margin"
                 android:layout_marginTop="23dp"
+                android:layout_marginEnd="@dimen/app_screen_side_margin"
                 android:adjustViewBounds="true"
+                android:maxHeight="@dimen/app_requests_empty_image_size"
                 android:importantForAccessibility="no"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/img_empty_results" />
@@ -196,7 +200,6 @@
                 android:id="@+id/tvEmpty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-6dp"
                 android:text="@string/app_requests_empty"
                 android:textAppearance="@style/TextAppearance.FIXA.App.EmptyTitle" />
         </LinearLayout>
