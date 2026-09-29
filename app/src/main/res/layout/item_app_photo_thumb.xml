@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Miniatura de foto 110x110 r=10 -->
+<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ivPhotoThumb"
+    android:layout_width="@dimen/app_confirm_photo_size"
+    android:layout_height="@dimen/app_confirm_photo_size"
+    android:layout_marginEnd="@dimen/app_confirm_photo_spacing"
+    android:background="@drawable/bg_app_photo_rounded"
+    android:contentDescription="@string/app_confirm_image_description"
+    android:scaleType="centerCrop"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.App.PhotoThumb"
+    tools:src="@drawable/img_confirm_photo_1" />

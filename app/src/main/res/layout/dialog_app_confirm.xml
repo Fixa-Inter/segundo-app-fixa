@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Pop-up de confirmação (Figma "Pop-up 2/4"): card 320dp r=30 #F6F9FC; ilustração 200dp (ou 100x90 no logout);
+  título 500/17 #130943; corpo 300/12 preto; botões 115x35 r=15 (secundário #C4CFE0 texto #130943 / primário #153D7D), gap 24.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/app_dialog_width"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_app_dialog"
+    android:paddingStart="@dimen/app_dialog_side_padding"
+    android:paddingEnd="@dimen/app_dialog_side_padding"
+    android:paddingBottom="@dimen/app_dialog_actions_margin_bottom">
+
+    <ImageView
+        android:id="@+id/ivDialogImage"
+        android:layout_width="@dimen/app_dialog_image_size"
+        android:layout_height="@dimen/app_dialog_image_size"
+        android:layout_marginTop="@dimen/app_dialog_image_margin_top"
+        android:adjustViewBounds="true"
+        android:importantForAccessibility="no"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_dialog_illustration" />
+
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_dialog_title_margin_top"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivDialogImage"
+        tools:text="Deseja deletar esse registro?" />
+
+    <TextView
+        android:id="@+id/tvDialogBody"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_dialog_body_margin_top"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.Body"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogTitle"
+        tools:text="Essa ação não poderá ser desfeita." />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDialogSecondary"
+        style="@style/Widget.FIXA.App.Button.Dialog.Secondary"
+        android:layout_width="@dimen/app_dialog_button_width"
+        android:layout_height="@dimen/app_dialog_button_height"
+        android:layout_marginTop="@dimen/app_dialog_actions_margin_top"
+        android:layout_marginEnd="@dimen/app_dialog_button_spacing"
+        android:text="@string/app_cancel"
+        app:layout_constraintEnd_toStartOf="@id/btnDialogPrimary"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogBody" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDialogPrimary"
+        style="@style/Widget.FIXA.App.Button.Dialog"
+        android:layout_width="@dimen/app_dialog_button_width"
+        android:layout_height="@dimen/app_dialog_button_height"
+        app:layout_constraintBottom_toBottomOf="@id/btnDialogSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnDialogSecondary"
+        app:layout_constraintTop_toTopOf="@id/btnDialogSecondary"
+        tools:text="Excluir" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

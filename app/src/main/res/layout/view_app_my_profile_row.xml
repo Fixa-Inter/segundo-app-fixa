@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Linha de informação do Meu Perfil: ícone 24dp @ x=37 + texto 400/15 #130943 @ x=84 + editar 20dp @ end 36 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/app_touch_target"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/app_my_profile_row_icon_margin_start"
+    android:paddingEnd="@dimen/app_my_profile_edit_margin_end">
+
+    <ImageView
+        android:id="@+id/ivRowIcon"
+        android:layout_width="@dimen/app_my_profile_row_icon_size"
+        android:layout_height="@dimen/app_my_profile_row_icon_size"
+        android:importantForAccessibility="no"
+        app:tint="@color/app_primary_dark"
+        tools:srcCompat="@drawable/ic_user_24" />
+
+    <TextView
+        android:id="@+id/tvRowValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_my_profile_row_text_margin_start"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.FIXA.App.MyProfile.Row"
+        tools:text="Ryan Cursino" />
+
+</LinearLayout>

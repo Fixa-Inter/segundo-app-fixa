@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base: Poppins, sem font padding (padrão do projeto) -->
+    <style name="TextAppearance.FIXA.App" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Pesos -->
+    <style name="TextAppearance.FIXA.App.Light">
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="fontFamily">@font/poppins_light</item>
+        <item name="android:textFontWeight">300</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Regular">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textFontWeight">400</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Medium">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textFontWeight">600</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Bold">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textFontWeight">700</item>
+    </style>
+
+    <!-- Títulos de página -->
+    <style name="TextAppearance.FIXA.App.ScreenTitle" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_requests_title_text_size</item>
+        <item name="android:lineHeight">@dimen/app_requests_title_line_height</item>
+        <item name="android:letterSpacing">-0.0086</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.StepTitle" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_step_title_text_size</item>
+        <item name="android:lineHeight">@dimen/app_step_title_line_height</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.PageTitle" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_page_title_text_size</item>
+        <item name="android:letterSpacing">-0.0128</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.SectionTitle" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_text_navy</item>
+        <item name="android:textSize">@dimen/app_home_card_title_text_size</item>
+    </style>
+
+    <!-- Home -->
+    <style name="TextAppearance.FIXA.App.Home.Greeting" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_home_greeting_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Home.LegendLabel" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_navy</item>
+        <item name="android:textSize">@dimen/app_home_legend_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Home.LegendValue" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_text_navy</item>
+        <item name="android:textSize">@dimen/app_home_legend_value_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Home.SectionTitle" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_home_section_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Home.OpenButton" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_home_open_button_text_size</item>
+    </style>
+
+    <!-- Card de solicitação -->
+    <style name="TextAppearance.FIXA.App.RequestCard.Date" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_request_card_date_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.RequestCard.Title" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textSize">@dimen/app_request_card_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.RequestCard.Subtitle" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textSize">@dimen/app_request_card_subtitle_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.RequestCard.Status" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/app_request_card_status_text_size</item>
+    </style>
+
+    <!-- Minhas solicitações -->
+    <style name="TextAppearance.FIXA.App.Chip" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/app_requests_chip_text_size</item>
+        <item name="android:letterSpacing">-0.0267</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Search" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textColorHint">@color/app_text_hint_60</item>
+        <item name="android:textSize">@dimen/app_requests_search_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.EmptyTitle" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_requests_empty_text_size</item>
+    </style>
+
+    <!-- Detalhes / timeline -->
+    <style name="TextAppearance.FIXA.App.Details.Title" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_details_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Timeline.Date" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_details_timeline_date_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Timeline.Title" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/app_details_timeline_title_text_size</item>
+    </style>
+
+    <!-- Eventos -->
+    <style name="TextAppearance.FIXA.App.Events.Month" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_events_month_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Events.DayNumber" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/app_events_day_number_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Events.DayLabel" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/app_events_day_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Events.Section" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_events_section_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Event.Day" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_text_navy</item>
+        <item name="android:textSize">@dimen/app_event_card_day_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Event.DayLabel" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_navy</item>
+        <item name="android:textSize">@dimen/app_event_card_day_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Event.Title" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_event_card_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Event.Time" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_event_card_time_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.EventInfo.Title" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_event_info_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.EventInfo.Name" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_background</item>
+        <item name="android:textSize">@dimen/app_event_info_name_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.EventInfo.Label" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_background</item>
+        <item name="android:textSize">@dimen/app_event_info_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.EventInfo.Value" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/app_event_info_value_text_size</item>
+    </style>
+
+    <!-- Chatbot -->
+    <style name="TextAppearance.FIXA.App.Chat.Title" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_chat_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Chat.Greeting" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/app_chat_greeting_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Chat.Input" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textColorHint">@color/app_text_muted</item>
+        <item name="android:textSize">@dimen/app_chat_input_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Chat.DrawerTitle" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_chat_drawer_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Chat.DrawerAction" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/app_chat_drawer_new_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Chat.DrawerSection" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_chat_drawer_recent_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Chat.DrawerItem" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_muted</item>
+        <item name="android:textSize">@dimen/app_chat_drawer_item_text_size</item>
+    </style>
+
+    <!-- Abrir solicitação -->
+    <style name="TextAppearance.FIXA.App.NewRequest.Title" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_new_request_title_text_size</item>
+        <item name="android:lineHeight">@dimen/app_new_request_title_line_height</item>
+        <item name="android:letterSpacing">-0.0076</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.NewRequest.StepNumber" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_on_primary_soft</item>
+        <item name="android:textSize">@dimen/app_new_request_step_number_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.NewRequest.StepLabel" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_black_50</item>
+        <item name="android:textSize">@dimen/app_new_request_step_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.NewRequest.StepTitle" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_new_request_step_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Step.Label" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_step_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Step.Field" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textColorHint">@color/app_text_hint</item>
+        <item name="android:textSize">@dimen/app_step_field_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Step.IndicatorNumber" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_on_primary_soft</item>
+        <item name="android:textSize">@dimen/app_step_indicator_number_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Step.IndicatorLabel" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/app_step_indicator_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Step.Action" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/app_step_action_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Step.Upload" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_muted</item>
+        <item name="android:textSize">@dimen/app_step_upload_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Confirm.Title" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_confirm_card_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Confirm.Body" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_confirm_card_body_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Confirm.Meta" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_confirm_card_meta_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Success.Title" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_success_title_text_size</item>
+    </style>
+
+    <!-- Perfil -->
+    <style name="TextAppearance.FIXA.App.Profile.Name" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_profile_name_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Profile.Email" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/app_profile_email_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Profile.MenuItem" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_profile_menu_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.MyProfile.Section" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_my_profile_section_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.MyProfile.Row" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_my_profile_row_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Edit.Label" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_edit_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Edit.Field" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textColorHint">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/app_edit_field_text_size</item>
+    </style>
+
+    <!-- FAQ / Sobre / Notificações -->
+    <style name="TextAppearance.FIXA.App.Faq.Question" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_faq_question_text_size</item>
+        <item name="android:letterSpacing">-0.0178</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Faq.Answer" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/app_faq_answer_text_size</item>
+        <item name="android:lineHeight">@dimen/app_faq_answer_line_height</item>
+        <item name="android:letterSpacing">-0.0229</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.About.Section" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_about_section_text_size</item>
+        <item name="android:letterSpacing">-0.016</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.About.Doc" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_about_doc_text_size</item>
+        <item name="android:letterSpacing">-0.0229</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Notifications.Title" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_notifications_title_text_size</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Notifications.Section" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_notifications_section_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Notification.Text" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textSize">@dimen/app_notification_text_size</item>
+        <item name="android:letterSpacing">-0.0213</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Notification.Time" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textColor">@color/app_divider</item>
+        <item name="android:textSize">@dimen/app_notification_time_text_size</item>
+        <item name="android:letterSpacing">-0.0267</item>
+    </style>
+
+    <!-- Filtros / Dialogs -->
+    <style name="TextAppearance.FIXA.App.Filter.Title" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/app_filter_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Filter.Label" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_filter_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Filter.Field" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/app_filter_field_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Dialog.Title" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_dialog_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Dialog.Body" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textSize">@dimen/app_dialog_body_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Dialog.Button" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/app_dialog_button_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Dialog.EditTitle" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_dialog_edit_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Dialog.EditLabel" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_dialog_edit_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Dialog.EditField" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textColorHint">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/app_dialog_edit_field_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.PopupMenu.Item" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/app_popup_menu_text_size</item>
+    </style>
+
+    <!-- Botões -->
+    <style name="Widget.FIXA.App.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textColor">@color/app_on_primary</item>
+        <item name="backgroundTint">@color/app_primary</item>
+        <item name="cornerRadius">@dimen/app_button_radius</item>
+        <item name="rippleColor">@color/app_on_primary_soft</item>
+        <item name="elevation">0dp</item>
+    </style>
+    <style name="Widget.FIXA.App.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+    <style name="Widget.FIXA.App.Button.Dialog" parent="Widget.FIXA.App.Button.Primary">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textSize">@dimen/app_dialog_button_text_size</item>
+        <item name="cornerRadius">@dimen/app_dialog_button_radius</item>
+    </style>
+    <style name="Widget.FIXA.App.Button.Dialog.Secondary">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="backgroundTint">@color/app_button_secondary</item>
+    </style>
+
+    <!-- Chip de filtro (RadioButton estilizado): 30dp, r=18, selecionado #184384/branco -->
+    <style name="Widget.FIXA.App.FilterChip" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/app_requests_chip_height</item>
+        <item name="android:minWidth">@dimen/app_requests_chip_min_width</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/selector_app_chip_background</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.FIXA.App.Chip</item>
+        <item name="android:textColor">@color/selector_app_chip_text</item>
+    </style>
+
+    <!-- Bottom sheet -->
+    <style name="ThemeOverlay.FIXA.App.BottomSheet" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.FIXA.App.BottomSheet</item>
+    </style>
+    <style name="Widget.FIXA.App.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="backgroundTint">@color/app_sheet_background</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.FIXA.App.BottomSheet</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.App.BottomSheet" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/app_filter_sheet_radius</item>
+        <item name="cornerSizeTopRight">@dimen/app_filter_sheet_radius</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance.FIXA.App.PhotoThumb" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/app_confirm_photo_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.FIXA.App.AboutImage" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/app_about_image_radius</item>
+    </style>
+
+    <!-- Dialog -->
+    <style name="ThemeOverlay.FIXA.App.Dialog" parent="ThemeOverlay.Material3.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowMinWidthMajor">0dp</item>
+        <item name="android:windowMinWidthMinor">0dp</item>
+    </style>
+</resources>

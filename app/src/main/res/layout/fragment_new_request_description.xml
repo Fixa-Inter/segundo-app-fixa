@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Passo 1 — Descrição (Figma): título 700/40 lh60 #153D7D @ (35,62); "Título" 600/16 @ x=40; campo 332x33 r=15 #80C4CFE0
+  (texto 300/12); "Descrição" + textarea 332x252 r=15; indicador de passos; rodapé Voltar / Próximo.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.newrequest.NewRequestDescriptionFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/stepActions"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/app_step_label_margin_start" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/app_step_label_margin_start" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_step_title_margin_start"
+                android:layout_marginTop="@dimen/app_step_title_margin_top"
+                android:layout_marginEnd="@dimen/app_step_title_margin_start"
+                tools:text="Descreva o seu Problema"
+                android:textAppearance="@style/TextAppearance.FIXA.App.StepTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvFieldTitleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_label_margin_top"
+                android:text="@string/app_step_description_field_title"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_field_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                android:background="@drawable/bg_app_field"
+                android:hint="@string/app_step_description_title_hint"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:paddingStart="@dimen/app_step_field_padding_start"
+                android:paddingEnd="@dimen/app_step_field_padding_start"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvFieldTitleLabel" />
+
+            <TextView
+                android:id="@+id/tvFieldDescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_section_margin_top"
+                android:text="@string/app_step_description_field_description"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/etTitle" />
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_textarea_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                android:background="@drawable/bg_app_field"
+                android:gravity="top|start"
+                android:hint="@string/app_step_description_hint"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine|textCapSentences"
+                android:paddingStart="@dimen/app_step_textarea_padding_start"
+                android:paddingTop="@dimen/app_step_textarea_padding_top"
+                android:paddingEnd="@dimen/app_step_textarea_padding_start"
+                android:paddingBottom="@dimen/app_step_textarea_padding_top"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvFieldDescriptionLabel" />
+
+            <include
+                android:id="@+id/stepIndicator"
+                layout="@layout/view_app_step_indicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_indicator_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/stepActions"
+        layout="@layout/view_app_step_actions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_step_actions_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

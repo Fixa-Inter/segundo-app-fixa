@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Card de evento: 326x75 r=15 sombra 0/2 blur 8; dia (600/18 em 2 linhas) | título 500/16 + dot 8dp + hora 300/12 -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardEvent"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_event_card_height"
+    android:layout_marginBottom="@dimen/app_event_card_spacing"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/app_surface"
+    app:cardCornerRadius="@dimen/app_event_card_radius"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/app_event_card_padding_start"
+        android:paddingEnd="@dimen/app_event_card_padding_start">
+
+        <TextView
+            android:id="@+id/tvEventDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="@dimen/app_event_card_day_width"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Event.Day"
+            app:layout_constraintBottom_toTopOf="@id/tvEventDayLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/tvEventDayLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Event.DayLabel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tvEventDay"
+            app:layout_constraintStart_toStartOf="@id/tvEventDay"
+            app:layout_constraintTop_toBottomOf="@id/tvEventDay"
+            tools:text="Seg" />
+
+        <TextView
+            android:id="@+id/tvEventTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_event_card_title_margin_start"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Event.Title"
+            app:layout_constraintEnd_toStartOf="@id/ivEventEye"
+            app:layout_constraintStart_toEndOf="@id/tvEventDay"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Entrega das medalhas" />
+
+        <ImageView
+            android:id="@+id/ivEventEye"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/app_events_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_eye_20"
+            app:tint="@color/app_primary_deep" />
+
+        <View
+            android:id="@+id/viewEventDot"
+            android:layout_width="@dimen/app_event_card_dot_size"
+            android:layout_height="@dimen/app_event_card_dot_size"
+            android:background="@drawable/bg_app_circle_primary"
+            app:layout_constraintBottom_toBottomOf="@id/tvEventTime"
+            app:layout_constraintStart_toStartOf="@id/tvEventTitle"
+            app:layout_constraintTop_toTopOf="@id/tvEventTime" />
+
+        <TextView
+            android:id="@+id/tvEventTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_event_card_time_margin_start"
+            android:layout_marginTop="3dp"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Event.Time"
+            app:layout_constraintEnd_toStartOf="@id/ivEventEye"
+            app:layout_constraintStart_toEndOf="@id/viewEventDot"
+            app:layout_constraintTop_toBottomOf="@id/tvEventTitle"
+            tools:text="11:30-12:30h" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

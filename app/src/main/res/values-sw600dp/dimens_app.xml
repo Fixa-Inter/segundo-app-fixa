@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tablets 7": conteúdo respira mais e listas/cards crescem proporcionalmente -->
+    <dimen name="app_screen_side_margin">64dp</dimen>
+    <dimen name="app_screen_side_margin_alt">72dp</dimen>
+    <dimen name="app_content_max_width">560dp</dimen>
+
+    <dimen name="app_bottom_nav_height">88dp</dimen>
+    <dimen name="app_bottom_nav_active_top_margin">16dp</dimen>
+
+    <dimen name="app_home_card_side_margin">64dp</dimen>
+    <dimen name="app_home_avatar_size">128dp</dimen>
+    <dimen name="app_home_greeting_text_size">34sp</dimen>
+    <dimen name="app_home_header_icon_spacing">18dp</dimen>
+    <dimen name="app_home_header_icon_size">26dp</dimen>
+    <dimen name="app_home_header_margin_top">36dp</dimen>
+    <dimen name="app_home_avatar_margin_top">96dp</dimen>
+    <dimen name="app_home_greeting_margin_start">22dp</dimen>
+    <dimen name="app_home_card_height">380dp</dimen>
+    <dimen name="app_home_chart_size">300dp</dimen>
+    <dimen name="app_home_legend_label_text_size">14sp</dimen>
+    <dimen name="app_home_legend_value_text_size">16sp</dimen>
+
+    <dimen name="app_request_card_height">140dp</dimen>
+    <dimen name="app_requests_title_margin_start">64dp</dimen>
+    <dimen name="app_requests_search_text_size">15sp</dimen>
+    <dimen name="app_requests_empty_image_size">420dp</dimen>
+    <dimen name="app_fab_margin_end">48dp</dimen>
+
+    <dimen name="app_details_title_margin_start">72dp</dimen>
+    <dimen name="app_details_timeline_dot_margin_start">72dp</dimen>
+    <dimen name="app_details_timeline_card_width">420dp</dimen>
+
+    <dimen name="app_events_title_margin_start">64dp</dimen>
+    <dimen name="app_events_day_width">72dp</dimen>
+    <dimen name="app_events_day_height">112dp</dimen>
+    <dimen name="app_event_card_height">84dp</dimen>
+    <dimen name="app_event_info_panel_side_padding">64dp</dimen>
+
+    <dimen name="app_chat_input_side_margin">64dp</dimen>
+    <dimen name="app_chat_avatar_size">150dp</dimen>
+    <dimen name="app_chat_greeting_max_width">320dp</dimen>
+    <dimen name="app_chat_drawer_width">300dp</dimen>
+    <dimen name="app_chat_drawer_item_width">240dp</dimen>
+
+    <dimen name="app_new_request_title_margin_start">72dp</dimen>
+    <dimen name="app_step_title_margin_start">72dp</dimen>
+    <dimen name="app_step_label_margin_start">80dp</dimen>
+    <dimen name="app_step_field_height">44dp</dimen>
+    <dimen name="app_step_field_text_size">14sp</dimen>
+    <dimen name="app_step_textarea_height">220dp</dimen>
+    <dimen name="app_step_indicator_side_margin">120dp</dimen>
+    <dimen name="app_step_indicator_line_width">110dp</dimen>
+    <dimen name="app_step_back_margin_start">96dp</dimen>
+    <dimen name="app_step_actions_side_margin">80dp</dimen>
+    <dimen name="app_step_actions_margin_bottom">64dp</dimen>
+    <dimen name="app_confirm_title_margin_start">80dp</dimen>
+    <dimen name="app_success_button_side_margin">120dp</dimen>
+
+    <dimen name="app_profile_avatar_margin_start">64dp</dimen>
+    <dimen name="app_profile_menu_icon_margin_start">72dp</dimen>
+    <dimen name="app_my_profile_section_margin_start">80dp</dimen>
+    <dimen name="app_my_profile_row_icon_margin_start">72dp</dimen>
+    <dimen name="app_my_profile_edit_margin_end">72dp</dimen>
+    <dimen name="app_edit_form_side_margin">80dp</dimen>
+    <dimen name="app_edit_field_text_size">14sp</dimen>
+    <dimen name="app_settings_row_icon_margin_start">72dp</dimen>
+    <dimen name="app_settings_switch_margin_end">72dp</dimen>
+    <dimen name="app_faq_side_margin">80dp</dimen>
+    <dimen name="app_faq_chevron_margin_end">80dp</dimen>
+    <dimen name="app_notifications_side_margin">64dp</dimen>
+    <dimen name="app_notifications_bell_margin_end">72dp</dimen>
+    <dimen name="app_filter_side_margin">96dp</dimen>
+    <dimen name="app_dialog_width">400dp</dimen>
+    <dimen name="app_dialog_edit_width">460dp</dimen>
+    <dimen name="app_home_card_padding">24dp</dimen>
+    <dimen name="app_home_card_title_text_size">32sp</dimen>
+    <dimen name="app_home_legend_margin_top">28dp</dimen>
+    <dimen name="app_home_legend_row_spacing">22dp</dimen>
+    <dimen name="app_home_legend_dot_size">22dp</dimen>
+    <dimen name="app_home_legend_text_margin_start">16dp</dimen>
+    <dimen name="app_home_section_title_text_size">20sp</dimen>
+    <dimen name="app_home_open_button_width">150dp</dimen>
+    <dimen name="app_home_open_button_height">40dp</dimen>
+    <dimen name="app_home_open_button_text_size">13sp</dimen>
+    <dimen name="app_request_card_accent_width">16dp</dimen>
+    <dimen name="app_request_card_content_margin_start">34dp</dimen>
+    <dimen name="app_request_card_date_pill_width">110dp</dimen>
+    <dimen name="app_request_card_date_pill_height">26dp</dimen>
+    <dimen name="app_request_card_date_pill_margin_top">14dp</dimen>
+    <dimen name="app_request_card_date_icon_size">14dp</dimen>
+    <dimen name="app_request_card_date_text_size">11sp</dimen>
+    <dimen name="app_request_card_title_margin_top">6dp</dimen>
+    <dimen name="app_request_card_title_text_size">20sp</dimen>
+    <dimen name="app_request_card_subtitle_text_size">14sp</dimen>
+    <dimen name="app_request_card_status_margin_top">10dp</dimen>
+    <dimen name="app_request_card_status_text_size">12sp</dimen>
+    <dimen name="app_request_card_menu_size">18dp</dimen>
+    <dimen name="app_request_card_spacing">18dp</dimen>
+    <dimen name="app_request_card_title_margin_start">38dp</dimen>
+</resources>

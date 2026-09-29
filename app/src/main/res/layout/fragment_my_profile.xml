@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Meu Perfil (Figma): header; avatar 130dp centralizado @ top 19 após header; "Informações Pessoais" 500/18 @ x=41;
+  linhas (user/calendar/mail/phone/lock/compass) com valor 400/15 e editar 20dp; espaçamento ~45dp entre linhas.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:fillViewport="true"
+    tools:context=".ui.profile.MyProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/view_app_page_header" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="@dimen/app_my_profile_avatar_size"
+            android:layout_height="@dimen/app_my_profile_avatar_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/app_my_profile_avatar_margin_top"
+            android:contentDescription="@string/app_user_avatar"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            app:srcCompat="@drawable/img_avatar_115" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_my_profile_section_margin_top"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/app_my_profile_section_margin_start"
+            android:paddingEnd="22dp">
+
+            <TextView
+                android:id="@+id/tvSection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/app_my_profile_section"
+                android:textAppearance="@style/TextAppearance.FIXA.App.MyProfile.Section" />
+
+            <ImageButton
+                android:id="@+id/btnEditInfo"
+                android:layout_width="@dimen/app_touch_target"
+                android:layout_height="@dimen/app_touch_target"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/app_edit"
+                android:scaleType="center"
+                app:srcCompat="@drawable/ic_edit_20"
+                app:tint="@color/app_primary" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/rowName"
+            layout="@layout/view_app_my_profile_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp" />
+
+        <include
+            android:id="@+id/rowBirth"
+            layout="@layout/view_app_my_profile_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_my_profile_row_spacing" />
+
+        <include
+            android:id="@+id/rowEmail"
+            layout="@layout/view_app_my_profile_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_my_profile_row_spacing" />
+
+        <include
+            android:id="@+id/rowPhone"
+            layout="@layout/view_app_my_profile_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_my_profile_row_spacing" />
+
+        <include
+            android:id="@+id/rowPassword"
+            layout="@layout/view_app_my_profile_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_my_profile_row_spacing" />
+
+        <include
+            android:id="@+id/rowAddress"
+            layout="@layout/view_app_my_profile_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_my_profile_row_spacing" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

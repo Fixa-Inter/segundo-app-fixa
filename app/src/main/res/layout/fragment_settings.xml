@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Configurações (Figma): header com título; linha "Notificações": bell 24dp @ x=38 + texto 400/18 #202020 +
+  switch 44x22 (#130943, thumb 20dp branco) @ end 38.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical"
+    tools:context=".ui.profile.SettingsFragment">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/view_app_page_header" />
+
+    <LinearLayout
+        android:id="@+id/rowNotifications"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_settings_row_height"
+        android:layout_marginTop="@dimen/app_settings_row_margin_top"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/app_settings_row_icon_margin_start"
+        android:paddingEnd="@dimen/app_settings_switch_margin_end">
+
+        <ImageView
+            android:layout_width="@dimen/app_settings_row_icon_size"
+            android:layout_height="@dimen/app_settings_row_icon_size"
+            android:importantForAccessibility="no"
+            app:srcCompat="@drawable/ic_bell_24"
+            app:tint="@color/app_text_dark" />
+
+        <TextView
+            android:id="@+id/tvNotifications"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_settings_row_text_margin_start"
+            android:layout_weight="1"
+            android:text="@string/app_settings_notifications"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Profile.MenuItem" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:minWidth="@dimen/app_settings_switch_width"
+            android:minHeight="@dimen/app_settings_switch_height"
+            app:thumbTint="@color/app_surface"
+            app:trackDecorationTint="@android:color/transparent"
+            app:trackTint="@color/selector_app_switch_track" />
+    </LinearLayout>
+
+</LinearLayout>

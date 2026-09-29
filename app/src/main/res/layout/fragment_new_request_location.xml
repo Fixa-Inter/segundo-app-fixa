@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Passo 2 — Local (Figma): título 700/40 "Localização do Problema"; "Local" + campo dropdown 332x33 r=15 (chevron 22dp);
+  "Descrição do local" + textarea 332x252; indicador (passo 1 concluído, 2 atual); rodapé.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.newrequest.NewRequestLocationFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/stepActions"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/app_step_label_margin_start" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/app_step_label_margin_start" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_step_title_margin_start"
+                android:layout_marginTop="@dimen/app_step_title_margin_top"
+                android:layout_marginEnd="@dimen/app_step_title_margin_start"
+                tools:text="Localização do Problema"
+                android:textAppearance="@style/TextAppearance.FIXA.App.StepTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLocationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_label_margin_top"
+                android:text="@string/app_step_location_field"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <FrameLayout
+                android:id="@+id/layoutLocation"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_field_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                android:background="@drawable/bg_app_field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvLocationLabel">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actvLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/app_step_location_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/app_step_field_padding_start"
+                    android:paddingEnd="44dp"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field" />
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="9dp"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ic_chevron_down_22"
+                    app:tint="@color/app_text_dark" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvDescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_section_margin_top"
+                android:text="@string/app_step_location_description_field"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutLocation" />
+
+            <EditText
+                android:id="@+id/etLocationDescription"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_textarea_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                android:background="@drawable/bg_app_field"
+                android:gravity="top|start"
+                android:hint="@string/app_step_description_hint"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine|textCapSentences"
+                android:paddingStart="@dimen/app_step_textarea_padding_start"
+                android:paddingTop="@dimen/app_step_textarea_padding_top"
+                android:paddingEnd="@dimen/app_step_textarea_padding_start"
+                android:paddingBottom="@dimen/app_step_textarea_padding_top"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel" />
+
+            <include
+                android:id="@+id/stepIndicator"
+                layout="@layout/view_app_step_indicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_indicator_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etLocationDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/stepActions"
+        layout="@layout/view_app_step_actions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_step_actions_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

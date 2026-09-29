@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Detalhes (Figma): back 22dp @ (11,22); more-horizontal 24dp @ end 27; título 34sp Poppins 600 (#153D7D + #130943)
+  @ (40,76); timeline: dot 32dp @ x=41 com linha tracejada, card 290x80 r=25 @ x=93, passo a cada 122dp.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailsRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.requests.RequestDetailsFragment">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="@dimen/app_touch_target"
+        android:layout_height="@dimen/app_touch_target"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="9dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left_22"
+        app:tint="@color/app_primary_deep" />
+
+    <ImageButton
+        android:id="@+id/btnMore"
+        android:layout_width="@dimen/app_touch_target"
+        android:layout_height="@dimen/app_touch_target"
+        android:layout_marginEnd="15dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_more_options"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        app:srcCompat="@drawable/ic_more_horizontal_24"
+        app:tint="@color/app_primary_deep" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_details_title_margin_start"
+        android:layout_marginTop="@dimen/app_details_title_margin_top"
+        android:layout_marginEnd="@dimen/app_details_title_margin_start"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Details.Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Projetor quebrado" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTimeline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/app_details_timeline_margin_top"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_app_timeline_step" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

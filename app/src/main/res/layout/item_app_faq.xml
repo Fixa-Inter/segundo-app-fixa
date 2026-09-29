@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Item FAQ expansível -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/app_faq_item_spacing">
+
+    <LinearLayout
+        android:id="@+id/layoutQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/app_touch_target"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/app_faq_side_margin"
+        android:paddingEnd="@dimen/app_faq_side_margin">
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Faq.Question"
+            tools:text="O que é o FIXA?" />
+
+        <ImageView
+            android:id="@+id/ivChevron"
+            android:layout_width="@dimen/app_faq_chevron_size"
+            android:layout_height="@dimen/app_faq_chevron_size"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@string/app_faq_toggle"
+            app:srcCompat="@drawable/ic_chevron_down_22"
+            app:tint="@color/app_primary_dark" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_faq_answer_margin_top"
+        android:paddingStart="@dimen/app_faq_side_margin"
+        android:paddingEnd="@dimen/app_faq_chevron_margin_end"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Faq.Answer"
+        android:visibility="gone"
+        tools:text="O FIXA é uma iniciativa tecnológica voltada para a equipe de manutenção e para os solicitantes."
+        tools:visibility="visible" />
+</LinearLayout>

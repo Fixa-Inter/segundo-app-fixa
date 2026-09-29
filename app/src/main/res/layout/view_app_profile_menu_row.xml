@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Linha de menu do perfil: 60dp; ícone 28dp @ x=38 + texto 400/18 @ x=85 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_profile_menu_item_height"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/app_profile_menu_icon_margin_start"
+    android:paddingEnd="@dimen/app_profile_menu_icon_margin_start">
+
+    <ImageView
+        android:id="@+id/ivMenuIcon"
+        android:layout_width="@dimen/app_profile_menu_icon_size"
+        android:layout_height="@dimen/app_profile_menu_icon_size"
+        android:importantForAccessibility="no"
+        app:tint="@color/app_text_dark"
+        tools:srcCompat="@drawable/ic_user_24" />
+
+    <TextView
+        android:id="@+id/tvMenuLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_profile_menu_text_margin_start"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Profile.MenuItem"
+        tools:text="Meu perfil" />
+</LinearLayout>

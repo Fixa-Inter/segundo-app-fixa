@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Indicador de passos (Figma): 3 círculos 34.48dp (concluído #1D9954, atual #153D7D, pendente #8A93A2)
+  em x=60/183/307, linhas 65x4 r=18.3 entre eles, rótulos 500/12 abaixo (11dp).
+  As cores são definidas no Fragment conforme o passo atual.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stepIndicatorRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvStep1"
+        android:layout_width="@dimen/app_step_indicator_circle_size"
+        android:layout_height="@dimen/app_step_indicator_circle_size"
+        android:layout_marginStart="@dimen/app_step_indicator_side_margin"
+        android:background="@drawable/bg_app_circle_primary"
+        android:gravity="center"
+        android:text="1"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorNumber"
+        app:layout_constraintEnd_toStartOf="@id/tvStep2"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tvStep2"
+        android:layout_width="@dimen/app_step_indicator_circle_size"
+        android:layout_height="@dimen/app_step_indicator_circle_size"
+        android:background="@drawable/bg_app_circle_muted"
+        android:gravity="center"
+        android:text="2"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorNumber"
+        app:layout_constraintEnd_toStartOf="@id/tvStep3"
+        app:layout_constraintStart_toEndOf="@id/tvStep1"
+        app:layout_constraintTop_toTopOf="@id/tvStep1"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tvStep3"
+        android:layout_width="@dimen/app_step_indicator_circle_size"
+        android:layout_height="@dimen/app_step_indicator_circle_size"
+        android:layout_marginEnd="@dimen/app_step_indicator_side_margin"
+        android:background="@drawable/bg_app_circle_muted"
+        android:gravity="center"
+        android:text="3"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvStep2"
+        app:layout_constraintTop_toTopOf="@id/tvStep1"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/viewLine1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/app_step_indicator_line_height"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_app_indicator_line_pending"
+        app:layout_constraintBottom_toBottomOf="@id/tvStep1"
+        app:layout_constraintEnd_toStartOf="@id/tvStep2"
+        app:layout_constraintStart_toEndOf="@id/tvStep1"
+        app:layout_constraintTop_toTopOf="@id/tvStep1" />
+
+    <View
+        android:id="@+id/viewLine1Progress"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/app_step_indicator_line_height"
+        android:background="@drawable/bg_app_indicator_line_half"
+        app:layout_constraintBottom_toBottomOf="@id/viewLine1"
+        app:layout_constraintEnd_toEndOf="@id/viewLine1"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/viewLine1"
+        app:layout_constraintTop_toTopOf="@id/viewLine1"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintWidth_default="percent" />
+
+    <View
+        android:id="@+id/viewLine2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/app_step_indicator_line_height"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_app_indicator_line_pending"
+        app:layout_constraintBottom_toBottomOf="@id/tvStep1"
+        app:layout_constraintEnd_toStartOf="@id/tvStep3"
+        app:layout_constraintStart_toEndOf="@id/tvStep2"
+        app:layout_constraintTop_toTopOf="@id/tvStep1" />
+
+    <View
+        android:id="@+id/viewLine2Progress"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/app_step_indicator_line_height"
+        android:background="@drawable/bg_app_indicator_line_half"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/viewLine2"
+        app:layout_constraintEnd_toEndOf="@id/viewLine2"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/viewLine2"
+        app:layout_constraintTop_toTopOf="@id/viewLine2"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintWidth_default="percent" />
+
+    <TextView
+        android:id="@+id/tvStep1Label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_step_indicator_label_margin_top"
+        android:gravity="center"
+        android:text="@string/app_step_indicator_description"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorLabel"
+        android:textColor="@color/app_primary"
+        app:layout_constraintEnd_toEndOf="@id/tvStep1"
+        app:layout_constraintStart_toStartOf="@id/tvStep1"
+        app:layout_constraintTop_toBottomOf="@id/tvStep1"
+        app:layout_constraintWidth_min="78dp" />
+
+    <TextView
+        android:id="@+id/tvStep2Label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_step_indicator_location"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorLabel"
+        android:textColor="@color/app_text_muted"
+        app:layout_constraintEnd_toEndOf="@id/tvStep2"
+        app:layout_constraintStart_toStartOf="@id/tvStep2"
+        app:layout_constraintTop_toTopOf="@id/tvStep1Label"
+        app:layout_constraintWidth_min="78dp" />
+
+    <TextView
+        android:id="@+id/tvStep3Label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_step_indicator_photos"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorLabel"
+        android:textColor="@color/app_text_muted"
+        app:layout_constraintEnd_toEndOf="@id/tvStep3"
+        app:layout_constraintStart_toStartOf="@id/tvStep3"
+        app:layout_constraintTop_toTopOf="@id/tvStep1Label"
+        app:layout_constraintWidth_min="78dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

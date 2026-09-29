@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Item de notificação 360x75 r=25; dot 15dp @ x=19 (só não lida); texto @ x=58; hora 300/12 @ end 15 -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutNotification"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_notification_item_height"
+    android:layout_marginBottom="@dimen/app_notification_item_spacing"
+    android:background="@drawable/bg_app_notification_unread"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <View
+        android:id="@+id/viewUnreadDot"
+        android:layout_width="@dimen/app_notification_dot_size"
+        android:layout_height="@dimen/app_notification_dot_size"
+        android:layout_marginStart="@dimen/app_notification_dot_margin_start"
+        android:background="@drawable/bg_app_circle_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNotificationText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_notification_text_margin_start"
+        android:layout_marginEnd="24dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Notification.Text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/viewUnreadDot"
+        app:layout_goneMarginStart="@dimen/app_notification_text_margin_start_read"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Sua solicitação foi aprovada!" />
+
+    <TextView
+        android:id="@+id/tvNotificationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/app_notification_time_margin_end"
+        android:layout_marginBottom="@dimen/app_notification_time_margin_bottom"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Notification.Time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="09:41" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

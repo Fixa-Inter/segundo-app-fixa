@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cabeçalho de seção da lista de notificações ("Hoje", "Última semana") 500/20 #130943 -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvSectionHeader"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="10dp"
+    android:paddingTop="22dp"
+    android:paddingEnd="15dp"
+    android:paddingBottom="@dimen/app_notifications_list_margin_top"
+    android:textAppearance="@style/TextAppearance.FIXA.App.Notifications.Section"
+    tools:text="Hoje" />

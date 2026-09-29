@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvRecentChat"
+    android:layout_width="@dimen/app_chat_drawer_item_width"
+    android:layout_height="@dimen/app_chat_drawer_item_height"
+    android:layout_marginBottom="@dimen/app_chat_drawer_item_spacing"
+    android:background="@drawable/bg_app_chat_recent_selected"
+    android:clickable="true"
+    android:ellipsize="end"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:maxLines="1"
+    android:paddingStart="@dimen/app_chat_drawer_item_padding_start"
+    android:paddingEnd="@dimen/app_chat_drawer_item_padding_start"
+    android:textAppearance="@style/TextAppearance.FIXA.App.Chat.DrawerItem"
+    tools:text="Nova conversa" />

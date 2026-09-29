@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Passo 3 — Foto (Figma): título 700/40 "Foto do Aparelho"; "Aparelho" + dropdown 332x33; "Fotos" + área de upload
+  332x170 r=25 #80C4CFE0 (texto 400/15 #8A93A2); "ou" entre duas linhas 140dp; botão "Tirar foto" 332x40 r=25
+  com ícone camera 20dp; indicador (1 e 2 concluídos, 3 atual); rodapé Voltar / Finalizar.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.newrequest.NewRequestPhotoFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/stepActions"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/app_step_label_margin_start" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/app_step_label_margin_start" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_step_title_margin_start"
+                android:layout_marginTop="@dimen/app_step_title_margin_top"
+                android:layout_marginEnd="@dimen/app_step_title_margin_start"
+                tools:text="Foto do Aparelho"
+                android:textAppearance="@style/TextAppearance.FIXA.App.StepTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDeviceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_label_margin_top"
+                android:text="@string/app_step_photo_device_field"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <FrameLayout
+                android:id="@+id/layoutDevice"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_field_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                android:background="@drawable/bg_app_field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvDeviceLabel">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actvDevice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/app_step_photo_device_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/app_step_field_padding_start"
+                    android:paddingEnd="44dp"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field" />
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="9dp"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ic_chevron_down_22"
+                    app:tint="@color/app_text_dark" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvPhotosLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_section_margin_top"
+                android:text="@string/app_step_photo_field"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutDevice" />
+
+            <FrameLayout
+                android:id="@+id/btnUpload"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_upload_height"
+                android:layout_marginTop="@dimen/app_step_upload_margin_top"
+                android:background="@drawable/bg_app_upload_area"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvPhotosLabel">
+
+                <TextView
+                    android:id="@+id/tvUpload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/app_step_photo_upload"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Step.Upload" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPhotos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/viewOrLineStart"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="12dp"
+                android:background="@color/app_text_muted"
+                app:layout_constraintBottom_toBottomOf="@id/tvOr"
+                app:layout_constraintEnd_toStartOf="@id/tvOr"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toTopOf="@id/tvOr"
+                app:layout_constraintWidth_max="@dimen/app_step_upload_line_width" />
+
+            <TextView
+                android:id="@+id/tvOr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_upload_or_margin_top"
+                android:text="@string/app_step_photo_or"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Upload"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnUpload" />
+
+            <View
+                android:id="@+id/viewOrLineEnd"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="12dp"
+                android:background="@color/app_text_muted"
+                app:layout_constraintBottom_toBottomOf="@id/tvOr"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toEndOf="@id/tvOr"
+                app:layout_constraintTop_toTopOf="@id/tvOr"
+                app:layout_constraintWidth_max="@dimen/app_step_upload_line_width" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTakePhoto"
+                style="@style/Widget.FIXA.App.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_upload_camera_height"
+                android:layout_marginTop="@dimen/app_step_upload_camera_margin_top"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/app_step_photo_take"
+                android:textFontWeight="400"
+                android:textSize="@dimen/app_step_upload_camera_text_size"
+                app:icon="@drawable/ic_camera_20"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:iconSize="20dp"
+                app:iconTint="@color/app_on_primary"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvOr" />
+
+            <include
+                android:id="@+id/stepIndicator"
+                layout="@layout/view_app_step_indicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_indicator_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnTakePhoto" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/stepActions"
+        layout="@layout/view_app_step_actions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_step_actions_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dia do seletor: 60x100 r=25; número 600/25 @ top 22; rótulo 300/13 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutDay"
+    android:layout_width="@dimen/app_events_day_width"
+    android:layout_height="@dimen/app_events_day_height"
+    android:layout_marginEnd="@dimen/app_events_day_spacing"
+    android:background="@drawable/bg_app_event_day"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/app_events_day_number_margin_top">
+
+    <TextView
+        android:id="@+id/tvDayNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Events.DayNumber"
+        android:textColor="@color/app_text_secondary"
+        tools:text="11" />
+
+    <TextView
+        android:id="@+id/tvDayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_events_day_label_margin_top"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Events.DayLabel"
+        android:textColor="@color/app_text_muted"
+        tools:text="Ter" />
+</LinearLayout>

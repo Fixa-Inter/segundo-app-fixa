@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Minhas solicitações (Figma): título 37/40 Poppins 500 #0B013C @ (34,52); chips 30dp r=18 (95dp, "Todas" 75dp)
+  em scroll horizontal; busca 310x45 r=60 com botão circular 45dp #153D7D; filtro 24dp;
+  lista de cards 350x110; FAB 56dp @ end 30 / bottom 37; estado vazio com ilustração 360dp.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.requests.RequestsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/requestsRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/app_screen_side_margin" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/app_screen_side_margin" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="@dimen/app_requests_title_margin_top"
+            tools:text="Acompanhe suas solicitações"
+            android:textAppearance="@style/TextAppearance.FIXA.App.ScreenTitle"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollChips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_requests_chips_margin_top"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/app_screen_side_margin"
+            android:paddingTop="4dp"
+            android:paddingEnd="@dimen/app_screen_side_margin"
+            android:paddingBottom="6dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <RadioGroup
+                android:id="@+id/groupFilters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/chipAll"
+                    style="@style/Widget.FIXA.App.FilterChip"
+                    android:checked="true"
+                    android:minWidth="75dp"
+                    android:text="@string/app_requests_filter_all" />
+
+                <RadioButton
+                    android:id="@+id/chipAnalysis"
+                    style="@style/Widget.FIXA.App.FilterChip"
+                    android:layout_marginStart="@dimen/app_requests_chip_spacing"
+                    android:text="@string/app_requests_filter_analysis" />
+
+                <RadioButton
+                    android:id="@+id/chipApproved"
+                    style="@style/Widget.FIXA.App.FilterChip"
+                    android:layout_marginStart="@dimen/app_requests_chip_spacing"
+                    android:text="@string/app_requests_filter_approved" />
+
+                <RadioButton
+                    android:id="@+id/chipDone"
+                    style="@style/Widget.FIXA.App.FilterChip"
+                    android:layout_marginStart="@dimen/app_requests_chip_spacing"
+                    android:text="@string/app_requests_filter_done" />
+
+                <RadioButton
+                    android:id="@+id/chipRefused"
+                    style="@style/Widget.FIXA.App.FilterChip"
+                    android:layout_marginStart="@dimen/app_requests_chip_spacing"
+                    android:text="@string/app_requests_filter_refused" />
+            </RadioGroup>
+        </HorizontalScrollView>
+
+        <!-- Busca -->
+        <FrameLayout
+            android:id="@+id/layoutSearch"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_requests_search_height"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="@dimen/app_requests_search_margin_top"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_app_search"
+            android:elevation="2dp"
+            app:layout_constraintEnd_toStartOf="@id/btnFilter"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toBottomOf="@id/scrollChips">
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/app_requests_search_hint"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="@dimen/app_requests_search_text_margin_start"
+                android:paddingEnd="16dp"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Search" />
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="@dimen/app_requests_search_height"
+            android:layout_height="@dimen/app_requests_search_height"
+            android:layout_marginStart="1dp"
+            android:background="@drawable/bg_app_circle_primary"
+            android:contentDescription="@string/app_requests_search"
+            android:elevation="3dp"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@id/layoutSearch"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toTopOf="@id/layoutSearch"
+            app:srcCompat="@drawable/ic_search_18"
+            app:tint="@color/app_on_primary" />
+
+        <ImageButton
+            android:id="@+id/btnFilter"
+            android:layout_width="@dimen/app_touch_target"
+            android:layout_height="@dimen/app_touch_target"
+            android:layout_marginEnd="-12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_requests_filters"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@id/layoutSearch"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toTopOf="@id/layoutSearch"
+            app:srcCompat="@drawable/ic_filter_24"
+            app:tint="@color/app_primary_deep" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRequests"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/app_requests_list_margin_top"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/app_bottom_nav_height"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toBottomOf="@id/layoutSearch"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_app_request" />
+
+        <!-- Estado vazio -->
+        <LinearLayout
+            android:id="@+id/layoutEmpty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutSearch"
+            tools:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/app_requests_empty_image_size"
+                android:layout_height="@dimen/app_requests_empty_image_size"
+                android:layout_marginTop="23dp"
+                android:adjustViewBounds="true"
+                android:importantForAccessibility="no"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/img_empty_results" />
+
+            <TextView
+                android:id="@+id/tvEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-6dp"
+                android:text="@string/app_requests_empty"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EmptyTitle" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNewRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/app_fab_margin_end"
+        android:layout_marginBottom="@dimen/app_fab_margin_bottom"
+        android:contentDescription="@string/app_requests_new"
+        app:backgroundTint="@color/app_primary"
+        app:elevation="4dp"
+        app:fabCustomSize="@dimen/app_fab_size"
+        app:maxImageSize="24dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        app:srcCompat="@drawable/ic_plus_24"
+        app:tint="@color/app_on_primary" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

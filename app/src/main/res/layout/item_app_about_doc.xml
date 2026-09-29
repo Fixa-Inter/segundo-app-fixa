@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Card de documento: 350x60 r=20 branco (sombra 0/2 blur 8), texto 500/14 @ x=23, chevron-right 20dp @ end 15 -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardDoc"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_about_doc_height"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/app_surface"
+    app:cardCornerRadius="@dimen/app_about_doc_radius"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/app_about_doc_padding_start"
+        android:paddingEnd="@dimen/app_about_doc_chevron_margin_end">
+
+        <TextView
+            android:id="@+id/tvDocTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.About.Doc"
+            tools:text="Guia de uso" />
+
+        <ImageView
+            android:layout_width="@dimen/app_about_doc_chevron_size"
+            android:layout_height="@dimen/app_about_doc_chevron_size"
+            android:importantForAccessibility="no"
+            app:srcCompat="@drawable/ic_chevron_right_20"
+            app:tint="@color/app_primary_dark" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

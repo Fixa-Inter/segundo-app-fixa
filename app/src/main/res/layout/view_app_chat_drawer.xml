@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Menu lateral do chat (Figma "Menu" 230x917, branco): "Manu" 500/24 #153D7D + botão busca 30dp;
+  "Novo chat" (edit 18dp + 500/13); "Recentes" 500/16; itens 170x32 r=15 (selecionado #EAEDF1), texto 400/12.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chatDrawerRoot"
+    android:layout_width="@dimen/app_chat_drawer_width"
+    android:layout_height="match_parent"
+    android:background="@color/app_surface"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingStart="@dimen/app_chat_drawer_padding"
+    android:paddingEnd="@dimen/app_chat_drawer_padding">
+
+    <TextView
+        android:id="@+id/tvDrawerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_chat_drawer_title_margin_top"
+        android:text="@string/app_chat_title"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Chat.DrawerTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnDrawerSearch"
+        android:layout_width="@dimen/app_chat_drawer_search_size"
+        android:layout_height="@dimen/app_chat_drawer_search_size"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/bg_app_circle_primary"
+        android:contentDescription="@string/app_chat_drawer_search"
+        android:elevation="2dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@id/tvDrawerTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDrawerTitle"
+        app:srcCompat="@drawable/ic_search_18"
+        app:tint="@color/app_on_primary" />
+
+    <LinearLayout
+        android:id="@+id/btnNewChat"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/app_touch_target"
+        android:layout_marginTop="-2dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDrawerTitle">
+
+        <ImageView
+            android:layout_width="@dimen/app_chat_drawer_new_icon_size"
+            android:layout_height="@dimen/app_chat_drawer_new_icon_size"
+            android:importantForAccessibility="no"
+            app:srcCompat="@drawable/ic_edit_20"
+            app:tint="@color/app_text_secondary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:text="@string/app_chat_drawer_new"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Chat.DrawerAction" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvRecent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_chat_drawer_recent_margin_top"
+        android:text="@string/app_chat_drawer_recent"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Chat.DrawerSection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnNewChat" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecentChats"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="7dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRecent"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_app_chat_recent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

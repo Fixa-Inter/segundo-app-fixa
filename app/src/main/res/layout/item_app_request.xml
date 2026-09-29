@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Card de solicitação (Figma): 350x110, r=15, sombra #1A000000 0/2 blur 8;
+  faixa lateral 13dp colorida por status; pill de data 90x20 (#66DBDCDD, r=20) com ícone calendar 12dp;
+  título Poppins 600 16; subtítulo 400 11; status 600 9 na cor do status; more-vertical 14dp.
+-->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardRequest"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_request_card_height"
+    android:layout_marginBottom="@dimen/app_request_card_spacing"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/app_surface"
+    app:cardCornerRadius="@dimen/app_request_card_radius"
+    app:cardElevation="2dp"
+    app:rippleColor="@color/app_field_background"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/viewStatusAccent"
+            android:layout_width="@dimen/app_request_card_accent_width"
+            android:layout_height="0dp"
+            android:background="@color/app_status_analysis"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/app_status_analysis" />
+
+        <LinearLayout
+            android:id="@+id/layoutDate"
+            android:layout_width="@dimen/app_request_card_date_pill_width"
+            android:layout_height="@dimen/app_request_card_date_pill_height"
+            android:layout_marginStart="@dimen/app_request_card_content_margin_start"
+            android:layout_marginTop="@dimen/app_request_card_date_pill_margin_top"
+            android:background="@drawable/bg_app_date_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/app_request_card_date_icon_margin_start"
+            android:paddingEnd="@dimen/app_request_card_date_icon_margin_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/app_request_card_date_icon_size"
+                android:layout_height="@dimen/app_request_card_date_icon_size"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_calendar_12"
+                app:tint="@color/app_primary_dark" />
+
+            <TextView
+                android:id="@+id/tvRequestDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Date"
+                tools:text="11 Mar 2026" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRequestTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_request_card_title_margin_start"
+            android:layout_marginTop="@dimen/app_request_card_title_margin_top"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Title"
+            app:layout_constraintEnd_toStartOf="@id/btnRequestMenu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutDate"
+            tools:text="Luz piscando" />
+
+        <TextView
+            android:id="@+id/tvRequestLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Subtitle"
+            app:layout_constraintEnd_toEndOf="@id/tvRequestTitle"
+            app:layout_constraintStart_toStartOf="@id/tvRequestTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvRequestTitle"
+            tools:text="Sala T07 - 2º andar" />
+
+        <TextView
+            android:id="@+id/tvRequestStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_request_card_status_margin_top"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Status"
+            android:textColor="@color/app_status_analysis"
+            app:layout_constraintEnd_toEndOf="@id/tvRequestTitle"
+            app:layout_constraintStart_toStartOf="@id/tvRequestTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvRequestLocation"
+            tools:text="Solicitação em análise" />
+
+        <ImageButton
+            android:id="@+id/btnRequestMenu"
+            android:layout_width="@dimen/app_touch_target"
+            android:layout_height="@dimen/app_touch_target"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_more_options"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_vertical_14"
+            app:tint="@color/app_text_black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

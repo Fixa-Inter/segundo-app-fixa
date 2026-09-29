@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Perfil (Figma): back; avatar 85dp @ (36,104); nome 600/22 #153D7D; e-mail 300/13 #4C5461;
+  botão "Editar perfil" 150x28 r=15 #130943 (500/12 branco); menu: Meu perfil, Configurações, FAQ, Sobre o app, Sair.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:fillViewport="true"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/app_touch_target"
+            android:layout_height="@dimen/app_touch_target"
+            android:layout_marginStart="-2dp"
+            android:layout_marginTop="9dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_back"
+            android:scaleType="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_left_22"
+            app:tint="@color/app_primary_deep" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="@dimen/app_profile_avatar_size"
+            android:layout_height="@dimen/app_profile_avatar_size"
+            android:layout_marginStart="@dimen/app_profile_avatar_margin_start"
+            android:layout_marginTop="@dimen/app_profile_avatar_margin_top"
+            android:contentDescription="@string/app_user_avatar"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            app:srcCompat="@drawable/img_avatar_115" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_profile_name_margin_start"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/app_screen_side_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Profile.Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            tools:text="Ryan Cursino" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Profile.Email"
+            app:layout_constraintEnd_toEndOf="@id/tvName"
+            app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="ryan.cursino@fixa.com.br" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditProfile"
+            style="@style/Widget.FIXA.App.Button.Primary"
+            android:layout_width="@dimen/app_profile_edit_width"
+            android:layout_height="@dimen/app_profile_edit_height"
+            android:layout_marginTop="@dimen/app_profile_edit_margin_top"
+            android:minHeight="0dp"
+            android:text="@string/app_profile_edit"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Regular"
+            android:textColor="@color/app_on_primary"
+            android:textSize="@dimen/app_profile_edit_text_size"
+            app:backgroundTint="@color/app_primary_dark"
+            app:cornerRadius="@dimen/app_profile_edit_radius"
+            app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@id/tvEmail" />
+
+        <LinearLayout
+            android:id="@+id/layoutMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_profile_menu_margin_top"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivAvatar">
+
+            <include
+                android:id="@+id/rowMyProfile"
+                layout="@layout/view_app_profile_menu_row" />
+
+            <include
+                android:id="@+id/rowSettings"
+                layout="@layout/view_app_profile_menu_row" />
+
+            <include
+                android:id="@+id/rowFaq"
+                layout="@layout/view_app_profile_menu_row" />
+
+            <include
+                android:id="@+id/rowAbout"
+                layout="@layout/view_app_profile_menu_row" />
+
+            <include
+                android:id="@+id/rowLogout"
+                layout="@layout/view_app_profile_menu_row" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
