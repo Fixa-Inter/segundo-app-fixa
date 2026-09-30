@@ -16,7 +16,7 @@
     <dimen name="app_bottom_nav_icon_size">26dp</dimen>
     <dimen name="app_bottom_nav_home_icon_width">19dp</dimen>
     <dimen name="app_bottom_nav_home_icon_height">21dp</dimen>
-    <dimen name="app_bottom_nav_chat_icon_size">30dp</dimen>
+    <dimen name="app_bottom_nav_chat_icon_size">27dp</dimen>
     <dimen name="app_bottom_nav_icon_top_margin">36dp</dimen>
     <dimen name="app_bottom_nav_indicator_width">70dp</dimen>
     <dimen name="app_bottom_nav_indicator_height">2dp</dimen>
@@ -257,12 +257,13 @@
     <dimen name="app_step_indicator_line_height">4dp</dimen>
     <dimen name="app_step_indicator_line_radius">18.3dp</dimen>
     <dimen name="app_step_indicator_label_margin_top">11dp</dimen>
+    <dimen name="app_step_indicator_label_min_width">64dp</dimen>
     <dimen name="app_step_indicator_label_text_size">12sp</dimen>
     <dimen name="app_step_indicator_side_margin">44dp</dimen>
-    <dimen name="app_step_actions_margin_bottom">32dp</dimen>
+    <dimen name="app_step_actions_margin_bottom">24dp</dimen>
     <dimen name="app_step_actions_side_margin">28dp</dimen>
     <dimen name="app_step_back_margin_start">40dp</dimen>
-    <dimen name="app_step_action_text_size">20sp</dimen>
+    <dimen name="app_step_action_text_size">18sp</dimen>
     <dimen name="app_step_upload_margin_top">24dp</dimen>
     <dimen name="app_step_upload_height">170dp</dimen>
     <dimen name="app_step_upload_radius">25dp</dimen>
@@ -431,6 +432,9 @@
 
     <!-- Dialogs -->
     <dimen name="app_dialog_radius">30dp</dimen>
+    <dimen name="app_dialog_delete_title_text_size">20sp</dimen>
+    <dimen name="app_dialog_delete_reason_height">121dp</dimen>
+    <dimen name="app_dialog_delete_reason_margin_top">28dp</dimen>
     <dimen name="app_dialog_width">300dp</dimen>
     <dimen name="app_dialog_edit_width">320dp</dimen>
     <dimen name="app_dialog_side_padding">34dp</dimen>

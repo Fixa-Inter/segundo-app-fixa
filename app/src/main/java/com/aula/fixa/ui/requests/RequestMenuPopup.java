@@ -27,7 +27,7 @@ public final class RequestMenuPopup {
         });
         content.findViewById(R.id.tvPopupDelete).setOnClickListener(v -> {
             popup.dismiss();
-            AppDialogs.showDeleteConfirm(anchor.getContext());
+            AppDialogs.showDeleteWithReason(anchor.getContext(), null);
         });
         popup.showAsDropDown(anchor, -popup.getWidth() + anchor.getWidth(), 0);
     }

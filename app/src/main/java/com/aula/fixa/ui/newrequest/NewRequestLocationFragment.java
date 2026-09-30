@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,5 +23,22 @@ public class NewRequestLocationFragment extends NewRequestStepFragment {
         field.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1,
                 new String[]{"Sala T02 - 2º andar", "Sala T07 - 2º andar", "Átrio", "Banheiro - 2º Andar"}));
         field.setOnClickListener(v -> field.showDropDown());
+    }
+
+    @Override
+    protected int currentDestinationId() {
+        return R.id.newRequestLocationFragment;
+    }
+
+    @Override
+    protected void restoreForm(View root) {
+        ((AutoCompleteTextView) root.findViewById(R.id.actvLocation)).setText(form.location, false);
+        ((EditText) root.findViewById(R.id.etLocationDescription)).setText(form.locationDescription);
+    }
+
+    @Override
+    protected void saveForm(View root) {
+        form.location = ((AutoCompleteTextView) root.findViewById(R.id.actvLocation)).getText().toString().trim();
+        form.locationDescription = ((EditText) root.findViewById(R.id.etLocationDescription)).getText().toString().trim();
     }
 }

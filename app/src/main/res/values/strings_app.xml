@@ -185,6 +185,14 @@
     <string name="app_dialog_edit_field_photos">Fotos</string>
     <string name="app_dialog_edit_add_photo">Adicionar foto</string>
     <string name="app_dialog_delete_title">Deseja deletar esse registro?</string>
+    <string name="app_dialog_delete_reason_title">Excluir solicitação?</string>
+    <string name="app_dialog_delete_reason_subtitle">Nos informe o motivo</string>
+    <string name="app_dialog_delete_reason_hint">Escreva o motivo da exclusão</string>
+    <string name="app_dialog_save_title">Salvar alterações?</string>
+    <string name="app_dialog_save_body">Essa ação não poderá ser desfeita.</string>
+    <string name="app_dialog_discard_title">Sair sem salvar?</string>
+    <string name="app_dialog_discard_body">As alterações feitas serão perdidas.</string>
+    <string name="app_dialog_discard_confirm">Sair</string>
     <string name="app_dialog_delete_body">Essa ação não poderá ser desfeita.</string>
     <string name="app_dialog_logout_title">Deseja sair da conta?</string>
     <string name="app_dialog_logout_body">Você poderá entrar novamente a qualquer momento.</string>

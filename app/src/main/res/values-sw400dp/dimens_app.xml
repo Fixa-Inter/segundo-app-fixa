@@ -78,4 +78,6 @@
     <dimen name="app_dialog_edit_button_width">140dp</dimen>
     <dimen name="app_bottom_nav_height">100dp</dimen>
     <dimen name="app_bottom_nav_active_top_margin">22dp</dimen>
+    <dimen name="app_step_indicator_label_min_width">78dp</dimen>
+    <dimen name="app_step_action_text_size">20sp</dimen>
 </resources>

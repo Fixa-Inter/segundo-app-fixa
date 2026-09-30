@@ -226,7 +226,7 @@
         <item name="android:textColor">@color/app_primary</item>
         <item name="android:textSize">@dimen/app_step_label_text_size</item>
     </style>
-    <style name="TextAppearance.FIXA.App.Step.Field" parent="TextAppearance.FIXA.App.Light">
+    <style name="TextAppearance.FIXA.App.Step.Field" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_text_dark</item>
         <item name="android:textColorHint">@color/app_text_hint</item>
         <item name="android:textSize">@dimen/app_step_field_text_size</item>
@@ -260,6 +260,7 @@
     <style name="TextAppearance.FIXA.App.Success.Title" parent="TextAppearance.FIXA.App.Medium">
         <item name="android:textColor">@color/app_primary_deep</item>
         <item name="android:textSize">@dimen/app_success_title_text_size</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <!-- Perfil -->
@@ -346,6 +347,7 @@
     </style>
     <style name="TextAppearance.FIXA.App.Filter.Field" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textColorHint">@color/app_text_muted</item>
         <item name="android:textSize">@dimen/app_filter_field_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Dialog.Title" parent="TextAppearance.FIXA.App.Medium">
@@ -367,9 +369,9 @@
         <item name="android:textColor">@color/app_primary_dark</item>
         <item name="android:textSize">@dimen/app_dialog_edit_label_text_size</item>
     </style>
-    <style name="TextAppearance.FIXA.App.Dialog.EditField" parent="TextAppearance.FIXA.App.Light">
+    <style name="TextAppearance.FIXA.App.Dialog.EditField" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_primary_dark</item>
-        <item name="android:textColorHint">@color/app_primary_dark</item>
+        <item name="android:textColorHint">@color/app_text_muted</item>
         <item name="android:textSize">@dimen/app_dialog_edit_field_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.PopupMenu.Item" parent="TextAppearance.FIXA.App.Regular">

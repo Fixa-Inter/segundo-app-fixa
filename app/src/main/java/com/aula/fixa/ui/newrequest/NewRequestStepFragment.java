@@ -13,7 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
@@ -21,13 +23,14 @@ import com.google.android.material.button.MaterialButton;
 
 /**
  * Base dos passos de "Abrir solicitação": configura o indicador (1..3) e o rodapé Voltar/Próximo.
- * O último passo mostra "Finalizar".
+ * Os três passos mostram "Próximo"; "Finalizar" fica na tela de confirmação.
  */
 public abstract class NewRequestStepFragment extends Fragment {
 
     private final int step;
     private final int nextAction;
     private final int titleRes;
+    protected NewRequestViewModel form;
 
     protected NewRequestStepFragment(@LayoutRes int layout, int step, @IdRes int nextAction, @StringRes int titleRes) {
         super(layout);
@@ -39,14 +42,34 @@ public abstract class NewRequestStepFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        NavController nav = NavHostFragment.findNavController(this);
+        form = new ViewModelProvider(nav.getViewModelStoreOwner(R.id.nav_graph_app)).get(NewRequestViewModel.class);
         AppText.setHtml(view.findViewById(R.id.tvTitle), titleRes);
         bindIndicator(view);
+        restoreForm(view);
 
         MaterialButton next = view.findViewById(R.id.btnStepNext);
-        next.setText(step == 3 ? R.string.app_finish : R.string.app_next);
-        next.setOnClickListener(v -> Navigation.findNavController(v).navigate(nextAction));
-        view.findViewById(R.id.btnStepBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        next.setText(R.string.app_next);
+        next.setOnClickListener(v -> {
+            // Evita navegação dupla quando o botão é tocado duas vezes durante a transição.
+            if (nav.getCurrentDestination() == null || nav.getCurrentDestination().getId() != currentDestinationId()) return;
+            saveForm(view);
+            nav.navigate(nextAction);
+        });
+        view.findViewById(R.id.btnStepBack).setOnClickListener(v -> {
+            saveForm(view);
+            nav.navigateUp();
+        });
     }
+
+    /** Id do destino deste passo, para ignorar cliques repetidos durante a transição. */
+    protected abstract int currentDestinationId();
+
+    /** Preenche os campos com o que já foi digitado (ao voltar para o passo). */
+    protected void restoreForm(View root) {}
+
+    /** Copia os campos para o ViewModel antes de sair do passo. */
+    protected void saveForm(View root) {}
 
     private void bindIndicator(View root) {
         View indicator = root.findViewById(R.id.stepIndicator);

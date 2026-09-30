@@ -46,6 +46,7 @@ public class RequestFiltersSheet extends BottomSheetDialogFragment {
 
     private void setDefault(View root, @IdRes int fieldId, int textRes) {
         AutoCompleteTextView field = root.findViewById(fieldId).findViewById(R.id.actvFilterValue);
-        field.setText(textRes);
+        field.setText("");
+        field.setHint(textRes);
     }
 }

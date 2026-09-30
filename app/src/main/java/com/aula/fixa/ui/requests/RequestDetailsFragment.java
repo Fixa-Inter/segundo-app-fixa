@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
+import com.aula.fixa.model.RequestItem;
 import com.aula.fixa.model.TimelineStep;
 
 import java.util.Arrays;
@@ -37,6 +38,8 @@ public class RequestDetailsFragment extends Fragment {
         AppText.setHtml(view.findViewById(R.id.tvTitle), html);
 
         view.findViewById(R.id.btnBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v,
+                new RequestItem(title, "", "", RequestItem.Status.ANALYSIS)));
 
         RecyclerView list = view.findViewById(R.id.rvTimeline);
         list.setAdapter(new TimelineAdapter(Arrays.asList(
@@ -115,7 +118,11 @@ public class RequestDetailsFragment extends Fragment {
                         dot.setBackgroundResource(R.drawable.bg_app_circle_muted);
                         dotInner.setVisibility(View.GONE);
                         check.setVisibility(View.GONE);
-                        card.setVisibility(View.INVISIBLE);
+                        card.setVisibility(View.VISIBLE);
+                        card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_field_background));
+                        title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_text_muted));
+                        date.setText("");
+                        time.setText("");
                 }
             }
         }

@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:maxLines="2"
             android:textAppearance="@style/TextAppearance.FIXA.App.Home.LegendValue"
             tools:text="3 Solicitações" />
     </LinearLayout>

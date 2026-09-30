@@ -22,5 +22,23 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
         field.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1,
                 new String[]{"Projetor", "Ar-condicionado", "Lâmpada", "Torneira"}));
         field.setOnClickListener(v -> field.showDropDown());
+        // Até integrar câmera/galeria, upload e foto adicionam a imagem de exemplo do Figma.
+        view.findViewById(R.id.btnUpload).setOnClickListener(v -> form.photos.add(R.drawable.img_confirm_photo_1));
+        view.findViewById(R.id.btnTakePhoto).setOnClickListener(v -> form.photos.add(R.drawable.img_confirm_photo_2));
+    }
+
+    @Override
+    protected int currentDestinationId() {
+        return R.id.newRequestPhotoFragment;
+    }
+
+    @Override
+    protected void restoreForm(View root) {
+        ((AutoCompleteTextView) root.findViewById(R.id.actvDevice)).setText(form.device, false);
+    }
+
+    @Override
+    protected void saveForm(View root) {
+        form.device = ((AutoCompleteTextView) root.findViewById(R.id.actvDevice)).getText().toString().trim();
     }
 }
