@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         View navHost = findViewById(R.id.navHostFragment);
         bottomNav = findViewById(R.id.bottomNav);
-        bottomNavRoot = bottomNav.findViewById(R.id.bottomNavRoot);
+        // O <include> tem android:id="@+id/bottomNav", que substitui o id da raiz incluída.
+        bottomNavRoot = (ConstraintLayout) bottomNav;
         bottomNavBaseHeight = getResources().getDimensionPixelSize(R.dimen.app_bottom_nav_height);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
