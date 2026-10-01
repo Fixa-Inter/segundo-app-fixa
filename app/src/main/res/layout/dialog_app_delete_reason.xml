@@ -36,11 +36,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDeleteTitle" />
 
+    <TextView
+        android:id="@+id/tvDeleteReasonLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_dialog_delete_reason_margin_top"
+        android:text="@string/app_dialog_delete_reason_label"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
+        android:textFontWeight="400"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDeleteSubtitle" />
+
     <EditText
         android:id="@+id/etDeleteReason"
         android:layout_width="0dp"
         android:layout_height="@dimen/app_dialog_delete_reason_height"
-        android:layout_marginTop="@dimen/app_dialog_delete_reason_margin_top"
+        android:layout_marginTop="4dp"
         android:background="@drawable/bg_app_field"
         android:gravity="top|start"
         android:hint="@string/app_dialog_delete_reason_hint"
@@ -51,7 +62,7 @@
         android:textColorHint="@color/app_text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDeleteSubtitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvDeleteReasonLabel" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDeleteCancel"

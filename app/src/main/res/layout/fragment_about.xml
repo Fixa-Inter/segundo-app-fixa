@@ -22,27 +22,28 @@
             android:id="@+id/header"
             layout="@layout/view_app_page_header" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivAbout"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAbout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_about_image_height"
             android:layout_marginStart="@dimen/app_screen_side_margin"
             android:layout_marginTop="@dimen/app_about_image_margin_top"
             android:layout_marginEnd="@dimen/app_screen_side_margin"
-            android:contentDescription="@string/app_about_image"
-            android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.App.AboutImage"
-            app:srcCompat="@drawable/img_home_header" />
+            app:cardBackgroundColor="@color/app_surface"
+            app:cardCornerRadius="@dimen/app_about_image_radius"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
 
-        <TextView
-            android:id="@+id/tvAboutText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_faq_side_margin"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="@dimen/app_faq_side_margin"
-            android:text="@string/app_faq_answer_sample"
-            android:textAppearance="@style/TextAppearance.FIXA.App.Faq.Answer" />
+            <ImageView
+                android:id="@+id/ivAbout"
+                android:layout_width="@dimen/app_about_logo_width"
+                android:layout_height="@dimen/app_about_logo_height"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_about_image"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/logo_fixa_splash" />
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/tvDocuments"

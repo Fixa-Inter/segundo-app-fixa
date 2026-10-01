@@ -204,14 +204,14 @@
     <dimen name="app_chat_drawer_search_icon_size">14dp</dimen>
     <dimen name="app_chat_drawer_new_margin_top">13dp</dimen>
     <dimen name="app_chat_drawer_new_icon_size">18dp</dimen>
-    <dimen name="app_chat_drawer_new_text_size">13sp</dimen>
+    <dimen name="app_chat_drawer_new_text_size">15sp</dimen>
     <dimen name="app_chat_drawer_recent_margin_top">25dp</dimen>
     <dimen name="app_chat_drawer_recent_text_size">16sp</dimen>
     <dimen name="app_chat_drawer_item_height">32dp</dimen>
     <dimen name="app_chat_drawer_item_width">170dp</dimen>
     <dimen name="app_chat_drawer_item_radius">15dp</dimen>
     <dimen name="app_chat_drawer_item_padding_start">13dp</dimen>
-    <dimen name="app_chat_drawer_item_text_size">12sp</dimen>
+    <dimen name="app_chat_drawer_item_text_size">14sp</dimen>
     <dimen name="app_chat_drawer_item_spacing">4dp</dimen>
 
     <!-- Abrir solicitação -->
@@ -379,7 +379,9 @@
     <dimen name="app_about_image_margin_top">63dp</dimen>
     <dimen name="app_about_image_height">146dp</dimen>
     <dimen name="app_about_image_radius">25dp</dimen>
-    <dimen name="app_about_section_margin_top">64dp</dimen>
+    <dimen name="app_about_logo_width">80dp</dimen>
+    <dimen name="app_about_logo_height">92dp</dimen>
+    <dimen name="app_about_section_margin_top">85dp</dimen>
     <dimen name="app_about_section_text_size">20sp</dimen>
     <dimen name="app_about_doc_margin_top">20dp</dimen>
     <dimen name="app_about_doc_height">60dp</dimen>
@@ -434,7 +436,7 @@
     <dimen name="app_dialog_radius">30dp</dimen>
     <dimen name="app_dialog_delete_title_text_size">20sp</dimen>
     <dimen name="app_dialog_delete_reason_height">121dp</dimen>
-    <dimen name="app_dialog_delete_reason_margin_top">28dp</dimen>
+    <dimen name="app_dialog_delete_reason_margin_top">18dp</dimen>
     <dimen name="app_dialog_width">300dp</dimen>
     <dimen name="app_dialog_edit_width">320dp</dimen>
     <dimen name="app_dialog_side_padding">34dp</dimen>

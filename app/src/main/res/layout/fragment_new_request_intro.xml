@@ -231,7 +231,7 @@
             android:layout_marginTop="@dimen/app_new_request_cancel_margin_top"
             android:letterSpacing="-0.02"
             android:text="@string/app_cancel"
-            android:textColor="@color/app_danger"
+            android:textColor="@color/app_primary_deep"
             android:textSize="@dimen/app_new_request_cancel_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
