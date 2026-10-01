@@ -48,11 +48,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_requests_chips_margin_top"
+            android:clipChildren="false"
             android:clipToPadding="false"
             android:paddingStart="@dimen/app_screen_side_margin"
-            android:paddingTop="4dp"
+            android:paddingTop="8dp"
             android:paddingEnd="@dimen/app_screen_side_margin"
-            android:paddingBottom="6dp"
+            android:paddingBottom="12dp"
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +63,8 @@
                 android:id="@+id/groupFilters"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="horizontal">
 
                 <RadioButton
