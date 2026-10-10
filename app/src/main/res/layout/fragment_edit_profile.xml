@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Editar Perfil (Figma): header; avatar 115dp com botão câmera 36dp #153D7D no canto; formulário @ x=39:
+  labels 500/17 #130943 + campos 332x45 r=15 #4DDBE0EB (texto 300/12 #4C5461); "Salvar" (check 24dp) no topo direito.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.profile.EditProfileFragment">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/view_app_page_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnSave"
+        android:layout_width="@dimen/app_touch_target"
+        android:layout_height="@dimen/app_touch_target"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="14dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_save"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_check_24"
+        app:tint="@color/app_status_done_text" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="32dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/app_edit_form_side_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/app_edit_form_side_margin" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="@dimen/app_edit_avatar_size"
+                android:layout_height="@dimen/app_edit_avatar_size"
+                android:layout_marginTop="@dimen/app_edit_avatar_margin_top"
+                android:contentDescription="@string/app_user_avatar"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                app:srcCompat="@drawable/img_avatar_115" />
+
+            <ImageButton
+                android:id="@+id/btnChangePhoto"
+                android:layout_width="@dimen/app_edit_camera_size"
+                android:layout_height="@dimen/app_edit_camera_size"
+                android:background="@drawable/bg_app_circle_primary_dark"
+                android:contentDescription="@string/app_edit_change_photo"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+                app:layout_constraintEnd_toEndOf="@id/ivAvatar"
+                app:srcCompat="@drawable/ic_camera_20"
+                app:tint="@color/app_on_primary" />
+
+            <TextView
+                android:id="@+id/tvNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_edit_form_margin_top"
+                android:text="@string/app_edit_name"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_edit_field_height"
+                android:layout_marginTop="@dimen/app_edit_field_margin_top"
+                android:autofillHints="name"
+                android:background="@drawable/bg_app_field_soft"
+                android:inputType="textPersonName|textCapWords"
+                android:maxLines="1"
+                android:paddingStart="@dimen/app_edit_field_padding_start"
+                android:paddingEnd="@dimen/app_edit_field_padding_start"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvNameLabel"
+                tools:text="Ryan Cursino de Moraes" />
+
+            <TextView
+                android:id="@+id/tvBirthLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_edit_group_spacing"
+                android:text="@string/app_edit_birth"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/etName" />
+
+            <EditText
+                android:id="@+id/etBirth"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_edit_field_height"
+                android:layout_marginTop="@dimen/app_edit_field_margin_top"
+                android:autofillHints="birthDateFull"
+                android:background="@drawable/bg_app_field_soft"
+                android:focusable="false"
+                android:inputType="date"
+                android:maxLines="1"
+                android:paddingStart="@dimen/app_edit_field_padding_start"
+                android:paddingEnd="@dimen/app_edit_field_padding_start"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvBirthLabel"
+                tools:text="26/11/2002" />
+
+            <TextView
+                android:id="@+id/tvEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_edit_group_spacing"
+                android:text="@string/app_edit_email"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/etBirth" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_edit_field_height"
+                android:layout_marginTop="@dimen/app_edit_field_margin_top"
+                android:autofillHints="emailAddress"
+                android:background="@drawable/bg_app_field_soft"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:paddingStart="@dimen/app_edit_field_padding_start"
+                android:paddingEnd="@dimen/app_edit_field_padding_start"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"
+                tools:text="ryan.cursino@gmail.com" />
+
+            <TextView
+                android:id="@+id/tvPhoneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_edit_group_spacing"
+                android:text="@string/app_edit_phone"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/etEmail" />
+
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_edit_field_height"
+                android:layout_marginTop="@dimen/app_edit_field_margin_top"
+                android:autofillHints="phone"
+                android:background="@drawable/bg_app_field_soft"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:paddingStart="@dimen/app_edit_field_padding_start"
+                android:paddingEnd="@dimen/app_edit_field_padding_start"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvPhoneLabel"
+                tools:text="+(55) 11 123456789" />
+
+            <TextView
+                android:id="@+id/tvPasswordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_edit_group_spacing"
+                android:text="@string/app_edit_password"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Label"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/etPhone" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_edit_field_height"
+                android:layout_marginTop="@dimen/app_edit_field_margin_top"
+                android:autofillHints="password"
+                android:background="@drawable/bg_app_field_soft"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingStart="@dimen/app_edit_field_padding_start"
+                android:paddingEnd="@dimen/app_edit_field_padding_start"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Edit.Field"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
+                tools:text="••••••••" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

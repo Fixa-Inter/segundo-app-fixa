@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tablets 10"+ -->
+    <dimen name="app_screen_side_margin">120dp</dimen>
+    <dimen name="app_screen_side_margin_alt">128dp</dimen>
+    <dimen name="app_content_max_width">720dp</dimen>
+    <dimen name="app_home_card_side_margin">120dp</dimen>
+    <dimen name="app_requests_title_margin_start">120dp</dimen>
+    <dimen name="app_details_title_margin_start">128dp</dimen>
+    <dimen name="app_details_timeline_dot_margin_start">128dp</dimen>
+    <dimen name="app_events_title_margin_start">120dp</dimen>
+    <dimen name="app_event_info_panel_side_padding">120dp</dimen>
+    <dimen name="app_chat_input_side_margin">120dp</dimen>
+    <dimen name="app_new_request_title_margin_start">128dp</dimen>
+    <dimen name="app_step_title_margin_start">128dp</dimen>
+    <dimen name="app_step_label_margin_start">136dp</dimen>
+    <dimen name="app_step_indicator_side_margin">200dp</dimen>
+    <dimen name="app_step_indicator_line_width">150dp</dimen>
+    <dimen name="app_step_back_margin_start">152dp</dimen>
+    <dimen name="app_step_actions_side_margin">136dp</dimen>
+    <dimen name="app_confirm_title_margin_start">136dp</dimen>
+    <dimen name="app_success_button_side_margin">200dp</dimen>
+    <dimen name="app_profile_avatar_margin_start">120dp</dimen>
+    <dimen name="app_profile_menu_icon_margin_start">128dp</dimen>
+    <dimen name="app_my_profile_section_margin_start">136dp</dimen>
+    <dimen name="app_my_profile_row_icon_margin_start">128dp</dimen>
+    <dimen name="app_my_profile_edit_margin_end">128dp</dimen>
+    <dimen name="app_edit_form_side_margin">136dp</dimen>
+    <dimen name="app_settings_row_icon_margin_start">128dp</dimen>
+    <dimen name="app_settings_switch_margin_end">128dp</dimen>
+    <dimen name="app_faq_side_margin">136dp</dimen>
+    <dimen name="app_faq_chevron_margin_end">136dp</dimen>
+    <dimen name="app_notifications_side_margin">120dp</dimen>
+    <dimen name="app_notifications_bell_margin_end">128dp</dimen>
+    <dimen name="app_filter_side_margin">160dp</dimen>
+    <dimen name="app_home_card_height">440dp</dimen>
+    <dimen name="app_home_chart_size">340dp</dimen>
+    <dimen name="app_request_card_height">150dp</dimen>
+    <dimen name="app_home_avatar_size">144dp</dimen>
+    <dimen name="app_home_greeting_text_size">38sp</dimen>
+    <dimen name="app_home_header_icon_size">28dp</dimen>
+</resources>

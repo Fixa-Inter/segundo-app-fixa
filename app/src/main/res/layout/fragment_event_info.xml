@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Informações do evento (Figma): título 700/37 #153D7D @ (35,69); painel #0B013C r=40/40/0/0 a partir de y=222
+  até o rodapé; nome 600/30; Local/Data/Horário (600/18) com valores (400/16) em 3 colunas; Descrição; Observação.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/eventInfoRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.events.EventInfoFragment">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="@dimen/app_touch_target"
+        android:layout_height="@dimen/app_touch_target"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="9dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left_22"
+        app:tint="@color/app_primary_deep" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_event_info_panel_side_padding"
+        android:layout_marginTop="@dimen/app_event_info_title_margin_top"
+        android:layout_marginEnd="28dp"
+        tools:text="Informações sobre o evento"
+        android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/panelInfo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_app_event_info_panel"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/app_event_info_panel_side_padding"
+            android:paddingTop="@dimen/app_event_info_panel_padding_top"
+            android:paddingEnd="@dimen/app_event_info_panel_side_padding"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:id="@+id/tvEventName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Entrega das Medalhas" />
+
+            <TextView
+                android:id="@+id/tvLocationLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_event_info_meta_margin_top"
+                android:text="@string/app_event_info_location"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Label"
+                app:layout_constraintEnd_toStartOf="@id/tvDateLabel"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvEventName" />
+
+            <TextView
+                android:id="@+id/tvDateLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/app_event_info_date"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Label"
+                app:layout_constraintEnd_toStartOf="@id/tvTimeLabel"
+                app:layout_constraintStart_toEndOf="@id/tvLocationLabel"
+                app:layout_constraintTop_toTopOf="@id/tvLocationLabel" />
+
+            <TextView
+                android:id="@+id/tvTimeLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/app_event_info_time"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvDateLabel"
+                app:layout_constraintTop_toTopOf="@id/tvLocationLabel" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_event_info_value_margin_top"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Value"
+                app:layout_constraintEnd_toEndOf="@id/tvLocationLabel"
+                app:layout_constraintStart_toStartOf="@id/tvLocationLabel"
+                app:layout_constraintTop_toBottomOf="@id/tvLocationLabel"
+                tools:text="Átrio" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Value"
+                app:layout_constraintEnd_toEndOf="@id/tvDateLabel"
+                app:layout_constraintStart_toStartOf="@id/tvDateLabel"
+                app:layout_constraintTop_toTopOf="@id/tvLocation"
+                tools:text="20/02/2026" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Value"
+                app:layout_constraintEnd_toEndOf="@id/tvTimeLabel"
+                app:layout_constraintStart_toStartOf="@id/tvTimeLabel"
+                app:layout_constraintTop_toTopOf="@id/tvLocation"
+                tools:text="11:30 - 12:30" />
+
+            <TextView
+                android:id="@+id/tvDescriptionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_event_info_block_margin_top"
+                android:text="@string/app_event_info_description"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Label"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLocation" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_event_info_body_margin_top"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Value"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel"
+                tools:text="O evento irá ocorrer em toda a arena, incluindo palco, arquibancadas e área externa." />
+
+            <TextView
+                android:id="@+id/tvNoteLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/app_event_info_note"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Label"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
+            <TextView
+                android:id="@+id/tvNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Value"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNoteLabel"
+                app:layout_constraintVertical_bias="0"
+                tools:text="Não será possível fazer nada nesse dia." />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

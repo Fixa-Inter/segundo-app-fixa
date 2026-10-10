@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Etapa da timeline (122dp de altura): dot 32dp (concluída: verde com check; atual: azul com miolo branco 18dp;
+  pendente: cinza, sem card), linha tracejada 1.2dp (2/2) de 82dp que começa 4dp abaixo do dot e termina 4dp antes
+  do próximo (por isso desenha fora do item: clipChildren=false); card 290x80 r=25 com data (400/9), título (600/16)
+  e hora (400/9). A cor da linha segue o estado do passo (verde, azul-escuro ou cinza).
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_details_timeline_step_height"
+    android:clipChildren="false">
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="@dimen/app_details_timeline_line_width"
+        android:layout_height="@dimen/app_details_timeline_line_length"
+        android:layout_marginTop="@dimen/app_details_timeline_line_gap"
+        app:layout_constraintEnd_toEndOf="@id/viewDot"
+        app:layout_constraintStart_toStartOf="@id/viewDot"
+        app:layout_constraintTop_toBottomOf="@id/viewDot" />
+
+    <FrameLayout
+        android:id="@+id/viewDot"
+        android:layout_width="@dimen/app_details_timeline_dot_size"
+        android:layout_height="@dimen/app_details_timeline_dot_size"
+        android:layout_marginStart="@dimen/app_details_timeline_dot_margin_start"
+        android:background="@drawable/bg_app_circle_approved"
+        app:layout_constraintBottom_toBottomOf="@id/cardStep"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cardStep">
+
+        <ImageView
+            android:id="@+id/ivDotCheck"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_check_24"
+            app:tint="@color/app_on_primary"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewDotInner"
+            android:layout_width="@dimen/app_details_timeline_dot_inner_size"
+            android:layout_height="@dimen/app_details_timeline_dot_inner_size"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_app_circle_white"
+            tools:visibility="visible" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/cardStep"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/app_details_timeline_card_height"
+        android:layout_marginStart="@dimen/app_details_timeline_card_margin_start"
+        android:layout_marginEnd="@dimen/app_screen_side_margin"
+        android:background="@drawable/bg_app_timeline_card"
+        android:backgroundTint="@color/app_status_approved_soft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/viewDot"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/app_details_timeline_card_width">
+
+        <TextView
+            android:id="@+id/tvStepDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_details_timeline_card_padding_start"
+            android:layout_marginTop="11dp"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Timeline.Date"
+            tools:text="20/08" />
+
+        <TextView
+            android:id="@+id/tvStepTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_details_timeline_card_padding_start"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="@dimen/app_details_timeline_card_padding_start"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Timeline.Title"
+            android:textColor="@color/app_status_approved_text"
+            tools:text="Solicitação em análise" />
+
+        <TextView
+            android:id="@+id/tvStepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="7dp"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Timeline.Date"
+            android:textColor="@color/app_primary_deep"
+            tools:text="15:30" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Bottom nav custom (Figma): barra branca 100dp; item ativo = círculo 56dp #153D7D com ícone branco
+  e indicador 70x2dp no topo; inativos = ícone 26dp #637087.
+  Ícones por estado exportados do Figma (ativo/inativo), sem tint: as cores fazem parte do vetor.
+  Mascote ativa é o PNG do Figma (image 169, 40dp com respiro interno); inativa é o traçado vetorial
+  (#637087, 28dp) com inset para ocupar a mesma área, então as duas ficam do tamanho visual do Figma.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomNavRoot"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_bottom_nav_height"
+    android:background="@color/app_surface"
+    android:elevation="8dp">
+
+    <View
+        android:id="@+id/navIndicator"
+        android:layout_width="@dimen/app_bottom_nav_indicator_width"
+        android:layout_height="@dimen/app_bottom_nav_indicator_height"
+        android:layout_marginTop="@dimen/app_bottom_nav_indicator_top_margin"
+        android:background="@color/app_primary"
+        app:layout_constraintEnd_toEndOf="@id/navHome"
+        app:layout_constraintStart_toStartOf="@id/navHome"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/navHome"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_nav_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/navRequests"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/navHomeCircle"
+            android:layout_width="@dimen/app_bottom_nav_active_size"
+            android:layout_height="@dimen/app_bottom_nav_active_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/app_bottom_nav_active_top_margin"
+            android:background="@drawable/selector_app_nav_item_background">
+
+            <ImageView
+                android:id="@+id/navHomeIcon"
+                android:layout_width="@dimen/app_bottom_nav_home_icon_width"
+                android:layout_height="@dimen/app_bottom_nav_home_icon_height"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/selector_app_nav_home" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/navRequests"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_nav_requests"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/navEvents"
+        app:layout_constraintStart_toEndOf="@id/navHome"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/navRequestsCircle"
+            android:layout_width="@dimen/app_bottom_nav_active_size"
+            android:layout_height="@dimen/app_bottom_nav_active_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/app_bottom_nav_active_top_margin"
+            android:background="@drawable/selector_app_nav_item_background">
+
+            <ImageView
+                android:id="@+id/navRequestsIcon"
+                android:layout_width="@dimen/app_bottom_nav_icon_size"
+                android:layout_height="@dimen/app_bottom_nav_icon_size"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/selector_app_nav_requests" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/navEvents"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_nav_events"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/navChat"
+        app:layout_constraintStart_toEndOf="@id/navRequests"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/navEventsCircle"
+            android:layout_width="@dimen/app_bottom_nav_active_size"
+            android:layout_height="@dimen/app_bottom_nav_active_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/app_bottom_nav_active_top_margin"
+            android:background="@drawable/selector_app_nav_item_background">
+
+            <ImageView
+                android:id="@+id/navEventsIcon"
+                android:layout_width="@dimen/app_bottom_nav_icon_size"
+                android:layout_height="@dimen/app_bottom_nav_icon_size"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/selector_app_nav_events" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/navChat"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_nav_chatbot"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/navEvents"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/navChatCircle"
+            android:layout_width="@dimen/app_bottom_nav_active_size"
+            android:layout_height="@dimen/app_bottom_nav_active_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/app_bottom_nav_active_top_margin"
+            android:background="@drawable/selector_app_nav_item_background">
+
+            <ImageView
+                android:id="@+id/navChatIcon"
+                android:layout_width="@dimen/app_bottom_nav_chat_icon_size"
+                android:layout_height="@dimen/app_bottom_nav_chat_icon_size"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/selector_app_nav_chat" />
+        </FrameLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

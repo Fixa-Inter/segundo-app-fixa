@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Editar solicitação (Figma "Pop-up 4"): card 360dp r=30 #F6F9FC; título 600/24 #130943 @ top 40;
+  labels 500/14; campos 288x35 r=10 brancos com borda #33130943 (texto 300/12); descrição 65dp; fotos 100x90 + botão "+";
+  botões 140x40 r=20 (Cancelar #C4CFE0 / Salvar #153D7D), padding inferior 57.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_app_dialog">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="36dp"
+        android:paddingTop="@dimen/app_dialog_edit_title_margin_top"
+        android:paddingEnd="36dp"
+        android:paddingBottom="@dimen/app_dialog_edit_actions_margin_bottom">
+
+        <TextView
+            android:id="@+id/tvEditTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_dialog_edit_title"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitleLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_dialog_edit_label_margin_top"
+            android:text="@string/app_dialog_edit_field_title"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEditTitle" />
+
+        <EditText
+            android:id="@+id/etEditTitle"
+            android:hint="@string/app_dialog_edit_field_title"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_dialog_edit_field_height"
+            android:layout_marginTop="@dimen/app_dialog_edit_field_margin_top"
+            android:background="@drawable/bg_app_dialog_field"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:paddingStart="@dimen/app_dialog_edit_field_padding_start"
+            android:paddingEnd="@dimen/app_dialog_edit_field_padding_start"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitleLabel"
+            tools:text="Projetor quebrado" />
+
+        <TextView
+            android:id="@+id/tvDescriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_dialog_edit_group_spacing"
+            android:text="@string/app_dialog_edit_field_description"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etEditTitle" />
+
+        <EditText
+            android:id="@+id/etEditDescription"
+            android:hint="@string/app_step_description_hint"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_dialog_edit_textarea_height"
+            android:layout_marginTop="@dimen/app_dialog_edit_field_margin_top"
+            android:background="@drawable/bg_app_dialog_field"
+            android:gravity="top|start"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine|textCapSentences"
+            android:padding="@dimen/app_dialog_edit_field_padding_start"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel" />
+
+        <TextView
+            android:id="@+id/tvLocationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_dialog_edit_group_spacing"
+            android:text="@string/app_dialog_edit_field_location"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etEditDescription" />
+
+        <EditText
+            android:id="@+id/etEditLocation"
+            android:hint="@string/app_dialog_edit_field_location"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_dialog_edit_field_height"
+            android:layout_marginTop="@dimen/app_dialog_edit_field_margin_top"
+            android:background="@drawable/bg_app_dialog_field"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:paddingStart="@dimen/app_dialog_edit_field_padding_start"
+            android:paddingEnd="@dimen/app_dialog_edit_field_padding_start"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLocationLabel" />
+
+        <TextView
+            android:id="@+id/tvDeviceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_dialog_edit_group_spacing"
+            android:text="@string/app_dialog_edit_field_device"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etEditLocation" />
+
+        <EditText
+            android:id="@+id/etEditDevice"
+            android:hint="@string/app_dialog_edit_field_device"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_dialog_edit_field_height"
+            android:layout_marginTop="@dimen/app_dialog_edit_field_margin_top"
+            android:background="@drawable/bg_app_dialog_field"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:paddingStart="@dimen/app_dialog_edit_field_padding_start"
+            android:paddingEnd="@dimen/app_dialog_edit_field_padding_start"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDeviceLabel" />
+
+        <TextView
+            android:id="@+id/tvPhotosLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_dialog_edit_group_spacing"
+            android:text="@string/app_dialog_edit_field_photos"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etEditDevice" />
+
+        <LinearLayout
+            android:id="@+id/layoutPhotos"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_dialog_edit_photo_height"
+            android:layout_marginTop="@dimen/app_dialog_edit_field_margin_top"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPhotosLabel">
+
+            <!-- Figma: foto 100x90 r=10 com marcador 12dp #54555A 90% sobre o canto superior direito -->
+            <FrameLayout
+                android:id="@+id/layoutEditPhoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivEditPhoto1"
+                    android:layout_width="@dimen/app_dialog_edit_photo_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/app_dialog_edit_photo_badge_offset"
+                    android:layout_marginEnd="@dimen/app_dialog_edit_photo_badge_offset"
+                    android:contentDescription="@string/app_confirm_image_description"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.App.PhotoThumb"
+                    app:srcCompat="@drawable/img_edit_photo_lamp" />
+
+                <View
+                    android:layout_width="@dimen/app_dialog_edit_photo_badge_size"
+                    android:layout_height="@dimen/app_dialog_edit_photo_badge_size"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/bg_app_photo_badge"
+                    android:importantForAccessibility="no" />
+            </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/btnAddPhoto"
+                android:layout_width="@dimen/app_dialog_edit_photo_width"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/app_dialog_edit_photo_add_margin_start"
+                android:layout_marginTop="@dimen/app_dialog_edit_photo_badge_offset"
+                android:background="@drawable/bg_app_dialog_photo_add"
+                android:contentDescription="@string/app_dialog_edit_add_photo"
+                android:scaleType="center"
+                app:srcCompat="@drawable/ic_plus_24"
+                app:tint="@color/app_text_secondary" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditCancel"
+            style="@style/Widget.FIXA.App.Button.Dialog.Secondary"
+            android:layout_width="@dimen/app_dialog_edit_button_width"
+            android:layout_height="@dimen/app_dialog_edit_button_height"
+            android:layout_marginTop="@dimen/app_dialog_edit_actions_margin_top"
+            android:text="@string/app_cancel"
+            app:cornerRadius="@dimen/app_dialog_edit_button_radius"
+            app:layout_constraintEnd_toStartOf="@id/btnEditSave"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutPhotos" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditSave"
+            style="@style/Widget.FIXA.App.Button.Dialog"
+            android:layout_width="@dimen/app_dialog_edit_button_width"
+            android:layout_height="@dimen/app_dialog_edit_button_height"
+            android:text="@string/app_save"
+            app:cornerRadius="@dimen/app_dialog_edit_button_radius"
+            app:layout_constraintBottom_toBottomOf="@id/btnEditCancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnEditCancel"
+            app:layout_constraintTop_toTopOf="@id/btnEditCancel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="1dp" android:right="1dp" android:top="1dp" android:bottom="1dp" android:drawable="@drawable/bg_app_switch_thumb" />
+</layer-list>

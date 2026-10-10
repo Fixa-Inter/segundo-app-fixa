@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Item das listas suspensas (Local / Aparelho): Poppins 400 no tamanho dos campos do passo. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:gravity="center_vertical"
+    android:maxLines="1"
+    android:minHeight="@dimen/app_touch_target"
+    android:paddingStart="@dimen/app_step_field_padding_start"
+    android:paddingEnd="@dimen/app_step_field_padding_start"
+    android:textAppearance="@style/TextAppearance.FIXA.App.Step.DropdownItem" />

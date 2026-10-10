@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Notificações (Figma): back; título 500/32 #130943 @ (41,70); bell 24dp @ end 36; seções "Hoje"/"Última semana" 500/20;
+  itens 360x75 r=25 (#33578BD6 não lida com dot 15dp / #1A578BD6 lida), texto 400/15, hora 300/12 #BFC4CE.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.notifications.NotificationsFragment">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="@dimen/app_touch_target"
+        android:layout_height="@dimen/app_touch_target"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="9dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left_22"
+        app:tint="@color/app_primary_deep" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_notifications_title_margin_start"
+        android:layout_marginTop="@dimen/app_notifications_title_margin_top"
+        android:layout_marginEnd="8dp"
+        android:text="@string/app_notifications_title"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Notifications.Title"
+        app:layout_constraintEnd_toStartOf="@id/ivBell"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBell"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="@dimen/app_notifications_bell_margin_end"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTitle"
+        app:srcCompat="@drawable/ic_bell_24"
+        app:tint="@color/app_primary_deep" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvNotifications"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/app_notifications_section_margin_top"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/app_notifications_side_margin"
+        android:paddingEnd="@dimen/app_notifications_side_margin"
+        android:paddingBottom="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_app_notification" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

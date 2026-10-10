@@ -13,6 +13,7 @@ public abstract class ImmersiveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationBar();
+        if (!(this instanceof OfflineActivity)) getLifecycle().addObserver(new ConnectivityWatcher(this));
     }
 
     @Override

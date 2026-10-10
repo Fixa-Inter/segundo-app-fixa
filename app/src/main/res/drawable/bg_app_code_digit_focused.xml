@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/app_field_background" />
+    <corners android:radius="@dimen/recovery_code_radius" />
+    <stroke android:width="@dimen/recovery_code_stroke" android:color="@color/app_code_digit_stroke" />
+</shape>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Confirmação (Figma): back; título 700/40 @ (44,41); card 340x? r=30 #33CDD8EA com título 700/25 #153D7D,
+  descrição do problema 400/13; "Aparelho:" e "Local:" 600/14 lado a lado; "Descrição:" + descrição do local;
+  "Imagens" + fotos 110x110 r=10; rodapé Voltar / Finalizar @ bottom 105.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.newrequest.NewRequestConfirmFragment">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="@dimen/app_touch_target"
+        android:layout_height="@dimen/app_touch_target"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="9dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left_22"
+        app:tint="@color/app_primary_deep" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/stepActions"
+        app:layout_constraintTop_toBottomOf="@id/btnBack">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_confirm_title_margin_start"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/app_confirm_title_margin_start"
+                tools:text="Confirme as informações"
+                android:textAppearance="@style/TextAppearance.FIXA.App.StepTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardSummary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_screen_side_margin_alt"
+                android:layout_marginTop="@dimen/app_confirm_card_margin_top"
+                android:layout_marginEnd="@dimen/app_screen_side_margin_alt"
+                android:background="@drawable/bg_app_summary_card"
+                android:padding="@dimen/app_confirm_card_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                app:layout_constraintWidth_max="340dp">
+
+                <TextView
+                    android:id="@+id/tvSummaryTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Projetor quebrado" />
+
+                <TextView
+                    android:id="@+id/tvSummaryDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_body_margin_top"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Body"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryTitle"
+                    tools:text="O projetor da sala T02 não liga e apresenta uma luz vermelha piscando." />
+
+                <!-- Figma: "Aparelho:" e "Local:" na mesma linha; quebram para baixo se não couberem -->
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:id="@+id/groupSummaryMeta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_meta_margin_top"
+                    app:constraint_referenced_ids="tvSummaryDevice,tvSummaryLocation"
+                    app:flow_horizontalBias="0"
+                    app:flow_horizontalGap="@dimen/app_confirm_meta_spacing"
+                    app:flow_horizontalStyle="packed"
+                    app:flow_verticalGap="@dimen/app_confirm_meta_spacing_vertical"
+                    app:flow_wrapMode="chain"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryDescription" />
+
+                <TextView
+                    android:id="@+id/tvSummaryDevice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
+                    tools:text="Aparelho: Projetor" />
+
+                <TextView
+                    android:id="@+id/tvSummaryLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
+                    tools:text="Local: Sala T02" />
+
+                <TextView
+                    android:id="@+id/tvSummaryDescriptionLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_section_margin_top"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/groupSummaryMeta"
+                    tools:text="Descrição:" />
+
+                <TextView
+                    android:id="@+id/tvSummaryLocationDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_body_margin_top"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Body"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryDescriptionLabel"
+                    tools:text="Sala localizada no 2º andar." />
+
+                <TextView
+                    android:id="@+id/tvSummaryImagesLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_section_margin_top"
+                    android:text="@string/app_confirm_images"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Section"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryLocationDescription" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSummaryPhotos"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/app_confirm_photo_size"
+                    android:layout_marginTop="@dimen/app_confirm_card_images_margin_top"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryImagesLabel"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_app_photo_thumb" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/stepActions"
+        layout="@layout/view_app_step_actions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_step_actions_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma: mascote inativa 28dp (traço #637087) dentro da mesma área de 40dp da ativa. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_nav_chat_inactive"
+    android:inset="@dimen/app_bottom_nav_chat_inactive_inset" />

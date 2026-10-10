@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Caixa de dígito (Figma 4432:7065): #DBE0EB 30%, r=15; focada ou preenchida (activated) ganha borda 2dp #130943 80%. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_app_code_digit_focused" android:state_focused="true" />
+    <item android:drawable="@drawable/bg_app_code_digit_focused" android:state_activated="true" />
+    <item android:drawable="@drawable/bg_app_code_digit_idle" />
+</selector>

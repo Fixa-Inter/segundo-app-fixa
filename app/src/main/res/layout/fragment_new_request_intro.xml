@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Abra sua solicitação (Figma): título 500/42 lh45 @ (37,67); 3 passos com círculo 45dp #153D7D (número 500/20),
+  linha 4x106 r=30 entre eles, "Passo N" 400/14 50% preto + título 600/20 @ x=102; botão Continuar 340x45 r=25;
+  "Cancelar" 500/16 #96031A.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:fillViewport="true"
+    tools:context=".ui.newrequest.NewRequestIntroFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/introRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="48dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/app_touch_target"
+            android:layout_height="@dimen/app_touch_target"
+            android:layout_marginStart="-2dp"
+            android:layout_marginTop="9dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_back"
+            android:scaleType="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_left_22"
+            app:tint="@color/app_primary_deep" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_new_request_title_margin_start"
+            android:layout_marginTop="@dimen/app_new_request_title_margin_top"
+            android:layout_marginEnd="45dp"
+            tools:text="Abra sua solicitação"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Passo 1 -->
+        <TextView
+            android:id="@+id/tvStep1Circle"
+            android:includeFontPadding="false"
+            android:layout_width="@dimen/app_new_request_step_circle_size"
+            android:layout_height="@dimen/app_new_request_step_circle_size"
+            android:layout_marginStart="@dimen/app_new_request_title_margin_start"
+            android:layout_marginTop="@dimen/app_new_request_steps_margin_top"
+            android:background="@drawable/bg_app_circle_primary"
+            android:gravity="center"
+            android:text="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepNumber"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tvStep1Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_new_request_step_text_margin_start"
+            android:text="@string/app_new_request_step_1"
+            tools:text="Passo 1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvStep1Circle"
+            app:layout_constraintTop_toTopOf="@id/tvStep1Circle"
+            app:layout_constraintBottom_toTopOf="@id/tvStep1Title"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/tvStep1Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_new_request_step_1_title"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepTitle"
+            android:layout_marginEnd="@dimen/app_new_request_title_margin_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Label"
+            app:layout_constraintTop_toBottomOf="@id/tvStep1Label"
+            app:layout_constraintBottom_toBottomOf="@id/tvStep1Circle" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierStep1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tvStep1Circle,tvStep1Title" />
+
+        <View
+            android:id="@+id/viewLine1"
+            android:layout_width="@dimen/app_new_request_step_line_width"
+            android:layout_height="@dimen/app_new_request_step_line_height"
+            android:layout_marginTop="@dimen/app_new_request_step_line_margin_top"
+            android:background="@drawable/bg_app_step_line"
+            app:layout_constraintEnd_toEndOf="@id/tvStep1Circle"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Circle"
+            app:layout_constraintTop_toBottomOf="@id/barrierStep1" />
+
+        <!-- Passo 2 -->
+        <TextView
+            android:id="@+id/tvStep2Circle"
+            android:includeFontPadding="false"
+            android:layout_width="@dimen/app_new_request_step_circle_size"
+            android:layout_height="@dimen/app_new_request_step_circle_size"
+            android:layout_marginTop="23dp"
+            android:background="@drawable/bg_app_circle_primary"
+            android:gravity="center"
+            android:text="2"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepNumber"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Circle"
+            app:layout_constraintTop_toBottomOf="@id/viewLine1"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tvStep2Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_new_request_step_2"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Label"
+            app:layout_constraintTop_toTopOf="@id/tvStep2Circle"
+            app:layout_constraintBottom_toTopOf="@id/tvStep2Title"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/tvStep2Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_new_request_step_2_title"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepTitle"
+            android:textColor="@color/app_text_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Label"
+            app:layout_constraintTop_toBottomOf="@id/tvStep2Label"
+            app:layout_constraintBottom_toBottomOf="@id/tvStep2Circle" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierStep2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tvStep2Circle,tvStep2Title" />
+
+        <View
+            android:id="@+id/viewLine2"
+            android:layout_width="@dimen/app_new_request_step_line_width"
+            android:layout_height="@dimen/app_new_request_step_line_height"
+            android:layout_marginTop="21dp"
+            android:background="@drawable/bg_app_step_line"
+            app:layout_constraintEnd_toEndOf="@id/tvStep1Circle"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Circle"
+            app:layout_constraintTop_toBottomOf="@id/barrierStep2" />
+
+        <!-- Passo 3 -->
+        <TextView
+            android:id="@+id/tvStep3Circle"
+            android:includeFontPadding="false"
+            android:layout_width="@dimen/app_new_request_step_circle_size"
+            android:layout_height="@dimen/app_new_request_step_circle_size"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_app_circle_primary"
+            android:gravity="center"
+            android:text="3"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepNumber"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Circle"
+            app:layout_constraintTop_toBottomOf="@id/viewLine2"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tvStep3Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_new_request_step_3"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Label"
+            app:layout_constraintTop_toTopOf="@id/tvStep3Circle"
+            app:layout_constraintBottom_toTopOf="@id/tvStep3Title"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/tvStep3Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_new_request_step_3_title"
+            android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepTitle"
+            android:layout_marginEnd="@dimen/app_new_request_title_margin_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvStep1Label"
+            app:layout_constraintTop_toBottomOf="@id/tvStep3Label"
+            app:layout_constraintBottom_toBottomOf="@id/tvStep3Circle" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierStep3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tvStep3Circle,tvStep3Title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinue"
+            style="@style/Widget.FIXA.App.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_button_height"
+            android:layout_marginStart="@dimen/app_screen_side_margin_alt"
+            android:layout_marginTop="@dimen/app_new_request_continue_margin_top"
+            android:layout_marginEnd="@dimen/app_screen_side_margin_alt"
+            android:letterSpacing="-0.0178"
+            android:text="@string/app_continue"
+            android:textSize="@dimen/app_new_request_continue_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrierStep3"
+            app:layout_constraintWidth_max="340dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancel"
+            style="@style/Widget.FIXA.App.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/app_button_height"
+            android:layout_marginTop="@dimen/app_new_request_cancel_margin_top"
+            android:letterSpacing="-0.02"
+            android:text="@string/app_cancel"
+            android:textColor="@color/app_primary_deep"
+            android:textSize="@dimen/app_new_request_cancel_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnContinue"
+            app:rippleColor="@color/app_field_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

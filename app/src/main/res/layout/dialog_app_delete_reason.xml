@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Pop-up "Excluir solicitação?" (Figma pop-up 7005): título 500/20 #130943 alinhado à esquerda @ top 34; "Nos informe o motivo" 300/12;
+  textarea 253x121 r=10 #80C4CFE0 (hint 400/12 #4C5461); botões 115x35 r=15 (Cancelar #C4CFE0 / Excluir #153D7D).
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_app_dialog"
+    android:paddingStart="@dimen/app_dialog_side_padding"
+    android:paddingTop="@dimen/app_dialog_side_padding"
+    android:paddingEnd="@dimen/app_dialog_side_padding"
+    android:paddingBottom="@dimen/app_dialog_actions_margin_bottom">
+
+    <TextView
+        android:id="@+id/tvDeleteTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/app_dialog_delete_reason_title"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
+        android:textSize="@dimen/app_dialog_delete_title_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDeleteSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/app_dialog_delete_reason_subtitle"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.Body"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDeleteTitle" />
+
+    <TextView
+        android:id="@+id/tvDeleteReasonLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_dialog_delete_reason_margin_top"
+        android:text="@string/app_dialog_delete_reason_label"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
+        android:textFontWeight="400"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDeleteSubtitle" />
+
+    <EditText
+        android:id="@+id/etDeleteReason"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/app_dialog_delete_reason_height"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_app_field"
+        android:gravity="top|start"
+        android:hint="@string/app_dialog_delete_reason_hint"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine|textCapSentences"
+        android:padding="@dimen/app_dialog_edit_field_padding_start"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Field"
+        android:textColorHint="@color/app_text_secondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDeleteReasonLabel" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeleteCancel"
+        style="@style/Widget.FIXA.App.Button.Dialog.Secondary"
+        android:layout_width="@dimen/app_dialog_button_width"
+        android:layout_height="@dimen/app_dialog_button_height"
+        android:layout_marginTop="@dimen/app_dialog_actions_margin_top"
+        android:layout_marginEnd="@dimen/app_dialog_button_spacing"
+        android:text="@string/app_cancel"
+        app:layout_constraintEnd_toStartOf="@id/btnDeleteConfirm"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etDeleteReason" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeleteConfirm"
+        style="@style/Widget.FIXA.App.Button.Dialog"
+        android:layout_width="@dimen/app_dialog_button_width"
+        android:layout_height="@dimen/app_dialog_button_height"
+        android:text="@string/app_delete"
+        app:layout_constraintBottom_toBottomOf="@id/btnDeleteCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnDeleteCancel"
+        app:layout_constraintTop_toTopOf="@id/btnDeleteCancel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

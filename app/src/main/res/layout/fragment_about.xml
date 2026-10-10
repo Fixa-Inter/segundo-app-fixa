@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sobre o app (Figma): header; imagem 350x146 r=25 @ top 63; texto 400/14 lh25; "Documentos" 500/20;
+  3 cards 350x60 r=20 brancos (texto 500/14 #130943 + chevron-right 20dp @ end 15), gap 11.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:fillViewport="true"
+    tools:context=".ui.profile.AboutFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/view_app_page_header_stacked" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAbout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_about_image_height"
+            android:layout_marginStart="@dimen/app_screen_side_margin"
+            android:layout_marginTop="@dimen/app_about_image_margin_top"
+            android:layout_marginEnd="@dimen/app_screen_side_margin"
+            app:cardBackgroundColor="@color/app_surface"
+            app:cardCornerRadius="@dimen/app_about_image_radius"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+
+            <!-- Figma: ilustração 350x146 esticada no card (scaleMode STRETCH) + logo 80x92 a 32dp da esquerda, 27dp do topo -->
+            <ImageView
+                android:id="@+id/ivAboutBanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/img_about_banner" />
+
+            <ImageView
+                android:id="@+id/ivAbout"
+                android:layout_width="@dimen/app_about_logo_width"
+                android:layout_height="@dimen/app_about_logo_height"
+                android:layout_gravity="start|top"
+                android:layout_marginStart="@dimen/app_about_logo_margin_start"
+                android:layout_marginTop="@dimen/app_about_logo_margin_top"
+                android:contentDescription="@string/app_about_image"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/logo_fixa_splash" />
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <TextView
+            android:id="@+id/tvDocuments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_faq_side_margin"
+            android:layout_marginTop="@dimen/app_about_section_margin_top"
+            android:text="@string/app_about_documents"
+            android:textAppearance="@style/TextAppearance.FIXA.App.About.Section" />
+
+        <include
+            android:id="@+id/docGuide"
+            layout="@layout/item_app_about_doc"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_about_doc_height"
+            android:layout_marginStart="@dimen/app_screen_side_margin"
+            android:layout_marginTop="@dimen/app_about_doc_margin_top"
+            android:layout_marginEnd="@dimen/app_screen_side_margin" />
+
+        <include
+            android:id="@+id/docPrivacy"
+            layout="@layout/item_app_about_doc"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_about_doc_height"
+            android:layout_marginStart="@dimen/app_screen_side_margin"
+            android:layout_marginTop="@dimen/app_about_doc_spacing"
+            android:layout_marginEnd="@dimen/app_screen_side_margin" />
+
+        <include
+            android:id="@+id/docTerms"
+            layout="@layout/item_app_about_doc"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_about_doc_height"
+            android:layout_marginStart="@dimen/app_screen_side_margin"
+            android:layout_marginTop="@dimen/app_about_doc_spacing"
+            android:layout_marginEnd="@dimen/app_screen_side_margin" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

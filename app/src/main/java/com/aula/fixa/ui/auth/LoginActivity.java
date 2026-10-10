@@ -29,6 +29,8 @@ public class LoginActivity extends ImmersiveActivity {
         });
 
         findViewById(R.id.tvRegisterBottom).setOnClickListener(view -> openRegister());
+        findViewById(R.id.tvForgotPassword).setOnClickListener(view ->
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class)));
     }
 
     private void openRegister() {

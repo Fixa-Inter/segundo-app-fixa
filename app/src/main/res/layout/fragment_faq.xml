@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FAQ (Figma): header; lista de perguntas 400/18 #130943 @ x=41 com chevron 24dp @ end 45; resposta 400/14 lh25 #4C5461 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical"
+    tools:context=".ui.profile.FaqFragment">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/view_app_page_header_stacked" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFaq"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/app_faq_list_margin_top"
+        android:paddingBottom="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="7"
+        tools:listitem="@layout/item_app_faq" />
+
+</LinearLayout>

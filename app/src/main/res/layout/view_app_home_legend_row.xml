@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Linha da legenda do gráfico: dot 16dp + label (400/9) + valor (600/10) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/viewLegendDot"
+        android:layout_width="@dimen/app_home_legend_dot_size"
+        android:layout_height="@dimen/app_home_legend_dot_size"
+        android:background="@drawable/bg_app_circle_primary"
+        android:backgroundTint="@color/app_status_done_chart"
+        tools:backgroundTint="@color/app_status_done_chart" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_home_legend_text_margin_start"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvLegendLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Home.LegendLabel"
+            tools:text="Concluídas" />
+
+        <TextView
+            android:id="@+id/tvLegendValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Home.LegendValue"
+            tools:text="3 Solicitações" />
+    </LinearLayout>
+</LinearLayout>

@@ -7,8 +7,15 @@ appcompat = "1.8.0"
 material = "1.14.0"
 activity = "1.13.0"
 constraintlayout = "2.2.2"
+fragment = "1.9.0"
+recyclerview = "1.4.0"
+navigation = "2.10.1"
 
 [libraries]
+fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigation" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigation" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

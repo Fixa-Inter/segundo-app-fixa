@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bottom nav -->
+    <string name="app_nav_home">Início</string>
+    <string name="app_nav_requests">Minhas solicitações</string>
+    <string name="app_nav_events">Eventos</string>
+    <string name="app_nav_chatbot">Assistente Manu</string>
+
+    <!-- Comuns -->
+    <string name="app_back">Voltar</string>
+    <string name="app_more_options">Mais opções</string>
+    <string name="app_next">Próximo</string>
+    <string name="app_finish">Finalizar</string>
+    <string name="app_continue">Continuar</string>
+    <string name="app_cancel">Cancelar</string>
+    <string name="app_save">Salvar</string>
+    <string name="app_delete">Excluir</string>
+    <string name="app_edit">Editar</string>
+    <string name="app_apply">Aplicar</string>
+    <string name="app_clear">Limpar</string>
+    <string name="app_user_avatar">Foto do usuário</string>
+
+    <!-- Home -->
+    <string name="app_home_greeting"><![CDATA[<b><font color="#153D7D">Olá,</font></b> %1$s!]]></string>
+    <string name="app_home_notifications">Notificações</string>
+    <string name="app_home_profile">Perfil</string>
+    <string name="app_home_status_title">Estados das solicitações</string>
+    <string name="app_home_status_done">Concluídas</string>
+    <string name="app_home_status_approved">Aprovada</string>
+    <string name="app_home_status_analysis">Em análise</string>
+    <string name="app_home_status_refused">Recusada</string>
+    <string name="app_home_requests_title">Minhas Solicitações</string>
+    <string name="app_home_open_request">Abrir Solicitação</string>
+    <string name="app_home_chart_description">Gráfico de estados das solicitações</string>
+    <plurals name="app_home_requests_count">
+        <item quantity="one">%d Solicitação</item>
+        <item quantity="other">%d Solicitações</item>
+    </plurals>
+
+    <!-- Card de solicitação -->
+    <string name="app_request_status_analysis">Solicitação em análise</string>
+    <string name="app_request_status_refused">Solicitação recusada</string>
+    <string name="app_request_status_done">Solicitação concluída</string>
+    <string name="app_request_status_approved">Solicitação aprovada</string>
+
+    <!-- Minhas solicitações -->
+    <string name="app_requests_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> suas solicitações]]></string>
+    <string name="app_requests_filter_all">Todas</string>
+    <string name="app_requests_filter_analysis">Em análise</string>
+    <string name="app_requests_filter_approved">Aprovadas</string>
+    <string name="app_requests_filter_done">Concluídas</string>
+    <string name="app_requests_filter_refused">Recusadas</string>
+    <string name="app_requests_search_hint">Pesquisar…</string>
+    <string name="app_requests_search">Pesquisar</string>
+    <string name="app_requests_filters">Filtros</string>
+    <string name="app_requests_new">Nova solicitação</string>
+    <string name="app_requests_empty">Sem resultados</string>
+
+    <!-- Detalhes -->
+    <string name="app_details_step_opened">Abertura da solicitação</string>
+    <string name="app_details_step_analysis">Solicitação em análise</string>
+    <string name="app_details_step_approved">Solicitação aprovada</string>
+    <string name="app_details_step_done">Solicitação concluída</string>
+
+    <!-- Eventos -->
+    <string name="app_events_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> os eventos]]></string>
+    <string name="app_events_section">Eventos</string>
+    <string name="app_events_pick_date">Escolher data</string>
+    <string name="app_events_view">Ver evento</string>
+    <string name="app_event_info_title"><![CDATA[<b><font color="#153D7D">Informações</font></b> <u><font color="#130943">sobre o evento</font></u>]]></string>
+    <string name="app_event_info_location">Local:</string>
+    <string name="app_event_info_date">Data:</string>
+    <string name="app_event_info_time">Horário:</string>
+    <string name="app_event_info_description">Descrição:</string>
+    <string name="app_event_info_note">Observação:</string>
+
+    <!-- Chatbot -->
+    <string name="app_chat_title">Manu</string>
+    <string name="app_chat_open_menu">Abrir menu de conversas</string>
+    <string name="app_chat_greeting">Olá %1$s, como posso te ajudar hoje?</string>
+    <string name="app_chat_input_hint">Como posso te ajudar hoje?</string>
+    <string name="app_chat_add">Adicionar</string>
+    <string name="app_chat_attach">Anexar arquivo</string>
+    <string name="app_chat_send">Enviar</string>
+    <string name="app_chat_assistant_avatar">Avatar da assistente Manu</string>
+    <string name="app_chat_drawer_search">Buscar conversas</string>
+    <string name="app_chat_drawer_new">Novo chat</string>
+    <string name="app_chat_drawer_recent">Recentes</string>
+    <string-array name="app_chat_recent_items">
+        <item>Nova conversa</item>
+        <item>Ajuda com solicitação</item>
+        <item>Dúvidas sobre o app</item>
+    </string-array>
+
+    <!-- Abrir solicitação -->
+    <string name="app_new_request_title"><![CDATA[<b><font color="#153D7D">Abra</font></b> sua solicitação]]></string>
+    <string name="app_new_request_step_1">Passo 1</string>
+    <string name="app_new_request_step_1_title">Descrição do Problema</string>
+    <string name="app_new_request_step_2">Passo 2</string>
+    <string name="app_new_request_step_2_title">Local do Problema</string>
+    <string name="app_new_request_step_3">Passo 3</string>
+    <string name="app_new_request_step_3_title">Foto do aparelho</string>
+    <string name="app_step_indicator_description">Descrição</string>
+    <string name="app_step_indicator_location">Local</string>
+    <string name="app_step_indicator_photos">Fotos</string>
+    <string name="app_step_description_title"><![CDATA[Descreva <u><font color="#0B013C">o seu Problema</font></u>]]></string>
+    <string name="app_step_description_field_title">Título</string>
+    <string name="app_step_description_title_hint">Escreva aqui seu título</string>
+    <string name="app_step_description_field_description">Descrição</string>
+    <string name="app_step_description_hint">Digite aqui sua descrição…</string>
+    <string name="app_step_location_title"><![CDATA[Localização <u><font color="#0B013C">do Problema</font></u>]]></string>
+    <string name="app_step_location_field">Local</string>
+    <string name="app_step_location_hint">Selecione o local</string>
+    <string name="app_step_location_description_field">Descrição do local</string>
+    <string name="app_step_photo_title"><![CDATA[Foto <u><font color="#0B013C">do Aparelho</font></u>]]></string>
+    <string name="app_step_photo_device_field">Aparelho</string>
+    <string name="app_step_photo_device_hint">Selecione o aparelho com problema</string>
+    <string name="app_step_photo_field">Fotos</string>
+    <string name="app_step_photo_upload">Fazer upload de imagens</string>
+    <string name="app_step_photo_or">ou</string>
+    <string name="app_step_photo_take">Tirar foto</string>
+    <string name="app_confirm_title"><![CDATA[Confirme <u><font color="#0B013C">as informações</font></u>]]></string>
+    <string name="app_confirm_device"><![CDATA[<b><font color="#0B013C">Aparelho:</font></b> <i>%1$s</i>]]></string>
+    <string name="app_confirm_location"><![CDATA[<b><font color="#0B013C">Local:</font></b> <i>%1$s</i>]]></string>
+    <string name="app_confirm_description"><![CDATA[<b><font color="#0B013C">Descrição:</font></b>]]></string>
+    <string name="app_confirm_images">Imagens</string>
+    <string name="app_confirm_image_description">Imagem anexada</string>
+    <string name="app_success_title">Solicitação criada com sucesso!</string>
+    <string name="app_success_home">Ir para a Home</string>
+    <string name="app_success_new">Registrar novo problema</string>
+
+    <!-- Perfil -->
+    <string name="app_profile_edit">Editar perfil</string>
+    <string name="app_profile_my_profile">Meu perfil</string>
+    <string name="app_profile_settings">Configurações</string>
+    <string name="app_profile_faq">FAQ</string>
+    <string name="app_profile_about">Sobre o app</string>
+    <string name="app_profile_logout">Sair</string>
+    <string name="app_my_profile_title">Meu Perfil</string>
+    <string name="app_my_profile_section">Informações Pessoais</string>
+    <string name="app_my_profile_name">Nome</string>
+    <string name="app_my_profile_birth">Data de nascimento</string>
+    <string name="app_my_profile_email">E-mail</string>
+    <string name="app_my_profile_phone">Telefone</string>
+    <string name="app_my_profile_password">Senha</string>
+    <string name="app_my_profile_address">Endereço</string>
+    <string name="app_edit_title">Editar Perfil</string>
+    <string name="app_edit_change_photo">Alterar foto</string>
+    <string name="app_edit_name">Nome</string>
+    <string name="app_edit_birth">Data de nascimento</string>
+    <string name="app_edit_email">Email</string>
+    <string name="app_edit_phone">Telefone</string>
+    <string name="app_edit_password">Senha</string>
+
+    <!-- Configurações / FAQ / Sobre -->
+    <string name="app_settings_title">Configurações</string>
+    <string name="app_settings_notifications">Notificações</string>
+    <string name="app_faq_title">FAQ</string>
+    <string name="app_faq_question_sample">O que é o FIXA?</string>
+    <string-array name="app_faq_questions">
+        <item>@string/app_faq_question_sample</item>
+        <item>Como abrir uma solicitação?</item>
+        <item>Como acompanhar o status?</item>
+        <item>Quem aprova as solicitações?</item>
+        <item>Posso editar uma solicitação?</item>
+        <item>Como falar com a Manu?</item>
+        <item>Como alterar meus dados?</item>
+    </string-array>
+    <string name="app_faq_answer_sample">O FIXA é uma iniciativa tecnológica voltada para a equipe de manutenção e para os solicitantes.</string>
+    <string name="app_faq_toggle">Expandir resposta</string>
+    <string name="app_about_title">Sobre o app</string>
+    <string name="app_about_image">Imagem sobre o aplicativo</string>
+    <string name="app_about_documents">Documentos</string>
+    <string name="app_about_guide">Guia de uso</string>
+    <string name="app_about_privacy">Política de Privacidade</string>
+    <string name="app_about_terms">Termos de Uso</string>
+
+    <!-- Notificações -->
+    <string name="app_notifications_title">Notificações</string>
+    <string name="app_notifications_today">Hoje</string>
+    <string name="app_notifications_last_week">Última semana</string>
+    <string name="app_notification_sample">Sua solicitação foi aprovada!</string>
+
+    <!-- Filtros -->
+    <string name="app_filter_title">Filtrar solicitações</string>
+    <string name="app_filter_period">Período</string>
+    <string name="app_filter_period_default">Últimos 30 dias</string>
+    <string name="app_filter_location">Local</string>
+    <string name="app_filter_location_default">Todos os locais</string>
+    <string name="app_filter_status">Situação</string>
+    <string name="app_filter_status_default">Todas</string>
+
+    <!-- Dialogs -->
+    <string name="app_dialog_edit_title">Editar solicitação</string>
+    <string name="app_dialog_edit_field_title">Título</string>
+    <string name="app_dialog_edit_field_description">Descrição</string>
+    <string name="app_dialog_edit_field_location">Local</string>
+    <string name="app_dialog_edit_field_device">Equipamento</string>
+    <string name="app_dialog_edit_field_photos">Fotos</string>
+    <string name="app_dialog_edit_add_photo">Adicionar foto</string>
+    <string name="app_dialog_delete_title">Deseja deletar esse registro?</string>
+    <string name="app_dialog_delete_reason_title">Excluir solicitação?</string>
+    <string name="app_dialog_delete_reason_subtitle">Nos informe o motivo</string>
+    <string name="app_dialog_delete_reason_label">Motivo</string>
+    <string name="app_dialog_delete_reason_hint">Escreva o motivo da exclusão</string>
+    <string name="app_dialog_save_title">Salvar alterações?</string>
+    <string name="app_dialog_save_body">Essa ação não poderá ser desfeita.</string>
+    <string name="app_dialog_discard_title">Sair sem salvar?</string>
+    <string name="app_dialog_discard_body">As alterações feitas serão perdidas.</string>
+    <string name="app_dialog_discard_confirm">Sair</string>
+    <string name="app_dialog_delete_body">Essa ação não poderá ser desfeita.</string>
+    <string name="app_dialog_logout_title">Sair da conta?</string>
+    <string name="app_dialog_logout_body">Você poderá entrar novamente</string>
+    <string name="app_dialog_logout_confirm">Sair</string>
+
+    <!-- Dados de exemplo (preview) -->
+    <string-array name="app_sample_weekdays">
+        <item>Seg</item>
+        <item>Ter</item>
+        <item>Qua</item>
+        <item>Qui</item>
+        <item>Sex</item>
+    </string-array>
+
+    <!-- Recuperação de senha -->
+    <string name="recovery_forgot_title_lead">Esqueceu</string>
+    <string name="recovery_forgot_title_rest">sua senha?</string>
+    <string name="recovery_forgot_description">Não se preocupe, insira seu e-mail e te enviaremos um código de recuperação</string>
+    <string name="recovery_email_label">Email</string>
+    <string name="recovery_email_hint">Digite o seu e-mail</string>
+    <string name="recovery_send_email">Enviar e-mail</string>
+    <string name="recovery_back_to_login">Voltar ao login</string>
+    <string name="recovery_sent_title_lead">Verifique</string>
+    <string name="recovery_sent_title_rest">seu e-mail</string>
+    <string name="recovery_sent_description">Enviamos um código de 6 dígitos para %1$s</string>
+    <!-- E-mail de exemplo do Figma, usado quando a tela abre sem e-mail informado -->
+    <string name="recovery_sent_sample_email" translatable="false">rapha******gmail.com</string>
+    <string name="recovery_code_label">Código</string>
+    <string name="recovery_code_digit">Dígito %1$d do código</string>
+    <string name="recovery_confirm_code">Confirmar código</string>
+    <string name="recovery_resend_lead">Não recebeu o código?</string>
+    <string name="recovery_resend_action">Reenviar</string>
+    <string name="recovery_resend_done">Código reenviado</string>
+    <string name="recovery_reset_title_lead">Defina</string>
+    <string name="recovery_reset_title_rest">uma nova senha</string>
+    <string name="recovery_password_label">Senha</string>
+    <string name="recovery_password_hint">Digite uma nova senha</string>
+    <string name="recovery_confirm_password_label">Confirme a senha</string>
+    <string name="recovery_confirm_password_hint">Confirme a nova senha</string>
+    <string name="recovery_confirm">Confirmar</string>
+    <string name="recovery_success_title">Senha alterada com sucesso!</string>
+    <string name="recovery_success_back_to_login">Voltar para login</string>
+    <string name="app_offline_message">Verifique sua conexão com a internet</string>
+</resources>

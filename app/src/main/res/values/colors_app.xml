@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base do app (pós-login) — extraído do Figma "Solicitante Final - Rapha" -->
+    <color name="app_background">#FFF5F7FA</color>
+    <color name="app_background_alt">#FFF4F7FA</color>
+    <color name="app_surface">#FFFFFFFF</color>
+    <color name="app_primary">#FF153D7D</color>
+    <color name="app_primary_dark">#FF130943</color>
+    <color name="app_primary_deep">#FF0B013C</color>
+    <color name="app_primary_chip">#FF184384</color>
+    <color name="app_on_primary">#FFFFFFFF</color>
+    <color name="app_on_primary_soft">#FFF4F2FF</color>
+    <color name="app_text_navy">#FF0E223F</color>
+    <color name="app_text_dark">#FF202020</color>
+    <color name="app_text_black">#FF000000</color>
+    <color name="app_text_black_50">#80000000</color>
+    <color name="app_text_secondary">#FF4C5461</color>
+    <color name="app_text_muted">#FF8A93A2</color>
+    <color name="app_text_hint">#FF637087</color>
+    <color name="app_text_hint_60">#998A93A2</color>
+    <color name="app_divider">#FFBFC4CE</color>
+    <color name="app_nav_inactive">#FF637087</color>
+    <color name="app_danger">#FF96031A</color>
+
+    <!-- Status das solicitações -->
+    <color name="app_status_analysis">#FFFFCC00</color>
+    <color name="app_status_analysis_text">#FFDE951B</color>
+    <color name="app_status_approved">#FF153D7D</color>
+    <color name="app_status_approved_soft">#26184384</color>
+    <color name="app_status_approved_text">#FF184384</color>
+    <color name="app_status_done">#FF1D9954</color>
+    <color name="app_status_done_dot">#FF239A40</color>
+    <color name="app_status_done_soft">#1A39A910</color>
+    <color name="app_status_done_text">#FF399603</color>
+    <color name="app_status_done_chart">#FF34C759</color>
+    <color name="app_status_refused">#FF96031A</color>
+    <color name="app_status_refused_chart">#FFFF383C</color>
+    <color name="app_status_pending">#FF8A93A2</color>
+
+    <!-- Campos / superfícies -->
+    <color name="app_field_background">#4DDBE0EB</color>
+    <color name="app_field_background_strong">#80C4CFE0</color>
+    <color name="app_field_stroke">#33130943</color>
+    <color name="app_date_pill">#66DBDCDD</color>
+    <color name="app_summary_card">#33CDD8EA</color>
+    <color name="app_notification_unread">#33578BD6</color>
+    <color name="app_notification_read">#1A578BD6</color>
+    <color name="app_calendar_day_inactive">#FFDEE3EB</color>
+    <color name="app_button_secondary">#4DC4CFE0</color>
+    <color name="app_photo_placeholder">#668994A8</color>
+    <color name="app_sheet_background">#FFF4F2FF</color>
+    <color name="app_dialog_background">#FFF6F9FC</color>
+    <color name="app_chat_recent_selected">#FFEAEDF1</color>
+    <color name="app_event_info_panel">#FF0B013C</color>
+
+    <!-- Sombras -->
+    <color name="app_shadow_card">#0D153D7D</color>
+    <color name="app_shadow_soft">#1A000000</color>
+    <color name="app_shadow_search">#26000000</color>
+    <color name="app_shadow_chat_input">#1A153D7D</color>
+    <!-- Balão da Manu (Figma): fundo igual à tela e sombra preta 40% com blur 4, aproximada em 2 camadas -->
+    <color name="app_bubble_fill">@color/app_background</color>
+    <color name="app_bubble_shadow">#1A000000</color>
+    <!-- Borda da caixa de código focada (Figma: #130943 80%) -->
+    <color name="app_code_digit_stroke">#CC130943</color>
+    <!-- Marcador sobre a foto no pop-up de editar (Figma: #54555A 90%) -->
+    <color name="app_photo_badge">#E654555A</color>
+</resources>

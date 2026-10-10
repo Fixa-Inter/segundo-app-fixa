@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sem conexão (Figma 5178:9529): fundo #F4F7FA; ilustração 400x400 @ (3,130); texto 500/30 lh45 #0B013C centralizado
+  numa caixa de 371dp @ y=527 (sobreposta 3dp à ilustração).
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recoveryRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_alt"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    tools:context=".ui.common.OfflineActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivOffline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/app_offline_image_margin_top"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/app_offline_image_size"
+            app:layout_constraintWidth_percent="0.97"
+            app:srcCompat="@drawable/img_offline" />
+
+        <TextView
+            android:id="@+id/tvOffline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_offline_text_side_margin"
+            android:layout_marginTop="@dimen/app_offline_text_margin_top"
+            android:layout_marginEnd="@dimen/app_offline_text_side_margin"
+            android:accessibilityLiveRegion="polite"
+            android:gravity="center"
+            android:text="@string/app_offline_message"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Success.Title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivOffline"
+            app:layout_constraintVertical_bias="0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

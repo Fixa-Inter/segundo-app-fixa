@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Verifique seu e-mail (Figma 4432:6403): título 500/48 lh60 @ (31,85); texto 400/20 lh30 com o e-mail mascarado;
+  "Código" 500/18 #153D7D; 6 caixas 50x60 r=15 #DBE0EB 30% com 8dp entre elas (focada: borda 2dp #130943 80%,
+  dígito 600/22); botão "Confirmar código" 350x55 r=35 #130943; "Não recebeu o código? Reenviar" 500/16.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recoveryRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_surface"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    tools:context=".ui.auth.VerifyEmailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/recovery_bottom_spacing">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/recovery_side_margin" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/recovery_side_margin" />
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/app_touch_target"
+            android:layout_height="@dimen/app_touch_target"
+            android:layout_marginTop="@dimen/app_back_button_margin_top"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_back"
+            android:scaleType="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_left_22"
+            app:tint="@color/app_primary_deep" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recovery_title_top_margin"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Recovery.Title"
+            android:accessibilityHeading="true"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/recovery_title_max_width"
+            app:layout_constraintHorizontal_bias="0"
+            tools:text="Verifique seu e-mail" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/recovery_label_inset"
+            android:layout_marginTop="@dimen/recovery_verify_description_top_margin"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Recovery.Description"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:text="Enviamos um código de 6 dígitos para rapha******gmail.com" />
+
+        <TextView
+            android:id="@+id/tvCodeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/recovery_label_inset"
+            android:layout_marginTop="@dimen/recovery_verify_label_top_margin"
+            android:labelFor="@id/etCode1"
+            android:text="@string/recovery_code_label"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Recovery.Label"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
+        <LinearLayout
+            android:id="@+id/layoutCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/recovery_label_inset"
+            android:layout_marginTop="@dimen/recovery_verify_code_top_margin"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toBottomOf="@id/tvCodeLabel">
+
+            <EditText android:id="@+id/etCode1" style="@style/Widget.FIXA.App.CodeDigit" android:layout_marginStart="0dp" />
+            <EditText android:id="@+id/etCode2" style="@style/Widget.FIXA.App.CodeDigit" />
+            <EditText android:id="@+id/etCode3" style="@style/Widget.FIXA.App.CodeDigit" />
+            <EditText android:id="@+id/etCode4" style="@style/Widget.FIXA.App.CodeDigit" />
+            <EditText android:id="@+id/etCode5" style="@style/Widget.FIXA.App.CodeDigit" />
+            <EditText android:id="@+id/etCode6" style="@style/Widget.FIXA.App.CodeDigit" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmCode"
+            style="@style/Widget.FIXA.App.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recovery_verify_button_top_margin"
+            android:minHeight="@dimen/recovery_button_height"
+            android:text="@string/recovery_confirm_code"
+            android:textSize="@dimen/recovery_button_text_size"
+            app:backgroundTint="@color/app_primary_dark"
+            app:cornerRadius="@dimen/recovery_button_radius"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toBottomOf="@id/layoutCode" />
+
+        <TextView
+            android:id="@+id/tvResend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recovery_verify_resend_top_margin"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:minHeight="@dimen/app_touch_target"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Recovery.Resend"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnConfirmCode"
+            app:layout_constraintVertical_bias="0"
+            tools:text="Não recebeu o código? Reenviar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

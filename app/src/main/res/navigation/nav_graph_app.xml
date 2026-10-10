@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_app"
+    app:startDestination="@id/homeFragment">
+
+    <!-- Abas (bottom nav) -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.aula.fixa.ui.home.HomeFragment"
+        android:label="@string/app_nav_home"
+        tools:layout="@layout/fragment_home">
+        <action android:id="@+id/action_home_to_notifications" app:destination="@id/notificationsFragment" />
+        <action android:id="@+id/action_home_to_profile" app:destination="@id/profileFragment" />
+        <action android:id="@+id/action_home_to_new_request" app:destination="@id/newRequestIntroFragment" />
+        <action android:id="@+id/action_home_to_details" app:destination="@id/requestDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/requestsFragment"
+        android:name="com.aula.fixa.ui.requests.RequestsFragment"
+        android:label="@string/app_nav_requests"
+        tools:layout="@layout/fragment_requests">
+        <action android:id="@+id/action_requests_to_details" app:destination="@id/requestDetailsFragment" />
+        <action android:id="@+id/action_requests_to_new_request" app:destination="@id/newRequestIntroFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.aula.fixa.ui.events.EventsFragment"
+        android:label="@string/app_nav_events"
+        tools:layout="@layout/fragment_events">
+        <action android:id="@+id/action_events_to_event_info" app:destination="@id/eventInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatbotFragment"
+        android:name="com.aula.fixa.ui.chatbot.ChatbotFragment"
+        android:label="@string/app_nav_chatbot"
+        tools:layout="@layout/fragment_chatbot" />
+
+    <!-- Secundárias -->
+    <fragment
+        android:id="@+id/requestDetailsFragment"
+        android:name="com.aula.fixa.ui.requests.RequestDetailsFragment"
+        android:label="@string/app_nav_requests"
+        tools:layout="@layout/fragment_request_details">
+        <argument android:name="requestTitle" app:argType="string" android:defaultValue="" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventInfoFragment"
+        android:name="com.aula.fixa.ui.events.EventInfoFragment"
+        android:label="@string/app_event_info_title"
+        tools:layout="@layout/fragment_event_info" />
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.aula.fixa.ui.notifications.NotificationsFragment"
+        android:label="@string/app_notifications_title"
+        tools:layout="@layout/fragment_notifications" />
+
+    <!-- Abrir solicitação -->
+    <fragment
+        android:id="@+id/newRequestIntroFragment"
+        android:name="com.aula.fixa.ui.newrequest.NewRequestIntroFragment"
+        android:label="@string/app_new_request_title"
+        tools:layout="@layout/fragment_new_request_intro">
+        <action android:id="@+id/action_intro_to_description" app:destination="@id/newRequestDescriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newRequestDescriptionFragment"
+        android:name="com.aula.fixa.ui.newrequest.NewRequestDescriptionFragment"
+        android:label="@string/app_step_description_title"
+        tools:layout="@layout/fragment_new_request_description">
+        <action android:id="@+id/action_description_to_location" app:destination="@id/newRequestLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newRequestLocationFragment"
+        android:name="com.aula.fixa.ui.newrequest.NewRequestLocationFragment"
+        android:label="@string/app_step_location_title"
+        tools:layout="@layout/fragment_new_request_location">
+        <action android:id="@+id/action_location_to_photo" app:destination="@id/newRequestPhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newRequestPhotoFragment"
+        android:name="com.aula.fixa.ui.newrequest.NewRequestPhotoFragment"
+        android:label="@string/app_step_photo_title"
+        tools:layout="@layout/fragment_new_request_photo">
+        <action android:id="@+id/action_photo_to_confirm" app:destination="@id/newRequestConfirmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newRequestConfirmFragment"
+        android:name="com.aula.fixa.ui.newrequest.NewRequestConfirmFragment"
+        android:label="@string/app_confirm_title"
+        tools:layout="@layout/fragment_new_request_confirm">
+        <action
+            android:id="@+id/action_confirm_to_success"
+            app:destination="@id/newRequestSuccessFragment"
+            app:popUpTo="@id/newRequestIntroFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/newRequestSuccessFragment"
+        android:name="com.aula.fixa.ui.newrequest.NewRequestSuccessFragment"
+        android:label="@string/app_success_title"
+        tools:layout="@layout/fragment_new_request_success">
+        <action
+            android:id="@+id/action_success_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_success_to_new_request"
+            app:destination="@id/newRequestIntroFragment"
+            app:popUpTo="@id/newRequestSuccessFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Perfil -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.aula.fixa.ui.profile.ProfileFragment"
+        android:label="@string/app_home_profile"
+        tools:layout="@layout/fragment_profile">
+        <action android:id="@+id/action_profile_to_my_profile" app:destination="@id/myProfileFragment" />
+        <action android:id="@+id/action_profile_to_edit" app:destination="@id/editProfileFragment" />
+        <action android:id="@+id/action_profile_to_settings" app:destination="@id/settingsFragment" />
+        <action android:id="@+id/action_profile_to_faq" app:destination="@id/faqFragment" />
+        <action android:id="@+id/action_profile_to_about" app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.aula.fixa.ui.profile.MyProfileFragment"
+        android:label="@string/app_my_profile_title"
+        tools:layout="@layout/fragment_my_profile">
+        <action android:id="@+id/action_my_profile_to_edit" app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.aula.fixa.ui.profile.EditProfileFragment"
+        android:label="@string/app_edit_title"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.aula.fixa.ui.profile.SettingsFragment"
+        android:label="@string/app_settings_title"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.aula.fixa.ui.profile.FaqFragment"
+        android:label="@string/app_faq_title"
+        tools:layout="@layout/fragment_faq" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.aula.fixa.ui.profile.AboutFragment"
+        android:label="@string/app_about_title"
+        tools:layout="@layout/fragment_about" />
+
+</navigation>

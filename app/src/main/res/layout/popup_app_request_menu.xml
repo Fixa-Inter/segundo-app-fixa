@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu popup do card (Figma "Pop-up 1"): 180dp r=30 branco; itens 38dp: "Editar" #130943, "Excluir" #96031A (400/16) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/app_popup_menu_width"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_app_popup_menu"
+    android:elevation="6dp"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/app_popup_menu_padding_vertical"
+    android:paddingBottom="@dimen/app_popup_menu_padding_vertical">
+
+    <TextView
+        android:id="@+id/tvPopupEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_popup_menu_item_height"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/app_edit"
+        android:textAppearance="@style/TextAppearance.FIXA.App.PopupMenu.Item"
+        android:textColor="@color/app_primary_dark"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvPopupDelete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_popup_menu_item_height"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/app_delete"
+        android:textAppearance="@style/TextAppearance.FIXA.App.PopupMenu.Item"
+        android:textColor="@color/app_danger"
+        tools:ignore="TouchTargetSizeCheck" />
+</LinearLayout>
