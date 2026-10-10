@@ -98,4 +98,32 @@
     <dimen name="app_request_card_menu_size">18dp</dimen>
     <dimen name="app_request_card_spacing">18dp</dimen>
     <dimen name="app_request_card_title_margin_start">38dp</dimen>
+
+    <!-- Recuperação de senha (Figma 'Esqueceu a senha?' / 'Sucesso') -->
+    <dimen name="recovery_side_margin">64dp</dimen>
+    <dimen name="recovery_label_inset">6dp</dimen>
+    <dimen name="recovery_title_top_margin">100dp</dimen>
+    <dimen name="recovery_title_text_size">56sp</dimen>
+    <dimen name="recovery_title_line_height">70sp</dimen>
+    <dimen name="recovery_description_top_margin">24dp</dimen>
+    <dimen name="recovery_description_text_size">22sp</dimen>
+    <dimen name="recovery_description_line_height">33sp</dimen>
+    <dimen name="recovery_forgot_label_top_margin">56dp</dimen>
+    <dimen name="recovery_reset_label_top_margin">90dp</dimen>
+    <dimen name="recovery_confirm_label_top_margin">44dp</dimen>
+    <dimen name="recovery_label_text_size">20sp</dimen>
+    <dimen name="recovery_field_top_margin">12dp</dimen>
+    <dimen name="recovery_field_height">68dp</dimen>
+    <dimen name="recovery_field_radius">34dp</dimen>
+    <dimen name="recovery_field_padding_horizontal">32dp</dimen>
+    <dimen name="recovery_field_text_size">16sp</dimen>
+    <dimen name="recovery_forgot_button_top_margin">180dp</dimen>
+    <dimen name="recovery_reset_button_top_margin">120dp</dimen>
+    <dimen name="recovery_button_height">62dp</dimen>
+    <dimen name="recovery_button_radius">40dp</dimen>
+    <dimen name="recovery_button_text_size">18sp</dimen>
+    <dimen name="recovery_link_top_margin">0dp</dimen>
+    <dimen name="recovery_link_text_size">18sp</dimen>
+    <dimen name="recovery_bottom_spacing">40dp</dimen>
+    <dimen name="recovery_success_title_top_margin">12dp</dimen>
 </resources>

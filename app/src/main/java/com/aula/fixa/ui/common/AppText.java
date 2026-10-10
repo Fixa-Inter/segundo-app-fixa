@@ -5,13 +5,16 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.TypefaceSpan;
 import android.text.style.UnderlineSpan;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.FontRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
 
@@ -43,6 +46,25 @@ public final class AppText {
         for (UnderlineSpan span : out.getSpans(0, out.length(), UnderlineSpan.class)) {
             replace(view, out, span, R.font.poppins_semibold);
         }
+        view.setText(out);
+    }
+
+    /**
+     * Título em dois tons do Figma: primeira palavra em Poppins Bold (cor do TextView) e o restante em
+     * Poppins SemiBold na cor informada. Usa só recursos, sem hex nas strings.
+     */
+    public static void setTwoTone(@NonNull TextView view, @StringRes int lead, @StringRes int rest,
+                                  @ColorRes int restColor) {
+        String leadText = view.getContext().getString(lead);
+        SpannableStringBuilder out = new SpannableStringBuilder(leadText).append(' ')
+                .append(view.getContext().getString(rest));
+        int restStart = leadText.length() + 1;
+        Typeface bold = ResourcesCompat.getFont(view.getContext(), R.font.poppins_bold);
+        Typeface semibold = ResourcesCompat.getFont(view.getContext(), R.font.poppins_semibold);
+        if (bold != null) out.setSpan(new TypefaceSpan(bold), 0, leadText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (semibold != null) out.setSpan(new TypefaceSpan(semibold), restStart, out.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        out.setSpan(new ForegroundColorSpan(ContextCompat.getColor(view.getContext(), restColor)),
+                restStart, out.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         view.setText(out);
     }
 

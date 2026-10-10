@@ -207,4 +207,24 @@
         <item>Qui</item>
         <item>Sex</item>
     </string-array>
+
+    <!-- Recuperação de senha -->
+    <string name="recovery_forgot_title_lead">Esqueceu</string>
+    <string name="recovery_forgot_title_rest">sua senha?</string>
+    <string name="recovery_forgot_description">Não se preocupe, insira seu e-mail e te enviaremos um código de recuperação</string>
+    <string name="recovery_email_label">Email</string>
+    <string name="recovery_email_hint">Digite o seu e-mail</string>
+    <string name="recovery_send_email">Enviar e-mail</string>
+    <string name="recovery_back_to_login">Voltar ao login</string>
+    <string name="recovery_sent_title_lead">Verifique</string>
+    <string name="recovery_sent_title_rest">seu e-mail</string>
+    <string name="recovery_reset_title_lead">Defina</string>
+    <string name="recovery_reset_title_rest">uma nova senha</string>
+    <string name="recovery_password_label">Senha</string>
+    <string name="recovery_password_hint">Digite uma nova senha</string>
+    <string name="recovery_confirm_password_label">Confirme a senha</string>
+    <string name="recovery_confirm_password_hint">Confirme a nova senha</string>
+    <string name="recovery_confirm">Confirmar</string>
+    <string name="recovery_success_title">Senha alterada com sucesso!</string>
+    <string name="recovery_success_back_to_login">Voltar para login</string>
 </resources>

@@ -462,4 +462,30 @@
         <item name="android:windowMinWidthMajor">0dp</item>
         <item name="android:windowMinWidthMinor">0dp</item>
     </style>
+
+    <!-- Recuperação de senha -->
+    <style name="TextAppearance.FIXA.App.Recovery.Title" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/recovery_title_text_size</item>
+        <item name="android:lineHeight">@dimen/recovery_title_line_height</item>
+        <item name="android:letterSpacing">-0.0067</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Recovery.Description" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/recovery_description_text_size</item>
+        <item name="android:lineHeight">@dimen/recovery_description_line_height</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Recovery.Label" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textSize">@dimen/recovery_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Recovery.Field" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textColorHint">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/recovery_field_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Recovery.Link" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textSize">@dimen/recovery_link_text_size</item>
+    </style>
 </resources>
