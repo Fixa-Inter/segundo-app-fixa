@@ -27,7 +27,9 @@ public final class RequestMenuPopup {
         });
         content.findViewById(R.id.tvPopupDelete).setOnClickListener(v -> {
             popup.dismiss();
-            AppDialogs.showDeleteWithReason(anchor.getContext(), null);
+            // Figma: motivo (pop-up 7005) e, ao excluir, a confirmação "Deseja deletar esse registro?" (6997).
+            AppDialogs.showDeleteWithReason(anchor.getContext(),
+                    () -> AppDialogs.showDeleteConfirm(anchor.getContext(), null));
         });
         popup.showAsDropDown(anchor, -popup.getWidth() + anchor.getWidth(), 0);
     }

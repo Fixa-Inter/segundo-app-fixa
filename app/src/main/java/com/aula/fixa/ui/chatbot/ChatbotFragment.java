@@ -33,7 +33,7 @@ public class ChatbotFragment extends Fragment {
         view.findViewById(R.id.btnMenu).setOnClickListener(v -> drawer.openDrawer(Gravity.START));
 
         RecyclerView recent = view.findViewById(R.id.rvRecentChats);
-        recent.setAdapter(new RecentAdapter(Arrays.asList("Nova conversa", "Projetor da T02", "Luz piscando")));
+        recent.setAdapter(new RecentAdapter(Arrays.asList(getResources().getStringArray(R.array.app_chat_recent_items))));
         view.findViewById(R.id.btnNewChat).setOnClickListener(v -> drawer.closeDrawers());
     }
 

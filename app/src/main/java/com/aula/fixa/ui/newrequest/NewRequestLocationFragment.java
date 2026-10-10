@@ -20,9 +20,13 @@ public class NewRequestLocationFragment extends NewRequestStepFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AutoCompleteTextView field = view.findViewById(R.id.actvLocation);
-        field.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1,
+        field.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown,
                 new String[]{"Sala T02 - 2º andar", "Sala T07 - 2º andar", "Átrio", "Banheiro - 2º Andar"}));
+        // inputType=none: o 1º toque só dá foco, então abre a lista também ao ganhar foco.
         field.setOnClickListener(v -> field.showDropDown());
+        field.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) field.showDropDown();
+        });
     }
 
     @Override

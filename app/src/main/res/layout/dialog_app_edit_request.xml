@@ -157,36 +157,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPhotosLabel">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivEditPhoto1"
-                android:layout_width="@dimen/app_dialog_edit_photo_width"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_confirm_image_description"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.App.PhotoThumb"
-                app:srcCompat="@drawable/img_confirm_photo_1" />
+            <!-- Figma: foto 100x90 r=10 com marcador 12dp #54555A 90% sobre o canto superior direito -->
+            <FrameLayout
+                android:id="@+id/layoutEditPhoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivEditPhoto2"
-                android:layout_width="@dimen/app_dialog_edit_photo_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/app_dialog_edit_photo_spacing"
-                android:contentDescription="@string/app_confirm_image_description"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.App.PhotoThumb"
-                app:srcCompat="@drawable/img_confirm_photo_2" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivEditPhoto1"
+                    android:layout_width="@dimen/app_dialog_edit_photo_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/app_dialog_edit_photo_badge_offset"
+                    android:layout_marginEnd="@dimen/app_dialog_edit_photo_badge_offset"
+                    android:contentDescription="@string/app_confirm_image_description"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.App.PhotoThumb"
+                    app:srcCompat="@drawable/img_edit_photo_lamp" />
+
+                <View
+                    android:layout_width="@dimen/app_dialog_edit_photo_badge_size"
+                    android:layout_height="@dimen/app_dialog_edit_photo_badge_size"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/bg_app_photo_badge"
+                    android:importantForAccessibility="no" />
+            </FrameLayout>
 
             <ImageButton
                 android:id="@+id/btnAddPhoto"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/app_dialog_edit_photo_width"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/app_dialog_edit_photo_spacing"
-                android:layout_weight="1"
+                android:layout_marginStart="@dimen/app_dialog_edit_photo_add_margin_start"
+                android:layout_marginTop="@dimen/app_dialog_edit_photo_badge_offset"
                 android:background="@drawable/bg_app_dialog_photo_add"
                 android:contentDescription="@string/app_dialog_edit_add_photo"
                 android:scaleType="center"
                 app:srcCompat="@drawable/ic_plus_24"
-                app:tint="@color/app_on_primary" />
+                app:tint="@color/app_text_secondary" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton

@@ -27,6 +27,9 @@ import com.google.android.material.button.MaterialButton;
  */
 public abstract class NewRequestStepFragment extends Fragment {
 
+    /** Level do ClipDrawable equivalente a 50% (máximo 10000). */
+    private static final int HALF_LEVEL = 5000;
+
     private final int step;
     private final int nextAction;
     private final int titleRes;
@@ -79,13 +82,20 @@ public abstract class NewRequestStepFragment extends Fragment {
         styleCircle(indicator, R.id.tvStep2, R.id.tvStep2Label, stateFor(2));
         styleCircle(indicator, R.id.tvStep3, R.id.tvStep3Label, stateFor(3));
 
-        // Linha 1: cheia quando o passo 1 está concluído; meia quando o 1 é o atual.
-        indicator.findViewById(R.id.viewLine1).setBackgroundResource(
-                step > 1 ? R.drawable.bg_app_indicator_line_done : R.drawable.bg_app_indicator_line_pending);
-        indicator.findViewById(R.id.viewLine1Progress).setVisibility(step == 1 ? View.VISIBLE : View.INVISIBLE);
-        indicator.findViewById(R.id.viewLine2).setBackgroundResource(
-                step > 2 ? R.drawable.bg_app_indicator_line_done : R.drawable.bg_app_indicator_line_pending);
-        indicator.findViewById(R.id.viewLine2Progress).setVisibility(step == 2 ? View.VISIBLE : View.INVISIBLE);
+        // Linha após o passo: cheia (verde) se concluído, meia (azul) se é o atual, cinza se pendente.
+        bindLine(indicator.findViewById(R.id.viewLine1), 1);
+        bindLine(indicator.findViewById(R.id.viewLine2), 2);
+    }
+
+    private void bindLine(View line, int index) {
+        if (step > index) {
+            line.setBackgroundResource(R.drawable.bg_app_indicator_line_done);
+        } else if (step == index) {
+            line.setBackgroundResource(R.drawable.bg_app_indicator_line_progress);
+            line.getBackground().setLevel(HALF_LEVEL);
+        } else {
+            line.setBackgroundResource(R.drawable.bg_app_indicator_line_pending);
+        }
     }
 
     private int stateFor(int index) {

@@ -43,6 +43,7 @@ public class NewRequestConfirmFragment extends Fragment {
         AppText.setHtml(view.findViewById(R.id.tvSummaryDescriptionLabel), R.string.app_confirm_description);
         ((TextView) view.findViewById(R.id.tvSummaryTitle)).setText(form.title);
         ((TextView) view.findViewById(R.id.tvSummaryDescription)).setText(form.description);
+        ((TextView) view.findViewById(R.id.tvSummaryLocationDescription)).setText(form.locationDescription);
         AppText.setHtml(view.findViewById(R.id.tvSummaryDevice), R.string.app_confirm_device, form.device);
         AppText.setHtml(view.findViewById(R.id.tvSummaryLocation), R.string.app_confirm_location, form.location);
 

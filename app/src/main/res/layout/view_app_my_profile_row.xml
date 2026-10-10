@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Linha de informação do Meu Perfil: ícone 24dp @ x=37 + texto 400/15 #130943 @ x=84 + editar 20dp @ end 36 -->
+<!-- Linha de informação do Meu Perfil: ícone 24dp @ x=37 + texto 400/15 #130943 @ x=84 (caixa de 249dp: endereço quebra em 2 linhas) + editar 20dp @ end 36 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,6 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/app_my_profile_row_text_margin_start"
+        android:layout_marginEnd="@dimen/app_my_profile_row_text_margin_end"
         android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="2"

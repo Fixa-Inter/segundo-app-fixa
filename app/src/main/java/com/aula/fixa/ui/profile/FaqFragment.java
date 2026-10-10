@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
 import com.aula.fixa.model.FaqItem;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FaqFragment extends Fragment {
@@ -31,16 +32,14 @@ public class FaqFragment extends Fragment {
         view.findViewById(R.id.btnBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         String answer = getString(R.string.app_faq_answer_sample);
+        List<FaqItem> items = new ArrayList<>();
+        for (String question : getResources().getStringArray(R.array.app_faq_questions)) {
+            items.add(new FaqItem(question, answer));
+        }
+        // Figma: a primeira pergunta aparece expandida.
+        items.get(0).expanded = true;
         RecyclerView list = view.findViewById(R.id.rvFaq);
-        list.setAdapter(new FaqAdapter(Arrays.asList(
-                new FaqItem(getString(R.string.app_faq_question_sample), answer),
-                new FaqItem("Como abrir uma solicitação?", answer),
-                new FaqItem("Como acompanhar o status?", answer),
-                new FaqItem("Quem aprova as solicitações?", answer),
-                new FaqItem("Posso editar uma solicitação?", answer),
-                new FaqItem("Como falar com a Manu?", answer),
-                new FaqItem("Como alterar meus dados?", answer)
-        )));
+        list.setAdapter(new FaqAdapter(items));
     }
 
     static class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.ViewHolder> {
@@ -63,7 +62,8 @@ public class FaqFragment extends Fragment {
             holder.question.setText(item.question);
             holder.answer.setText(item.answer);
             holder.answer.setVisibility(item.expanded ? View.VISIBLE : View.GONE);
-            holder.chevron.setRotation(item.expanded ? 180f : 0f);
+            // Figma: expandido mostra "—"; recolhido, o chevron.
+            holder.chevron.setImageResource(item.expanded ? R.drawable.ic_minus_24 : R.drawable.ic_chevron_down_22);
             holder.questionRow.setOnClickListener(v -> {
                 item.expanded = !item.expanded;
                 notifyItemChanged(holder.getBindingAdapterPosition());
@@ -76,7 +76,8 @@ public class FaqFragment extends Fragment {
         }
 
         static class ViewHolder extends RecyclerView.ViewHolder {
-            final View questionRow, chevron;
+            final View questionRow;
+            final ImageView chevron;
             final TextView question, answer;
 
             ViewHolder(@NonNull View itemView) {

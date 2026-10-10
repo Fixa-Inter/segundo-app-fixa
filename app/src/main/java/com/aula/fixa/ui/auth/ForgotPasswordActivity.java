@@ -2,6 +2,7 @@ package com.aula.fixa.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,8 +22,9 @@ public class ForgotPasswordActivity extends RecoveryActivity {
         AppText.setTwoTone(findViewById(R.id.tvTitle), R.string.recovery_forgot_title_lead,
                 R.string.recovery_forgot_title_rest, R.color.app_primary_dark);
 
+        EditText email = findViewById(R.id.etEmail);
         findViewById(R.id.btnSend).setOnClickListener(view ->
-                startActivity(new Intent(this, VerifyEmailActivity.class)));
+                startActivity(VerifyEmailActivity.intent(this, email.getText().toString().trim())));
         findViewById(R.id.btnBackToLogin).setOnClickListener(view -> finish());
     }
 }

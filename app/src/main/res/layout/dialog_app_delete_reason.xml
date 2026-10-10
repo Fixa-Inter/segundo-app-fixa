@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Pop-up "Excluir solicitação?" (Figma pop-up 7005): título 500/20 #130943 @ top 34; "Nos informe o motivo" 300/12;
+  Pop-up "Excluir solicitação?" (Figma pop-up 7005): título 500/20 #130943 alinhado à esquerda @ top 34; "Nos informe o motivo" 300/12;
   textarea 253x121 r=10 #80C4CFE0 (hint 400/12 #4C5461); botões 115x35 r=15 (Cancelar #C4CFE0 / Excluir #153D7D).
 -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,7 +17,7 @@
         android:id="@+id/tvDeleteTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="start"
         android:text="@string/app_dialog_delete_reason_title"
         android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.EditLabel"
         android:textSize="@dimen/app_dialog_delete_title_text_size"
@@ -29,7 +29,7 @@
         android:id="@+id/tvDeleteSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="start"
         android:text="@string/app_dialog_delete_reason_subtitle"
         android:textAppearance="@style/TextAppearance.FIXA.App.Dialog.Body"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Campo dropdown do filtro: 40dp r=15 #4DDBE0EB, texto 400/12 @ x=17 (sem ícone no Figma) -->
+<!-- Campo dropdown do filtro: 40dp r=15 #4DDBE0EB, texto 400/12 @ x=17; ícone #4C5461 à direita
+     (calendário 20dp em Período, chevron 24dp em Local/Situação), definido no RequestFiltersSheet. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +17,18 @@
         android:inputType="none"
         android:maxLines="1"
         android:paddingStart="@dimen/app_filter_field_padding_start"
-        android:paddingEnd="@dimen/app_filter_field_padding_start"
+        android:paddingEnd="@dimen/app_filter_field_padding_end"
         android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Field"
         tools:text="Últimos 30 dias" />
+
+    <ImageView
+        android:id="@+id/ivFilterIcon"
+        android:layout_width="@dimen/app_filter_icon_size"
+        android:layout_height="@dimen/app_filter_icon_size"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="@dimen/app_filter_icon_margin_end"
+        android:importantForAccessibility="no"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_chevron_down_22"
+        app:tint="@color/app_text_secondary" />
 </FrameLayout>

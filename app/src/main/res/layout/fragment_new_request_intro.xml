@@ -49,6 +49,7 @@
         <!-- Passo 1 -->
         <TextView
             android:id="@+id/tvStep1Circle"
+            android:includeFontPadding="false"
             android:layout_width="@dimen/app_new_request_step_circle_size"
             android:layout_height="@dimen/app_new_request_step_circle_size"
             android:layout_marginStart="@dimen/app_new_request_title_margin_start"
@@ -108,6 +109,7 @@
         <!-- Passo 2 -->
         <TextView
             android:id="@+id/tvStep2Circle"
+            android:includeFontPadding="false"
             android:layout_width="@dimen/app_new_request_step_circle_size"
             android:layout_height="@dimen/app_new_request_step_circle_size"
             android:layout_marginTop="23dp"
@@ -164,6 +166,7 @@
         <!-- Passo 3 -->
         <TextView
             android:id="@+id/tvStep3Circle"
+            android:includeFontPadding="false"
             android:layout_width="@dimen/app_new_request_step_circle_size"
             android:layout_height="@dimen/app_new_request_step_circle_size"
             android:layout_marginTop="15dp"

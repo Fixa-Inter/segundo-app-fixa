@@ -81,7 +81,9 @@
                 android:contentDescription="@string/app_edit_change_photo"
                 android:scaleType="center"
                 app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
-                app:layout_constraintEnd_toEndOf="@id/ivAvatar" />
+                app:layout_constraintEnd_toEndOf="@id/ivAvatar"
+                app:srcCompat="@drawable/ic_camera_20"
+                app:tint="@color/app_on_primary" />
 
             <TextView
                 android:id="@+id/tvNameLabel"

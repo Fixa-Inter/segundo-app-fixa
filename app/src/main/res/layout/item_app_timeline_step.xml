@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Etapa da timeline (122dp de altura): dot 32dp (concluída: verde com check; atual: azul com miolo branco 18dp;
-  pendente: cinza), linha tracejada 1dp até a próxima; card 290x80 r=25 com data (400/9), título (600/16) e hora (400/9).
+  pendente: cinza, sem card), linha tracejada 1.2dp (2/2) de 82dp que começa 4dp abaixo do dot e termina 4dp antes
+  do próximo (por isso desenha fora do item: clipChildren=false); card 290x80 r=25 com data (400/9), título (600/16)
+  e hora (400/9). A cor da linha segue o estado do passo (verde, azul-escuro ou cinza).
 -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/app_details_timeline_step_height">
+    android:layout_height="@dimen/app_details_timeline_step_height"
+    android:clipChildren="false">
 
     <View
         android:id="@+id/viewLine"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:layerType="software"
-        android:background="@drawable/bg_app_dashed_line_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="@dimen/app_details_timeline_line_width"
+        android:layout_height="@dimen/app_details_timeline_line_length"
+        android:layout_marginTop="@dimen/app_details_timeline_line_gap"
         app:layout_constraintEnd_toEndOf="@id/viewDot"
         app:layout_constraintStart_toStartOf="@id/viewDot"
         app:layout_constraintTop_toBottomOf="@id/viewDot" />

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Item FAQ expansível -->
+<!--
+  Item FAQ (Figma 4432:6647): pergunta 400/18 #130943 (linha 40); expandido mostra "—" e a resposta 400/14 #4B5461
+  (linha 25) 6dp abaixo; recolhido mostra chevron #153D7D. Divisor 1dp #BFC4CE 14dp abaixo do conteúdo
+  (30dp quando há resposta) e 14dp antes da próxima pergunta.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/app_faq_item_spacing">
+    android:paddingStart="@dimen/app_faq_side_margin"
+    android:paddingTop="@dimen/app_faq_item_spacing"
+    android:paddingEnd="@dimen/app_faq_side_margin">
 
     <LinearLayout
         android:id="@+id/layoutQuestion"
@@ -15,9 +21,7 @@
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:minHeight="@dimen/app_touch_target"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/app_faq_side_margin"
-        android:paddingEnd="@dimen/app_faq_side_margin">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvQuestion"
@@ -32,9 +36,9 @@
             android:layout_width="@dimen/app_faq_chevron_size"
             android:layout_height="@dimen/app_faq_chevron_size"
             android:layout_marginStart="12dp"
-            android:contentDescription="@string/app_faq_toggle"
+            android:importantForAccessibility="no"
             app:srcCompat="@drawable/ic_chevron_down_22"
-            app:tint="@color/app_primary_dark" />
+            app:tint="@color/app_primary" />
     </LinearLayout>
 
     <TextView
@@ -42,10 +46,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/app_faq_answer_margin_top"
-        android:paddingStart="@dimen/app_faq_side_margin"
-        android:paddingEnd="@dimen/app_faq_chevron_margin_end"
+        android:layout_marginBottom="@dimen/app_faq_answer_margin_bottom"
         android:textAppearance="@style/TextAppearance.FIXA.App.Faq.Answer"
         android:visibility="gone"
-        tools:text="O FIXA é uma iniciativa tecnológica voltada para a equipe de manutenção e para os solicitantes."
+        tools:text="O FIXA é uma iniciativa tecnológica voltada para a equipe de manutenção de instituições."
         tools:visibility="visible" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/app_faq_divider_margin_top"
+        android:background="@color/app_divider" />
 </LinearLayout>

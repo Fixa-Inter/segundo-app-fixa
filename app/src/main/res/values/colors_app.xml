@@ -58,4 +58,11 @@
     <color name="app_shadow_soft">#1A000000</color>
     <color name="app_shadow_search">#26000000</color>
     <color name="app_shadow_chat_input">#1A153D7D</color>
+    <!-- Balão da Manu (Figma): fundo igual à tela e sombra preta 40% com blur 4, aproximada em 2 camadas -->
+    <color name="app_bubble_fill">@color/app_background</color>
+    <color name="app_bubble_shadow">#1A000000</color>
+    <!-- Borda da caixa de código focada (Figma: #130943 80%) -->
+    <color name="app_code_digit_stroke">#CC130943</color>
+    <!-- Marcador sobre a foto no pop-up de editar (Figma: #54555A 90%) -->
+    <color name="app_photo_badge">#E654555A</color>
 </resources>

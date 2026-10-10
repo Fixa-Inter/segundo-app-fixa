@@ -73,6 +73,7 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/actvLocation"
+                    android:popupBackground="@drawable/bg_app_popup_menu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"

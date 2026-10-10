@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Balão da saudação da Manu (Figma 4432:6497): 220x84, raio 20, rabicho embaixo à esquerda,
+  preenchimento #F5F7FA e sombra (x -1, y 2, blur 4). Como vector não projeta elevation,
+  a sombra é aproximada por cópias deslocadas com baixa opacidade.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="224dp"
+    android:height="88dp"
+    android:viewportWidth="224"
+    android:viewportHeight="88">
+    <group android:translateX="1" android:translateY="1.5">
+        <path android:fillColor="@color/app_bubble_shadow" android:pathData="M59.3207 69.1358L200 69.1358C211.046 69.1358 220 60.1815 220 49.1358L220 20C220 8.95431 211.046 0 200 0L20 0C8.95431 0 0 8.95432 0 20L0 51.7764C0 61.3637 7.77206 69.1358 17.3594 69.1358L29.6537 69.1358C32.451 69.1358 34.7188 71.4035 34.7188 74.2009C34.7188 78.3124 39.3588 80.7108 42.713 78.3331L52.7235 71.2369C54.6518 69.87 56.9571 69.1358 59.3207 69.1358Z" />
+    </group>
+    <group android:translateX="1" android:translateY="2.5">
+        <path android:fillColor="@color/app_bubble_shadow" android:pathData="M59.3207 69.1358L200 69.1358C211.046 69.1358 220 60.1815 220 49.1358L220 20C220 8.95431 211.046 0 200 0L20 0C8.95431 0 0 8.95432 0 20L0 51.7764C0 61.3637 7.77206 69.1358 17.3594 69.1358L29.6537 69.1358C32.451 69.1358 34.7188 71.4035 34.7188 74.2009C34.7188 78.3124 39.3588 80.7108 42.713 78.3331L52.7235 71.2369C54.6518 69.87 56.9571 69.1358 59.3207 69.1358Z" />
+    </group>
+    <group android:translateX="2" android:translateY="1">
+        <path android:fillColor="@color/app_bubble_fill" android:pathData="M59.3207 69.1358L200 69.1358C211.046 69.1358 220 60.1815 220 49.1358L220 20C220 8.95431 211.046 0 200 0L20 0C8.95431 0 0 8.95432 0 20L0 51.7764C0 61.3637 7.77206 69.1358 17.3594 69.1358L29.6537 69.1358C32.451 69.1358 34.7188 71.4035 34.7188 74.2009C34.7188 78.3124 39.3588 80.7108 42.713 78.3331L52.7235 71.2369C54.6518 69.87 56.9571 69.1358 59.3207 69.1358Z" />
+    </group>
+</vector>

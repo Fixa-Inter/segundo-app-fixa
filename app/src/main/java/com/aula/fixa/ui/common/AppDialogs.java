@@ -31,14 +31,14 @@ public final class AppDialogs {
 
     /** Figma "pop-up 7041": salvar alterações. */
     public static void showSaveConfirm(Context context, @Nullable Runnable onConfirm) {
-        showConfirm(context, R.drawable.img_dialog_illustration, R.string.app_dialog_save_title,
+        showConfirm(context, R.drawable.img_dialog_save, R.string.app_dialog_save_title,
                 R.string.app_dialog_save_body, R.string.app_save, onConfirm);
     }
 
     /** Voltar com alterações pendentes: pergunta se salva antes de sair. */
     public static void showDiscardConfirm(Context context, Runnable onSave, Runnable onDiscard) {
         View content = LayoutInflater.from(context).inflate(R.layout.dialog_app_confirm, null, false);
-        ((ImageView) content.findViewById(R.id.ivDialogImage)).setImageResource(R.drawable.img_dialog_illustration);
+        ((ImageView) content.findViewById(R.id.ivDialogImage)).setImageResource(R.drawable.img_dialog_save);
         ((TextView) content.findViewById(R.id.tvDialogTitle)).setText(R.string.app_dialog_save_title);
         ((TextView) content.findViewById(R.id.tvDialogBody)).setText(R.string.app_dialog_discard_body);
         MaterialButton secondary = content.findViewById(R.id.btnDialogSecondary);
@@ -54,7 +54,7 @@ public final class AppDialogs {
 
     /** Figma "pop-up 7049": sair da conta. */
     public static void showLogoutConfirm(Context context, Runnable onConfirm) {
-        showConfirm(context, R.drawable.img_dialog_illustration, R.string.app_dialog_logout_title,
+        showConfirm(context, R.drawable.img_dialog_logout, R.string.app_dialog_logout_title,
                 R.string.app_dialog_logout_body, R.string.app_dialog_logout_confirm, onConfirm);
     }
 
@@ -101,7 +101,15 @@ public final class AppDialogs {
         EditText location = content.findViewById(R.id.etEditLocation);
         EditText device = content.findViewById(R.id.etEditDevice);
         title.setText(item.title);
+        description.setText(item.description);
         location.setText(item.location);
+        device.setText(item.device);
+        View photo = content.findViewById(R.id.layoutEditPhoto1);
+        if (item.photo != 0) {
+            ((ImageView) content.findViewById(R.id.ivEditPhoto1)).setImageResource(item.photo);
+        } else {
+            photo.setVisibility(View.GONE);
+        }
         final String initial = snapshot(title, description, location, device);
 
         AlertDialog dialog = build(context, content, R.dimen.app_dialog_edit_width);

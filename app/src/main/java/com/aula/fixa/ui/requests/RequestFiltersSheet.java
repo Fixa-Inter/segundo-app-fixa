@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.IdRes;
@@ -36,6 +37,8 @@ public class RequestFiltersSheet extends BottomSheetDialogFragment {
         setDefault(view, R.id.fieldPeriod, R.string.app_filter_period_default);
         setDefault(view, R.id.fieldLocation, R.string.app_filter_location_default);
         setDefault(view, R.id.fieldStatus, R.string.app_filter_status_default);
+        ((ImageView) view.findViewById(R.id.fieldPeriod).findViewById(R.id.ivFilterIcon))
+                .setImageResource(R.drawable.ic_calendar_20);
         view.findViewById(R.id.btnApply).setOnClickListener(v -> dismiss());
         view.findViewById(R.id.btnClear).setOnClickListener(v -> {
             setDefault(view, R.id.fieldPeriod, R.string.app_filter_period_default);

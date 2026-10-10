@@ -74,6 +74,7 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/actvDevice"
+                    android:popupBackground="@drawable/bg_app_popup_menu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -123,8 +124,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:drawablePadding="@dimen/app_step_upload_icon_padding"
+                    android:gravity="center"
                     android:text="@string/app_step_photo_upload"
-                    android:textAppearance="@style/TextAppearance.FIXA.App.Step.Upload" />
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Step.Upload"
+                    app:drawableTopCompat="@drawable/ic_image_upload" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPhotos"

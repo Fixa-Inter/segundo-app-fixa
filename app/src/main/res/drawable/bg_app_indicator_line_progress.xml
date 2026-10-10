@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Linha do passo atual (Figma): trilho cinza com a metade inicial em #153D7D.
+     O preenchimento é um clip horizontal; o Fragment aplica level 5000 (50%). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_app_indicator_line_pending" />
+    <item>
+        <clip
+            android:clipOrientation="horizontal"
+            android:drawable="@drawable/bg_app_indicator_line_half"
+            android:gravity="start" />
+    </item>
+</layer-list>

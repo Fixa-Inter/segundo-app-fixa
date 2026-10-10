@@ -40,6 +40,15 @@
     <dimen name="app_chat_input_side_margin">64dp</dimen>
     <dimen name="app_chat_avatar_size">150dp</dimen>
     <dimen name="app_chat_greeting_max_width">320dp</dimen>
+    <dimen name="app_chat_greeting_margin_start">13dp</dimen>
+    <dimen name="app_chat_bubble_offset_top">23dp</dimen>
+    <dimen name="app_chat_bubble_width">258dp</dimen>
+    <dimen name="app_chat_bubble_height">101dp</dimen>
+    <dimen name="app_chat_bubble_overlap">-14dp</dimen>
+    <dimen name="app_chat_bubble_padding_start">18dp</dimen>
+    <dimen name="app_chat_bubble_padding_top">11dp</dimen>
+    <dimen name="app_chat_bubble_padding_end">3dp</dimen>
+    <dimen name="app_chat_clip_margin_start">-12dp</dimen>
     <dimen name="app_chat_drawer_width">300dp</dimen>
     <dimen name="app_chat_drawer_item_width">240dp</dimen>
 
@@ -126,4 +135,23 @@
     <dimen name="recovery_link_text_size">18sp</dimen>
     <dimen name="recovery_bottom_spacing">40dp</dimen>
     <dimen name="recovery_success_title_top_margin">12dp</dimen>
+    <dimen name="recovery_title_max_width">340dp</dimen>
+    <dimen name="recovery_reset_title_max_width">390dp</dimen>
+    <dimen name="recovery_verify_description_top_margin">14dp</dimen>
+    <dimen name="recovery_verify_label_top_margin">72dp</dimen>
+    <dimen name="recovery_verify_code_top_margin">16dp</dimen>
+    <dimen name="recovery_verify_button_top_margin">130dp</dimen>
+    <dimen name="recovery_verify_resend_top_margin">24dp</dimen>
+    <dimen name="recovery_code_width">60dp</dimen>
+    <dimen name="recovery_code_height">72dp</dimen>
+    <dimen name="recovery_code_spacing">10dp</dimen>
+    <dimen name="recovery_code_radius">18dp</dimen>
+    <dimen name="recovery_code_stroke">2dp</dimen>
+    <dimen name="recovery_code_text_size">26sp</dimen>
+    <!-- Sem conexão (Figma 5178:9529) -->
+    <dimen name="app_offline_image_margin_top">140dp</dimen>
+    <dimen name="app_offline_image_size">460dp</dimen>
+    <dimen name="app_offline_text_side_margin">40dp</dimen>
+    <dimen name="app_offline_text_margin_top">0dp</dimen>
+    <dimen name="app_dropdown_item_text_size">16sp</dimen>
 </resources>

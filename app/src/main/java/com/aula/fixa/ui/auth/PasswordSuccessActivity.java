@@ -16,11 +16,15 @@ public class PasswordSuccessActivity extends RecoveryActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        findViewById(R.id.btnBackToLogin).setOnClickListener(view -> {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finishAffinity();
-        });
+        findViewById(R.id.btnBackToLogin).setOnClickListener(view -> goToLogin());
+        // Registrar um problema exige estar logado: leva ao login, de onde o fluxo segue para a Home.
+        findViewById(R.id.btnNewRequest).setOnClickListener(view -> goToLogin());
+    }
+
+    private void goToLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finishAffinity();
     }
 }

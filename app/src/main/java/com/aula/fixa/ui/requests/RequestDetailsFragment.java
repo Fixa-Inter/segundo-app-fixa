@@ -1,5 +1,6 @@
 package com.aula.fixa.ui.requests;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
+import com.aula.fixa.ui.common.DashedLineDrawable;
 import com.aula.fixa.model.RequestItem;
 import com.aula.fixa.model.TimelineStep;
 
@@ -94,6 +96,7 @@ public class RequestDetailsFragment extends Fragment {
 
             void bind(TimelineStep step, boolean last) {
                 line.setVisibility(last ? View.INVISIBLE : View.VISIBLE);
+                line.setBackground(dashedLine(step.state));
                 date.setText(step.date);
                 title.setText(step.title);
                 time.setText(step.time);
@@ -118,12 +121,20 @@ public class RequestDetailsFragment extends Fragment {
                         dot.setBackgroundResource(R.drawable.bg_app_circle_muted);
                         dotInner.setVisibility(View.GONE);
                         check.setVisibility(View.GONE);
-                        card.setVisibility(View.VISIBLE);
-                        card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_field_background));
-                        title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_text_muted));
-                        date.setText("");
-                        time.setText("");
+                        // Figma: passo pendente é só o ponto cinza; o card some mas mantém a altura da etapa.
+                        card.setVisibility(View.INVISIBLE);
                 }
+            }
+
+            private DashedLineDrawable dashedLine(TimelineStep.State state) {
+                int color = state == TimelineStep.State.DONE ? R.color.app_status_done
+                        : state == TimelineStep.State.CURRENT ? R.color.app_primary_deep
+                        : R.color.app_status_pending;
+                Resources res = itemView.getResources();
+                return new DashedLineDrawable(ContextCompat.getColor(itemView.getContext(), color),
+                        res.getDimension(R.dimen.app_details_timeline_line_stroke),
+                        res.getDimension(R.dimen.app_details_timeline_line_dash),
+                        res.getDimension(R.dimen.app_details_timeline_line_dash));
             }
         }
     }

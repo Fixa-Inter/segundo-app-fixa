@@ -20,7 +20,7 @@
 
         <include
             android:id="@+id/header"
-            layout="@layout/view_app_page_header" />
+            layout="@layout/view_app_page_header_stacked" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardAbout"
@@ -34,11 +34,22 @@
             app:cardElevation="2dp"
             app:strokeWidth="0dp">
 
+            <!-- Figma: ilustração 350x146 esticada no card (scaleMode STRETCH) + logo 80x92 a 32dp da esquerda, 27dp do topo -->
+            <ImageView
+                android:id="@+id/ivAboutBanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/img_about_banner" />
+
             <ImageView
                 android:id="@+id/ivAbout"
                 android:layout_width="@dimen/app_about_logo_width"
                 android:layout_height="@dimen/app_about_logo_height"
-                android:layout_gravity="center"
+                android:layout_gravity="start|top"
+                android:layout_marginStart="@dimen/app_about_logo_margin_start"
+                android:layout_marginTop="@dimen/app_about_logo_margin_top"
                 android:contentDescription="@string/app_about_image"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/logo_fixa_splash" />

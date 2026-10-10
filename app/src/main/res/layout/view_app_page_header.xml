@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Header de página secundária: back 22dp @ (11,22) + título 500/25 #130943 @ x=86 -->
+<!-- Header de página secundária: back 22dp @ (11,22) + título 500/25 #130943 centralizado (caixa 240dp em x=86) -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="9dp">
+    android:paddingTop="@dimen/app_page_header_padding_top">
 
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="@dimen/app_touch_target"
         android:layout_height="@dimen/app_touch_target"
-        android:layout_marginStart="-2dp"
+        android:layout_marginStart="@dimen/app_page_header_back_margin_start"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/app_back"
         android:scaleType="center"
@@ -24,14 +24,15 @@
         android:id="@+id/tvPageTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="@dimen/app_screen_side_margin"
+        android:layout_marginStart="@dimen/app_page_header_title_inset"
+        android:layout_marginEnd="@dimen/app_page_header_title_inset"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.FIXA.App.PageTitle"
         app:layout_constraintBottom_toBottomOf="@id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnBack"
         tools:text="Meu Perfil" />
 </androidx.constraintlayout.widget.ConstraintLayout>

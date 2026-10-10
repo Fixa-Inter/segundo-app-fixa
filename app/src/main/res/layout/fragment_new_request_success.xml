@@ -72,7 +72,7 @@
             android:layout_marginTop="@dimen/app_success_secondary_margin_top"
             android:letterSpacing="-0.0178"
             android:text="@string/app_success_new"
-            android:textColor="@color/app_primary"
+            android:textColor="@color/app_primary_deep"
             android:textSize="@dimen/app_success_button_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

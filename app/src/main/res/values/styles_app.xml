@@ -6,6 +6,11 @@
         <item name="fontFamily">@font/poppins</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textStyle">normal</item>
+        <!-- Anula lineHeight 20sp e letterSpacing herdados do BodyMedium: no Figma o line-height
+             é automático e o espaçamento entre letras é 0, e o 20sp fixo encavalava títulos de 2 linhas. -->
+        <item name="lineHeight">-1px</item>
+        <item name="android:lineHeight">-1px</item>
+        <item name="android:letterSpacing">0</item>
     </style>
 
     <!-- Pesos -->
@@ -226,6 +231,10 @@
         <item name="android:textColor">@color/app_primary</item>
         <item name="android:textSize">@dimen/app_step_label_text_size</item>
     </style>
+    <style name="TextAppearance.FIXA.App.Step.DropdownItem" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_dropdown_item_text_size</item>
+    </style>
     <style name="TextAppearance.FIXA.App.Step.Field" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_text_dark</item>
         <item name="android:textColorHint">@color/app_text_hint</item>
@@ -255,6 +264,11 @@
     </style>
     <style name="TextAppearance.FIXA.App.Confirm.Meta" parent="TextAppearance.FIXA.App.SemiBold">
         <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_confirm_card_meta_text_size</item>
+    </style>
+    <!-- "Imagens" no card de confirmação (Figma 700/14 #0B013C) -->
+    <style name="TextAppearance.FIXA.App.Confirm.Section" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textColor">@color/app_primary_deep</item>
         <item name="android:textSize">@dimen/app_confirm_card_meta_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Success.Title" parent="TextAppearance.FIXA.App.Medium">
@@ -478,6 +492,29 @@
     <style name="TextAppearance.FIXA.App.Recovery.Label" parent="TextAppearance.FIXA.App.Medium">
         <item name="android:textColor">@color/app_primary</item>
         <item name="android:textSize">@dimen/recovery_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Recovery.Resend" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textSize">@dimen/recovery_link_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Recovery.CodeDigit" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textSize">@dimen/recovery_code_text_size</item>
+    </style>
+    <!-- Caixa de um dígito do código de verificação (Figma 4432:7065) -->
+    <style name="Widget.FIXA.App.CodeDigit" parent="">
+        <item name="android:layout_width">@dimen/recovery_code_width</item>
+        <item name="android:layout_height">@dimen/recovery_code_height</item>
+        <item name="android:layout_marginStart">@dimen/recovery_code_spacing</item>
+        <item name="android:background">@drawable/bg_app_code_digit</item>
+        <item name="android:gravity">center</item>
+        <item name="android:importantForAutofill">no</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.FIXA.App.Recovery.CodeDigit</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
     <style name="TextAppearance.FIXA.App.Recovery.Field" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_primary_dark</item>

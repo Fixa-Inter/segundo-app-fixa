@@ -18,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
+import com.aula.fixa.ui.common.ConnectivityWatcher;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getLifecycle().addObserver(new ConnectivityWatcher(this));
         EdgeToEdge.enable(this);
         WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
                 .setAppearanceLightStatusBars(true);
@@ -100,11 +102,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onDestinationChanged(@NonNull NavDestination destination) {
-        boolean topLevel = TOP_LEVEL.contains(destination.getId());
-        bottomNav.setVisibility(topLevel ? View.VISIBLE : View.GONE);
-        if (!topLevel) return;
+        // Figma "Detalhes": a barra continua visível com "Solicitações" ativa.
+        boolean withNav = TOP_LEVEL.contains(destination.getId())
+                || destination.getId() == R.id.requestDetailsFragment;
+        bottomNav.setVisibility(withNav ? View.VISIBLE : View.GONE);
+        if (!withNav) return;
 
-        int activeItem = destination.getId() == R.id.requestsFragment ? R.id.navRequests
+        int activeItem = destination.getId() == R.id.requestsFragment
+                || destination.getId() == R.id.requestDetailsFragment ? R.id.navRequests
                 : destination.getId() == R.id.eventsFragment ? R.id.navEvents
                 : destination.getId() == R.id.chatbotFragment ? R.id.navChat
                 : R.id.navHome;

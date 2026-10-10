@@ -19,9 +19,13 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AutoCompleteTextView field = view.findViewById(R.id.actvDevice);
-        field.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1,
+        field.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown,
                 new String[]{"Projetor", "Ar-condicionado", "Lâmpada", "Torneira"}));
+        // inputType=none: o 1º toque só dá foco, então abre a lista também ao ganhar foco.
         field.setOnClickListener(v -> field.showDropDown());
+        field.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) field.showDropDown();
+        });
         // Até integrar câmera/galeria, upload e foto adicionam a imagem de exemplo do Figma.
         view.findViewById(R.id.btnUpload).setOnClickListener(v -> form.photos.add(R.drawable.img_confirm_photo_1));
         view.findViewById(R.id.btnTakePhoto).setOnClickListener(v -> form.photos.add(R.drawable.img_confirm_photo_2));

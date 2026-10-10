@@ -3,7 +3,8 @@
   Bottom nav custom (Figma): barra branca 100dp; item ativo = círculo 56dp #153D7D com ícone branco
   e indicador 70x2dp no topo; inativos = ícone 26dp #637087.
   Ícones por estado exportados do Figma (ativo/inativo), sem tint: as cores fazem parte do vetor.
-  Mascote ativa é PNG (image 169); inativa é o traçado vetorial (#637087). Tamanho reduzido para ficar proporcional aos demais.
+  Mascote ativa é o PNG do Figma (image 169, 40dp com respiro interno); inativa é o traçado vetorial
+  (#637087, 28dp) com inset para ocupar a mesma área, então as duas ficam do tamanho visual do Figma.
 -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Chatbot (Figma): menu 24dp @ (32,39); título "Manu" 500/25 centralizado; avatar 130dp + saudação 400/16 no meio;
-  caixa de entrada 380x130 r=30 (sombra #1A153D7D 0/2 blur 15) com hint 400/18, "+" 24dp e enviar 30dp r=10 #130943.
+  Chatbot (Figma): menu 24dp @ (32,39); título "Manu" 500/25 centralizado; avatar 130dp + balão 220x84 com saudação 400/16;
+  caixa de entrada 380x130 r=30 (sombra #1A153D7D 0/2 blur 15) com hint 400/18, "+" 24dp, clipe 15x16 e enviar 30dp r=10 #130943.
   Menu lateral (230dp) em DrawerLayout.
 -->
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -58,16 +58,13 @@
             app:stackFromEnd="true" />
 
         <!-- Estado inicial -->
-        <LinearLayout
+        <!-- Figma: avatar 130dp em x=11; balão 220x84 começa 10dp antes do fim do avatar e 20dp acima dele -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutGreeting"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="11dp"
-            android:paddingEnd="@dimen/app_screen_side_margin"
+            android:layout_marginStart="@dimen/app_chat_greeting_margin_start"
             app:layout_constraintBottom_toTopOf="@id/cardInput"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnMenu"
             app:layout_constraintVertical_bias="0.42">
@@ -76,19 +73,27 @@
                 android:id="@+id/ivAssistant"
                 android:layout_width="@dimen/app_chat_avatar_size"
                 android:layout_height="@dimen/app_chat_avatar_size"
+                android:layout_marginTop="@dimen/app_chat_bubble_offset_top"
                 android:contentDescription="@string/app_chat_assistant_avatar"
                 android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/img_chatbot_avatar" />
 
             <TextView
                 android:id="@+id/tvGreeting"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="1"
+                android:layout_width="@dimen/app_chat_bubble_width"
+                android:layout_height="@dimen/app_chat_bubble_height"
+                android:layout_marginStart="@dimen/app_chat_bubble_overlap"
+                android:background="@drawable/bg_app_chat_bubble"
+                android:paddingStart="@dimen/app_chat_bubble_padding_start"
+                android:paddingTop="@dimen/app_chat_bubble_padding_top"
+                android:paddingEnd="@dimen/app_chat_bubble_padding_end"
                 android:textAppearance="@style/TextAppearance.FIXA.App.Chat.Greeting"
+                app:layout_constraintStart_toEndOf="@id/ivAssistant"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Olá Rapha, como posso te ajudar hoje?" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Caixa de entrada -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -129,12 +134,26 @@
                 android:layout_marginStart="19dp"
                 android:layout_marginBottom="10dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/app_chat_attach"
+                android:contentDescription="@string/app_chat_add"
                 android:scaleType="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/ic_plus_24"
                 app:tint="@color/app_primary_dark" />
+
+            <!-- Figma: clipe 15x16 a 41dp do "+"; alvos de 48dp se sobrepõem nas bordas para manter a distância visual -->
+            <ImageButton
+                android:id="@+id/btnAttachFile"
+                android:layout_width="@dimen/app_touch_target"
+                android:layout_height="@dimen/app_touch_target"
+                android:layout_marginStart="@dimen/app_chat_clip_margin_start"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/app_chat_attach"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="@id/btnAttach"
+                app:layout_constraintStart_toEndOf="@id/btnAttach"
+                app:layout_constraintTop_toTopOf="@id/btnAttach"
+                app:srcCompat="@drawable/ic_paperclip_16" />
 
             <ImageButton
                 android:id="@+id/btnSend"

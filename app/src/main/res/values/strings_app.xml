@@ -65,7 +65,6 @@
     <!-- Eventos -->
     <string name="app_events_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> os eventos]]></string>
     <string name="app_events_section">Eventos</string>
-    <string name="app_events_new">Novo evento</string>
     <string name="app_events_pick_date">Escolher data</string>
     <string name="app_events_view">Ver evento</string>
     <string name="app_event_info_title"><![CDATA[<b><font color="#153D7D">Informações</font></b> <u><font color="#130943">sobre o evento</font></u>]]></string>
@@ -80,12 +79,18 @@
     <string name="app_chat_open_menu">Abrir menu de conversas</string>
     <string name="app_chat_greeting">Olá %1$s, como posso te ajudar hoje?</string>
     <string name="app_chat_input_hint">Como posso te ajudar hoje?</string>
-    <string name="app_chat_attach">Anexar</string>
+    <string name="app_chat_add">Adicionar</string>
+    <string name="app_chat_attach">Anexar arquivo</string>
     <string name="app_chat_send">Enviar</string>
     <string name="app_chat_assistant_avatar">Avatar da assistente Manu</string>
     <string name="app_chat_drawer_search">Buscar conversas</string>
     <string name="app_chat_drawer_new">Novo chat</string>
     <string name="app_chat_drawer_recent">Recentes</string>
+    <string-array name="app_chat_recent_items">
+        <item>Nova conversa</item>
+        <item>Ajuda com solicitação</item>
+        <item>Dúvidas sobre o app</item>
+    </string-array>
 
     <!-- Abrir solicitação -->
     <string name="app_new_request_title"><![CDATA[<b><font color="#153D7D">Abra</font></b> sua solicitação]]></string>
@@ -152,6 +157,15 @@
     <string name="app_settings_notifications">Notificações</string>
     <string name="app_faq_title">FAQ</string>
     <string name="app_faq_question_sample">O que é o FIXA?</string>
+    <string-array name="app_faq_questions">
+        <item>@string/app_faq_question_sample</item>
+        <item>Como abrir uma solicitação?</item>
+        <item>Como acompanhar o status?</item>
+        <item>Quem aprova as solicitações?</item>
+        <item>Posso editar uma solicitação?</item>
+        <item>Como falar com a Manu?</item>
+        <item>Como alterar meus dados?</item>
+    </string-array>
     <string name="app_faq_answer_sample">O FIXA é uma iniciativa tecnológica voltada para a equipe de manutenção e para os solicitantes.</string>
     <string name="app_faq_toggle">Expandir resposta</string>
     <string name="app_about_title">Sobre o app</string>
@@ -218,6 +232,15 @@
     <string name="recovery_back_to_login">Voltar ao login</string>
     <string name="recovery_sent_title_lead">Verifique</string>
     <string name="recovery_sent_title_rest">seu e-mail</string>
+    <string name="recovery_sent_description">Enviamos um código de 6 dígitos para %1$s</string>
+    <!-- E-mail de exemplo do Figma, usado quando a tela abre sem e-mail informado -->
+    <string name="recovery_sent_sample_email" translatable="false">rapha******gmail.com</string>
+    <string name="recovery_code_label">Código</string>
+    <string name="recovery_code_digit">Dígito %1$d do código</string>
+    <string name="recovery_confirm_code">Confirmar código</string>
+    <string name="recovery_resend_lead">Não recebeu o código?</string>
+    <string name="recovery_resend_action">Reenviar</string>
+    <string name="recovery_resend_done">Código reenviado</string>
     <string name="recovery_reset_title_lead">Defina</string>
     <string name="recovery_reset_title_rest">uma nova senha</string>
     <string name="recovery_password_label">Senha</string>
@@ -227,4 +250,5 @@
     <string name="recovery_confirm">Confirmar</string>
     <string name="recovery_success_title">Senha alterada com sucesso!</string>
     <string name="recovery_success_back_to_login">Voltar para login</string>
+    <string name="app_offline_message">Verifique sua conexão com a internet</string>
 </resources>

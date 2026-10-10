@@ -13,6 +13,7 @@
 
     <TextView
         android:id="@+id/tvStep1"
+        android:includeFontPadding="false"
         android:layout_width="@dimen/app_step_indicator_circle_size"
         android:layout_height="@dimen/app_step_indicator_circle_size"
         android:layout_marginStart="@dimen/app_step_indicator_side_margin"
@@ -28,6 +29,7 @@
 
     <TextView
         android:id="@+id/tvStep2"
+        android:includeFontPadding="false"
         android:layout_width="@dimen/app_step_indicator_circle_size"
         android:layout_height="@dimen/app_step_indicator_circle_size"
         android:background="@drawable/bg_app_circle_muted"
@@ -41,6 +43,7 @@
 
     <TextView
         android:id="@+id/tvStep3"
+        android:includeFontPadding="false"
         android:layout_width="@dimen/app_step_indicator_circle_size"
         android:layout_height="@dimen/app_step_indicator_circle_size"
         android:layout_marginEnd="@dimen/app_step_indicator_side_margin"
@@ -65,18 +68,6 @@
         app:layout_constraintStart_toEndOf="@id/tvStep1"
         app:layout_constraintTop_toTopOf="@id/tvStep1" />
 
-    <View
-        android:id="@+id/viewLine1Progress"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/app_step_indicator_line_height"
-        android:background="@drawable/bg_app_indicator_line_half"
-        app:layout_constraintBottom_toBottomOf="@id/viewLine1"
-        app:layout_constraintEnd_toEndOf="@id/viewLine1"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/viewLine1"
-        app:layout_constraintTop_toTopOf="@id/viewLine1"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintWidth_default="percent" />
 
     <View
         android:id="@+id/viewLine2"
@@ -90,19 +81,6 @@
         app:layout_constraintStart_toEndOf="@id/tvStep2"
         app:layout_constraintTop_toTopOf="@id/tvStep1" />
 
-    <View
-        android:id="@+id/viewLine2Progress"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/app_step_indicator_line_height"
-        android:background="@drawable/bg_app_indicator_line_half"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/viewLine2"
-        app:layout_constraintEnd_toEndOf="@id/viewLine2"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/viewLine2"
-        app:layout_constraintTop_toTopOf="@id/viewLine2"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintWidth_default="percent" />
 
     <TextView
         android:id="@+id/tvStep1Label"
