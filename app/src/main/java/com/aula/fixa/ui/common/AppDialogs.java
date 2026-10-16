@@ -15,7 +15,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 
 import com.aula.fixa.R;
-import com.aula.fixa.model.RequestItem;
+import com.aula.fixa.domain.model.RequestItem;
 import com.google.android.material.button.MaterialButton;
 
 /** Pop-ups do Figma: confirmações com ilustração, exclusão com motivo e edição de solicitação. */

@@ -1,4 +1,4 @@
-package com.aula.fixa.model;
+package com.aula.fixa.domain.model;
 
 public class EventItem {
     public final String day;

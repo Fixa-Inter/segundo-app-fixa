@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
-import com.aula.fixa.model.EventItem;
+import com.aula.fixa.domain.model.EventItem;
 
 import java.util.Arrays;
 import java.util.List;

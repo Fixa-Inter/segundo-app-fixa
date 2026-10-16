@@ -8,7 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.aula.fixa.R;
+import com.aula.fixa.data.local.preferences.SessionStorage;
+import com.aula.fixa.data.repository.AuthRepository;
 import com.aula.fixa.ui.common.AppText;
+import android.widget.Toast;
 
 public class ForgotPasswordActivity extends RecoveryActivity {
 
@@ -23,8 +26,25 @@ public class ForgotPasswordActivity extends RecoveryActivity {
                 R.string.recovery_forgot_title_rest, R.color.app_primary_dark);
 
         EditText email = findViewById(R.id.etEmail);
-        findViewById(R.id.btnSend).setOnClickListener(view ->
-                startActivity(VerifyEmailActivity.intent(this, email.getText().toString().trim())));
+        findViewById(R.id.btnSend).setOnClickListener(view -> {
+            String value = email.getText().toString().trim();
+            if (value.isBlank()) {
+                Toast.makeText(this, "Informe seu e-mail.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            findViewById(R.id.btnSend).setEnabled(false);
+            new Thread(() -> {
+                try {
+                    new AuthRepository(new SessionStorage(this)).requestPasswordRecovery(value);
+                    runOnUiThread(() -> startActivity(VerifyEmailActivity.intent(this, value)));
+                } catch (Exception exception) {
+                    runOnUiThread(() -> {
+                        findViewById(R.id.btnSend).setEnabled(true);
+                        Toast.makeText(this, AuthRepository.messageFrom(exception), Toast.LENGTH_LONG).show();
+                    });
+                }
+            }).start();
+        });
         findViewById(R.id.btnBackToLogin).setOnClickListener(view -> finish());
     }
 }

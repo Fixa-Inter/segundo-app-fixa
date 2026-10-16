@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
 import com.aula.fixa.ui.common.TouchTargets;
-import com.aula.fixa.model.RequestItem;
+import com.aula.fixa.domain.model.RequestItem;
 import com.aula.fixa.ui.requests.RequestAdapter;
 import com.aula.fixa.ui.requests.RequestMenuPopup;
 import com.aula.fixa.ui.requests.SampleRequests;

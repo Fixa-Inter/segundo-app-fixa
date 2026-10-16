@@ -1,4 +1,4 @@
-package com.aula.fixa.model;
+package com.aula.fixa.domain.model;
 
 public class FaqItem {
     public final String question;

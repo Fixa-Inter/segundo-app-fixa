@@ -1,4 +1,4 @@
-package com.aula.fixa.model;
+package com.aula.fixa.domain.model;
 
 import androidx.annotation.DrawableRes;
 

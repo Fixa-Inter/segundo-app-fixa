@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.PopupWindow;
 
 import com.aula.fixa.R;
-import com.aula.fixa.model.RequestItem;
+import com.aula.fixa.domain.model.RequestItem;
 import com.aula.fixa.ui.common.AppDialogs;
 
 /** Menu "Editar / Excluir" ancorado no botão de opções do card (Figma "Pop-up 1"). */

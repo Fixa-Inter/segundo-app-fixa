@@ -13,7 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
-import com.aula.fixa.model.NotificationItem;
+import com.aula.fixa.domain.model.NotificationItem;
 
 import java.util.Arrays;
 import java.util.List;

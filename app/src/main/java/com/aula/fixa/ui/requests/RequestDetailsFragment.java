@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
 import com.aula.fixa.ui.common.DashedLineDrawable;
-import com.aula.fixa.model.RequestItem;
-import com.aula.fixa.model.TimelineStep;
+import com.aula.fixa.domain.model.RequestItem;
+import com.aula.fixa.domain.model.TimelineStep;
 
 import java.util.Arrays;
 import java.util.List;
