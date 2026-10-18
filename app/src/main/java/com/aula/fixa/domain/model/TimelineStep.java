@@ -2,7 +2,7 @@ package com.aula.fixa.domain.model;
 
 public class TimelineStep {
 
-    public enum State { DONE, CURRENT, PENDING }
+    public enum State { DONE, CURRENT, REFUSED, PENDING }
 
     public final String title;
     public final String date;
