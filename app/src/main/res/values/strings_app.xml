@@ -60,6 +60,7 @@
     <string name="app_details_step_opened">Abertura da solicitação</string>
     <string name="app_details_step_analysis">Solicitação em análise</string>
     <string name="app_details_step_approved">Solicitação aprovada</string>
+    <string name="app_details_step_refused">Solicitação reprovada</string>
     <string name="app_details_step_done">Solicitação concluída</string>
 
     <!-- Eventos -->
@@ -149,7 +150,7 @@
     <string name="app_edit_name">Nome</string>
     <string name="app_edit_birth">Data de nascimento</string>
     <string name="app_edit_email">Email</string>
-    <string name="app_edit_phone">Telefone</string>
+    <string name="app_edit_phone">Cargo</string>
     <string name="app_edit_password">Senha</string>
 
     <!-- Configurações / FAQ / Sobre -->

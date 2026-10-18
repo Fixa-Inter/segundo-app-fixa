@@ -34,6 +34,8 @@
     <color name="app_status_done_text">#FF399603</color>
     <color name="app_status_done_chart">#FF34C759</color>
     <color name="app_status_refused">#FF96031A</color>
+    <color name="app_status_refused_soft">#1AFF383C</color>
+    <color name="app_status_refused_text">#FF96031A</color>
     <color name="app_status_refused_chart">#FFFF383C</color>
     <color name="app_status_pending">#FF8A93A2</color>
 
