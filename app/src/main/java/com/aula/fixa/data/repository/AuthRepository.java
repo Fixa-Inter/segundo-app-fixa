@@ -130,7 +130,10 @@ public final class AuthRepository {
             try {
                 Object message = new JSONObject(((ApiException) throwable).body).opt("message");
                 if (message instanceof org.json.JSONArray) return ((org.json.JSONArray) message).join("\\n").replace("\"", "");
-                if (message != null && !message.toString().isBlank()) return message.toString();
+                if (message != null && !message.toString().isBlank()) {
+                    System.out.println(message.toString());
+                    return message.toString();
+                }
             } catch (Exception ignored) { }
         }
         return throwable.getMessage() == null ? "Não foi possível concluir a operação." : throwable.getMessage();
