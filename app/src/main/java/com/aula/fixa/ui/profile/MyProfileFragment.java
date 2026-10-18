@@ -13,6 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.aula.fixa.R;
+import com.aula.fixa.data.local.preferences.SessionStorage;
+import com.aula.fixa.data.repository.RequestRepository;
+import com.google.gson.JsonObject;
+import com.bumptech.glide.Glide;
 
 public class MyProfileFragment extends Fragment {
 
@@ -29,13 +33,36 @@ public class MyProfileFragment extends Fragment {
         view.findViewById(R.id.btnEditInfo).setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_my_profile_to_edit));
 
-        bindRow(view, R.id.rowName, R.drawable.ic_user_24, "Ryan Cursino de Moraes");
-        bindRow(view, R.id.rowBirth, R.drawable.ic_calendar_24, "26/11/2002");
-        bindRow(view, R.id.rowEmail, R.drawable.ic_mail_24, "ryan.cursino@gmail.com");
-        bindRow(view, R.id.rowPhone, R.drawable.ic_phone_24, "+(55) 11 123456789");
+        loadProfile(view);
+
+        bindRow(view, R.id.rowName, R.drawable.ic_user_24, "");
+        bindRow(view, R.id.rowBirth, R.drawable.ic_calendar_24, "");
+        bindRow(view, R.id.rowEmail, R.drawable.ic_mail_24, "");
+        bindRow(view, R.id.rowPhone, R.drawable.ic_phone_24, "");
         bindRow(view, R.id.rowPassword, R.drawable.ic_lock_24, "*************");
-        bindRow(view, R.id.rowAddress, R.drawable.ic_compass_24, "Instituto J&F, R. Irineu José Bordon, 365");
+        bindRow(view, R.id.rowAddress, R.drawable.ic_compass_24, "");
     }
+
+    private void loadProfile(View view) {
+        new Thread(() -> {
+            try {
+                JsonObject profile = new RequestRepository(new SessionStorage(requireContext())).perfil();
+                String url = profile.has("urlFotoPerfil") && !profile.get("urlFotoPerfil").isJsonNull()
+                        ? profile.get("urlFotoPerfil").getAsString() : "";
+                requireActivity().runOnUiThread(() -> { bindRow(view, R.id.rowName, R.drawable.ic_user_24, value(profile, "nomeCompleto")); bindRow(view, R.id.rowBirth, R.drawable.ic_calendar_24, value(profile, "dataNascimento")); bindRow(view, R.id.rowEmail, R.drawable.ic_mail_24, value(profile, "email")); bindRow(view, R.id.rowPhone, R.drawable.ic_phone_24, value(profile, "cargo")); Glide.with(this)
+                        .load(url.trim().isEmpty() ? null : url)
+                        .placeholder(R.drawable.img_avatar_115)
+                        .error(R.drawable.img_avatar_115)
+                        .circleCrop()
+                        .into((ImageView) view.findViewById(R.id.ivAvatar)); });
+            } catch (Exception ignored) {
+                requireActivity().runOnUiThread(() -> ((ImageView) view.findViewById(R.id.ivAvatar))
+                        .setImageResource(R.drawable.img_avatar_115));
+            }
+        }).start();
+    }
+
+    private String value(JsonObject profile, String key) { return profile.has(key) && !profile.get(key).isJsonNull() ? profile.get(key).getAsString() : ""; }
 
     private void bindRow(View root, @IdRes int rowId, @DrawableRes int icon, String value) {
         View row = root.findViewById(rowId);

@@ -11,6 +11,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.aula.fixa.R;
+import com.aula.fixa.MainActivity;
+import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.ui.common.ImmersiveActivity;
 import com.aula.fixa.ui.onboarding.OnboardingActivity;
 
@@ -31,7 +33,9 @@ public class SplashActivity extends ImmersiveActivity {
         });
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, OnboardingActivity.class);
+            boolean hasSession = new SessionStorage(this).hasSession();
+            Intent intent = new Intent(SplashActivity.this,
+                    hasSession ? MainActivity.class : OnboardingActivity.class);
             startActivity(intent);
             finish();
         }, SPLASH_DURATION_MILLIS);

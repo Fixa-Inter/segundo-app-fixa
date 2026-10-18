@@ -19,8 +19,10 @@ import com.aula.fixa.ui.common.AppText;
 import com.aula.fixa.ui.common.DashedLineDrawable;
 import com.aula.fixa.domain.model.RequestItem;
 import com.aula.fixa.domain.model.TimelineStep;
+import com.aula.fixa.data.local.preferences.SessionStorage;
+import com.aula.fixa.data.repository.RequestRepository;
+import com.google.gson.JsonObject;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class RequestDetailsFragment extends Fragment {
@@ -32,7 +34,9 @@ public class RequestDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         String title = getArguments() != null ? getArguments().getString("requestTitle", "") : "";
+        long requestId = getArguments() != null ? getArguments().getLong("requestId", 0) : 0;
         int space = title.indexOf(' ');
         String html = space > 0
                 ? "<b><font color=\"#153D7D\">" + title.substring(0, space) + "</font></b>" + title.substring(space)
@@ -44,15 +48,47 @@ public class RequestDetailsFragment extends Fragment {
                 new RequestItem(title, "", "", RequestItem.Status.ANALYSIS)));
 
         RecyclerView list = view.findViewById(R.id.rvTimeline);
-        list.setAdapter(new TimelineAdapter(Arrays.asList(
-                new TimelineStep(getString(R.string.app_details_step_opened), "20/08", "15:30", TimelineStep.State.DONE),
-                new TimelineStep(getString(R.string.app_details_step_analysis), "20/08", "15:30", TimelineStep.State.CURRENT),
-                new TimelineStep(getString(R.string.app_details_step_approved), "", "", TimelineStep.State.PENDING),
-                new TimelineStep(getString(R.string.app_details_step_done), "", "", TimelineStep.State.PENDING)
-        )));
+        if (requestId > 0) {
+            loadDetails(view, list, requestId);
+        }
+
+        list.setAdapter(new TimelineAdapter(java.util.Collections.emptyList()));
     }
 
-    /** Timeline vertical (Figma "Detalhes"): concluída verde, atual azul, pendentes cinza sem card. */
+    private void loadDetails(View view, RecyclerView list, long id) {
+        new Thread(() -> {
+            try {
+                JsonObject item = new RequestRepository(new SessionStorage(requireContext())).detalhes(id);
+            requireActivity().runOnUiThread(() -> {
+                    ((TextView) view.findViewById(R.id.tvTitle)).setText(item.get("titulo").getAsString());
+                String status = item.has("status") ? item.get("status").getAsString() : "PENDENTE";
+                list.setAdapter(new TimelineAdapter(timeline(status)));
+                });
+            } catch (Exception e) {
+                requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+            }
+        }).start();
+    }
+
+    private List<TimelineStep> timeline(String status) {
+        List<TimelineStep> steps = new java.util.ArrayList<>();
+        boolean refused = status.equalsIgnoreCase("REPROVADO") || status.equalsIgnoreCase("RECUSADO");
+        boolean approved = status.equalsIgnoreCase("APROVADO");
+        boolean concluded = status.equalsIgnoreCase("CONCLUIDO") || status.equalsIgnoreCase("CONCLUÍDO");
+        steps.add(new TimelineStep(getString(R.string.app_details_step_opened), "", "", TimelineStep.State.DONE));
+        steps.add(new TimelineStep(getString(R.string.app_details_step_analysis), "", "", refused || approved || concluded ? TimelineStep.State.DONE : TimelineStep.State.CURRENT));
+        if (refused) {
+            steps.add(new TimelineStep(getString(R.string.app_details_step_refused), "", "", TimelineStep.State.REFUSED));
+            return steps;
+        }
+        steps.add(new TimelineStep(getString(R.string.app_details_step_approved), "", "", approved || concluded ? TimelineStep.State.DONE : TimelineStep.State.PENDING));
+        steps.add(new TimelineStep(getString(R.string.app_details_step_done), "", "", concluded ? TimelineStep.State.DONE : approved ? TimelineStep.State.CURRENT : TimelineStep.State.PENDING));
+        return steps;
+    }
+
+    /**
+     * Timeline vertical (Figma "Detalhes"): concluída verde, atual azul, pendentes cinza sem card.
+     */
     static class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHolder> {
 
         private final List<TimelineStep> steps;
@@ -117,6 +153,14 @@ public class RequestDetailsFragment extends Fragment {
                         card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_approved_soft));
                         title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_approved_text));
                         break;
+                    case REFUSED:
+                        dot.setBackgroundResource(R.drawable.bg_app_circle_done);
+                        dotInner.setVisibility(View.GONE);
+                        check.setVisibility(View.GONE);
+                        card.setVisibility(View.VISIBLE);
+                        card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_refused_soft));
+                        title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_refused_text));
+                        break;
                     default:
                         dot.setBackgroundResource(R.drawable.bg_app_circle_muted);
                         dotInner.setVisibility(View.GONE);
@@ -128,6 +172,7 @@ public class RequestDetailsFragment extends Fragment {
 
             private DashedLineDrawable dashedLine(TimelineStep.State state) {
                 int color = state == TimelineStep.State.DONE ? R.color.app_status_done
+                        : state == TimelineStep.State.REFUSED ? R.color.app_status_refused
                         : state == TimelineStep.State.CURRENT ? R.color.app_primary_deep
                         : R.color.app_status_pending;
                 Resources res = itemView.getResources();

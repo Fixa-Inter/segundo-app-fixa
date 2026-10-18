@@ -10,6 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.aula.fixa.R;
+import com.aula.fixa.data.local.preferences.SessionStorage;
+import com.aula.fixa.data.repository.RequestRepository;
+import com.aula.fixa.data.remote.dto.CadastroOption;
+
+import java.util.List;
 
 public class NewRequestLocationFragment extends NewRequestStepFragment {
     public NewRequestLocationFragment() {
@@ -20,12 +25,23 @@ public class NewRequestLocationFragment extends NewRequestStepFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AutoCompleteTextView field = view.findViewById(R.id.actvLocation);
-        field.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown,
-                new String[]{"Sala T02 - 2º andar", "Sala T07 - 2º andar", "Átrio", "Banheiro - 2º Andar"}));
-        // inputType=none: o 1º toque só dá foco, então abre a lista também ao ganhar foco.
+        new Thread(() -> {
+            try {
+                List<CadastroOption> options = new RequestRepository(new SessionStorage(requireContext())).options(new RequestRepository(new SessionStorage(requireContext())).locais());
+                requireActivity().runOnUiThread(() -> {
+                    field.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown, options));
+                    field.setOnItemClickListener((p, v, pos, id) -> form.localId = options.get(pos).getId());
+                });
+            } catch (Exception e) {
+                requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+            }
+        }).start();
+
         field.setOnClickListener(v -> field.showDropDown());
         field.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) field.showDropDown();
+            if (hasFocus) {
+                field.showDropDown();
+            }
         });
     }
 

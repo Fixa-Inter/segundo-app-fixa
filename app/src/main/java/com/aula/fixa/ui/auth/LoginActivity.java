@@ -108,7 +108,8 @@ public class LoginActivity extends ImmersiveActivity {
                 return;
             }
 
-            firebaseAuth.getCurrentUser().getIdToken(false).addOnCompleteListener(tokenTask -> {
+            // Força a renovação para evitar enviar um Firebase ID Token antigo ou expirado.
+            firebaseAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(tokenTask -> {
                 if (!tokenTask.isSuccessful() || tokenTask.getResult() == null) {
                     showGoogleError();
                     return;
@@ -117,10 +118,34 @@ public class LoginActivity extends ImmersiveActivity {
                 new Thread(() -> {
                     try {
                         String firebaseToken = tokenTask.getResult().getToken();
+
+                        try {
+                            String[] parts = firebaseToken.split("\\.");
+                            String payload = new String(
+                                    android.util.Base64.decode(
+                                            parts[1],
+                                            android.util.Base64.URL_SAFE | android.util.Base64.NO_WRAP
+                                    ),
+                                    java.nio.charset.StandardCharsets.UTF_8
+                            );
+
+                            org.json.JSONObject claims = new org.json.JSONObject(payload);
+
+                            android.util.Log.d("FIREBASE_TOKEN", "ID Token: " + firebaseToken);
+                            android.util.Log.d("FIREBASE_TOKEN", "aud: " + claims.optString("aud"));
+                            android.util.Log.d("FIREBASE_TOKEN", "iss: " + claims.optString("iss"));
+                            android.util.Log.d("FIREBASE_TOKEN", "sub: " + claims.optString("sub"));
+                            android.util.Log.d("FIREBASE_TOKEN", "email: " + claims.optString("email"));
+                            android.util.Log.d("FIREBASE_TOKEN", "exp: " + claims.optLong("exp"));
+                        } catch (Exception exception) {
+                            android.util.Log.e("FIREBASE_TOKEN", "Não foi possível ler o payload", exception);
+                        }
+
                         JSONObject response = authRepository.loginGoogle(firebaseToken);
 
                         String status = response.optString("status");
                         String responseEmail = response.optString("email", "");
+
                         if ("AUTHENTICATED".equals(status) && !response.optString("token", "").isBlank()) {
                             runOnUiThread(this::openMain);
                         } else if ("REGISTRATION_REQUIRED".equals(status)
