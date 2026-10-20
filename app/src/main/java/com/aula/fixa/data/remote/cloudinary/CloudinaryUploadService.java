@@ -34,6 +34,14 @@ public final class CloudinaryUploadService {
     }
 
     public static String salvar(Context context, Uri arquivo, UploadCallback callback) {
+        return salvar(context, arquivo, BuildConfig.CLOUDINARY_SOLICITACOES_FOLDER, callback);
+    }
+
+    public static String salvarPerfil(Context context, Uri arquivo, ResultadoCallback callback) {
+        return salvar(context, arquivo, "usuarios", callback(callback));
+    }
+
+    private static String salvar(Context context, Uri arquivo, String folder, UploadCallback callback) {
         initialize(context);
 
         if (arquivo == null) {
@@ -45,7 +53,7 @@ public final class CloudinaryUploadService {
 
         return MediaManager.get().upload(arquivo)
                 .unsigned(BuildConfig.CLOUDINARY_UPLOAD_PRESET)
-                .option("folder", BuildConfig.CLOUDINARY_SOLICITACOES_FOLDER)
+                .option("folder", folder)
                 .callback(callback)
                 .dispatch(context);
     }

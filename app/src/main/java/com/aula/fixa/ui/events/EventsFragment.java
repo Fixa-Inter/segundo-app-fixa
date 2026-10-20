@@ -29,8 +29,10 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class EventsFragment extends Fragment {
+    private LocalDate selectedDate;
 
     public EventsFragment() {
         super(R.layout.fragment_events);
@@ -39,6 +41,9 @@ public class EventsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null && savedInstanceState.getString("selectedDate") != null) {
+            selectedDate = LocalDate.parse(savedInstanceState.getString("selectedDate"));
+        }
         AppText.setHtml(view.findViewById(R.id.tvTitle), R.string.app_events_title);
         loadEvents(view);
     }
@@ -59,7 +64,7 @@ public class EventsFragment extends Fragment {
                 }
                 requireActivity().runOnUiThread(() -> {
                     AppLoading.hide(loading);
-                    bindCalendar(view, items, LocalDate.now());
+                    bindCalendar(view, items, selectedDate == null ? LocalDate.now() : selectedDate);
                     view.findViewById(R.id.btnCalendar).setOnClickListener(v -> {
                         java.util.Calendar calendar = java.util.Calendar.getInstance();
                         new android.app.DatePickerDialog(requireContext(), (picker, year, month, day) -> bindCalendar(view, items, LocalDate.of(year, month + 1, day)), calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
@@ -75,6 +80,7 @@ public class EventsFragment extends Fragment {
     }
 
     private void bindCalendar(View view, List<EventItem> items, LocalDate selectedDate) {
+        this.selectedDate = selectedDate;
         LocalDate sunday = selectedDate.minusDays(selectedDate.getDayOfWeek().getValue() % 7);
         List<Integer> days = new ArrayList<>();
         String[] labels = new String[7];
@@ -111,7 +117,15 @@ public class EventsFragment extends Fragment {
             args.putLong("eventId", selected.id);
             Navigation.findNavController(view).navigate(R.id.action_events_to_event_info, args);
         }));
-        ((TextView) view.findViewById(R.id.tvMonth)).setText(sunday.format(DateTimeFormatter.ofPattern("MMM, yyyy")));
+        String month = sunday.format(DateTimeFormatter.ofPattern("MMMM yyyy", new Locale("pt", "BR")));
+        month = month.substring(0, 1).toUpperCase(new Locale("pt", "BR")) + month.substring(1);
+        ((TextView) view.findViewById(R.id.tvMonth)).setText(month);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (selectedDate != null) outState.putString("selectedDate", selectedDate.toString());
     }
 
     /**

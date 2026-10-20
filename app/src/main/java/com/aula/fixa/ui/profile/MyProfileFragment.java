@@ -49,12 +49,19 @@ public class MyProfileFragment extends Fragment {
                 JsonObject profile = new RequestRepository(new SessionStorage(requireContext())).perfil();
                 String url = profile.has("urlFotoPerfil") && !profile.get("urlFotoPerfil").isJsonNull()
                         ? profile.get("urlFotoPerfil").getAsString() : "";
-                requireActivity().runOnUiThread(() -> { bindRow(view, R.id.rowName, R.drawable.ic_user_24, value(profile, "nomeCompleto")); bindRow(view, R.id.rowBirth, R.drawable.ic_calendar_24, value(profile, "dataNascimento")); bindRow(view, R.id.rowEmail, R.drawable.ic_mail_24, value(profile, "email")); bindRow(view, R.id.rowPhone, R.drawable.ic_phone_24, value(profile, "cargo")); Glide.with(this)
-                        .load(url.trim().isEmpty() ? null : url)
-                        .placeholder(R.drawable.img_avatar_115)
-                        .error(R.drawable.img_avatar_115)
-                        .circleCrop()
-                        .into((ImageView) view.findViewById(R.id.ivAvatar)); });
+                requireActivity().runOnUiThread(() -> {
+                    bindRow(view, R.id.rowName, R.drawable.ic_user_24, value(profile, "nomeCompleto"));
+                    bindRow(view, R.id.rowBirth, R.drawable.ic_calendar_24, value(profile, "dataNascimento"));
+                    bindRow(view, R.id.rowEmail, R.drawable.ic_mail_24, value(profile, "email"));
+                    bindRow(view, R.id.rowPhone, R.drawable.ic_phone_24, value(profile, "cargo"));
+                    bindRow(view, R.id.rowAddress, R.drawable.ic_compass_24, formatCnpj(value(profile, "cnpjUnidade")));
+                    Glide.with(this)
+                            .load(url.trim().isEmpty() ? null : url)
+                            .placeholder(R.drawable.img_avatar_115)
+                            .error(R.drawable.img_avatar_115)
+                            .circleCrop()
+                            .into((ImageView) view.findViewById(R.id.ivAvatar));
+                });
             } catch (Exception ignored) {
                 requireActivity().runOnUiThread(() -> ((ImageView) view.findViewById(R.id.ivAvatar))
                         .setImageResource(R.drawable.img_avatar_115));
@@ -62,7 +69,17 @@ public class MyProfileFragment extends Fragment {
         }).start();
     }
 
-    private String value(JsonObject profile, String key) { return profile.has(key) && !profile.get(key).isJsonNull() ? profile.get(key).getAsString() : ""; }
+    private String value(JsonObject profile, String key) {
+        return profile.has(key) && !profile.get(key).isJsonNull() ? profile.get(key).getAsString() : "";
+    }
+
+    private String formatCnpj(String cnpj) {
+        String digits = cnpj == null ? "" : cnpj.replaceAll("\\D", "");
+        if (digits.length() != 14) return cnpj == null ? "" : cnpj;
+        return digits.substring(0, 2) + "." + digits.substring(2, 5) + "."
+                + digits.substring(5, 8) + "/" + digits.substring(8, 12) + "-"
+                + digits.substring(12, 14);
+    }
 
     private void bindRow(View root, @IdRes int rowId, @DrawableRes int icon, String value) {
         View row = root.findViewById(rowId);

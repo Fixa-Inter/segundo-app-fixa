@@ -42,6 +42,29 @@ public final class RequestRepository {
         return object(api.criar(body).execute());
     }
 
+    public JsonObject atualizar(long id, String title, String description, Long localId,
+                                String localDescription, Long categoryId,
+                                List<String> photosToAdd, List<Long> photosToDelete) throws Exception {
+        JsonObject body = new JsonObject();
+        body.addProperty("problemaId", id);
+        if (title != null) body.addProperty("titulo", title);
+        if (description != null) body.addProperty("descricaoProblema", description);
+        if (localId != null) body.addProperty("localUnidadeId", localId);
+        if (localDescription != null) body.addProperty("descricaoLocal", localDescription);
+        if (categoryId != null) body.addProperty("categoriaEquipamentoId", categoryId);
+        JsonArray add = new JsonArray();
+        if (photosToAdd != null) photosToAdd.forEach(add::add);
+        body.add("fotosAdicionar", add);
+        JsonArray remove = new JsonArray();
+        if (photosToDelete != null) photosToDelete.forEach(remove::add);
+        body.add("fotosExcluir", remove);
+        return object(api.atualizar(body).execute());
+    }
+
+    public JsonObject excluir(long id) throws Exception {
+        return object(api.excluir(id).execute());
+    }
+
     public JsonArray locais() throws Exception {
         return array(api.locais().execute());
     }
@@ -52,6 +75,14 @@ public final class RequestRepository {
 
     public JsonObject perfil() throws Exception {
         return object(api.perfil().execute());
+    }
+
+    public JsonObject atualizarPerfil(String nomeCompleto, String cargo, String urlFotoPerfil) throws Exception {
+        JsonObject body = new JsonObject();
+        body.addProperty("nomeCompleto", nomeCompleto);
+        body.addProperty("cargo", cargo);
+        if (urlFotoPerfil != null) body.addProperty("urlFotoPerfil", urlFotoPerfil);
+        return object(api.atualizarPerfil(body).execute());
     }
 
     public JsonArray eventos() throws Exception {

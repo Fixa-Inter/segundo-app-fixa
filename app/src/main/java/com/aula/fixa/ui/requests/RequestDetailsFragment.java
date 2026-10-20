@@ -62,6 +62,23 @@ public class RequestDetailsFragment extends Fragment {
             requireActivity().runOnUiThread(() -> {
                     ((TextView) view.findViewById(R.id.tvTitle)).setText(item.get("titulo").getAsString());
                 String status = item.has("status") ? item.get("status").getAsString() : "PENDENTE";
+                boolean editable = status.equalsIgnoreCase("PENDENTE")
+                        || status.equalsIgnoreCase("EM_ANALISE")
+                        || status.equalsIgnoreCase("EM ANÁLISE")
+                        || status.equalsIgnoreCase("EM_ANALISE");
+                view.findViewById(R.id.btnMore).setVisibility(editable ? View.VISIBLE : View.GONE);
+                if (editable) {
+                    RequestItem current = new RequestItem(
+                            id,
+                            item.has("titulo") ? item.get("titulo").getAsString() : "",
+                            item.has("localUnidade") && !item.get("localUnidade").isJsonNull() ? item.get("localUnidade").getAsString() : "",
+                            "",
+                            RequestItem.Status.ANALYSIS,
+                            item.has("descricaoProblema") ? item.get("descricaoProblema").getAsString() : "",
+                            item.has("categoriaEquipamento") && !item.get("categoriaEquipamento").isJsonNull() ? item.get("categoriaEquipamento").getAsString() : "",
+                            0);
+                    view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v, current));
+                }
                 list.setAdapter(new TimelineAdapter(timeline(status)));
                 });
             } catch (Exception e) {

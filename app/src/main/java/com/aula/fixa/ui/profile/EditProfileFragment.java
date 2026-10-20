@@ -18,11 +18,31 @@ import com.aula.fixa.data.repository.RequestRepository;
 import com.google.gson.JsonObject;
 import com.bumptech.glide.Glide;
 import android.widget.ImageView;
+import android.net.Uri;
+import android.os.Environment;
+import android.widget.Toast;
+import android.content.ActivityNotFoundException;
+import android.content.ContentValues;
+import android.provider.MediaStore;
+import android.os.Build;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.FileProvider;
+import com.aula.fixa.data.remote.cloudinary.CloudinaryUploadService;
+import java.io.File;
+import java.io.IOException;
 
 public class EditProfileFragment extends Fragment {
 
     private EditText name, birth, email, phone, password;
     private String initial;
+    private String pendingPhotoUrl;
+    private Uri pendingPhotoUri;
+    private ActivityResultLauncher<String> picker;
+    private ActivityResultLauncher<Uri> camera;
 
     public EditProfileFragment() {
         super(R.layout.fragment_edit_profile);
@@ -38,13 +58,26 @@ public class EditProfileFragment extends Fragment {
         email = view.findViewById(R.id.etEmail);
         phone = view.findViewById(R.id.etPhone);
         password = view.findViewById(R.id.etPassword);
+        birth.setEnabled(false);
+        email.setEnabled(false);
+        password.setEnabled(false);
+        picker = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            if (uri != null) uploadProfilePhoto(uri, view);
+        });
+        camera = registerForActivityResult(new ActivityResultContracts.TakePicture(), captured -> {
+            if (Boolean.TRUE.equals(captured) && pendingPhotoUri != null) {
+                savePhotoToGallery(pendingPhotoUri);
+                uploadProfilePhoto(pendingPhotoUri, view);
+            }
+        });
+        view.findViewById(R.id.btnChangePhoto).setOnClickListener(v -> choosePhoto(view));
         loadProfile(view);
         password.setText("*************");
         initial = snapshot();
 
         view.findViewById(R.id.btnBack).setOnClickListener(v -> leave());
         view.findViewById(R.id.btnSave).setOnClickListener(v ->
-                AppDialogs.showSaveConfirm(requireContext(), () -> Navigation.findNavController(view).navigateUp()));
+                AppDialogs.showSaveConfirm(requireContext(), () -> saveProfile(view)));
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
@@ -65,6 +98,107 @@ public class EditProfileFragment extends Fragment {
     }
 
     private String value(JsonObject profile, String key) { return profile.has(key) && !profile.get(key).isJsonNull() ? profile.get(key).getAsString() : ""; }
+
+    private void saveProfile(View view) {
+        new Thread(() -> {
+            try {
+                new RequestRepository(new SessionStorage(requireContext())).atualizarPerfil(
+                        name.getText().toString().trim(), phone.getText().toString().trim(), pendingPhotoUrl);
+                requireActivity().runOnUiThread(() -> Navigation.findNavController(view).navigateUp());
+            } catch (Exception e) {
+                requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(
+                        requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+            }
+        }).start();
+    }
+
+    private void choosePhoto(View view) {
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setItems(new String[]{"Escolher da galeria", "Tirar foto"}, (dialog, which) -> {
+                    if (which == 0) picker.launch("image/*");
+                    else takePhoto(view);
+                }).show();
+    }
+
+    private void takePhoto(View view) {
+        try {
+            File directory = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            if (directory == null) throw new IOException("Armazenamento indisponível.");
+            File file = File.createTempFile("fixa_perfil_", ".jpg", directory);
+            pendingPhotoUri = FileProvider.getUriForFile(requireContext(),
+                    requireContext().getPackageName() + ".fileProvider", file);
+            camera.launch(pendingPhotoUri);
+        } catch (IOException | ActivityNotFoundException | SecurityException e) {
+            Toast.makeText(requireContext(), "Não foi possível abrir a câmera.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void uploadProfilePhoto(Uri uri, View view) {
+        try {
+            CloudinaryUploadService.salvarPerfil(requireContext(), uri,
+                    new CloudinaryUploadService.ResultadoCallback() {
+                        @Override public void onSuccess(String url, String publicId) {
+                            pendingPhotoUrl = url;
+                            requireActivity().runOnUiThread(() -> Glide.with(EditProfileFragment.this)
+                                    .load(url).placeholder(R.drawable.img_avatar_115).error(R.drawable.img_avatar_115)
+                                    .circleCrop().into((ImageView) view.findViewById(R.id.ivAvatar)));
+                        }
+
+                        @Override public void onError(String message) {
+                            requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show());
+                        }
+                    });
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void savePhotoToGallery(Uri source) {
+        new Thread(() -> {
+            try {
+                String fileName = "FIXA_perfil_" + System.currentTimeMillis() + ".jpg";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
+                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                    values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/FIXA");
+                    values.put(MediaStore.Images.Media.IS_PENDING, 1);
+                    Uri destination = requireContext().getContentResolver().insert(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                    if (destination == null) throw new IOException("Não foi possível salvar a foto na galeria.");
+                    copyPhoto(source, destination);
+                    values.clear();
+                    values.put(MediaStore.Images.Media.IS_PENDING, 0);
+                    requireContext().getContentResolver().update(destination, values, null, null);
+                } else {
+                    File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                    if (!pictures.exists() && !pictures.mkdirs()) throw new IOException("Não foi possível acessar a galeria.");
+                    File destination = new File(pictures, fileName);
+                    try (InputStream input = requireContext().getContentResolver().openInputStream(source);
+                         OutputStream output = new FileOutputStream(destination)) {
+                        if (input == null) throw new IOException("Foto indisponível.");
+                        byte[] buffer = new byte[8192];
+                        int read;
+                        while ((read = input.read(buffer)) != -1) output.write(buffer, 0, read);
+                    }
+                    android.media.MediaScannerConnection.scanFile(requireContext(),
+                            new String[]{destination.getAbsolutePath()}, new String[]{"image/jpeg"}, null);
+                }
+            } catch (Exception ignored) {
+                // A falha ao salvar na galeria não impede o upload nem o salvamento do perfil.
+            }
+        }).start();
+    }
+
+    private void copyPhoto(Uri source, Uri destination) throws IOException {
+        try (InputStream input = requireContext().getContentResolver().openInputStream(source);
+             OutputStream output = requireContext().getContentResolver().openOutputStream(destination)) {
+            if (input == null || output == null) throw new IOException("Foto indisponível.");
+            byte[] buffer = new byte[8192];
+            int read;
+            while ((read = input.read(buffer)) != -1) output.write(buffer, 0, read);
+        }
+    }
 
     /** Sem alterações sai direto; com alterações pergunta se salva (Figma "Salvar alterações?"). */
     private void leave() {
