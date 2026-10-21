@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="ops_text_0_ordens_de_s_1a8273" formatted="false">0 Ordens de S.</string>
+    <string name="ops_text_10_00_18_00_bf9db2" formatted="false">10:00 - 18:00</string>
+    <string name="ops_text_10_4a44dc" formatted="false">10</string>
+    <string name="ops_text_10_8d99e2" formatted="false">_/10</string>
+    <string name="ops_text_10_seg_77efb0" formatted="false">10 Seg</string>
+    <string name="ops_text_10_tarefas_305cde" formatted="false">10 tarefas</string>
+    <string name="ops_text_11_30_12_30_ae1574" formatted="false">11:30 - 12:30</string>
+    <string name="ops_text_11_30_12_30h_e5c659" formatted="false">11:30-12:30h</string>
+    <string name="ops_text_11_40_b91dfd" formatted="false">11:40</string>
+    <string name="ops_text_11_4fc82b" formatted="false">11</string>
+    <string name="ops_text_11_mar_2026_1f7acb" formatted="false">11 Mar 2026</string>
+    <string name="ops_text_12_6b51d4" formatted="false">12</string>
+    <string name="ops_text_13_09_2026_0cf2b6" formatted="false">13/09/2026</string>
+    <string name="ops_text_13_3fdba3" formatted="false">13</string>
+    <string name="ops_text_14_8527a8" formatted="false">14</string>
+    <string name="ops_text_15_dias_2dd688" formatted="false">15 dias</string>
+    <string name="ops_text_15_e629fa" formatted="false">15</string>
+    <string name="ops_text_15_mar_2026_797c06" formatted="false">15 Mar 2026</string>
+    <string name="ops_text_16_b17ef6" formatted="false">16</string>
+    <string name="ops_text_17_452354" formatted="false">17</string>
+    <string name="ops_text_18_30_19_30h_6b3c07" formatted="false">18:30-19:30h</string>
+    <string name="ops_text_18_4ec959" formatted="false">18</string>
+    <string name="ops_text_18_mar_2026_7e1166" formatted="false">18 Mar 2026</string>
+    <string name="ops_text_19_9400f1" formatted="false">19</string>
+    <string name="ops_text_1_6b86b2" formatted="false">1</string>
+    <string name="ops_text_1_ordens_de_s_3cffe3" formatted="false">1 Ordens de S.</string>
+    <string name="ops_text_1o_7b8135" formatted="false">1º</string>
+    <string name="ops_text_20_02_2026_f3e646" formatted="false">20/02/2026</string>
+    <string name="ops_text_20_f5ca38" formatted="false">20</string>
+    <string name="ops_text_21_6f4b66" formatted="false">21</string>
+    <string name="ops_text_22_785f3e" formatted="false">22</string>
+    <string name="ops_text_23_535fa3" formatted="false">23</string>
+    <string name="ops_text_24_c23560" formatted="false">24</string>
+    <string name="ops_text_250_1e472b" formatted="false">250</string>
+    <string name="ops_text_25_b7a568" formatted="false">25</string>
+    <string name="ops_text_26_11_2002_adcfc3" formatted="false">26/11/2002</string>
+    <string name="ops_text_26_5f9c4a" formatted="false">26</string>
+    <string name="ops_text_27_670671" formatted="false">27</string>
+    <string name="ops_text_28_59e197" formatted="false">28</string>
+    <string name="ops_text_29_35135a" formatted="false">29</string>
+    <string name="ops_text_2_d4735e" formatted="false">2</string>
+    <string name="ops_text_2_ordens_de_s_822722" formatted="false">2 Ordens de S.</string>
+    <string name="ops_text_2o_267c1e" formatted="false">2º</string>
+    <string name="ops_text_30_624b60" formatted="false">30</string>
+    <string name="ops_text_30_dias_59c86f" formatted="false">30 dias</string>
+    <string name="ops_text_3_10_088ae5" formatted="false">3/10</string>
+    <string name="ops_text_3_4e0740" formatted="false">3</string>
+    <string name="ops_text_3_ordens_de_s_91e35e" formatted="false">3 Ordens de S.</string>
+    <string name="ops_text_3_tarefas_8af4f5" formatted="false">3 tarefas</string>
+    <string name="ops_text_3o_9065d3" formatted="false">3º</string>
+    <string name="ops_text_4_4b2277" formatted="false">4</string>
+    <string name="ops_text_4o_dca676" formatted="false">4º</string>
+    <string name="ops_text_55_11_123456789_3c1281" formatted="false">+(55) 11 123456789</string>
+    <string name="ops_text_5_10_b8f2c6" formatted="false">5/10</string>
+    <string name="ops_text_5_ef2d12" formatted="false">5</string>
+    <string name="ops_text_5o_237748" formatted="false">5º</string>
+    <string name="ops_text_6_e7f6c0" formatted="false">6</string>
+    <string name="ops_text_6o_866740" formatted="false">6º</string>
+    <string name="ops_text_7_10_9e3ee5" formatted="false">7/10</string>
+    <string name="ops_text_7_790269" formatted="false">7</string>
+    <string name="ops_text_8_2c6242" formatted="false">8</string>
+    <string name="ops_text_9_10_e1df72" formatted="false">9/10</string>
+    <string name="ops_text_9_19581e" formatted="false">9</string>
+    <string name="ops_text_a_luz_pisca_com_frequencia_e_apresenta_11cc36" formatted="false">A luz pisca com frequência e apresenta ruído.</string>
+    <string name="ops_text_about_a4262e" formatted="false">about</string>
+    <string name="ops_text_ac_107_8aeae7" formatted="false">AC-107</string>
+    <string name="ops_text_ac_108_5d53f4" formatted="false">AC-108</string>
+    <string name="ops_text_ac_109_a8d2a8" formatted="false">AC-109</string>
+    <string name="ops_text_acompanhe_as_verificacoes_9a69da" formatted="false">Acompanhe as verificações</string>
+    <string name="ops_text_acompanhe_os_eventos_7206c9" formatted="false">Acompanhe os eventos</string>
+    <string name="ops_text_adicionar_campo_44bda1" formatted="false">+ Adicionar Campo</string>
+    <string name="ops_text_adicionar_fotos_e7820f" formatted="false">Adicionar fotos</string>
+    <string name="ops_text_adicionar_tarefa_bd7007" formatted="false">+ Adicionar tarefa</string>
+    <string name="ops_text_ajuda_com_solicitacao_8cae19" formatted="false">Ajuda com solicitação</string>
+    <string name="ops_text_ajuste_realizado_na_biblioteca_e3b7a5" formatted="false">Ajuste realizado na biblioteca</string>
+    <string name="ops_text_analise_os_pedidos_91c06d" formatted="false">Analise os pedidos</string>
+    <string name="ops_text_ap001_8bf91d" formatted="false">AP001</string>
+    <string name="ops_text_ap002_34d6d5" formatted="false">AP002</string>
+    <string name="ops_text_aparelho_ar_condicionado_e63364" formatted="false">Aparelho: Ar-Condicionado</string>
+    <string name="ops_text_aparelhos_1fa5fb" formatted="false">Aparelhos</string>
+    <string name="ops_text_aprovar_c764f8" formatted="false">Aprovar</string>
+    <string name="ops_text_aprovar_solicitacao_0b335f" formatted="false">Aprovar solicitação?</string>
+    <string name="ops_text_ar_condicionado_cb5698" formatted="false">Ar condicionado</string>
+    <string name="ops_text_ar_condicionado_da_samsung_b84633" formatted="false">Ar condicionado da Samsung</string>
+    <string name="ops_text_ar_condicionado_quebrado_d6029a" formatted="false">Ar-condicionado quebrado</string>
+    <string name="ops_text_area_7c6cbc" formatted="false">Área</string>
+    <string name="ops_text_assign_date_690b4c" formatted="false">assign_date</string>
+    <string name="ops_text_assign_member_49be11" formatted="false">assign_member</string>
+    <string name="ops_text_astolfo_alves_817168" formatted="false">Astolfo Alves</string>
+    <string name="ops_text_atrasadas_46642e" formatted="false">Atrasadas</string>
+    <string name="ops_text_atribua_as_os_e_veja_a_execucao_ab1323" formatted="false">Atribua as OS e veja a execução</string>
+    <string name="ops_text_atribuido_para_raphaely_mendes_gestor_54aad3" formatted="false">Atribuído para Raphaely Mendes (Gestor)</string>
+    <string name="ops_text_atribuido_para_ryan_cursino_tecnico_075134" formatted="false">Atribuído para Ryan Cursino (Técnico)</string>
+    <string name="ops_text_atribuir_os_para_tecnico_2bdcdf" formatted="false">Atribuir OS para técnico</string>
+    <string name="ops_text_atrio_9deed9" formatted="false">Átrio</string>
+    <string name="ops_text_autor_07280b" formatted="false">Autor</string>
+    <string name="ops_text_avaliacao_7d8c7e" formatted="false">Avaliação</string>
+    <string name="ops_text_banheiro_2_andar_fb5266" formatted="false">Banheiro - 2° Andar</string>
+    <string name="ops_text_board_859169" formatted="false">board</string>
+    <string name="ops_text_cadastre_e_organize_as_tarefas_fabb81" formatted="false">Cadastre e organize as tarefas</string>
+    <string name="ops_text_cadastre_modelos_e_aparelhos_620308" formatted="false">Cadastre modelos e aparelhos</string>
+    <string name="ops_text_campo_obrigatorio_cf3a2a" formatted="false">Campo obrigatório</string>
+    <string name="ops_text_campos_963439" formatted="false">Campos</string>
+    <string name="ops_text_campos_de_inspecao_827bca" formatted="false">Campos de inspeção</string>
+    <string name="ops_text_cancelar_bb9dbb" formatted="false">Cancelar</string>
+    <string name="ops_text_categoria_54276a" formatted="false">Categoria</string>
+    <string name="ops_text_categorias_cba7e0" formatted="false">Categorias</string>
+    <string name="ops_text_categories_a6216e" formatted="false">categories</string>
+    <string name="ops_text_chatbot_386ebc" formatted="false">chatbot</string>
+    <string name="ops_text_checklist_de_climatizacao_2a4381" formatted="false">Checklist de Climatização</string>
+    <string name="ops_text_checklist_de_climatizacao_d844d3" formatted="false">Checklist de climatização</string>
+    <string name="ops_text_checklist_de_qualidade_50d220" formatted="false">Checklist de Qualidade</string>
+    <string name="ops_text_checklist_fields_847113" formatted="false">checklist_fields</string>
+    <string name="ops_text_checklist_information_75f692" formatted="false">checklist_information</string>
+    <string name="ops_text_checklist_intro_a3cf0b" formatted="false">checklist_intro</string>
+    <string name="ops_text_checklist_models_893318" formatted="false">checklist_models</string>
+    <string name="ops_text_checklist_success_17d446" formatted="false">checklist_success</string>
+    <string name="ops_text_checklists_4d03ed" formatted="false">Checklists</string>
+    <string name="ops_text_checklists_fdfec2" formatted="false">checklists</string>
+    <string name="ops_text_coloque_a_descricao_da_tarefa_c6d230" formatted="false">Coloque a descrição da tarefa</string>
+    <string name="ops_text_coloque_a_marca_do_modelo_6ebaa4" formatted="false">Coloque a marca do modelo</string>
+    <string name="ops_text_coloque_o_identificador_94e964" formatted="false">Coloque o identificador</string>
+    <string name="ops_text_coloque_o_nome_cbd678" formatted="false">Coloque o nome</string>
+    <string name="ops_text_coloque_o_nome_do_modelo_950172" formatted="false">Coloque o nome do modelo</string>
+    <string name="ops_text_como_posso_te_ajudar_hoje_1b83ea" formatted="false">Como posso te ajudar hoje?</string>
+    <string name="ops_text_competencia_efdfcb" formatted="false">Competência</string>
+    <string name="ops_text_competencias_1f8012" formatted="false">Competências</string>
+    <string name="ops_text_competencies_938e05" formatted="false">competencies</string>
+    <string name="ops_text_concluidas_93405d" formatted="false">Concluídas</string>
+    <string name="ops_text_concluir_tarefa_c2c5dc" formatted="false">Concluir tarefa</string>
+    <string name="ops_text_condicao_encontrada_4536bd" formatted="false">Condição encontrada</string>
+    <string name="ops_text_configuracoes_76b0fb" formatted="false">Configurações</string>
+    <string name="ops_text_confirmar_717bed" formatted="false">Confirmar</string>
+    <string name="ops_text_confirmar_os_dados_da_atribuicao_de_os_95e2b8" formatted="false">Confirmar os dados da atribuição de OS</string>
+    <string name="ops_text_confirme_as_informacoes_7124d9" formatted="false">Confirme as informações</string>
+    <string name="ops_text_consulte_os_servicos_realizados_0b8ce5" formatted="false">Consulte os serviços realizados</string>
+    <string name="ops_text_conte_se_houve_algum_impedimento_0eda87" formatted="false">Conte se houve algum impedimento</string>
+    <string name="ops_text_continuar_63e2bb" formatted="false">Continuar</string>
+    <string name="ops_text_converse_com_a_manu_ab38f5" formatted="false">Converse com a Manu</string>
+    <string name="ops_text_criar_49ba5d" formatted="false">Criar</string>
+    <string name="ops_text_criar_aparelho_8cb625" formatted="false">Criar aparelho</string>
+    <string name="ops_text_criar_campo_32be60" formatted="false">Criar campo</string>
+    <string name="ops_text_criar_categoria_81e041" formatted="false">Criar categoria</string>
+    <string name="ops_text_criar_eu_mesmo_354277" formatted="false">Criar eu mesmo</string>
+    <string name="ops_text_criar_modelo_2a3034" formatted="false">Criar modelo</string>
+    <string name="ops_text_criar_opcao_cbccbc" formatted="false">Criar opção</string>
+    <string name="ops_text_criar_primeira_tarefa_automaticamente_344f86" formatted="false">Criar primeira tarefa automaticamente</string>
+    <string name="ops_text_criar_tarefa_0a2e86" formatted="false">Criar tarefa</string>
+    <string name="ops_text_criar_uma_checklist_d433df" formatted="false">Criar uma checklist</string>
+    <string name="ops_text_crie_os_campos_de_inspecao_8040b0" formatted="false">Crie os campos de inspeção</string>
+    <string name="ops_text_crie_todas_as_tarefas_da_os_e31e7a" formatted="false">Crie todas as tarefas da OS</string>
+    <string name="ops_text_d_3f39d5" formatted="false">D</string>
+    <string name="ops_text_data_4f4f68" formatted="false">Data:</string>
+    <string name="ops_text_data_cec3a9" formatted="false">Data</string>
+    <string name="ops_text_data_de_nascimento_1d08b0" formatted="false">Data de nascimento</string>
+    <string name="ops_text_data_de_primeira_abertura_c90bc0" formatted="false">Data de primeira abertura</string>
+    <string name="ops_text_defina_as_tarefas_de_suas_os_16b402" formatted="false">Defina as tarefas de suas OS</string>
+    <string name="ops_text_descartar_1a878a" formatted="false">Descartar</string>
+    <string name="ops_text_descreva_como_o_problema_foi_resolvido_bbfc5f" formatted="false">Descreva como o problema foi resolvido</string>
+    <string name="ops_text_descreva_o_servico_c2585d" formatted="false">Descreva o serviço</string>
+    <string name="ops_text_descricao_3bbd8f" formatted="false">Descrição:</string>
+    <string name="ops_text_descricao_46332f" formatted="false">Descrição</string>
+    <string name="ops_text_deseja_deletar_esse_registro_5359dd" formatted="false">Deseja deletar esse registro?</string>
+    <string name="ops_text_deseja_enviar_esta_inspecao_0a3224" formatted="false">Deseja enviar esta inspeção?</string>
+    <string name="ops_text_deseja_finalizar_esta_os_baef52" formatted="false">Deseja finalizar esta OS?</string>
+    <string name="ops_text_desfazer_tarefa_084219" formatted="false">Desfazer tarefa</string>
+    <string name="ops_text_desgaste_leve_8b9eab" formatted="false">Desgaste leve</string>
+    <string name="ops_text_detalhes_da_solicitacao_19e72a" formatted="false">Detalhes da solicitação</string>
+    <string name="ops_text_devices_ade15a" formatted="false">devices</string>
+    <string name="ops_text_diagnosticar_o_aparelho_antes_do_repar_32cd73" formatted="false">Diagnosticar o aparelho antes do reparo</string>
+    <string name="ops_text_dificuldade_media_0a39b6" formatted="false">Dificuldade: Média</string>
+    <string name="ops_text_dificuldades_encontradas_opcional_632fe4" formatted="false">Dificuldades encontradas (opcional)</string>
+    <string name="ops_text_disponivel_9b9980" formatted="false">Disponível</string>
+    <string name="ops_text_documentos_22a3ce" formatted="false">Documentos</string>
+    <string name="ops_text_duvidas_sobre_o_app_5d6928" formatted="false">Dúvidas sobre o app</string>
+    <string name="ops_text_edit_profile_6ee2e4" formatted="false">edit_profile</string>
+    <string name="ops_text_editar_2eba94" formatted="false">Editar</string>
+    <string name="ops_text_editar_aparelho_01a5a6" formatted="false">Editar aparelho</string>
+    <string name="ops_text_editar_campo_780894" formatted="false">Editar campo</string>
+    <string name="ops_text_editar_categoria_618bb4" formatted="false">Editar categoria</string>
+    <string name="ops_text_editar_modelo_89bf8e" formatted="false">Editar modelo</string>
+    <string name="ops_text_editar_opcao_6d0222" formatted="false">Editar opção</string>
+    <string name="ops_text_editar_perfil_2e463e" formatted="false">Editar Perfil</string>
+    <string name="ops_text_editar_perfil_c10011" formatted="false">Editar perfil</string>
+    <string name="ops_text_editar_solicitacao_912dce" formatted="false">Editar solicitação</string>
+    <string name="ops_text_editar_tarefa_bf5c21" formatted="false">Editar tarefa</string>
+    <string name="ops_text_elemento_6bcef6" formatted="false">*************</string>
+    <string name="ops_text_elemento_a318c2" formatted="false">+</string>
+    <string name="ops_text_elemento_f4e48e" formatted="false">​</string>
+    <string name="ops_text_eletrica_52ed67" formatted="false">Elétrica</string>
+    <string name="ops_text_em_andam_feddde" formatted="false">Em andam.</string>
+    <string name="ops_text_em_andamento_d6f779" formatted="false">Em andamento</string>
+    <string name="ops_text_email_969ccb" formatted="false">Email</string>
+    <string name="ops_text_entrega_das_medalhas_09c4d8" formatted="false">Entrega das medalhas</string>
+    <string name="ops_text_entrega_das_medalhas_46cebf" formatted="false">Entrega das Medalhas</string>
+    <string name="ops_text_enviar_e1d12d" formatted="false">Enviar</string>
+    <string name="ops_text_equipamento_ba1992" formatted="false">Equipamento</string>
+    <string name="ops_text_equipment_1c09f5" formatted="false">equipment</string>
+    <string name="ops_text_escada_rolante_3f3f43" formatted="false">Escada rolante</string>
+    <string name="ops_text_escolha_os_modelos_2f1e53" formatted="false">Escolha os modelos</string>
+    <string name="ops_text_escolher_o_prazo_de_entrega_eed49b" formatted="false">Escolher o prazo de entrega</string>
+    <string name="ops_text_escolher_o_responsavel_9cd526" formatted="false">Escolher o responsável</string>
+    <string name="ops_text_escreva_aqui_o_problema_encontrado_e70657" formatted="false">Escreva aqui o problema encontrado</string>
+    <string name="ops_text_escreva_aqui_seu_titulo_0e9e7c" formatted="false">Escreva aqui seu título</string>
+    <string name="ops_text_escreva_aqui_suas_observacoes_b52ddc" formatted="false">Escreva aqui suas observações...</string>
+    <string name="ops_text_escreva_o_motivo_da_exclusao_620987" formatted="false">Escreva o motivo da exclusão</string>
+    <string name="ops_text_escreva_o_texto_da_opcao_2507ec" formatted="false">Escreva o texto da opção</string>
+    <string name="ops_text_essa_acao_nao_podera_ser_desfeita_ccfb48" formatted="false">Essa ação não poderá ser desfeita.</string>
+    <string name="ops_text_estados_das_os_8d6b5d" formatted="false">Estados das OS</string>
+    <string name="ops_text_event_details_a1955d" formatted="false">event_details</string>
+    <string name="ops_text_eventos_aef5bd" formatted="false">Eventos</string>
+    <string name="ops_text_events_862417" formatted="false">events</string>
+    <string name="ops_text_ex_ar_condicionado_88663d" formatted="false">Ex: ar condicionado</string>
+    <string name="ops_text_excluir_8b1951" formatted="false">Excluir</string>
+    <string name="ops_text_excluir_solicitacao_4c3acc" formatted="false">Excluir solicitação?</string>
+    <string name="ops_text_execution_completed_febc12" formatted="false">execution_completed</string>
+    <string name="ops_text_execution_pending_9a5ca8" formatted="false">execution_pending</string>
+    <string name="ops_text_export_d46aee" formatted="false">export</string>
+    <string name="ops_text_exportar_292f20" formatted="false">Exportar</string>
+    <string name="ops_text_exportar_excel_311f78" formatted="false">Exportar excel</string>
+    <string name="ops_text_faq_30de18" formatted="false">faq</string>
+    <string name="ops_text_faq_dbc468" formatted="false">FAQ</string>
+    <string name="ops_text_filtros_limpos_30c809" formatted="false">Filtros limpos</string>
+    <string name="ops_text_finalizar_80a503" formatted="false">Finalizar</string>
+    <string name="ops_text_fotos_cbbba3" formatted="false">Fotos</string>
+    <string name="ops_text_funcionamento_adequado_6988b6" formatted="false">Funcionamento adequado?</string>
+    <string name="ops_text_genilson_santos_68a400" formatted="false">Genilson Santos</string>
+    <string name="ops_text_gerencie_os_equipamentos_7064bd" formatted="false">Gerencie os equipamentos</string>
+    <string name="ops_text_gerencie_os_estados_das_os_174311" formatted="false">Gerencie os estados das OS</string>
+    <string name="ops_text_gerencie_sua_equipe_86bfa4" formatted="false">Gerencie sua equipe</string>
+    <string name="ops_text_gerencie_todas_as_etapas_d44c27" formatted="false">Gerencie todas as etapas</string>
+    <string name="ops_text_gestor_4c271a" formatted="false">Gestor</string>
+    <string name="ops_text_grau_de_dificuldade_bb1516" formatted="false">Grau de dificuldade</string>
+    <string name="ops_text_guia_de_uso_2fa55c" formatted="false">Guia de uso</string>
+    <string name="ops_text_hidraulica_fd5e95" formatted="false">Hidráulica</string>
+    <string name="ops_text_hoje_a46d7c" formatted="false">Hoje</string>
+    <string name="ops_text_home_4ea140" formatted="false">home</string>
+    <string name="ops_text_horario_11c1b4" formatted="false">Horário:</string>
+    <string name="ops_text_identificador_697131" formatted="false">Identificador</string>
+    <string name="ops_text_imagens_dfca0b" formatted="false">Imagens</string>
+    <string name="ops_text_informacoes_07156d" formatted="false">Informações</string>
+    <string name="ops_text_informacoes_basicas_c1e6ae" formatted="false">Informações básicas</string>
+    <string name="ops_text_informacoes_da_checklist_522ec6" formatted="false">Informações da checklist</string>
+    <string name="ops_text_informacoes_da_tarefa_cb4a67" formatted="false">Informações da tarefa</string>
+    <string name="ops_text_informacoes_pessoais_97d70c" formatted="false">Informações Pessoais</string>
+    <string name="ops_text_informacoes_sobre_o_evento_afa2db" formatted="false">Informações sobre o evento</string>
+    <string name="ops_text_informe_aqui_o_motivo_e2e774" formatted="false">Informe aqui o motivo</string>
+    <string name="ops_text_inspecao_enviada_391a70" formatted="false">Inspeção enviada!</string>
+    <string name="ops_text_inspecao_pendente_1a07c3" formatted="false">Inspeção pendente</string>
+    <string name="ops_text_inspecao_realizada_2e0a19" formatted="false">Inspeção realizada</string>
+    <string name="ops_text_inspecionar_ap_001_ecbf9f" formatted="false">Inspecionar AP-001</string>
+    <string name="ops_text_inspecione_os_aparelhos_a4db1f" formatted="false">Inspecione os aparelhos</string>
+    <string name="ops_text_inspection_form_1b8107" formatted="false">inspection_form</string>
+    <string name="ops_text_inspections_fac6c1" formatted="false">inspections</string>
+    <string name="ops_text_instituto_j_f_r_irineu_jose_bordon_365_4e1a7c" formatted="false">Instituto J&amp;F, R. Irineu José Bordon, 365</string>
+    <string name="ops_text_ir_para_a_home_419580" formatted="false">Ir para a Home</string>
+    <string name="ops_text_ir_para_o_quadro_a49bb8" formatted="false">Ir para o quadro</string>
+    <string name="ops_text_itens_verificados_2ffe33" formatted="false">Itens verificados</string>
+    <string name="ops_text_lampada_de8b9c" formatted="false">Lampâda</string>
+    <string name="ops_text_liga_normalmente_7456f1" formatted="false">Liga normalmente</string>
+    <string name="ops_text_limpeza_b072e0" formatted="false">Limpeza</string>
+    <string name="ops_text_local_47429b" formatted="false">Local:</string>
+    <string name="ops_text_local_8c31e6" formatted="false">Local</string>
+    <string name="ops_text_local_e_data_639957" formatted="false">Local e data</string>
+    <string name="ops_text_local_sala_s11_13_09_2026_33eeb6" formatted="false">Local: Sala S11 - 13/09/2026</string>
+    <string name="ops_text_local_sala_s11_9bf398" formatted="false">Local: Sala S11</string>
+    <string name="ops_text_localizacao_do_problema_7dc99f" formatted="false">Localização do Problema</string>
+    <string name="ops_text_luz_piscando_na_sala_t07_9c7915" formatted="false">Luz piscando na sala T07</string>
+    <string name="ops_text_management_288965" formatted="false">management</string>
+    <string name="ops_text_manu_2d00f5" formatted="false">Manu</string>
+    <string name="ops_text_marca_8e2ca9" formatted="false">Marca</string>
+    <string name="ops_text_member_details_3d0322" formatted="false">member_details</string>
+    <string name="ops_text_meu_perfil_549596" formatted="false">Meu Perfil</string>
+    <string name="ops_text_meu_perfil_9edbcd" formatted="false">Meu perfil</string>
+    <string name="ops_text_modelo_a5ab32" formatted="false">Modelo</string>
+    <string name="ops_text_modelo_institucional_a_a6f0bc" formatted="false">Modelo Institucional A</string>
+    <string name="ops_text_modelo_institucional_a_e256d8" formatted="false">Modelo institucional A</string>
+    <string name="ops_text_modelo_institucional_b_42c914" formatted="false">Modelo Institucional B</string>
+    <string name="ops_text_modelo_institucional_b_d278d4" formatted="false">Modelo institucional B</string>
+    <string name="ops_text_modelo_institucional_c_f375fc" formatted="false">Modelo Institucional C</string>
+    <string name="ops_text_modelos_8fccd1" formatted="false">Modelos</string>
+    <string name="ops_text_models_8edcc2" formatted="false">models</string>
+    <string name="ops_text_motivo_c7b288" formatted="false">Motivo</string>
+    <string name="ops_text_motivo_opcional_9691da" formatted="false">Motivo(opcional)</string>
+    <string name="ops_text_my_profile_d83acc" formatted="false">my_profile</string>
+    <string name="ops_text_nao_9bc947" formatted="false">Não</string>
+    <string name="ops_text_nao_definido_9824c5" formatted="false">Não definido</string>
+    <string name="ops_text_nao_iniciadas_ffdd9a" formatted="false">Não iniciadas</string>
+    <string name="ops_text_nao_sera_possivel_fazer_nada_nesse_dia_9e5d92" formatted="false">Não será possível fazer nada nesse dia.</string>
+    <string name="ops_text_nicolas_isepe_33d55f" formatted="false">Nicolas Isepe</string>
+    <string name="ops_text_ninguem_atribuido_b17748" formatted="false">Ninguém atribuído</string>
+    <string name="ops_text_nome_508690" formatted="false">Nome</string>
+    <string name="ops_text_nome_do_campo_9636c9" formatted="false">Nome do campo</string>
+    <string name="ops_text_nos_informe_o_motivo_532cfe" formatted="false">Nos informe o motivo</string>
+    <string name="ops_text_notificacoes_6b8e9e" formatted="false">Notificações</string>
+    <string name="ops_text_notifications_8bb692" formatted="false">notifications</string>
+    <string name="ops_text_nova_conversa_2ec797" formatted="false">Nova conversa</string>
+    <string name="ops_text_nova_os_atribuida_936f44" formatted="false">Nova OS atribuída</string>
+    <string name="ops_text_nova_solicitacao_recebida_91c44a" formatted="false">Nova solicitação recebida</string>
+    <string name="ops_text_novo_chat_efc6a4" formatted="false">Novo chat</string>
+    <string name="ops_text_novo_valor_487093" formatted="false">Novo valor</string>
+    <string name="ops_text_o_ar_condicionado_estava_apresentando__a14433" formatted="false">O ar-condicionado estava apresentando vazamento e um ruído estranho até desligar completamente e não ligar mais.</string>
+    <string name="ops_text_o_evento_ira_ocorrer_em_toda_a_arena_i_307fc1" formatted="false">O evento irá ocorrer em toda a arena, incluindo palco, arquibancada, area técnica, piscina e tudo, literalmente tudo. Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</string>
+    <string name="ops_text_o_fixa_e_uma_iniciativa_tecnologica_vo_dd60b5" formatted="false">O FIXA é uma iniciativa tecnológica voltada para a equipe de manutenção de instituições.</string>
+    <string name="ops_text_o_que_e_o_fixa_37738b" formatted="false">O que é o FIXA?</string>
+    <string name="ops_text_observacao_a19b7e" formatted="false">Observação:</string>
+    <string name="ops_text_observacoes_opcional_dcbd5b" formatted="false">Observações (opcional)</string>
+    <string name="ops_text_occurrence_details_35f190" formatted="false">occurrence_details</string>
+    <string name="ops_text_occurrence_intro_76caa7" formatted="false">occurrence_intro</string>
+    <string name="ops_text_occurrence_location_fbb6e5" formatted="false">occurrence_location</string>
+    <string name="ops_text_occurrence_result_5a3186" formatted="false">occurrence_result</string>
+    <string name="ops_text_occurrence_review_002604" formatted="false">occurrence_review</string>
+    <string name="ops_text_occurrence_service_ecb9fd" formatted="false">occurrence_service</string>
+    <string name="ops_text_occurrence_success_6c33d9" formatted="false">occurrence_success</string>
+    <string name="ops_text_occurrences_e65310" formatted="false">occurrences</string>
+    <string name="ops_text_ocorrencia_registrada_com_sucesso_d438f5" formatted="false">Ocorrência registrada com sucesso!</string>
+    <string name="ops_text_ocorrencias_f53116" formatted="false">Ocorrências</string>
+    <string name="ops_text_ola_rapha_como_posso_te_ajudar_hoje_f87b89" formatted="false">Olá Rapha, como posso te ajudar hoje?</string>
+    <string name="ops_text_ola_raphaely_m_2724f0" formatted="false">Olá, Raphaely M...!</string>
+    <string name="ops_text_ola_ryan_cursino_86594f" formatted="false">Olá, Ryan Cursino!</string>
+    <string name="ops_text_opcoes_eadb37" formatted="false">Opções</string>
+    <string name="ops_text_ordens_de_servico_b202c3" formatted="false">Ordens de serviço</string>
+    <string name="ops_text_organize_as_ocorrencias_1f38f7" formatted="false">Organize as ocorrências</string>
+    <string name="ops_text_organize_suas_solicitacoes_d4afc2" formatted="false">Organize suas solicitações</string>
+    <string name="ops_text_os_ativas_91053e" formatted="false">OS ativas</string>
+    <string name="ops_text_os_concluidas_3c8f2d" formatted="false">OS concluídas</string>
+    <string name="ops_text_os_finalizada_com_sucesso_89acfa" formatted="false">OS finalizada com sucesso!</string>
+    <string name="ops_text_os_nao_concluidas_568402" formatted="false">OS não concluídas</string>
+    <string name="ops_text_os_privada_quebrada_iniciada_225f5e" formatted="false">OS “Privada Quebrada” iniciada</string>
+    <string name="ops_text_os_torneira_quebrada_concluida_792f40" formatted="false">OS “Torneira quebrada” concluída</string>
+    <string name="ops_text_os_torneira_quebrada_despausada_af8a06" formatted="false">OS “Torneira quebrada” despausada</string>
+    <string name="ops_text_out_2026_4db6fa" formatted="false">Out, 2026</string>
+    <string name="ops_text_p0_2842de" formatted="false">P0</string>
+    <string name="ops_text_passo_1_3a2db3" formatted="false">Passo 1</string>
+    <string name="ops_text_passo_2_089d44" formatted="false">Passo 2</string>
+    <string name="ops_text_passo_3_c5724f" formatted="false">Passo 3</string>
+    <string name="ops_text_password_success_676cf1" formatted="false">password_success</string>
+    <string name="ops_text_pausadas_79326a" formatted="false">Pausadas</string>
+    <string name="ops_text_periodicidade_61f479" formatted="false">Periodicidade</string>
+    <string name="ops_text_periodicidade_em_dias_a08067" formatted="false">Periodicidade em dias</string>
+    <string name="ops_text_periodo_162459" formatted="false">Período</string>
+    <string name="ops_text_pesquisar_b89310" formatted="false">Pesquisar</string>
+    <string name="ops_text_pesquisar_d0839a" formatted="false">Pesquisar...</string>
+    <string name="ops_text_plan_information_33aba1" formatted="false">plan_information</string>
+    <string name="ops_text_planejamento_b54437" formatted="false">Planejamento</string>
+    <string name="ops_text_planejamento_da_os_concluida_com_suces_581236" formatted="false">Planejamento da OS concluída com sucesso!</string>
+    <string name="ops_text_planejar_os_731457" formatted="false">Planejar OS</string>
+    <string name="ops_text_planeje_as_tarefas_da_os_0527e3" formatted="false">Planeje as tarefas da OS</string>
+    <string name="ops_text_planning_423614" formatted="false">planning</string>
+    <string name="ops_text_planning_intro_1a5a04" formatted="false">planning_intro</string>
+    <string name="ops_text_planning_success_a72542" formatted="false">planning_success</string>
+    <string name="ops_text_planning_tasks_3cf422" formatted="false">planning_tasks</string>
+    <string name="ops_text_politica_de_privacidade_b4c1c2" formatted="false">Politíca de Privacidade</string>
+    <string name="ops_text_porta_automatica_cab3af" formatted="false">Porta automática</string>
+    <string name="ops_text_prazo_18_09_2026_3fc07b" formatted="false">Prazo: 18/09/2026</string>
+    <string name="ops_text_prazo_28_09_2026_1f1f8b" formatted="false">Prazo: 28/09/2026</string>
+    <string name="ops_text_precisa_de_manutencao_4780d7" formatted="false">Precisa de manutenção?</string>
+    <string name="ops_text_prioridade_f61577" formatted="false">Prioridade</string>
+    <string name="ops_text_privada_quebrada_70d538" formatted="false">Privada quebrada</string>
+    <string name="ops_text_problema_encontrado_344d59" formatted="false">Problema encontrado</string>
+    <string name="ops_text_profile_1900ea" formatted="false">profile</string>
+    <string name="ops_text_profissional_f18dca" formatted="false">Profissional</string>
+    <string name="ops_text_projetor_multimidia_c8a70a" formatted="false">Projetor Multimídia</string>
+    <string name="ops_text_proximo_4a1772" formatted="false">Próximo</string>
+    <string name="ops_text_q_4ae815" formatted="false">Q</string>
+    <string name="ops_text_qua_ba40a9" formatted="false">Qua</string>
+    <string name="ops_text_quadro_38b526" formatted="false">Quadro</string>
+    <string name="ops_text_qui_e770ad" formatted="false">Qui</string>
+    <string name="ops_text_raphaely_m_402b6e" formatted="false">Raphaely M...</string>
+    <string name="ops_text_realizar_as_tarefas_da_os_e7983a" formatted="false">Realizar as tarefas da OS</string>
+    <string name="ops_text_recentes_3068eb" formatted="false">Recentes</string>
+    <string name="ops_text_recomendado_5fa721" formatted="false">Recomendado</string>
+    <string name="ops_text_recusadas_933ee3" formatted="false">Recusadas</string>
+    <string name="ops_text_recusar_ce4328" formatted="false">Recusar</string>
+    <string name="ops_text_recusar_solicitacao_d1e1e7" formatted="false">Recusar solicitação?</string>
+    <string name="ops_text_registrada_por_aline_teodoro_5a372d" formatted="false">Registrada por Aline Teodoro</string>
+    <string name="ops_text_registrada_por_ryan_cursino_87b476" formatted="false">Registrada por Ryan Cursino</string>
+    <string name="ops_text_registrado_por_gustavo_kenzo_solicitan_7cdacd" formatted="false">Registrado por Gustavo Kenzo (Solicitante)</string>
+    <string name="ops_text_registrar_a50cc2" formatted="false">Registrar</string>
+    <string name="ops_text_registrar_novo_problema_6491d3" formatted="false">Registrar novo problema</string>
+    <string name="ops_text_registre_a_ocorrencia_8d2f3b" formatted="false">Registre a ocorrência</string>
+    <string name="ops_text_registre_os_servicos_realizados_8d9071" formatted="false">Registre os serviços realizados</string>
+    <string name="ops_text_requer_manutencao_b23714" formatted="false">Requer manutenção</string>
+    <string name="ops_text_request_details_69c55e" formatted="false">request_details</string>
+    <string name="ops_text_requests_ec7242" formatted="false">requests</string>
+    <string name="ops_text_responsabilidades_b7460f" formatted="false">Responsabilidades</string>
+    <string name="ops_text_responsavel_ryan_cursino_6bef00" formatted="false">Responsável: Ryan Cursino</string>
+    <string name="ops_text_resultado_a71bc3" formatted="false">Resultado</string>
+    <string name="ops_text_resultado_do_servico_211497" formatted="false">Resultado do Serviço</string>
+    <string name="ops_text_reuniao_de_pais_7119b8" formatted="false">Reunião de Pais</string>
+    <string name="ops_text_ryan_cursino_11ecb5" formatted="false">Ryan Cursino</string>
+    <string name="ops_text_ryan_cursino_de_moraes_58f6cc" formatted="false">Ryan Cursino de Moraes</string>
+    <string name="ops_text_ryan_cursino_gmail_com_b6afa5" formatted="false">ryan.cursino@gmail.com</string>
+    <string name="ops_text_s07_4fc427" formatted="false">S07</string>
+    <string name="ops_text_s08_33829b" formatted="false">S08</string>
+    <string name="ops_text_s09_7e0b7c" formatted="false">S09</string>
+    <string name="ops_text_s_8de0b3" formatted="false">S</string>
+    <string name="ops_text_sair_2d023d" formatted="false">Sair</string>
+    <string name="ops_text_sair_da_conta_2bc9fb" formatted="false">Sair da conta?</string>
+    <string name="ops_text_sair_da_manu_21c953" formatted="false">Sair da Manu</string>
+    <string name="ops_text_sala_localizada_no_2_andar_no_corredor_a27b15" formatted="false">Sala localizada no 2° andar no corredor da esquerda subindo pela escada rolante, sala do meio do corredor onde fica o 2° Ano G.</string>
+    <string name="ops_text_sala_t07_2_andar_6c3f9f" formatted="false">Sala T07 - 2° andar</string>
+    <string name="ops_text_salvar_aef7cd" formatted="false">Salvar</string>
+    <string name="ops_text_salvar_alteracoes_78e2d2" formatted="false">Salvar alterações?</string>
+    <string name="ops_text_samsung_285075" formatted="false">Samsung</string>
+    <string name="ops_text_seg_317a55" formatted="false">Seg</string>
+    <string name="ops_text_selecionar_modelos_af9c80" formatted="false">Selecionar modelos</string>
+    <string name="ops_text_selecione_a_competencia_principal_4e10ac" formatted="false">Selecione a competência principal</string>
+    <string name="ops_text_selecione_a_prioridade_759cbd" formatted="false">Selecione a prioridade</string>
+    <string name="ops_text_selecione_facil_medio_dificil_f98a64" formatted="false">Selecione fácil, médio, difícil</string>
+    <string name="ops_text_selecione_o_local_dd649b" formatted="false">Selecione o local</string>
+    <string name="ops_text_selecione_um_local_e7cf71" formatted="false">Selecione um local</string>
+    <string name="ops_text_selecione_um_tipo_de_campo_ef24f2" formatted="false">Selecione um tipo de campo</string>
+    <string name="ops_text_selecione_uma_categoria_8cfe4a" formatted="false">Selecione uma categoria</string>
+    <string name="ops_text_sem_avarias_a91163" formatted="false">Sem avarias</string>
+    <string name="ops_text_sem_ruidos_128ffa" formatted="false">Sem ruídos</string>
+    <string name="ops_text_sem_vazamentos_7805a0" formatted="false">Sem vazamentos</string>
+    <string name="ops_text_senha_alterada_com_sucesso_56c5f1" formatted="false">Senha alterada com sucesso!</string>
+    <string name="ops_text_senha_d482c1" formatted="false">Senha</string>
+    <string name="ops_text_servico_dfec25" formatted="false">Serviço</string>
+    <string name="ops_text_servico_realizado_c03841" formatted="false">Serviço realizado</string>
+    <string name="ops_text_setembro_b5f693" formatted="false">Setembro</string>
+    <string name="ops_text_settings_cde0fb" formatted="false">settings</string>
+    <string name="ops_text_sex_953dd6" formatted="false">Sex</string>
+    <string name="ops_text_sim_931345" formatted="false">Sim</string>
+    <string name="ops_text_sim_ou_nao_a01d41" formatted="false">Sim ou não</string>
+    <string name="ops_text_sim_ou_nao_obrigatorio_020e94" formatted="false">Sim ou não · Obrigatório</string>
+    <string name="ops_text_sobre_o_app_202adf" formatted="false">Sobre o app</string>
+    <string name="ops_text_solicitacao_aprovada_089f8c" formatted="false">Solicitação aprovada!</string>
+    <string name="ops_text_solicitacao_recusada_f5aaca" formatted="false">Solicitação recusada!</string>
+    <string name="ops_text_solicitacoes_07d0b7" formatted="false">Solicitações</string>
+    <string name="ops_text_solicitacoes_para_se_planejar_fc51ec" formatted="false">Solicitações para se planejar</string>
+    <string name="ops_text_solucao_aplicada_1bf2b7" formatted="false">Solução aplicada:</string>
+    <string name="ops_text_solucao_aplicada_423f3c" formatted="false">Solução aplicada</string>
+    <string name="ops_text_split_12_000_btus_fffc05" formatted="false">Split 12.000 BTUs</string>
+    <string name="ops_text_status_920e41" formatted="false">Status</string>
+    <string name="ops_text_status_concluida_b6ae46" formatted="false">Status: Concluída</string>
+    <string name="ops_text_status_nao_concluida_bb7d1e" formatted="false">Status: Não concluída</string>
+    <string name="ops_text_t_e632b7" formatted="false">T</string>
+    <string name="ops_text_tarefas_4b2b8a" formatted="false">Tarefas</string>
+    <string name="ops_text_tarefas_a_fazer_a53db2" formatted="false">Tarefas a fazer</string>
+    <string name="ops_text_tarefas_relacionadas_a_os_edeff1" formatted="false">Tarefas relacionadas a OS</string>
+    <string name="ops_text_team_ca8b22" formatted="false">team</string>
+    <string name="ops_text_tecnico_6c597d" formatted="false">Técnico</string>
+    <string name="ops_text_telefone_2f1517" formatted="false">Telefone</string>
+    <string name="ops_text_ter_74ae3f" formatted="false">Ter</string>
+    <string name="ops_text_termos_de_uso_e259be" formatted="false">Termos de Uso</string>
+    <string name="ops_text_teve_algum_impedimento_informe_o_92b561" formatted="false">Teve algum impedimento? Informe-o</string>
+    <string name="ops_text_tipo_3868d2" formatted="false">Tipo</string>
+    <string name="ops_text_tire_duvidas_e_encontre_o_caminho_cert_e7f3fa" formatted="false">Tire dúvidas e encontre o caminho certo</string>
+    <string name="ops_text_titulo_4c08a5" formatted="false">Título</string>
+    <string name="ops_text_titulo_da_tarefa_df5881" formatted="false">Título da tarefa</string>
+    <string name="ops_text_todas_aff4d1" formatted="false">Todas</string>
+    <string name="ops_text_torneira_quebrada_a12249" formatted="false">Torneira quebrada</string>
+    <string name="ops_text_ultima_semana_96dbfa" formatted="false">Última semana</string>
+    <string name="ops_text_valor_antigo_490e8b" formatted="false">Valor antigo</string>
+    <string name="ops_text_varias_opcoes_03bffb" formatted="false">Várias opções</string>
+    <string name="ops_text_veja_as_os_atribuidas_8a3082" formatted="false">Veja as OS atribuídas</string>
+    <string name="ops_text_ver_mais_073f14" formatted="false">Ver mais</string>
+    <string name="ops_text_verificar_o_funcionamento_f24751" formatted="false">Verificar o funcionamento</string>
+    <string name="ops_text_voce_podera_editar_e_excluir_essa_acao_aa3ed1" formatted="false">Você poderá editar e excluir essa ação posteriormente</string>
+    <string name="ops_text_voce_podera_entrar_novamente_cf611b" formatted="false">Você poderá entrar novamente</string>
+    <string name="ops_text_voltar_59dc92" formatted="false">Voltar</string>
+    <string name="ops_text_voltar_para_login_c9ad32" formatted="false">Voltar para login</string>
+</resources>
