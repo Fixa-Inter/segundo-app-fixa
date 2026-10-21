@@ -121,6 +121,10 @@
         <item name="android:textColor">@color/app_primary_dark</item>
         <item name="android:textSize">@dimen/app_details_title_text_size</item>
     </style>
+    <style name="TextAppearance.FIXA.App.Details.State" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_primary_deep</item>
+        <item name="android:textSize">@dimen/app_details_state_text_size</item>
+    </style>
     <style name="TextAppearance.FIXA.App.Timeline.Date" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_primary_dark</item>
         <item name="android:textSize">@dimen/app_details_timeline_date_text_size</item>

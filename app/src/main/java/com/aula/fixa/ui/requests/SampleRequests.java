@@ -1,7 +1,7 @@
 package com.aula.fixa.ui.requests;
 
 import com.aula.fixa.R;
-import com.aula.fixa.model.RequestItem;
+import com.aula.fixa.domain.model.RequestItem;
 
 import java.util.Arrays;
 import java.util.List;

@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
-import com.aula.fixa.model.FaqItem;
+import com.aula.fixa.domain.model.FaqItem;
 
 import java.util.ArrayList;
 import java.util.List;

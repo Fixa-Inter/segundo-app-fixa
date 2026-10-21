@@ -1,9 +1,10 @@
-package com.aula.fixa.model;
+package com.aula.fixa.domain.model;
 
 import androidx.annotation.DrawableRes;
 
 /** Solicitação exibida nos cards (dados de exemplo enquanto não há backend). */
 public class RequestItem {
+    public final long id;
 
     public enum Status { ANALYSIS, APPROVED, DONE, REFUSED }
 
@@ -18,11 +19,17 @@ public class RequestItem {
     public final int photo;
 
     public RequestItem(String title, String location, String date, Status status) {
-        this(title, location, date, status, "", "", 0);
+        this(0, title, location, date, status, "", "", 0);
     }
 
     public RequestItem(String title, String location, String date, Status status,
                        String description, String device, @DrawableRes int photo) {
+        this(0, title, location, date, status, description, device, photo);
+    }
+
+    public RequestItem(long id, String title, String location, String date, Status status,
+                       String description, String device, @DrawableRes int photo) {
+        this.id = id;
         this.title = title;
         this.location = location;
         this.date = date;

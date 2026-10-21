@@ -1,4 +1,4 @@
-package com.aula.fixa.model;
+package com.aula.fixa.domain.model;
 
 public class NotificationItem {
     public final String header;   // não nulo quando o item é cabeçalho de seção

@@ -15,12 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
-import com.aula.fixa.model.EventItem;
+import com.aula.fixa.domain.model.EventItem;
+import com.aula.fixa.data.local.preferences.SessionStorage;
+import com.aula.fixa.data.repository.RequestRepository;
+import com.aula.fixa.ui.common.AppLoading;
+import com.aula.fixa.ui.common.FragmentUi;
+import com.aula.fixa.ui.common.DataChangeNotifier;
+
+import android.app.Dialog;
+
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class EventsFragment extends Fragment {
+    private LocalDate selectedDate;
 
     public EventsFragment() {
         super(R.layout.fragment_events);
@@ -29,30 +43,114 @@ public class EventsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null && savedInstanceState.getString("selectedDate") != null) {
+            selectedDate = LocalDate.parse(savedInstanceState.getString("selectedDate"));
+        }
         AppText.setHtml(view.findViewById(R.id.tvTitle), R.string.app_events_title);
-        ((TextView) view.findViewById(R.id.tvMonth)).setText("Out, 2026");
-
-        RecyclerView days = view.findViewById(R.id.rvDays);
-        days.setAdapter(new DayAdapter(Arrays.asList(10, 11, 12, 13, 14),
-                getResources().getStringArray(R.array.app_sample_weekdays), 0));
-
-        RecyclerView events = view.findViewById(R.id.rvEvents);
-        events.setAdapter(new EventAdapter(Arrays.asList(
-                new EventItem("10", "Seg", "Entrega das medalhas", "11:30-12:30h"),
-                new EventItem("10", "Seg", "Reunião de Pais", "18:30-19:30h")
-        ), item -> Navigation.findNavController(view).navigate(R.id.action_events_to_event_info)));
+        loadEvents(view);
+        DataChangeNotifier.observe(getViewLifecycleOwner(), ignored -> {
+            if (getView() == view) loadEvents(view);
+        });
     }
 
-    /** Seletor horizontal de dias (60x100, r=25). */
+    private void loadEvents(View view) {
+        Dialog loading = AppLoading.show(requireContext());
+        new Thread(() -> {
+            try {
+                com.google.gson.JsonArray response = new RequestRepository(new SessionStorage(requireContext())).eventos();
+                List<EventItem> items = new ArrayList<>();
+                for (var element : response) {
+                    com.google.gson.JsonObject e = element.getAsJsonObject();
+                    LocalDateTime start = LocalDateTime.parse(e.get("dataHoraInicio").getAsString());
+                    LocalDateTime end = LocalDateTime.parse(e.get("dataHoraFim").getAsString());
+                    items.add(new EventItem(e.get("id").getAsLong(), String.valueOf(start.getDayOfMonth()),
+                            start.format(DateTimeFormatter.ofPattern("EEE")), e.get("titulo").getAsString(),
+                            start.format(DateTimeFormatter.ofPattern("HH:mm")) + " - " + end.format(DateTimeFormatter.ofPattern("HH:mm")), start.toLocalDate().toString()));
+                }
+                FragmentUi.runIfViewActive(this, view, () -> {
+                    AppLoading.hide(loading);
+                    bindCalendar(view, items, selectedDate == null ? LocalDate.now() : selectedDate);
+                    view.findViewById(R.id.btnCalendar).setOnClickListener(v -> {
+                        java.util.Calendar calendar = java.util.Calendar.getInstance();
+                        new android.app.DatePickerDialog(view.getContext(), (picker, year, month, day) -> bindCalendar(view, items, LocalDate.of(year, month + 1, day)), calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
+                    });
+                });
+            } catch (Exception e) {
+                FragmentUi.runIfViewActive(this, view, () -> {
+                    AppLoading.hide(loading);
+                    android.widget.Toast.makeText(view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+                });
+            }
+        }).start();
+    }
+
+    private void bindCalendar(View view, List<EventItem> items, LocalDate selectedDate) {
+        this.selectedDate = selectedDate;
+        LocalDate sunday = selectedDate.minusDays(selectedDate.getDayOfWeek().getValue() % 7);
+        List<Integer> days = new ArrayList<>();
+        String[] labels = new String[7];
+        for (int i = 0; i < 7; i++) {
+            LocalDate day = sunday.plusDays(i);
+            days.add(day.getDayOfMonth());
+            labels[i] = day.format(DateTimeFormatter.ofPattern("EEE"));
+        }
+        int selectedIndex = selectedDate.getDayOfWeek().getValue() % 7;
+        view.<RecyclerView>findViewById(R.id.rvDays).setAdapter(new DayAdapter(days, labels, selectedIndex, day -> {
+            List<EventItem> filtered = new ArrayList<>();
+            LocalDate chosen = sunday.plusDays(days.indexOf(day));
+            for (EventItem item : items) {
+                if (item.dateKey.equals(chosen.toString())) {
+                    filtered.add(item);
+                }
+            }
+            view.findViewById(R.id.tvEmptyEvents).setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
+            ((RecyclerView) view.findViewById(R.id.rvEvents)).setAdapter(new EventAdapter(filtered, selected -> {
+                Bundle args = new Bundle();
+                args.putLong("eventId", selected.id);
+                Navigation.findNavController(view).navigate(R.id.action_events_to_event_info, args);
+            }));
+        }));
+        List<EventItem> todayEvents = new ArrayList<>();
+        for (EventItem item : items) {
+            if (item.dateKey.equals(selectedDate.toString())) {
+                todayEvents.add(item);
+            }
+        }
+        view.findViewById(R.id.tvEmptyEvents).setVisibility(todayEvents.isEmpty() ? View.VISIBLE : View.GONE);
+        view.<RecyclerView>findViewById(R.id.rvEvents).setAdapter(new EventAdapter(todayEvents, selected -> {
+            Bundle args = new Bundle();
+            args.putLong("eventId", selected.id);
+            Navigation.findNavController(view).navigate(R.id.action_events_to_event_info, args);
+        }));
+        String month = sunday.format(DateTimeFormatter.ofPattern("MMMM yyyy", new Locale("pt", "BR")));
+        month = month.substring(0, 1).toUpperCase(new Locale("pt", "BR")) + month.substring(1);
+        ((TextView) view.findViewById(R.id.tvMonth)).setText(month);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (selectedDate != null) outState.putString("selectedDate", selectedDate.toString());
+    }
+
+    /**
+     * Seletor horizontal de dias (60x100, r=25).
+     */
+    interface OnDaySelected {
+        void onSelected(int day);
+    }
+
     static class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         private final List<Integer> days;
         private final String[] labels;
         private int selected;
+        private final OnDaySelected listener;
 
-        DayAdapter(List<Integer> days, String[] labels, int selected) {
+        DayAdapter(List<Integer> days, String[] labels, int selected, OnDaySelected listener) {
             this.days = days;
             this.labels = labels;
             this.selected = selected;
+            this.listener = listener;
         }
 
         @NonNull
@@ -78,6 +176,9 @@ public class EventsFragment extends Fragment {
                 selected = holder.getBindingAdapterPosition();
                 notifyItemChanged(old);
                 notifyItemChanged(selected);
+                if (listener != null) {
+                    listener.onSelected(days.get(selected));
+                }
             });
         }
 

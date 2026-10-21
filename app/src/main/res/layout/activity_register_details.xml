@@ -178,19 +178,19 @@
             app:layout_constraintWidth_max="@dimen/login_content_max_width" />
 
         <TextView
-            android:id="@+id/tvPhoneLabel"
+            android:id="@+id/tvRoleLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/register_details_group_spacing"
             android:fontFamily="@font/poppins_semibold"
-            android:text="@string/register_phone_label"
+            android:text="@string/register_role_label"
             android:textAppearance="@style/TextAppearance.FIXA.Login.Label"
             android:textFontWeight="600"
-            app:layout_constraintStart_toStartOf="@id/etPhone"
+            app:layout_constraintStart_toStartOf="@id/etRole"
             app:layout_constraintTop_toBottomOf="@id/etRegisterEmail" />
 
         <EditText
-            android:id="@+id/etPhone"
+            android:id="@+id/etRole"
             android:layout_width="0dp"
             android:layout_height="@dimen/login_field_height"
             android:layout_marginStart="@dimen/login_content_side_margin"
@@ -199,9 +199,9 @@
             android:background="@drawable/bg_login_field_auth"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center_vertical"
-            android:hint="@string/register_phone_hint"
+            android:hint="@string/register_role_hint"
             android:includeFontPadding="false"
-            android:inputType="phone"
+            android:inputType="textCapWords"
             android:paddingStart="@dimen/login_field_horizontal_padding"
             android:paddingTop="0dp"
             android:paddingEnd="@dimen/login_field_horizontal_padding"
@@ -213,7 +213,7 @@
             android:textFontWeight="400"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPhoneLabel"
+            app:layout_constraintTop_toBottomOf="@id/tvRoleLabel"
             app:layout_constraintWidth_max="@dimen/login_content_max_width" />
 
         <TextView
@@ -226,7 +226,7 @@
             android:textAppearance="@style/TextAppearance.FIXA.Login.Label"
             android:textFontWeight="600"
             app:layout_constraintStart_toStartOf="@id/tilRegisterPassword"
-            app:layout_constraintTop_toBottomOf="@id/etPhone" />
+            app:layout_constraintTop_toBottomOf="@id/etRole" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilRegisterPassword"

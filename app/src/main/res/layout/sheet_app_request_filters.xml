@@ -70,6 +70,26 @@
             app:layout_constraintTop_toBottomOf="@id/tvLocationLabel" />
 
         <TextView
+            android:id="@+id/tvCategoryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_filter_group_spacing"
+            android:text="Categoria de Equipamento"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldLocation" />
+
+        <include
+            android:id="@+id/fieldCategory"
+            layout="@layout/view_app_filter_dropdown"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_filter_field_height"
+            android:layout_marginTop="@dimen/app_filter_field_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCategoryLabel" />
+
+        <TextView
             android:id="@+id/tvStatusLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,7 +97,7 @@
             android:text="@string/app_filter_status"
             android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fieldLocation" />
+            app:layout_constraintTop_toBottomOf="@id/fieldCategory" />
 
         <include
             android:id="@+id/fieldStatus"

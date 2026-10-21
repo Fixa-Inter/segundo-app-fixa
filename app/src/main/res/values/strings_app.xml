@@ -39,7 +39,7 @@
 
     <!-- Card de solicitação -->
     <string name="app_request_status_analysis">Solicitação em análise</string>
-    <string name="app_request_status_refused">Solicitação recusada</string>
+    <string name="app_request_status_refused">Solicitação reprovada</string>
     <string name="app_request_status_done">Solicitação concluída</string>
     <string name="app_request_status_approved">Solicitação aprovada</string>
 
@@ -60,6 +60,7 @@
     <string name="app_details_step_opened">Abertura da solicitação</string>
     <string name="app_details_step_analysis">Solicitação em análise</string>
     <string name="app_details_step_approved">Solicitação aprovada</string>
+    <string name="app_details_step_refused">Solicitação reprovada</string>
     <string name="app_details_step_done">Solicitação concluída</string>
 
     <!-- Eventos -->
@@ -109,19 +110,19 @@
     <string name="app_step_description_field_description">Descrição</string>
     <string name="app_step_description_hint">Digite aqui sua descrição…</string>
     <string name="app_step_location_title"><![CDATA[Localização <u><font color="#0B013C">do Problema</font></u>]]></string>
-    <string name="app_step_location_field">Local</string>
+    <string name="app_step_location_field">Local da Unidade</string>
     <string name="app_step_location_hint">Selecione o local</string>
     <string name="app_step_location_description_field">Descrição do local</string>
     <string name="app_step_photo_title"><![CDATA[Foto <u><font color="#0B013C">do Aparelho</font></u>]]></string>
-    <string name="app_step_photo_device_field">Aparelho</string>
-    <string name="app_step_photo_device_hint">Selecione o aparelho com problema</string>
+    <string name="app_step_photo_device_field">Categoria do Equipamento</string>
+    <string name="app_step_photo_device_hint">Selecione a categoria do equipamento</string>
     <string name="app_step_photo_field">Fotos</string>
     <string name="app_step_photo_upload">Fazer upload de imagens</string>
     <string name="app_step_photo_or">ou</string>
     <string name="app_step_photo_take">Tirar foto</string>
     <string name="app_confirm_title"><![CDATA[Confirme <u><font color="#0B013C">as informações</font></u>]]></string>
-    <string name="app_confirm_device"><![CDATA[<b><font color="#0B013C">Aparelho:</font></b> <i>%1$s</i>]]></string>
-    <string name="app_confirm_location"><![CDATA[<b><font color="#0B013C">Local:</font></b> <i>%1$s</i>]]></string>
+    <string name="app_confirm_device"><![CDATA[<b><font color="#0B013C">Categoria do Equipamento:</font></b> <i>%1$s</i>]]></string>
+    <string name="app_confirm_location"><![CDATA[<b><font color="#0B013C">Local da Unidade:</font></b> <i>%1$s</i>]]></string>
     <string name="app_confirm_description"><![CDATA[<b><font color="#0B013C">Descrição:</font></b>]]></string>
     <string name="app_confirm_images">Imagens</string>
     <string name="app_confirm_image_description">Imagem anexada</string>
@@ -149,7 +150,7 @@
     <string name="app_edit_name">Nome</string>
     <string name="app_edit_birth">Data de nascimento</string>
     <string name="app_edit_email">Email</string>
-    <string name="app_edit_phone">Telefone</string>
+    <string name="app_edit_phone">Cargo</string>
     <string name="app_edit_password">Senha</string>
 
     <!-- Configurações / FAQ / Sobre -->

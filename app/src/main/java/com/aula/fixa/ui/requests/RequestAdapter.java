@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
-import com.aula.fixa.model.RequestItem;
+import com.aula.fixa.domain.model.RequestItem;
 
 public class RequestAdapter extends ListAdapter<RequestItem, RequestAdapter.ViewHolder> {
 
@@ -72,6 +72,10 @@ public class RequestAdapter extends ListAdapter<RequestItem, RequestAdapter.View
             accent.setBackgroundColor(color);
             itemView.setOnClickListener(v -> listener.onRequestClick(item));
             menu.setOnClickListener(v -> listener.onRequestMenuClick(item, v));
+            boolean finalStatus = item.status == RequestItem.Status.APPROVED
+                    || item.status == RequestItem.Status.DONE
+                    || item.status == RequestItem.Status.REFUSED;
+            menu.setVisibility(finalStatus ? View.GONE : View.VISIBLE);
         }
 
         @StringRes

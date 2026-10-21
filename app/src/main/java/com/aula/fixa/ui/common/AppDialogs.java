@@ -8,6 +8,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.AutoCompleteTextView;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
@@ -15,11 +20,19 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 
 import com.aula.fixa.R;
-import com.aula.fixa.model.RequestItem;
+import com.aula.fixa.domain.model.RequestItem;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.bumptech.glide.Glide;
+import java.util.ArrayList;
+import java.util.List;
+import com.aula.fixa.data.remote.dto.CadastroOption;
 
 /** Pop-ups do Figma: confirmações com ilustração, exclusão com motivo e edição de solicitação. */
 public final class AppDialogs {
+
+    public interface EditRequestCallback { void onSave(String title, String description, String location, String device, List<Long> deletedPhotoIds); }
 
     private AppDialogs() {}
 
@@ -95,6 +108,25 @@ public final class AppDialogs {
 
     /** Figma "pop-up 7015": editar solicitação. Salvar abre "Salvar alterações?"; Cancelar com mudanças pergunta. */
     public static void showEditRequest(Context context, RequestItem item) {
+        showEditRequest(context, item, null, (EditRequestCallback) null);
+    }
+
+    public static void showEditRequest(Context context, RequestItem item, @Nullable Runnable onSave) {
+        showEditRequest(context, item, null, onSave == null ? null : (title, description, location, device, deleted) -> onSave.run());
+    }
+
+    public static void showEditRequest(Context context, RequestItem item, @Nullable EditRequestCallback onSave) {
+        showEditRequest(context, item, null, onSave);
+    }
+
+    public static void showEditRequest(Context context, RequestItem item, JsonObject details,
+                                       @Nullable EditRequestCallback onSave) {
+        showEditRequest(context, item, details, null, null, onSave);
+    }
+
+    public static void showEditRequest(Context context, RequestItem item, JsonObject details,
+                                       List<CadastroOption> locations, List<CadastroOption> devices,
+                                       @Nullable EditRequestCallback onSave) {
         View content = LayoutInflater.from(context).inflate(R.layout.dialog_app_edit_request, null, false);
         EditText title = content.findViewById(R.id.etEditTitle);
         EditText description = content.findViewById(R.id.etEditDescription);
@@ -104,11 +136,42 @@ public final class AppDialogs {
         description.setText(item.description);
         location.setText(item.location);
         device.setText(item.device);
+        setEditOptions(content, locations, devices);
+        LinearLayout photosLayout = content.findViewById(R.id.layoutPhotos);
+        View addPhoto = content.findViewById(R.id.btnAddPhoto);
+        List<Long> deletedPhotoIds = new ArrayList<>();
         View photo = content.findViewById(R.id.layoutEditPhoto1);
-        if (item.photo != 0) {
+        photo.setVisibility(View.GONE);
+        if (details != null && details.has("fotos") && details.get("fotos").isJsonArray()) {
+            JsonArray photos = details.getAsJsonArray("fotos");
+            for (var element : photos) {
+                JsonObject photoJson = element.getAsJsonObject();
+                long photoId = photoJson.has("id") ? photoJson.get("id").getAsLong() : 0L;
+                FrameLayout frame = new FrameLayout(context);
+                LinearLayout.LayoutParams frameParams = new LinearLayout.LayoutParams(100, -1);
+                frameParams.setMargins(0, 0, 8, 0);
+                frame.setLayoutParams(frameParams);
+                ImageView image = new ImageView(context);
+                image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                frame.addView(image, new FrameLayout.LayoutParams(-1, 90));
+                ImageButton remove = new ImageButton(context);
+                remove.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                remove.setContentDescription("Remover foto");
+                remove.setBackgroundColor(0xFFE6545A);
+                remove.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
+                FrameLayout.LayoutParams removeParams = new FrameLayout.LayoutParams(32, 32, android.view.Gravity.TOP | android.view.Gravity.END);
+                frame.addView(remove, removeParams);
+                Glide.with(context).load(photoJson.has("url") ? photoJson.get("url").getAsString() : null)
+                        .placeholder(R.drawable.img_edit_photo_lamp).into(image);
+                remove.setOnClickListener(v -> {
+                    deletedPhotoIds.add(photoId);
+                    photosLayout.removeView(frame);
+                });
+                photosLayout.addView(frame, 0);
+            }
+        } else if (item.photo != 0) {
+            photo.setVisibility(View.VISIBLE);
             ((ImageView) content.findViewById(R.id.ivEditPhoto1)).setImageResource(item.photo);
-        } else {
-            photo.setVisibility(View.GONE);
         }
         final String initial = snapshot(title, description, location, device);
 
@@ -123,7 +186,11 @@ public final class AppDialogs {
             }
         };
         content.findViewById(R.id.btnEditCancel).setOnClickListener(v -> askIfDirty.run());
-        content.findViewById(R.id.btnEditSave).setOnClickListener(v -> showSaveConfirm(context, close));
+        content.findViewById(R.id.btnEditSave).setOnClickListener(v -> showSaveConfirm(context, () -> {
+            if (onSave != null) onSave.onSave(title.getText().toString().trim(), description.getText().toString().trim(),
+                    location.getText().toString().trim(), device.getText().toString().trim(), deletedPhotoIds);
+            close.run();
+        }));
         dialog.setOnKeyListener((d, keyCode, event) -> {
             if (keyCode == android.view.KeyEvent.KEYCODE_BACK && event.getAction() == android.view.KeyEvent.ACTION_UP) {
                 askIfDirty.run();
@@ -133,6 +200,30 @@ public final class AppDialogs {
         });
         dialog.show();
     }
+
+    public static void setEditOptions(View content, List<CadastroOption> locations, List<CadastroOption> devices) {
+        AutoCompleteTextView location = content.findViewById(R.id.etEditLocation);
+        AutoCompleteTextView device = content.findViewById(R.id.etEditDevice);
+        location.setKeyListener(null);
+        location.setFocusable(false);
+        location.setCursorVisible(false);
+        device.setKeyListener(null);
+        device.setFocusable(false);
+        device.setCursorVisible(false);
+        if (locations != null) location.setAdapter(new ArrayAdapter<>(content.getContext(), R.layout.item_app_dropdown, locations));
+        if (devices != null) device.setAdapter(new ArrayAdapter<>(content.getContext(), R.layout.item_app_dropdown, devices));
+        location.setOnClickListener(v -> location.showDropDown());
+        device.setOnClickListener(v -> device.showDropDown());
+        location.setOnTouchListener((v, event) -> {
+            if (event.getAction() == android.view.MotionEvent.ACTION_UP) location.showDropDown();
+            return false;
+        });
+        device.setOnTouchListener((v, event) -> {
+            if (event.getAction() == android.view.MotionEvent.ACTION_UP) device.showDropDown();
+            return false;
+        });
+    }
+
 
     private static String snapshot(EditText... fields) {
         StringBuilder sb = new StringBuilder();

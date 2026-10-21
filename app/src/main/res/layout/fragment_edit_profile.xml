@@ -184,7 +184,7 @@
                 android:layout_marginTop="@dimen/app_edit_field_margin_top"
                 android:autofillHints="phone"
                 android:background="@drawable/bg_app_field_soft"
-                android:inputType="phone"
+                android:inputType="text"
                 android:maxLines="1"
                 android:paddingStart="@dimen/app_edit_field_padding_start"
                 android:paddingEnd="@dimen/app_edit_field_padding_start"

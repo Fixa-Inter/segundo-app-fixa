@@ -12,10 +12,15 @@ public class NewRequestViewModel extends ViewModel {
     public String location = "";
     public String locationDescription = "";
     public String device = "";
-    public final List<Integer> photos = new ArrayList<>();
+    public long localId = -1;
+    public long categoryId = -1;
+    public final List<String> photoUrls = new ArrayList<>();
+    public final List<String> photoDeleteTokens = new ArrayList<>();
 
     public void clear() {
         title = description = location = locationDescription = device = "";
-        photos.clear();
+        localId = categoryId = -1;
+        photoUrls.clear();
+        photoDeleteTokens.clear();
     }
 }
