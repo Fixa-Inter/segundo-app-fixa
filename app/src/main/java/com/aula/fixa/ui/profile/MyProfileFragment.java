@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import com.aula.fixa.R;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
+import com.aula.fixa.ui.common.DataChangeNotifier;
 import com.google.gson.JsonObject;
 import com.bumptech.glide.Glide;
 
@@ -34,6 +35,9 @@ public class MyProfileFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_my_profile_to_edit));
 
         loadProfile(view);
+        DataChangeNotifier.observe(getViewLifecycleOwner(), ignored -> {
+            if (getView() == view) loadProfile(view);
+        });
 
         bindRow(view, R.id.rowName, R.drawable.ic_user_24, "");
         bindRow(view, R.id.rowBirth, R.drawable.ic_calendar_24, "");
@@ -49,13 +53,14 @@ public class MyProfileFragment extends Fragment {
                 JsonObject profile = new RequestRepository(new SessionStorage(requireContext())).perfil();
                 String url = profile.has("urlFotoPerfil") && !profile.get("urlFotoPerfil").isJsonNull()
                         ? profile.get("urlFotoPerfil").getAsString() : "";
-                requireActivity().runOnUiThread(() -> {
+                view.post(() -> {
+                    if (!isAdded() || getView() != view) return;
                     bindRow(view, R.id.rowName, R.drawable.ic_user_24, value(profile, "nomeCompleto"));
                     bindRow(view, R.id.rowBirth, R.drawable.ic_calendar_24, value(profile, "dataNascimento"));
                     bindRow(view, R.id.rowEmail, R.drawable.ic_mail_24, value(profile, "email"));
                     bindRow(view, R.id.rowPhone, R.drawable.ic_phone_24, value(profile, "cargo"));
                     bindRow(view, R.id.rowAddress, R.drawable.ic_compass_24, formatCnpj(value(profile, "cnpjUnidade")));
-                    Glide.with(this)
+                    Glide.with(view)
                             .load(url.trim().isEmpty() ? null : url)
                             .placeholder(R.drawable.img_avatar_115)
                             .error(R.drawable.img_avatar_115)
@@ -63,8 +68,11 @@ public class MyProfileFragment extends Fragment {
                             .into((ImageView) view.findViewById(R.id.ivAvatar));
                 });
             } catch (Exception ignored) {
-                requireActivity().runOnUiThread(() -> ((ImageView) view.findViewById(R.id.ivAvatar))
-                        .setImageResource(R.drawable.img_avatar_115));
+                view.post(() -> {
+                    if (!isAdded() || getView() != view) return;
+                    ((ImageView) view.findViewById(R.id.ivAvatar))
+                            .setImageResource(R.drawable.img_avatar_115);
+                });
             }
         }).start();
     }

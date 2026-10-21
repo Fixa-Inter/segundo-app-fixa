@@ -1,6 +1,8 @@
 package com.aula.fixa.ui.newrequest;
 
 import android.content.ActivityNotFoundException;
+import android.app.Dialog;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Bundle;
@@ -17,10 +19,15 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.widget.ImageView;
+import android.widget.FrameLayout;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.ViewGroup;
+import android.view.LayoutInflater;
 import com.bumptech.glide.Glide;
 
 import com.aula.fixa.R;
+import com.aula.fixa.ui.common.FragmentUi;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
 import com.aula.fixa.data.remote.dto.CadastroOption;
@@ -35,6 +42,7 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
     private ActivityResultLauncher<Uri> camera;
     private Uri pendingPhotoUri;
     private RecyclerView photosRecyclerView;
+    private View rootView;
 
     public NewRequestPhotoFragment() {
         super(R.layout.fragment_new_request_photo, 3, R.id.action_photo_to_confirm, R.string.app_step_photo_title);
@@ -43,21 +51,24 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rootView = view;
         photosRecyclerView = view.findViewById(R.id.rvPhotos);
         photosRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         photosRecyclerView.setAdapter(new PhotoAdapter());
+        viewUploadState();
         AutoCompleteTextView field = view.findViewById(R.id.actvDevice);
+        android.content.Context appContext = requireContext().getApplicationContext();
         new Thread(() -> {
             try {
-                RequestRepository repository = new RequestRepository(new SessionStorage(requireContext()));
+                RequestRepository repository = new RequestRepository(new SessionStorage(appContext));
                 List<CadastroOption> options = repository.options(repository.categorias());
 
-                requireActivity().runOnUiThread(() -> {
-                    field.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown, options));
+                FragmentUi.runIfViewActive(this, view, () -> {
+                    field.setAdapter(new ArrayAdapter<>(view.getContext(), R.layout.item_app_dropdown, options));
                     field.setOnItemClickListener((p, v, pos, id) -> form.categoryId = options.get(pos).getId());
                 });
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+                FragmentUi.runIfViewActive(this, view, () -> android.widget.Toast.makeText(view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
             }
         }).start();
 
@@ -94,7 +105,8 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
             CloudinaryUploadService.salvar(requireContext(), uri, CloudinaryUploadService.callback(new CloudinaryUploadService.ResultadoCallback() {
                 public void onSuccess(String url, String publicId) {
                     form.photoUrls.add(url);
-                    requireActivity().runOnUiThread(() -> {
+                    FragmentUi.runIfViewActive(NewRequestPhotoFragment.this, rootView, () -> {
+                        viewUploadState();
                         if (photosRecyclerView != null && photosRecyclerView.getAdapter() != null) {
                             photosRecyclerView.getAdapter().notifyDataSetChanged();
                         }
@@ -103,11 +115,23 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
                 @Override public void onDeleteToken(String token) { form.photoDeleteTokens.add(token); }
 
                 public void onError(String message) {
-                    requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(requireContext(), message, android.widget.Toast.LENGTH_LONG).show());
+                    FragmentUi.runIfViewActive(NewRequestPhotoFragment.this, rootView, () -> android.widget.Toast.makeText(rootView.getContext(), message, android.widget.Toast.LENGTH_LONG).show());
                 }
             }));
         } catch (Exception e) {
             Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void viewUploadState() {
+        View root = getView();
+        if (root == null) return;
+        root.findViewById(R.id.tvUpload).setVisibility(form.photoUrls.isEmpty() ? View.VISIBLE : View.GONE);
+        photosRecyclerView.setVisibility(form.photoUrls.isEmpty() ? View.GONE : View.VISIBLE);
+        if (form.photoUrls.isEmpty()) {
+            root.findViewById(R.id.btnUpload).setBackgroundResource(R.drawable.bg_app_upload_area);
+        } else {
+            root.findViewById(R.id.btnUpload).setBackgroundColor(android.graphics.Color.TRANSPARENT);
         }
     }
 
@@ -130,14 +154,59 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
     }
 
     private final class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.Holder> {
+        private static final int PHOTO = 0;
+        private static final int ADD = 1;
         @NonNull @Override public Holder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
-            ImageView image = new ImageView(parent.getContext());
-            image.setLayoutParams(new ViewGroup.LayoutParams(110, 110)); image.setScaleType(ImageView.ScaleType.CENTER_CROP); image.setPadding(4, 4, 4, 4);
+            if (type == ADD) {
+                ImageView add = new ImageView(parent.getContext());
+                int photoSize = parent.getResources().getDimensionPixelSize(R.dimen.app_confirm_photo_size);
+                int photoSpacing = parent.getResources().getDimensionPixelSize(R.dimen.app_confirm_photo_spacing);
+                android.widget.LinearLayout.LayoutParams addParams = new android.widget.LinearLayout.LayoutParams(photoSize, photoSize);
+                addParams.setMargins(0, 0, photoSpacing, 0);
+                add.setLayoutParams(addParams);
+                add.setBackgroundResource(R.drawable.bg_app_dialog_photo_add);
+                add.setImageResource(R.drawable.ic_plus_24);
+                add.setPadding(32, 32, 32, 32);
+                return new Holder(add);
+            }
+            View image = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_app_photo_thumb, parent, false);
             return new Holder(image);
         }
-        @Override public void onBindViewHolder(@NonNull Holder holder, int position) { Glide.with(NewRequestPhotoFragment.this).load(form.photoUrls.get(position)).centerCrop().into((ImageView) holder.itemView); }
-        @Override public int getItemCount() { return form.photoUrls.size(); }
+        @Override public void onBindViewHolder(@NonNull Holder holder, int position) {
+            if (getItemViewType(position) == ADD) {
+                holder.itemView.setOnClickListener(v -> picker.launch("image/*"));
+            } else {
+                Glide.with(NewRequestPhotoFragment.this).load(form.photoUrls.get(position)).centerCrop().into((ImageView) holder.itemView);
+                holder.itemView.setOnClickListener(v -> showPhoto(form.photoUrls.get(position)));
+            }
+        }
+        @Override public int getItemCount() { return form.photoUrls.isEmpty() ? 0 : form.photoUrls.size() + (form.photoUrls.size() < 3 ? 1 : 0); }
+        @Override public int getItemViewType(int position) { return position < form.photoUrls.size() ? PHOTO : ADD; }
         final class Holder extends RecyclerView.ViewHolder { Holder(@NonNull View item) { super(item); } }
+    }
+
+    private void showPhoto(String url) {
+        Dialog dialog = new Dialog(requireContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ImageView image = new ImageView(requireContext());
+        image.setBackgroundColor(Color.BLACK);
+        image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        Glide.with(this).load(url).into(image);
+        image.setOnClickListener(v -> dialog.dismiss());
+        dialog.setContentView(image);
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(android.R.color.black);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.dimAmount = 0.85f;
+            window.setAttributes(params);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        }
+        dialog.show();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        }
     }
 
     @Override
@@ -153,5 +222,25 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
     @Override
     protected void saveForm(View root) {
         form.device = ((AutoCompleteTextView) root.findViewById(R.id.actvDevice)).getText().toString().trim();
+    }
+
+    @Override
+    public void onDestroyView() {
+        rootView = null;
+        photosRecyclerView = null;
+        super.onDestroyView();
+    }
+
+    @Override
+    protected boolean validateStep(View root) {
+        if (form.categoryId <= 0 || !hasText(form.device)) {
+            showValidationMessage("Selecione a categoria do equipamento.");
+            return false;
+        }
+        if (form.photoUrls.isEmpty()) {
+            showValidationMessage("Adicione pelo menos uma foto.");
+            return false;
+        }
+        return true;
     }
 }

@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
@@ -102,6 +103,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onDestinationChanged(@NonNull NavDestination destination) {
+        boolean requestCreation = destination.getId() == R.id.newRequestIntroFragment
+                || destination.getId() == R.id.newRequestDescriptionFragment
+                || destination.getId() == R.id.newRequestLocationFragment
+                || destination.getId() == R.id.newRequestPhotoFragment
+                || destination.getId() == R.id.newRequestConfirmFragment
+                || destination.getId() == R.id.newRequestSuccessFragment;
+        WindowInsetsControllerCompat systemBars = WindowCompat.getInsetsController(
+                getWindow(), getWindow().getDecorView());
+        systemBars.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        if (requestCreation) {
+            systemBars.hide(WindowInsetsCompat.Type.navigationBars());
+        } else {
+            systemBars.show(WindowInsetsCompat.Type.navigationBars());
+        }
+
         // Figma "Detalhes": a barra continua visível com "Solicitações" ativa.
         boolean withNav = TOP_LEVEL.contains(destination.getId())
                 || destination.getId() == R.id.requestDetailsFragment;

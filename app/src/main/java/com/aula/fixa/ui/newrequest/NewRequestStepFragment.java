@@ -57,6 +57,7 @@ public abstract class NewRequestStepFragment extends Fragment {
             // Evita navegação dupla quando o botão é tocado duas vezes durante a transição.
             if (nav.getCurrentDestination() == null || nav.getCurrentDestination().getId() != currentDestinationId()) return;
             saveForm(view);
+            if (!validateStep(view)) return;
             nav.navigate(nextAction);
         });
         view.findViewById(R.id.btnStepBack).setOnClickListener(v -> {
@@ -73,6 +74,17 @@ public abstract class NewRequestStepFragment extends Fragment {
 
     /** Copia os campos para o ViewModel antes de sair do passo. */
     protected void saveForm(View root) {}
+
+    /** Validação obrigatória antes de avançar para o próximo passo. */
+    protected boolean validateStep(View root) { return true; }
+
+    protected boolean hasText(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
+    protected void showValidationMessage(String message) {
+        android.widget.Toast.makeText(requireContext(), message, android.widget.Toast.LENGTH_SHORT).show();
+    }
 
     private void bindIndicator(View root) {
         View indicator = root.findViewById(R.id.stepIndicator);

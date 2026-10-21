@@ -1,9 +1,13 @@
 package com.aula.fixa.ui.newrequest;
 
 import android.os.Bundle;
+import android.app.Dialog;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
+import com.aula.fixa.ui.common.FragmentUi;
+import com.aula.fixa.ui.common.DataChangeNotifier;
 import com.google.android.material.button.MaterialButton;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
@@ -45,6 +51,7 @@ public class NewRequestConfirmFragment extends Fragment {
         });
 
         MaterialButton finish = view.findViewById(R.id.btnStepNext);
+        android.content.Context appContext = requireContext().getApplicationContext();
         finish.setText(R.string.app_finish);
         finish.setOnClickListener(v -> {
             if (form.localId <= 0 || form.categoryId <= 0 || form.photoUrls.isEmpty()) {
@@ -55,15 +62,16 @@ public class NewRequestConfirmFragment extends Fragment {
             finish.setEnabled(false);
             new Thread(() -> {
                 try {
-                    new RequestRepository(new SessionStorage(requireContext())).criar(form.title, form.description, form.localId, form.locationDescription, form.categoryId, form.photoUrls);
-                    requireActivity().runOnUiThread(() -> {
+                    new RequestRepository(new SessionStorage(appContext)).criar(form.title, form.description, form.localId, form.locationDescription, form.categoryId, form.photoUrls);
+                    DataChangeNotifier.notifyChanged();
+                    FragmentUi.runIfViewActive(this, view, () -> {
                         form.clear();
                         Navigation.findNavController(v).navigate(R.id.action_confirm_to_success);
                     });
                 } catch (Exception e) {
-                    requireActivity().runOnUiThread(() -> {
+                    FragmentUi.runIfViewActive(this, view, () -> {
                         finish.setEnabled(true);
-                        android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+                        android.widget.Toast.makeText(view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
                     });
                 }
             }).start();
@@ -118,6 +126,28 @@ public class NewRequestConfirmFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Glide.with(holder.itemView.getContext()).load(urls.get(position)).centerCrop().into((ImageView) holder.itemView);
+            holder.itemView.setOnClickListener(v -> showPhoto(v.getContext(), urls.get(position)));
+        }
+
+        private void showPhoto(android.content.Context context, String url) {
+            Dialog dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            ImageView image = new ImageView(context);
+            image.setBackgroundColor(Color.BLACK);
+            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Glide.with(context).load(url).into(image);
+            image.setOnClickListener(v -> dialog.dismiss());
+            dialog.setContentView(image);
+            dialog.show();
+            Window window = dialog.getWindow();
+            if (window != null) {
+                window.setBackgroundDrawableResource(android.R.color.black);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.dimAmount = 0.85f;
+                window.setAttributes(params);
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            }
         }
 
         @Override

@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
+import com.aula.fixa.ui.common.FragmentUi;
+import com.aula.fixa.ui.common.DataChangeNotifier;
 import com.aula.fixa.ui.common.DashedLineDrawable;
 import com.aula.fixa.domain.model.RequestItem;
 import com.aula.fixa.domain.model.TimelineStep;
@@ -50,6 +52,9 @@ public class RequestDetailsFragment extends Fragment {
         RecyclerView list = view.findViewById(R.id.rvTimeline);
         if (requestId > 0) {
             loadDetails(view, list, requestId);
+            DataChangeNotifier.observe(getViewLifecycleOwner(), ignored -> {
+                if (getView() == view) loadDetails(view, list, requestId);
+            });
         }
 
         list.setAdapter(new TimelineAdapter(java.util.Collections.emptyList()));
@@ -59,7 +64,7 @@ public class RequestDetailsFragment extends Fragment {
         new Thread(() -> {
             try {
                 JsonObject item = new RequestRepository(new SessionStorage(requireContext())).detalhes(id);
-            requireActivity().runOnUiThread(() -> {
+            FragmentUi.runIfViewActive(this, view, () -> {
                     ((TextView) view.findViewById(R.id.tvTitle)).setText(item.get("titulo").getAsString());
                 String status = item.has("status") ? item.get("status").getAsString() : "PENDENTE";
                 boolean editable = status.equalsIgnoreCase("PENDENTE")
@@ -82,7 +87,7 @@ public class RequestDetailsFragment extends Fragment {
                 list.setAdapter(new TimelineAdapter(timeline(status)));
                 });
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+                FragmentUi.runIfViewActive(this, view, () -> android.widget.Toast.makeText(view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
             }
         }).start();
     }
@@ -132,7 +137,7 @@ public class RequestDetailsFragment extends Fragment {
         }
 
         static class ViewHolder extends RecyclerView.ViewHolder {
-            private final View dot, dotInner, check, card, line;
+            private final View dot, dotInner, check, refused, card, line;
             private final TextView date, title, time;
 
             ViewHolder(@NonNull View itemView) {
@@ -140,6 +145,7 @@ public class RequestDetailsFragment extends Fragment {
                 dot = itemView.findViewById(R.id.viewDot);
                 dotInner = itemView.findViewById(R.id.viewDotInner);
                 check = itemView.findViewById(R.id.ivDotCheck);
+                refused = itemView.findViewById(R.id.tvDotRefused);
                 card = itemView.findViewById(R.id.cardStep);
                 line = itemView.findViewById(R.id.viewLine);
                 date = itemView.findViewById(R.id.tvStepDate);
@@ -158,6 +164,7 @@ public class RequestDetailsFragment extends Fragment {
                         dot.setBackgroundResource(R.drawable.bg_app_circle_done);
                         dotInner.setVisibility(View.GONE);
                         check.setVisibility(View.VISIBLE);
+                        refused.setVisibility(View.GONE);
                         card.setVisibility(View.VISIBLE);
                         card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_done_soft));
                         title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_done_text));
@@ -166,14 +173,16 @@ public class RequestDetailsFragment extends Fragment {
                         dot.setBackgroundResource(R.drawable.bg_app_circle_approved);
                         dotInner.setVisibility(View.VISIBLE);
                         check.setVisibility(View.GONE);
+                        refused.setVisibility(View.GONE);
                         card.setVisibility(View.VISIBLE);
                         card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_approved_soft));
                         title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_approved_text));
                         break;
                     case REFUSED:
-                        dot.setBackgroundResource(R.drawable.bg_app_circle_done);
+                        dot.setBackgroundResource(R.drawable.bg_app_circle_refused);
                         dotInner.setVisibility(View.GONE);
                         check.setVisibility(View.GONE);
+                        refused.setVisibility(View.VISIBLE);
                         card.setVisibility(View.VISIBLE);
                         card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_refused_soft));
                         title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_refused_text));
@@ -182,6 +191,7 @@ public class RequestDetailsFragment extends Fragment {
                         dot.setBackgroundResource(R.drawable.bg_app_circle_muted);
                         dotInner.setVisibility(View.GONE);
                         check.setVisibility(View.GONE);
+                        refused.setVisibility(View.GONE);
                         // Figma: passo pendente é só o ponto cinza; o card some mas mantém a altura da etapa.
                         card.setVisibility(View.INVISIBLE);
                 }

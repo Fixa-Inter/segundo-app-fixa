@@ -42,6 +42,16 @@
             app:tint="@color/app_on_primary"
             tools:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/tvDotRefused"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_close_timeline"
+            tools:visibility="gone" />
+
         <View
             android:id="@+id/viewDotInner"
             android:layout_width="@dimen/app_details_timeline_dot_inner_size"

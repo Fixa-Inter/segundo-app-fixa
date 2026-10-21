@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
+import com.aula.fixa.ui.common.FragmentUi;
+import com.aula.fixa.ui.common.DataChangeNotifier;
 import com.aula.fixa.ui.common.AppText;
 import com.aula.fixa.domain.model.RequestItem;
 import com.aula.fixa.data.local.preferences.SessionStorage;
@@ -48,6 +50,9 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         adapter = new RequestAdapter(this);
         list.setAdapter(adapter);
         loadRequests();
+        DataChangeNotifier.observe(getViewLifecycleOwner(), ignored -> {
+            if (getView() == view) loadRequests();
+        });
 
         ((EditText) view.findViewById(R.id.etSearch)).addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -87,9 +92,11 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
                     );
                 }
 
-                requireActivity().runOnUiThread(() -> { apiItems.clear(); apiItems.addAll(items); render(null); });
+                View requestView = getView();
+                FragmentUi.runIfViewActive(this, requestView, () -> { apiItems.clear(); apiItems.addAll(items); render(null); });
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+                View requestView = getView();
+                FragmentUi.runIfViewActive(this, requestView, () -> android.widget.Toast.makeText(requestView.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
             }
         }).start();
     }

@@ -19,6 +19,8 @@ import com.aula.fixa.domain.model.EventItem;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
 import com.aula.fixa.ui.common.AppLoading;
+import com.aula.fixa.ui.common.FragmentUi;
+import com.aula.fixa.ui.common.DataChangeNotifier;
 
 import android.app.Dialog;
 
@@ -46,6 +48,9 @@ public class EventsFragment extends Fragment {
         }
         AppText.setHtml(view.findViewById(R.id.tvTitle), R.string.app_events_title);
         loadEvents(view);
+        DataChangeNotifier.observe(getViewLifecycleOwner(), ignored -> {
+            if (getView() == view) loadEvents(view);
+        });
     }
 
     private void loadEvents(View view) {
@@ -62,18 +67,18 @@ public class EventsFragment extends Fragment {
                             start.format(DateTimeFormatter.ofPattern("EEE")), e.get("titulo").getAsString(),
                             start.format(DateTimeFormatter.ofPattern("HH:mm")) + " - " + end.format(DateTimeFormatter.ofPattern("HH:mm")), start.toLocalDate().toString()));
                 }
-                requireActivity().runOnUiThread(() -> {
+                FragmentUi.runIfViewActive(this, view, () -> {
                     AppLoading.hide(loading);
                     bindCalendar(view, items, selectedDate == null ? LocalDate.now() : selectedDate);
                     view.findViewById(R.id.btnCalendar).setOnClickListener(v -> {
                         java.util.Calendar calendar = java.util.Calendar.getInstance();
-                        new android.app.DatePickerDialog(requireContext(), (picker, year, month, day) -> bindCalendar(view, items, LocalDate.of(year, month + 1, day)), calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
+                        new android.app.DatePickerDialog(view.getContext(), (picker, year, month, day) -> bindCalendar(view, items, LocalDate.of(year, month + 1, day)), calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
                     });
                 });
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> {
+                FragmentUi.runIfViewActive(this, view, () -> {
                     AppLoading.hide(loading);
-                    android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+                    android.widget.Toast.makeText(view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
                 });
             }
         }).start();

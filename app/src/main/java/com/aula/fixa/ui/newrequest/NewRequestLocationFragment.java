@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.aula.fixa.R;
+import com.aula.fixa.ui.common.FragmentUi;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
 import com.aula.fixa.data.remote.dto.CadastroOption;
@@ -28,12 +29,12 @@ public class NewRequestLocationFragment extends NewRequestStepFragment {
         new Thread(() -> {
             try {
                 List<CadastroOption> options = new RequestRepository(new SessionStorage(requireContext())).options(new RequestRepository(new SessionStorage(requireContext())).locais());
-                requireActivity().runOnUiThread(() -> {
-                    field.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown, options));
+                FragmentUi.runIfViewActive(this, view, () -> {
+                    field.setAdapter(new ArrayAdapter<>(view.getContext(), R.layout.item_app_dropdown, options));
                     field.setOnItemClickListener((p, v, pos, id) -> form.localId = options.get(pos).getId());
                 });
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+                FragmentUi.runIfViewActive(this, view, () -> android.widget.Toast.makeText(view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
             }
         }).start();
 
@@ -60,5 +61,14 @@ public class NewRequestLocationFragment extends NewRequestStepFragment {
     protected void saveForm(View root) {
         form.location = ((AutoCompleteTextView) root.findViewById(R.id.actvLocation)).getText().toString().trim();
         form.locationDescription = ((EditText) root.findViewById(R.id.etLocationDescription)).getText().toString().trim();
+    }
+
+    @Override
+    protected boolean validateStep(View root) {
+        if (form.localId <= 0 || !hasText(form.location)) {
+            showValidationMessage("Selecione o local da unidade.");
+            return false;
+        }
+        return true;
     }
 }

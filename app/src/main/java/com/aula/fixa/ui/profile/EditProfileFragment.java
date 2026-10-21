@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppDialogs;
+import com.aula.fixa.ui.common.FragmentUi;
+import com.aula.fixa.ui.common.DataChangeNotifier;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
 import com.google.gson.JsonObject;
@@ -88,26 +90,29 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void loadProfile(View view) {
+        android.content.Context appContext = requireContext().getApplicationContext();
         new Thread(() -> { try {
-            JsonObject profile = new RequestRepository(new SessionStorage(requireContext())).perfil();
-            requireActivity().runOnUiThread(() -> {
+            JsonObject profile = new RequestRepository(new SessionStorage(appContext)).perfil();
+            FragmentUi.runIfViewActive(this, view, () -> {
                 name.setText(value(profile, "nomeCompleto")); birth.setText(value(profile, "dataNascimento")); email.setText(value(profile, "email")); phone.setText(value(profile, "cargo"));
-                String url = value(profile, "urlFotoPerfil"); Glide.with(this).load(url.isEmpty() ? null : url).placeholder(R.drawable.img_avatar_115).error(R.drawable.img_avatar_115).circleCrop().into((ImageView) view.findViewById(R.id.ivAvatar)); initial = snapshot();
+                String url = value(profile, "urlFotoPerfil"); Glide.with(view).load(url.isEmpty() ? null : url).placeholder(R.drawable.img_avatar_115).error(R.drawable.img_avatar_115).circleCrop().into((ImageView) view.findViewById(R.id.ivAvatar)); initial = snapshot();
             });
-        } catch (Exception e) { requireActivity().runOnUiThread(() -> { name.setText(""); birth.setText(""); email.setText(""); phone.setText(""); initial = snapshot(); }); } }).start();
+        } catch (Exception e) { FragmentUi.runIfViewActive(this, view, () -> { name.setText(""); birth.setText(""); email.setText(""); phone.setText(""); initial = snapshot(); }); } }).start();
     }
 
     private String value(JsonObject profile, String key) { return profile.has(key) && !profile.get(key).isJsonNull() ? profile.get(key).getAsString() : ""; }
 
     private void saveProfile(View view) {
+        android.content.Context appContext = requireContext().getApplicationContext();
         new Thread(() -> {
             try {
-                new RequestRepository(new SessionStorage(requireContext())).atualizarPerfil(
+                new RequestRepository(new SessionStorage(appContext)).atualizarPerfil(
                         name.getText().toString().trim(), phone.getText().toString().trim(), pendingPhotoUrl);
-                requireActivity().runOnUiThread(() -> Navigation.findNavController(view).navigateUp());
+                DataChangeNotifier.notifyChanged();
+                FragmentUi.runIfViewActive(this, view, () -> Navigation.findNavController(view).navigateUp());
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(
-                        requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+                FragmentUi.runIfViewActive(this, view, () -> android.widget.Toast.makeText(
+                        view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
             }
         }).start();
     }
@@ -139,13 +144,13 @@ public class EditProfileFragment extends Fragment {
                     new CloudinaryUploadService.ResultadoCallback() {
                         @Override public void onSuccess(String url, String publicId) {
                             pendingPhotoUrl = url;
-                            requireActivity().runOnUiThread(() -> Glide.with(EditProfileFragment.this)
+                            FragmentUi.runIfViewActive(EditProfileFragment.this, view, () -> Glide.with(view)
                                     .load(url).placeholder(R.drawable.img_avatar_115).error(R.drawable.img_avatar_115)
                                     .circleCrop().into((ImageView) view.findViewById(R.id.ivAvatar)));
                         }
 
                         @Override public void onError(String message) {
-                            requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show());
+                            FragmentUi.runIfViewActive(EditProfileFragment.this, view, () -> Toast.makeText(view.getContext(), message, Toast.LENGTH_LONG).show());
                         }
                     });
         } catch (Exception e) {

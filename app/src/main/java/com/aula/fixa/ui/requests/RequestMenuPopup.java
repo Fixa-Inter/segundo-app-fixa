@@ -7,6 +7,7 @@ import android.widget.PopupWindow;
 import com.aula.fixa.R;
 import com.aula.fixa.domain.model.RequestItem;
 import com.aula.fixa.ui.common.AppDialogs;
+import com.aula.fixa.ui.common.DataChangeNotifier;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
 import com.aula.fixa.data.remote.dto.CadastroOption;
@@ -43,6 +44,7 @@ public final class RequestMenuPopup {
                                                     .map(CadastroOption::getId).findFirst().orElse(null);
                                             new RequestRepository(new SessionStorage(anchor.getContext())).atualizar(
                                                     item.id, title, description, localId, null, categoryId, null, deletedPhotoIds);
+                                            DataChangeNotifier.notifyChanged();
                                             new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
                                                     android.widget.Toast.makeText(anchor.getContext(), "Solicitação atualizada com sucesso.", android.widget.Toast.LENGTH_SHORT).show());
                                         } catch (Exception e) {
@@ -61,6 +63,7 @@ public final class RequestMenuPopup {
             AppDialogs.showDeleteConfirm(anchor.getContext(), () -> new Thread(() -> {
                         try {
                             new RequestRepository(new SessionStorage(anchor.getContext())).excluir(item.id);
+                            DataChangeNotifier.notifyChanged();
                             new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
                                     android.widget.Toast.makeText(anchor.getContext(), "Solicitação excluída com sucesso.", android.widget.Toast.LENGTH_SHORT).show());
                         } catch (Exception e) {

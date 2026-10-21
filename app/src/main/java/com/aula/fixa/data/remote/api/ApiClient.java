@@ -37,9 +37,12 @@ public final class ApiClient {
                     return chain.proceed(request.build());
                 }).build();
 
-        return new Retrofit.Builder().baseUrl("https://segundo-api-app.onrender.com/")
+
+        return new Retrofit.Builder()
+                .baseUrl("https://segundo-api-app.onrender.com/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build().create(RequestApi.class);
+                .build()
+                .create(RequestApi.class);
     }
 }

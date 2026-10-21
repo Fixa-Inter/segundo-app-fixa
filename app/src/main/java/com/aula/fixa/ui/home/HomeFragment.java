@@ -20,6 +20,8 @@ import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
 import com.aula.fixa.ui.common.TouchTargets;
 import com.aula.fixa.ui.common.AppLoading;
+import com.aula.fixa.ui.common.FragmentUi;
+import com.aula.fixa.ui.common.DataChangeNotifier;
 import com.aula.fixa.domain.model.RequestItem;
 import com.aula.fixa.ui.requests.RequestAdapter;
 import com.aula.fixa.ui.requests.RequestMenuPopup;
@@ -55,6 +57,12 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
         TextView greeting = view.findViewById(R.id.tvGreeting);
         view.findViewById(R.id.homeRoot).setVisibility(View.GONE);
         loadHomeData(view, greeting);
+        DataChangeNotifier.observe(getViewLifecycleOwner(), ignored -> {
+            if (getView() == view) {
+                view.findViewById(R.id.homeRoot).setVisibility(View.GONE);
+                loadHomeData(view, greeting);
+            }
+        });
 
         RecyclerView list = view.findViewById(R.id.rvHomeRequests);
         RequestAdapter adapter = new RequestAdapter(this);
@@ -73,18 +81,19 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
     }
 
     private void loadHomeData(View view, TextView greeting) {
-        Dialog loading = AppLoading.show(requireContext());
+        android.content.Context appContext = requireContext().getApplicationContext();
+        Dialog loading = AppLoading.show(view.getContext());
         new Thread(() -> {
             try {
-                SessionStorage session = new SessionStorage(requireContext());
+                SessionStorage session = new SessionStorage(appContext);
                 String token = session.getToken();
                 if (!isTokenValid(token)) {
                     session.clear();
-                    requireActivity().runOnUiThread(() -> {
+                    FragmentUi.runIfViewActive(this, view, () -> {
                         AppLoading.hide(loading);
-                        Intent intent = new Intent(requireContext(), LoginActivity.class);
+                        Intent intent = new Intent(view.getContext(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
+                        view.getContext().startActivity(intent);
                     });
                     return;
                 }
@@ -116,7 +125,7 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                         ? profile.get("urlFotoPerfil").getAsString().trim() : "";
                 List<RequestItem> finalItems = items;
                 int a = analysis, d = done, ap = approved, r = refused;
-                requireActivity().runOnUiThread(() -> {
+                FragmentUi.runIfViewActive(this, view, () -> {
                     AppLoading.hide(loading);
                     view.findViewById(R.id.homeRoot).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.tvHomeMessage).setVisibility(View.GONE);
@@ -131,7 +140,7 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                     ((RequestAdapter) ((RecyclerView) view.findViewById(R.id.rvHomeRequests)).getAdapter()).submitList(finalItems);
                 });
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> {
+                FragmentUi.runIfViewActive(this, view, () -> {
                     AppLoading.hide(loading);
                     View root = view.findViewById(R.id.homeRoot);
                     for (int i = 0; i < ((android.view.ViewGroup) root).getChildCount(); i++) {

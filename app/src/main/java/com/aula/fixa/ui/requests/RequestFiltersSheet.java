@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.aula.fixa.R;
+import com.aula.fixa.ui.common.FragmentUi;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import android.widget.ArrayAdapter;
 import com.aula.fixa.data.local.preferences.SessionStorage;
@@ -65,12 +66,13 @@ public class RequestFiltersSheet extends BottomSheetDialogFragment {
     private String value(View root, int id) { return ((AutoCompleteTextView) root.findViewById(id).findViewById(R.id.actvFilterValue)).getText().toString(); }
 
     private void loadOptions(View view) {
+        android.content.Context appContext = requireContext().getApplicationContext();
         new Thread(() -> {
             try {
-                RequestRepository repository = new RequestRepository(new SessionStorage(requireContext()));
+                RequestRepository repository = new RequestRepository(new SessionStorage(appContext));
                 List<CadastroOption> locations = repository.options(repository.locais());
                 List<CadastroOption> categories = repository.options(repository.categorias());
-                requireActivity().runOnUiThread(() -> {
+                FragmentUi.runIfViewActive(this, view, () -> {
                     setAdapter(view, R.id.fieldLocation, locations);
                     setAdapter(view, R.id.fieldCategory, categories);
                     setAdapter(view, R.id.fieldPeriod, List.of(new CadastroOption(1, "Últimos 30 dias"), new CadastroOption(2, "Últimos 3 meses"), new CadastroOption(3, "Último ano"), new CadastroOption(4, "Todos")));
@@ -82,7 +84,7 @@ public class RequestFiltersSheet extends BottomSheetDialogFragment {
 
     private void setAdapter(View root, int id, List<CadastroOption> values) {
         AutoCompleteTextView field = root.findViewById(id).findViewById(R.id.actvFilterValue);
-        field.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown, values));
+        field.setAdapter(new ArrayAdapter<>(root.getContext(), R.layout.item_app_dropdown, values));
         field.setOnClickListener(v -> field.showDropDown());
         field.setOnTouchListener((v, event) -> {
             if (event.getAction() == android.view.MotionEvent.ACTION_UP) field.showDropDown();

@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.common.AppText;
+import com.aula.fixa.ui.common.FragmentUi;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class EventInfoFragment extends Fragment {
             com.google.gson.JsonObject e = new RequestRepository(new SessionStorage(requireContext())).evento(id);
             LocalDateTime start = LocalDateTime.parse(e.get("dataHoraInicio").getAsString());
             LocalDateTime end = LocalDateTime.parse(e.get("dataHoraFim").getAsString());
-            requireActivity().runOnUiThread(() -> {
+            FragmentUi.runIfViewActive(this, view, () -> {
                 ((TextView) view.findViewById(R.id.tvEventName)).setText(e.get("titulo").getAsString());
                 ((TextView) view.findViewById(R.id.tvLocation)).setText(e.has("localUnidade") ? e.get("localUnidade").getAsString() : "");
                 ((TextView) view.findViewById(R.id.tvDate)).setText(start.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -40,6 +41,6 @@ public class EventInfoFragment extends Fragment {
                 ((TextView) view.findViewById(R.id.tvDescription)).setText(e.has("descricao") ? e.get("descricao").getAsString() : "");
                 ((TextView) view.findViewById(R.id.tvNote)).setText(e.has("observacao") ? e.get("observacao").getAsString() : "");
             });
-        } catch (Exception e) { requireActivity().runOnUiThread(() -> android.widget.Toast.makeText(requireContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show()); } }).start();
+        } catch (Exception e) { FragmentUi.runIfViewActive(this, view, () -> android.widget.Toast.makeText(view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show()); } }).start();
     }
 }

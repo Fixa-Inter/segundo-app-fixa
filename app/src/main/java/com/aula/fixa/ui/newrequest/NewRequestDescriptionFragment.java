@@ -30,4 +30,17 @@ public class NewRequestDescriptionFragment extends NewRequestStepFragment {
         form.title = ((EditText) root.findViewById(R.id.etTitle)).getText().toString().trim();
         form.description = ((EditText) root.findViewById(R.id.etDescription)).getText().toString().trim();
     }
+
+    @Override
+    protected boolean validateStep(View root) {
+        if (!hasText(form.title)) {
+            showValidationMessage("Informe o título da solicitação.");
+            return false;
+        }
+        if (!hasText(form.description)) {
+            showValidationMessage("Informe a descrição da solicitação.");
+            return false;
+        }
+        return true;
+    }
 }
