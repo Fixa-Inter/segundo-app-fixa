@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:8464 • manager / inspection_success. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_6c27142d0b" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_340" android:clipChildren="false" android:clipToPadding="false">
+        <ImageView
+            android:id="@+id/ops_5717_8468"
+            android:layout_width="@dimen/ops_dp_200_0"
+            android:layout_height="@dimen/ops_dp_200_0"
+            android:layout_marginStart="@dimen/ops_dp_61_0"
+            android:layout_marginTop="@dimen/ops_dp_14_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/figma_3f6a1"
+            android:scaleType="centerCrop"
+            android:importantForAccessibility="no"
+            android:tag="image:image 207" />
+        <TextView
+            android:id="@+id/ops_5717_8465"
+            android:layout_width="@dimen/ops_dp_164_0"
+            android:layout_height="@dimen/ops_dp_26"
+            android:layout_marginStart="@dimen/ops_dp_79"
+            android:layout_marginTop="@dimen/ops_dp_209_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/ops_text_inspecao_enviada_391a70"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.958cd417e0"
+            android:includeFontPadding="false"
+            android:gravity="center|center_vertical"
+            android:minHeight="@dimen/ops_dp_26"
+            android:tag="text:Inspeção enviada!"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLines="1" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ops_5717_8466"
+            android:layout_width="@dimen/ops_dp_115_0"
+            android:layout_height="@dimen/ops_dp_35_0"
+            android:layout_marginStart="@dimen/ops_dp_102_0"
+            android:layout_marginTop="@dimen/ops_dp_257_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/bg_ops_ac8a55a5cb"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
+            android:padding="@dimen/ops_dp_0"
+            android:gravity="center"
+            android:minHeight="@dimen/ops_dp_0"
+            android:minWidth="@dimen/ops_dp_0"
+            android:text="@string/ops_text_voltar_59dc92"
+            android:textAllCaps="false"
+            android:tag="action:Voltar"
+            app:backgroundTint="@null" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

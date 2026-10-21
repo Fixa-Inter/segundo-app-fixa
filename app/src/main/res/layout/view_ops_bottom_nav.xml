@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal" android:paddingStart="@dimen/ops_nav_side" android:paddingEnd="@dimen/ops_nav_side" android:background="@color/app_surface">
+<FrameLayout android:id="@+id/opsNavHome" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:clickable="true" android:focusable="true" android:contentDescription="@string/ops_nav_home">
+<View android:id="@+id/opsNavHomeIndicator" android:layout_width="@dimen/ops_nav_indicator_width" android:layout_height="@dimen/ops_nav_indicator_height" android:layout_gravity="top|center_horizontal" android:background="@color/app_primary" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavHomeCircle" android:layout_width="@dimen/ops_nav_circle" android:layout_height="@dimen/ops_nav_circle" android:layout_gravity="center" android:src="@drawable/figma_a3d27" android:importantForAccessibility="no" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavHomeIcon" android:layout_width="@dimen/ops_nav_icon" android:layout_height="@dimen/ops_nav_icon" android:layout_gravity="center" android:importantForAccessibility="no"/>
+</FrameLayout>
+<FrameLayout android:id="@+id/opsNavManagement" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:clickable="true" android:focusable="true" android:contentDescription="@string/ops_nav_management">
+<View android:id="@+id/opsNavManagementIndicator" android:layout_width="@dimen/ops_nav_indicator_width" android:layout_height="@dimen/ops_nav_indicator_height" android:layout_gravity="top|center_horizontal" android:background="@color/app_primary" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavManagementCircle" android:layout_width="@dimen/ops_nav_circle" android:layout_height="@dimen/ops_nav_circle" android:layout_gravity="center" android:src="@drawable/figma_a3d27" android:importantForAccessibility="no" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavManagementIcon" android:layout_width="@dimen/ops_nav_icon" android:layout_height="@dimen/ops_nav_icon" android:layout_gravity="center" android:importantForAccessibility="no"/>
+</FrameLayout>
+<FrameLayout android:id="@+id/opsNavTeam" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:clickable="true" android:focusable="true" android:contentDescription="@string/ops_nav_team">
+<View android:id="@+id/opsNavTeamIndicator" android:layout_width="@dimen/ops_nav_indicator_width" android:layout_height="@dimen/ops_nav_indicator_height" android:layout_gravity="top|center_horizontal" android:background="@color/app_primary" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavTeamCircle" android:layout_width="@dimen/ops_nav_circle" android:layout_height="@dimen/ops_nav_circle" android:layout_gravity="center" android:src="@drawable/figma_a3d27" android:importantForAccessibility="no" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavTeamIcon" android:layout_width="@dimen/ops_nav_icon" android:layout_height="@dimen/ops_nav_icon" android:layout_gravity="center" android:importantForAccessibility="no"/>
+</FrameLayout>
+<FrameLayout android:id="@+id/opsNavEquipment" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:clickable="true" android:focusable="true" android:contentDescription="@string/ops_nav_equipment">
+<View android:id="@+id/opsNavEquipmentIndicator" android:layout_width="@dimen/ops_nav_indicator_width" android:layout_height="@dimen/ops_nav_indicator_height" android:layout_gravity="top|center_horizontal" android:background="@color/app_primary" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavEquipmentCircle" android:layout_width="@dimen/ops_nav_circle" android:layout_height="@dimen/ops_nav_circle" android:layout_gravity="center" android:src="@drawable/figma_a3d27" android:importantForAccessibility="no" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavEquipmentIcon" android:layout_width="@dimen/ops_nav_icon" android:layout_height="@dimen/ops_nav_icon" android:layout_gravity="center" android:importantForAccessibility="no"/>
+</FrameLayout>
+<FrameLayout android:id="@+id/opsNavEvents" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:clickable="true" android:focusable="true" android:contentDescription="@string/ops_nav_events">
+<View android:id="@+id/opsNavEventsIndicator" android:layout_width="@dimen/ops_nav_indicator_width" android:layout_height="@dimen/ops_nav_indicator_height" android:layout_gravity="top|center_horizontal" android:background="@color/app_primary" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavEventsCircle" android:layout_width="@dimen/ops_nav_circle" android:layout_height="@dimen/ops_nav_circle" android:layout_gravity="center" android:src="@drawable/figma_a3d27" android:importantForAccessibility="no" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavEventsIcon" android:layout_width="@dimen/ops_nav_icon" android:layout_height="@dimen/ops_nav_icon" android:layout_gravity="center" android:importantForAccessibility="no"/>
+</FrameLayout>
+</LinearLayout>

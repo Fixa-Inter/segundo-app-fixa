@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:5779 • manager / edit_menu. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_f28b0ca08c" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_50" android:clipChildren="false" android:clipToPadding="false">
+        <TextView
+            android:id="@+id/ops_5717_5780"
+            android:layout_width="@dimen/ops_dp_48"
+            android:layout_height="@dimen/ops_dp_24"
+            android:layout_marginStart="@dimen/ops_dp_67"
+            android:layout_marginTop="@dimen/ops_dp_13_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/ops_text_editar_2eba94"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.424df92bb2"
+            android:includeFontPadding="false"
+            android:gravity="start|center_vertical"
+            android:minHeight="@dimen/ops_dp_24"
+            android:tag="text:Editar"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_regular"
+            android:maxLines="1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
