@@ -1,0 +1,1248 @@
+[
+  {
+    "figma": "5717:5631",
+    "prototypeName": "Sucesso",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_password_success"
+  },
+  {
+    "figma": "5717:5637",
+    "prototypeName": "Login",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:5675",
+    "prototypeName": "Esqueceu a senha?",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:5689",
+    "prototypeName": "Esqueceu a senha?",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:5694",
+    "prototypeName": "Esqueceu a senha?",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:5710",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_request_menu"
+  },
+  {
+    "figma": "5717:5714",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_delete_confirm"
+  },
+  {
+    "figma": "5717:5722",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_delete_reason"
+  },
+  {
+    "figma": "5717:5732",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_request"
+  },
+  {
+    "figma": "5717:5758",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_save_confirm"
+  },
+  {
+    "figma": "5717:5766",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_logout_confirm"
+  },
+  {
+    "figma": "5717:5779",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_menu"
+  },
+  {
+    "figma": "5717:5781",
+    "prototypeName": "Group 13413",
+    "role": "manager",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:5789",
+    "prototypeName": "Group 13414",
+    "role": "manager",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:5795",
+    "prototypeName": "Group 13415",
+    "role": "manager",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:5825",
+    "prototypeName": "Group 13416",
+    "role": "manager",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:5856",
+    "prototypeName": "Group 13417",
+    "role": "manager",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:5887",
+    "prototypeName": "Group 13418",
+    "role": "manager",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:5918",
+    "prototypeName": "Group 13419",
+    "role": "manager",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:5948",
+    "prototypeName": "Competencias",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_competencies"
+  },
+  {
+    "figma": "5717:6048",
+    "prototypeName": "Nota",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_competency"
+  },
+  {
+    "figma": "5717:6062",
+    "prototypeName": "Sucesso",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_occurrence_success"
+  },
+  {
+    "figma": "5717:6068",
+    "prototypeName": "Registro",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_occurrence_intro"
+  },
+  {
+    "figma": "5717:6091",
+    "prototypeName": "Ocorrencia",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_occurrences"
+  },
+  {
+    "figma": "5717:6198",
+    "prototypeName": "Local",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_occurrence_location"
+  },
+  {
+    "figma": "5717:6238",
+    "prototypeName": "Local",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_plan_information"
+  },
+  {
+    "figma": "5717:6266",
+    "prototypeName": "Descrição",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_occurrence_service"
+  },
+  {
+    "figma": "5717:6297",
+    "prototypeName": "Foto",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_occurrence_result"
+  },
+  {
+    "figma": "5717:6338",
+    "prototypeName": "Confirmação",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_occurrence_review"
+  },
+  {
+    "figma": "5717:6357",
+    "prototypeName": "Informações",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_event_details"
+  },
+  {
+    "figma": "5717:6375",
+    "prototypeName": "Eventos",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_events"
+  },
+  {
+    "figma": "5717:6455",
+    "prototypeName": "Categorias",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_categories"
+  },
+  {
+    "figma": "5717:6545",
+    "prototypeName": "Categorias",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_devices"
+  },
+  {
+    "figma": "5717:6638",
+    "prototypeName": "Equipamentos",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_equipment"
+  },
+  {
+    "figma": "5717:6712",
+    "prototypeName": "Categorias",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_models"
+  },
+  {
+    "figma": "5717:6792",
+    "prototypeName": "Gestão",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_management"
+  },
+  {
+    "figma": "5717:6863",
+    "prototypeName": "Minhas solicitações",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_requests"
+  },
+  {
+    "figma": "5717:6975",
+    "prototypeName": "Minhas solicitações",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_planning"
+  },
+  {
+    "figma": "5717:7093",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_reject_request"
+  },
+  {
+    "figma": "5717:7103",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_approve_request"
+  },
+  {
+    "figma": "5717:7111",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_request_approved"
+  },
+  {
+    "figma": "5717:7119",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_request_rejected"
+  },
+  {
+    "figma": "5717:7125",
+    "prototypeName": "Confirmação",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_request_details"
+  },
+  {
+    "figma": "5717:7146",
+    "prototypeName": "Splash Screen",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:7157",
+    "prototypeName": "Onboarding",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:7169",
+    "prototypeName": "Onboarding",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:7184",
+    "prototypeName": "Onboarding",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:7198",
+    "prototypeName": "Cadastro",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:7221",
+    "prototypeName": "Cadastro",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:7263",
+    "prototypeName": "Home",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_home"
+  },
+  {
+    "figma": "5717:7373",
+    "prototypeName": "Notificações",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_notifications"
+  },
+  {
+    "figma": "5717:7407",
+    "prototypeName": "Sem conexão",
+    "role": "manager",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:7410",
+    "prototypeName": "Editar",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_edit_profile"
+  },
+  {
+    "figma": "5717:7441",
+    "prototypeName": "Meu perfil",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_my_profile"
+  },
+  {
+    "figma": "5717:7483",
+    "prototypeName": "Perfil",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_profile"
+  },
+  {
+    "figma": "5717:7523",
+    "prototypeName": "Config",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_settings"
+  },
+  {
+    "figma": "5717:7534",
+    "prototypeName": "Config",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_export"
+  },
+  {
+    "figma": "5717:7562",
+    "prototypeName": "FAQ",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_faq"
+  },
+  {
+    "figma": "5717:7587",
+    "prototypeName": "FAQ",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_about"
+  },
+  {
+    "figma": "5717:7620",
+    "prototypeName": "Group 13427",
+    "role": "manager",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:7624",
+    "prototypeName": "Equipe",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_member_details"
+  },
+  {
+    "figma": "5717:7716",
+    "prototypeName": "Equipe",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_team"
+  },
+  {
+    "figma": "5717:7819",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_model"
+  },
+  {
+    "figma": "5717:7835",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_create_model"
+  },
+  {
+    "figma": "5717:7851",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_category"
+  },
+  {
+    "figma": "5717:7860",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_create_category"
+  },
+  {
+    "figma": "5717:7869",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_delete_category"
+  },
+  {
+    "figma": "5717:7877",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_delete_model"
+  },
+  {
+    "figma": "5717:7885",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_device"
+  },
+  {
+    "figma": "5717:7898",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_create_device"
+  },
+  {
+    "figma": "5717:7911",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_delete_device"
+  },
+  {
+    "figma": "5717:7919",
+    "prototypeName": "Categorias",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_checklists"
+  },
+  {
+    "figma": "5717:8003",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_delete_checklist"
+  },
+  {
+    "figma": "5717:8011",
+    "prototypeName": "Sucesso",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_checklist_success"
+  },
+  {
+    "figma": "5717:8017",
+    "prototypeName": "Registro",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_checklist_intro"
+  },
+  {
+    "figma": "5717:8040",
+    "prototypeName": "Local",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_checklist_fields"
+  },
+  {
+    "figma": "5717:8080",
+    "prototypeName": "Descrição",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_checklist_information"
+  },
+  {
+    "figma": "5717:8121",
+    "prototypeName": "Foto",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_checklist_models"
+  },
+  {
+    "figma": "5717:8174",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_field"
+  },
+  {
+    "figma": "5717:8192",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_create_field"
+  },
+  {
+    "figma": "5717:8210",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_create_choice_field"
+  },
+  {
+    "figma": "5717:8231",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_choice_field"
+  },
+  {
+    "figma": "5717:8293",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_create_option"
+  },
+  {
+    "figma": "5717:8302",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_option"
+  },
+  {
+    "figma": "5717:8311",
+    "prototypeName": "Aparelhos",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_inspections"
+  },
+  {
+    "figma": "5717:8396",
+    "prototypeName": "Inspeção",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_inspection_form"
+  },
+  {
+    "figma": "5717:8457",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_send_inspection"
+  },
+  {
+    "figma": "5717:8464",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_inspection_success"
+  },
+  {
+    "figma": "5717:8474",
+    "prototypeName": "Sucesso",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_planning_success"
+  },
+  {
+    "figma": "5717:8480",
+    "prototypeName": "Registro",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_planning_intro"
+  },
+  {
+    "figma": "5717:8498",
+    "prototypeName": "Local",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_planning_tasks"
+  },
+  {
+    "figma": "5717:8532",
+    "prototypeName": "Minhas solicitações",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_board"
+  },
+  {
+    "figma": "5717:8651",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_create_task"
+  },
+  {
+    "figma": "5717:8663",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_edit_task"
+  },
+  {
+    "figma": "5717:8675",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_task_pending"
+  },
+  {
+    "figma": "5717:8688",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_task_completed"
+  },
+  {
+    "figma": "5717:8701",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_task_pending_obstacle"
+  },
+  {
+    "figma": "5717:8716",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_task_completed_obstacle"
+  },
+  {
+    "figma": "5717:8731",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_first_task"
+  },
+  {
+    "figma": "5717:8738",
+    "prototypeName": "Inspeção",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_assign_member"
+  },
+  {
+    "figma": "5717:8858",
+    "prototypeName": "Inspeção",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_assign_date"
+  },
+  {
+    "figma": "5717:8938",
+    "prototypeName": "Inspeção",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_execution_pending"
+  },
+  {
+    "figma": "5717:8981",
+    "prototypeName": "Inspeção",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_execution_completed"
+  },
+  {
+    "figma": "5717:9024",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_finish_order"
+  },
+  {
+    "figma": "5717:9031",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_order_completed"
+  },
+  {
+    "figma": "5717:9037",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_confirm_assignment"
+  },
+  {
+    "figma": "5717:9045",
+    "prototypeName": "pop-up",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_assignment_success"
+  },
+  {
+    "figma": "5717:9050",
+    "prototypeName": "Chatbot",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_chatbot"
+  },
+  {
+    "figma": "5717:9082",
+    "prototypeName": "Menu",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "dialog_ops_manager_chat_drawer"
+  },
+  {
+    "figma": "5717:9110",
+    "prototypeName": "Confirmação",
+    "role": "manager",
+    "status": "XML novo",
+    "layout": "fragment_ops_manager_occurrence_details"
+  },
+  {
+    "figma": "5717:9127",
+    "prototypeName": "Sucesso",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_password_success"
+  },
+  {
+    "figma": "5717:9133",
+    "prototypeName": "Login",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9171",
+    "prototypeName": "Esqueceu a senha?",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9185",
+    "prototypeName": "Esqueceu a senha?",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9190",
+    "prototypeName": "Esqueceu a senha?",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9206",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_request_menu"
+  },
+  {
+    "figma": "5717:9210",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_delete_confirm"
+  },
+  {
+    "figma": "5717:9218",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_delete_reason"
+  },
+  {
+    "figma": "5717:9228",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_edit_request"
+  },
+  {
+    "figma": "5717:9254",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_save_confirm"
+  },
+  {
+    "figma": "5717:9262",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_logout_confirm"
+  },
+  {
+    "figma": "5717:9275",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_edit_menu"
+  },
+  {
+    "figma": "5717:9277",
+    "prototypeName": "Group 13448",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:9285",
+    "prototypeName": "Group 13449",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:9291",
+    "prototypeName": "Group 13468",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:9319",
+    "prototypeName": "Group 13469",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:9347",
+    "prototypeName": "Group 13465",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:9374",
+    "prototypeName": "Sucesso",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_occurrence_success"
+  },
+  {
+    "figma": "5717:9380",
+    "prototypeName": "Registro",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_occurrence_intro"
+  },
+  {
+    "figma": "5717:9403",
+    "prototypeName": "Ocorrencia",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_occurrences"
+  },
+  {
+    "figma": "5717:9487",
+    "prototypeName": "Local",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_occurrence_location"
+  },
+  {
+    "figma": "5717:9527",
+    "prototypeName": "Descrição",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_occurrence_service"
+  },
+  {
+    "figma": "5717:9558",
+    "prototypeName": "Foto",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_occurrence_result"
+  },
+  {
+    "figma": "5717:9599",
+    "prototypeName": "Confirmação",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_occurrence_review"
+  },
+  {
+    "figma": "5717:9618",
+    "prototypeName": "Informações",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_event_details"
+  },
+  {
+    "figma": "5717:9636",
+    "prototypeName": "Eventos",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_events"
+  },
+  {
+    "figma": "5717:9716",
+    "prototypeName": "Gestão",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_management"
+  },
+  {
+    "figma": "5717:9768",
+    "prototypeName": "Splash Screen",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9779",
+    "prototypeName": "Onboarding",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9791",
+    "prototypeName": "Onboarding",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9806",
+    "prototypeName": "Onboarding",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9820",
+    "prototypeName": "Cadastro",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9843",
+    "prototypeName": "Cadastro",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9885",
+    "prototypeName": "Home",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_home"
+  },
+  {
+    "figma": "5717:9989",
+    "prototypeName": "Sem conexão",
+    "role": "technician",
+    "status": "Tela compartilhada existente",
+    "layout": null
+  },
+  {
+    "figma": "5717:9992",
+    "prototypeName": "Editar",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_edit_profile"
+  },
+  {
+    "figma": "5717:10023",
+    "prototypeName": "Meu perfil",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_my_profile"
+  },
+  {
+    "figma": "5717:10065",
+    "prototypeName": "Perfil",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_profile"
+  },
+  {
+    "figma": "5717:10105",
+    "prototypeName": "Config",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_settings"
+  },
+  {
+    "figma": "5717:10116",
+    "prototypeName": "Config",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_export"
+  },
+  {
+    "figma": "5717:10144",
+    "prototypeName": "FAQ",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_faq"
+  },
+  {
+    "figma": "5717:10169",
+    "prototypeName": "FAQ",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_about"
+  },
+  {
+    "figma": "5717:10202",
+    "prototypeName": "Group 13455",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:10206",
+    "prototypeName": "Categorias",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_checklists"
+  },
+  {
+    "figma": "5717:10290",
+    "prototypeName": "Aparelhos",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_inspections"
+  },
+  {
+    "figma": "5717:10375",
+    "prototypeName": "Inspeção",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_inspection_form"
+  },
+  {
+    "figma": "5717:10436",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_send_inspection"
+  },
+  {
+    "figma": "5717:10443",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_inspection_success"
+  },
+  {
+    "figma": "5717:10453",
+    "prototypeName": "Minhas solicitações",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_board"
+  },
+  {
+    "figma": "5717:10556",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_task_pending"
+  },
+  {
+    "figma": "5717:10569",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_task_completed"
+  },
+  {
+    "figma": "5717:10582",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_task_pending_obstacle"
+  },
+  {
+    "figma": "5717:10597",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_task_completed_obstacle"
+  },
+  {
+    "figma": "5717:10612",
+    "prototypeName": "Inspeção",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_execution_pending"
+  },
+  {
+    "figma": "5717:10655",
+    "prototypeName": "Inspeção",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_execution_completed"
+  },
+  {
+    "figma": "5717:10698",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_finish_order"
+  },
+  {
+    "figma": "5717:10705",
+    "prototypeName": "pop-up",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_order_completed"
+  },
+  {
+    "figma": "5717:10711",
+    "prototypeName": "Group 13466",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:10738",
+    "prototypeName": "Group 13467",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:10765",
+    "prototypeName": "Notificações",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_notifications"
+  },
+  {
+    "figma": "5717:10793",
+    "prototypeName": "Confirmação",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_occurrence_details"
+  },
+  {
+    "figma": "5717:10812",
+    "prototypeName": "Chatbot",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "fragment_ops_technician_chatbot"
+  },
+  {
+    "figma": "5717:10871",
+    "prototypeName": "Menu",
+    "role": "technician",
+    "status": "XML novo",
+    "layout": "dialog_ops_technician_chat_drawer"
+  },
+  {
+    "figma": "5717:10894",
+    "prototypeName": "Group 13473",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:10921",
+    "prototypeName": "Group 13474",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:10948",
+    "prototypeName": "Group 13475",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:10975",
+    "prototypeName": "Group 13476",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  },
+  {
+    "figma": "5717:11002",
+    "prototypeName": "Group 13477",
+    "role": "technician",
+    "status": "Componente compartilhado",
+    "layout": null
+  }
+]

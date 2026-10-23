@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ops_selected_overlay">#16153D7D</color>
+    <dimen name="ops_nav_height">87dp</dimen>
+    <dimen name="ops_nav_circle">49dp</dimen>
+    <dimen name="ops_nav_icon">23dp</dimen>
+    <dimen name="ops_nav_indicator_width">57dp</dimen>
+    <dimen name="ops_nav_indicator_height">1dp</dimen>
+    <dimen name="ops_nav_side">5dp</dimen>
+    <dimen name="ops_touch_target">48dp</dimen>
+    <string name="ops_nav_home">Início</string>
+    <string name="ops_nav_management">Gestão</string>
+    <string name="ops_nav_team">Equipe</string>
+    <string name="ops_nav_profile">Meu perfil</string>
+    <string name="ops_nav_equipment">Equipamentos</string>
+    <string name="ops_nav_events">Eventos</string>
+    <string name="ops_back">Voltar</string>
+    <string name="ops_required">Preencha este campo.</string>
+    <string name="ops_score_range">Informe um valor de 0 a 10.</string>
+    <string name="ops_select">Selecionar</string>
+    <string name="ops_selected">Selecionado</string>
+    <string name="ops_unselected">Não selecionado</string>
+    <string name="ops_search">Pesquisar</string>
+    <string name="ops_empty">Nenhum resultado encontrado.</string>
+    <string name="ops_export_name">FIXA_exportacao.csv</string>
+    <string name="ops_export_done">Arquivo exportado.</string>
+    <string name="ops_export_error">Não foi possível salvar o arquivo.</string>
+    <string name="ops_gallery">Telas do protótipo</string>
+    <string name="ops_photos_added">%1$d foto(s) adicionada(s).</string>
+    <string name="ops_current_month">%1$s de %2$d</string>
+</resources>
