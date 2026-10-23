@@ -81,20 +81,28 @@ public class RequestAdapter extends ListAdapter<RequestItem, RequestAdapter.View
         @StringRes
         private static int statusLabel(RequestItem.Status status) {
             switch (status) {
-                case APPROVED: return R.string.app_request_status_approved;
-                case DONE: return R.string.app_request_status_done;
-                case REFUSED: return R.string.app_request_status_refused;
-                default: return R.string.app_request_status_analysis;
+                case APPROVED:
+                    return R.string.app_request_status_approved;
+                case DONE:
+                    return R.string.app_request_status_done;
+                case REFUSED:
+                    return R.string.app_request_status_refused;
+                default:
+                    return R.string.app_request_status_analysis;
             }
         }
 
         @ColorRes
         static int statusColor(RequestItem.Status status) {
             switch (status) {
-                case APPROVED: return R.color.app_status_approved;
-                case DONE: return R.color.app_status_done_chart;
-                case REFUSED: return R.color.app_status_refused;
-                default: return R.color.app_status_analysis;
+                case APPROVED:
+                    return R.color.app_status_approved;
+                case DONE:
+                    return R.color.app_status_done_chart;
+                case REFUSED:
+                    return R.color.app_status_refused;
+                default:
+                    return R.color.app_status_analysis;
             }
         }
     }
@@ -108,7 +116,7 @@ public class RequestAdapter extends ListAdapter<RequestItem, RequestAdapter.View
         @Override
         public boolean areContentsTheSame(@NonNull RequestItem a, @NonNull RequestItem b) {
             return a.title.equals(b.title) && a.location.equals(b.location)
-                    && a.date.equals(b.date) && a.status == b.status;
+                    && a.date.equals(b.date) && a.status.equals(b.status);
         }
     };
 }

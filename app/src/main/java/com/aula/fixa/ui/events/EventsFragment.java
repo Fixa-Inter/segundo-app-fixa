@@ -103,12 +103,7 @@ public class EventsFragment extends Fragment {
                     filtered.add(item);
                 }
             }
-            view.findViewById(R.id.tvEmptyEvents).setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
-            ((RecyclerView) view.findViewById(R.id.rvEvents)).setAdapter(new EventAdapter(filtered, selected -> {
-                Bundle args = new Bundle();
-                args.putLong("eventId", selected.id);
-                Navigation.findNavController(view).navigate(R.id.action_events_to_event_info, args);
-            }));
+            showEvents(view, filtered);
         }));
         List<EventItem> todayEvents = new ArrayList<>();
         for (EventItem item : items) {
@@ -116,15 +111,22 @@ public class EventsFragment extends Fragment {
                 todayEvents.add(item);
             }
         }
-        view.findViewById(R.id.tvEmptyEvents).setVisibility(todayEvents.isEmpty() ? View.VISIBLE : View.GONE);
-        view.<RecyclerView>findViewById(R.id.rvEvents).setAdapter(new EventAdapter(todayEvents, selected -> {
+        showEvents(view, todayEvents);
+        String month = sunday.format(DateTimeFormatter.ofPattern("MMMM yyyy", new Locale("pt", "BR")));
+        month = month.substring(0, 1).toUpperCase(new Locale("pt", "BR")) + month.substring(1);
+        ((TextView) view.findViewById(R.id.tvMonth)).setText(month);
+    }
+
+    private void showEvents(View view, List<EventItem> events) {
+        boolean empty = events.isEmpty();
+        view.findViewById(R.id.tvEmptyEvents).setVisibility(empty ? View.VISIBLE : View.GONE);
+        RecyclerView list = view.findViewById(R.id.rvEvents);
+        list.setVisibility(empty ? View.GONE : View.VISIBLE);
+        list.setAdapter(new EventAdapter(events, selected -> {
             Bundle args = new Bundle();
             args.putLong("eventId", selected.id);
             Navigation.findNavController(view).navigate(R.id.action_events_to_event_info, args);
         }));
-        String month = sunday.format(DateTimeFormatter.ofPattern("MMMM yyyy", new Locale("pt", "BR")));
-        month = month.substring(0, 1).toUpperCase(new Locale("pt", "BR")) + month.substring(1);
-        ((TextView) view.findViewById(R.id.tvMonth)).setText(month);
     }
 
     @Override

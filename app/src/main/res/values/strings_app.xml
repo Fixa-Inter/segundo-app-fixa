@@ -25,20 +25,21 @@
     <string name="app_home_notifications">Notificações</string>
     <string name="app_home_profile">Perfil</string>
     <string name="app_home_status_title">Estados das solicitações</string>
-    <string name="app_home_status_done">Concluídas</string>
-    <string name="app_home_status_approved">Aprovada</string>
-    <string name="app_home_status_analysis">Em análise</string>
-    <string name="app_home_status_refused">Recusada</string>
+    <string name="app_home_status_done">Concluído</string>
+    <string name="app_home_status_approved">Aprovado</string>
+    <string name="app_home_status_analysis">Pendente</string>
+    <string name="app_home_status_refused">Reprovado</string>
     <string name="app_home_requests_title">Minhas Solicitações</string>
     <string name="app_home_open_request">Abrir Solicitação</string>
     <string name="app_home_chart_description">Gráfico de estados das solicitações</string>
+    <string name="app_home_requests_empty">Sem registros</string>
     <plurals name="app_home_requests_count">
         <item quantity="one">%d Solicitação</item>
         <item quantity="other">%d Solicitações</item>
     </plurals>
 
     <!-- Card de solicitação -->
-    <string name="app_request_status_analysis">Solicitação em análise</string>
+    <string name="app_request_status_analysis">Solicitação pendente</string>
     <string name="app_request_status_refused">Solicitação reprovada</string>
     <string name="app_request_status_done">Solicitação concluída</string>
     <string name="app_request_status_approved">Solicitação aprovada</string>
@@ -46,19 +47,19 @@
     <!-- Minhas solicitações -->
     <string name="app_requests_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> suas solicitações]]></string>
     <string name="app_requests_filter_all">Todas</string>
-    <string name="app_requests_filter_analysis">Em análise</string>
+    <string name="app_requests_filter_analysis">Pendentes</string>
     <string name="app_requests_filter_approved">Aprovadas</string>
     <string name="app_requests_filter_done">Concluídas</string>
-    <string name="app_requests_filter_refused">Recusadas</string>
+    <string name="app_requests_filter_refused">Reprovadas</string>
     <string name="app_requests_search_hint">Pesquisar…</string>
     <string name="app_requests_search">Pesquisar</string>
     <string name="app_requests_filters">Filtros</string>
     <string name="app_requests_new">Nova solicitação</string>
-    <string name="app_requests_empty">Sem resultados</string>
+    <string name="app_requests_empty">Sem registros</string>
 
     <!-- Detalhes -->
     <string name="app_details_step_opened">Abertura da solicitação</string>
-    <string name="app_details_step_analysis">Solicitação em análise</string>
+    <string name="app_details_step_analysis">Solicitação pendente</string>
     <string name="app_details_step_approved">Solicitação aprovada</string>
     <string name="app_details_step_refused">Solicitação reprovada</string>
     <string name="app_details_step_done">Solicitação concluída</string>
@@ -66,6 +67,7 @@
     <!-- Eventos -->
     <string name="app_events_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> os eventos]]></string>
     <string name="app_events_section">Eventos</string>
+    <string name="app_events_empty">Sem eventos</string>
     <string name="app_events_pick_date">Escolher data</string>
     <string name="app_events_view">Ver evento</string>
     <string name="app_event_info_title"><![CDATA[<b><font color="#153D7D">Informações</font></b> <u><font color="#130943">sobre o evento</font></u>]]></string>
@@ -229,6 +231,8 @@
     <string name="recovery_forgot_description">Não se preocupe, insira seu e-mail e te enviaremos um código de recuperação</string>
     <string name="recovery_email_label">Email</string>
     <string name="recovery_email_hint">Digite o seu e-mail</string>
+    <string name="recovery_email_invalid">Informe um e-mail válido.</string>
+    <string name="recovery_change_password">Alterar senha. Toque para receber um código de validação por e-mail.</string>
     <string name="recovery_send_email">Enviar e-mail</string>
     <string name="recovery_back_to_login">Voltar ao login</string>
     <string name="recovery_sent_title_lead">Verifique</string>
@@ -239,6 +243,7 @@
     <string name="recovery_code_label">Código</string>
     <string name="recovery_code_digit">Dígito %1$d do código</string>
     <string name="recovery_confirm_code">Confirmar código</string>
+    <string name="recovery_code_invalid">Código inválido ou expirado. Confira os dígitos ou solicite outro código.</string>
     <string name="recovery_resend_lead">Não recebeu o código?</string>
     <string name="recovery_resend_action">Reenviar</string>
     <string name="recovery_resend_done">Código reenviado</string>
@@ -249,7 +254,10 @@
     <string name="recovery_confirm_password_label">Confirme a senha</string>
     <string name="recovery_confirm_password_hint">Confirme a nova senha</string>
     <string name="recovery_confirm">Confirmar</string>
+    <string name="recovery_password_required">Informe e confirme a nova senha.</string>
+    <string name="recovery_password_mismatch">As senhas não coincidem.</string>
     <string name="recovery_success_title">Senha alterada com sucesso!</string>
     <string name="recovery_success_back_to_login">Voltar para login</string>
+    <string name="recovery_success_back_to_profile">Voltar ao perfil</string>
     <string name="app_offline_message">Verifique sua conexão com a internet</string>
 </resources>

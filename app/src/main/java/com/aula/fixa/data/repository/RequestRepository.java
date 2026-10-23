@@ -22,7 +22,7 @@ public final class RequestRepository {
     }
 
     public JsonArray minhas() throws Exception {
-        return array(api.minhas().execute());
+        return array(api.minhas().execute(), "Solicitação não encontrada.");
     }
 
     public JsonObject detalhes(long id) throws Exception {
@@ -42,21 +42,36 @@ public final class RequestRepository {
         return object(api.criar(body).execute());
     }
 
-    public JsonObject atualizar(long id, String title, String description, Long localId,
-                                String localDescription, Long categoryId,
-                                List<String> photosToAdd, List<Long> photosToDelete) throws Exception {
+    public JsonObject atualizar(
+            long id, String title, String description, Long localId,
+            String localDescription, Long categoryId,
+            List<String> photosToAdd, List<Long> photosToDelete) throws Exception {
         JsonObject body = new JsonObject();
         body.addProperty("problemaId", id);
-        if (title != null) body.addProperty("titulo", title);
-        if (description != null) body.addProperty("descricaoProblema", description);
-        if (localId != null) body.addProperty("localUnidadeId", localId);
-        if (localDescription != null) body.addProperty("descricaoLocal", localDescription);
-        if (categoryId != null) body.addProperty("categoriaEquipamentoId", categoryId);
+        if (title != null) {
+            body.addProperty("titulo", title);
+        }
+        if (description != null) {
+            body.addProperty("descricaoProblema", description);
+        }
+        if (localId != null) {
+            body.addProperty("localUnidadeId", localId);
+        }
+        if (localDescription != null) {
+            body.addProperty("descricaoLocal", localDescription);
+        }
+        if (categoryId != null) {
+            body.addProperty("categoriaEquipamentoId", categoryId);
+        }
         JsonArray add = new JsonArray();
-        if (photosToAdd != null) photosToAdd.forEach(add::add);
+        if (photosToAdd != null) {
+            photosToAdd.forEach(add::add);
+        }
         body.add("fotosAdicionar", add);
         JsonArray remove = new JsonArray();
-        if (photosToDelete != null) photosToDelete.forEach(remove::add);
+        if (photosToDelete != null) {
+            photosToDelete.forEach(remove::add);
+        }
         body.add("fotosExcluir", remove);
         return object(api.atualizar(body).execute());
     }
@@ -81,12 +96,14 @@ public final class RequestRepository {
         JsonObject body = new JsonObject();
         body.addProperty("nomeCompleto", nomeCompleto);
         body.addProperty("cargo", cargo);
-        if (urlFotoPerfil != null) body.addProperty("urlFotoPerfil", urlFotoPerfil);
+        if (urlFotoPerfil != null) {
+            body.addProperty("urlFotoPerfil", urlFotoPerfil);
+        }
         return object(api.atualizarPerfil(body).execute());
     }
 
     public JsonArray eventos() throws Exception {
-        return array(api.eventos().execute());
+        return array(api.eventos().execute(), "Evento não encontrado.");
     }
 
     public JsonObject evento(long id) throws Exception {
@@ -107,6 +124,24 @@ public final class RequestRepository {
             throw new Exception(AuthRepository.messageFrom(new AuthRepository.ApiException(r.code(), r.errorBody() == null ? "" : r.errorBody().string())));
         }
         return r.body();
+    }
+
+    /**
+     * List endpoints use EntityNotFoundException when there are no records for the current user.
+     */
+    private JsonArray array(Response<JsonArray> r, String expectedNotFoundMessage) throws Exception {
+        if (r.code() == 404 && r.errorBody() != null) {
+            String body = r.errorBody().string();
+            try {
+                String message = new org.json.JSONObject(body).optString("message", "");
+                if (message.trim().equalsIgnoreCase(expectedNotFoundMessage)) {
+                    return new JsonArray();
+                }
+            } catch (org.json.JSONException ignored) {
+            }
+            throw new Exception(AuthRepository.messageFrom(new AuthRepository.ApiException(r.code(), body)));
+        }
+        return array(r);
     }
 
     private JsonObject object(Response<JsonObject> r) throws Exception {

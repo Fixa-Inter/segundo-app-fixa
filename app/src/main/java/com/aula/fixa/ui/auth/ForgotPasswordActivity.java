@@ -26,17 +26,21 @@ public class ForgotPasswordActivity extends RecoveryActivity {
                 R.string.recovery_forgot_title_rest, R.color.app_primary_dark);
 
         EditText email = findViewById(R.id.etEmail);
+        email.setText(getIntent().getStringExtra(EXTRA_EMAIL));
         findViewById(R.id.btnSend).setOnClickListener(view -> {
             String value = email.getText().toString().trim();
-            if (value.isBlank()) {
-                Toast.makeText(this, "Informe seu e-mail.", Toast.LENGTH_SHORT).show();
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
+                Toast.makeText(this, R.string.recovery_email_invalid, Toast.LENGTH_SHORT).show();
                 return;
             }
             findViewById(R.id.btnSend).setEnabled(false);
             new Thread(() -> {
                 try {
                     new AuthRepository(new SessionStorage(this)).requestPasswordRecovery(value);
-                    runOnUiThread(() -> startActivity(VerifyEmailActivity.intent(this, value)));
+                    runOnUiThread(() -> {
+                        startActivity(VerifyEmailActivity.intent(this, value, false));
+                        finish();
+                    });
                 } catch (Exception exception) {
                     runOnUiThread(() -> {
                         findViewById(R.id.btnSend).setEnabled(true);

@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import okhttp3.ResponseBody;
 
 public interface AuthApi {
 
@@ -20,7 +21,13 @@ public interface AuthApi {
     Call<JsonObject> register(@Body JsonObject body);
 
     @POST("api/v1/auth/esqueceu-senha/{email}")
-    Call<JsonObject> requestPasswordRecovery(@Path("email") String email);
+    Call<JsonObject> requestPasswordRecovery(@Path(value = "email", encoded = true) String email);
+
+    @POST("api/v1/auth/validar-codigo")
+    Call<Boolean> validateRecoveryCode(@Body JsonObject body);
+
+    @POST("api/v1/auth/redefinir-senha")
+    Call<ResponseBody> resetPassword(@Body JsonObject body);
 
     @GET("api/v1/auth/instituicoes")
     Call<com.google.gson.JsonArray> institutions();

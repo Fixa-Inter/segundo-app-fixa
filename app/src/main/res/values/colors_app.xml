@@ -18,6 +18,7 @@
     <color name="app_text_muted">#FF8A93A2</color>
     <color name="app_text_hint">#FF637087</color>
     <color name="app_text_hint_60">#998A93A2</color>
+    <color name="app_chart_empty">#FFD9DEE7</color>
     <color name="app_divider">#FFBFC4CE</color>
     <color name="app_nav_inactive">#FF637087</color>
     <color name="app_danger">#FF96031A</color>

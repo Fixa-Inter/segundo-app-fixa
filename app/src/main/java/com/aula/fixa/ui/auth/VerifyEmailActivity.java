@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
@@ -19,11 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.aula.fixa.R;
+import com.aula.fixa.data.local.preferences.SessionStorage;
+import com.aula.fixa.data.repository.AuthRepository;
 import com.aula.fixa.ui.common.AppText;
 
 public class VerifyEmailActivity extends RecoveryActivity {
 
-    private static final String EXTRA_EMAIL = "email";
     /** Quantos caracteres do usuário ficam visíveis antes da máscara (Figma: "rapha******gmail.com"). */
     private static final int VISIBLE_PREFIX = 5;
 
@@ -33,8 +33,10 @@ public class VerifyEmailActivity extends RecoveryActivity {
         super(R.layout.activity_verify_email);
     }
 
-    public static Intent intent(@NonNull Context context, @Nullable String email) {
-        return new Intent(context, VerifyEmailActivity.class).putExtra(EXTRA_EMAIL, email);
+    public static Intent intent(@NonNull Context context, @Nullable String email, boolean profileFlow) {
+        return new Intent(context, VerifyEmailActivity.class)
+                .putExtra(EXTRA_EMAIL, email)
+                .putExtra(EXTRA_PROFILE_FLOW, profileFlow);
     }
 
     @Override
@@ -60,13 +62,11 @@ public class VerifyEmailActivity extends RecoveryActivity {
                 lead.length() + 1, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         resend.setText(text);
         resend.setOnClickListener(v -> {
-            for (EditText digit : digits) digit.setText("");
-            digits[0].requestFocus();
-            Toast.makeText(this, R.string.recovery_resend_done, Toast.LENGTH_SHORT).show();
+            resend.setEnabled(false);
+            requestAnotherCode(resend);
         });
 
-        findViewById(R.id.btnConfirmCode).setOnClickListener(v ->
-                startActivity(new Intent(this, ResetPasswordActivity.class)));
+        findViewById(R.id.btnConfirmCode).setOnClickListener(v -> validateCode());
     }
 
     /** Ao digitar avança para a próxima caixa; apagar numa caixa vazia volta para a anterior. */
@@ -93,9 +93,68 @@ public class VerifyEmailActivity extends RecoveryActivity {
     }
 
     private String mask(@Nullable String email) {
-        if (TextUtils.isEmpty(email) || !email.contains("@")) return getString(R.string.recovery_sent_sample_email);
+        if (email == null || email.isBlank() || !email.contains("@")) return getString(R.string.recovery_sent_sample_email);
         String user = email.substring(0, email.indexOf('@'));
         String domain = email.substring(email.indexOf('@') + 1);
         return user.substring(0, Math.min(VISIBLE_PREFIX, user.length())) + "******" + domain;
+    }
+
+    private void validateCode() {
+        StringBuilder value = new StringBuilder();
+        for (EditText digit : digits) value.append(digit.getText());
+        if (value.length() != digits.length) {
+            Toast.makeText(this, R.string.recovery_code_invalid, Toast.LENGTH_LONG).show();
+            return;
+        }
+        String email = getIntent().getStringExtra(EXTRA_EMAIL);
+        int code;
+        try {
+            code = Integer.parseInt(value.toString());
+        } catch (NumberFormatException error) {
+            Toast.makeText(this, R.string.recovery_code_invalid, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        findViewById(R.id.btnConfirmCode).setEnabled(false);
+        new Thread(() -> {
+            try {
+                boolean valid = new AuthRepository(new SessionStorage(this)).validateRecoveryCode(email, code);
+                runOnUiThread(() -> {
+                    findViewById(R.id.btnConfirmCode).setEnabled(true);
+                    if (!valid) {
+                        Toast.makeText(this, R.string.recovery_code_invalid, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    startActivity(ResetPasswordActivity.intent(this, email, code,
+                            getIntent().getBooleanExtra(EXTRA_PROFILE_FLOW, false)));
+                    finish();
+                });
+            } catch (Exception error) {
+                runOnUiThread(() -> {
+                    findViewById(R.id.btnConfirmCode).setEnabled(true);
+                    Toast.makeText(this, AuthRepository.messageFrom(error), Toast.LENGTH_LONG).show();
+                });
+            }
+        }).start();
+    }
+
+    private void requestAnotherCode(TextView resend) {
+        String email = getIntent().getStringExtra(EXTRA_EMAIL);
+        new Thread(() -> {
+            try {
+                new AuthRepository(new SessionStorage(this)).requestPasswordRecovery(email);
+                runOnUiThread(() -> {
+                    for (EditText digit : digits) digit.setText("");
+                    digits[0].requestFocus();
+                    resend.setEnabled(true);
+                    Toast.makeText(this, R.string.recovery_resend_done, Toast.LENGTH_SHORT).show();
+                });
+            } catch (Exception error) {
+                runOnUiThread(() -> {
+                    resend.setEnabled(true);
+                    Toast.makeText(this, AuthRepository.messageFrom(error), Toast.LENGTH_LONG).show();
+                });
+            }
+        }).start();
     }
 }

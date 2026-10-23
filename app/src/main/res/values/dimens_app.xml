@@ -365,10 +365,10 @@
     <dimen name="app_edit_form_side_margin">30dp</dimen>
     <dimen name="app_edit_label_text_size">15sp</dimen>
     <dimen name="app_edit_field_margin_top">5dp</dimen>
-    <dimen name="app_edit_field_height">39dp</dimen>
+    <dimen name="app_edit_field_height">50dp</dimen>
     <dimen name="app_edit_field_radius">13dp</dimen>
     <dimen name="app_edit_field_padding_start">14dp</dimen>
-    <dimen name="app_edit_field_text_size">10.5sp</dimen>
+    <dimen name="app_edit_field_text_size">13sp</dimen>
     <dimen name="app_edit_group_spacing">21dp</dimen>
     <dimen name="app_edit_save_margin_end">23dp</dimen>
     <dimen name="app_edit_save_margin_top">32dp</dimen>
@@ -525,12 +525,12 @@
     <dimen name="recovery_forgot_label_top_margin">39dp</dimen>
     <dimen name="recovery_reset_label_top_margin">65dp</dimen>
     <dimen name="recovery_confirm_label_top_margin">31dp</dimen>
-    <dimen name="recovery_label_text_size">15.5sp</dimen>
+    <dimen name="recovery_label_text_size">17sp</dimen>
     <dimen name="recovery_field_top_margin">10dp</dimen>
-    <dimen name="recovery_field_height">52dp</dimen>
+    <dimen name="recovery_field_height">58dp</dimen>
     <dimen name="recovery_field_radius">26dp</dimen>
     <dimen name="recovery_field_padding_horizontal">25dp</dimen>
-    <dimen name="recovery_field_text_size">12sp</dimen>
+    <dimen name="recovery_field_text_size">14sp</dimen>
     <dimen name="recovery_forgot_button_top_margin">136dp</dimen>
     <dimen name="recovery_reset_button_top_margin">91dp</dimen>
     <dimen name="recovery_button_height">48dp</dimen>
@@ -548,11 +548,11 @@
     <dimen name="recovery_verify_button_top_margin">104dp</dimen>
     <dimen name="recovery_verify_resend_top_margin">16dp</dimen>
     <dimen name="recovery_code_width">44dp</dimen>
-    <dimen name="recovery_code_height">52dp</dimen>
+    <dimen name="recovery_code_height">58dp</dimen>
     <dimen name="recovery_code_spacing">7dp</dimen>
     <dimen name="recovery_code_radius">13dp</dimen>
     <dimen name="recovery_code_stroke">2dp</dimen>
-    <dimen name="recovery_code_text_size">19sp</dimen>
+    <dimen name="recovery_code_text_size">21sp</dimen>
     <!-- Header de páginas secundárias -->
     <dimen name="app_page_header_title_inset">75dp</dimen>
     <dimen name="app_page_header_padding_top">8dp</dimen>

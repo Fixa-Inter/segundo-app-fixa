@@ -19,7 +19,7 @@ public final class ApiClient {
 
     public static AuthApi auth() {
         return new Retrofit.Builder()
-                .baseUrl("https://segundo-api-app.onrender.com/")
+                .baseUrl("https://mobile-api.fixa.solutions")
                 .client(clientBuilder().build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(AuthApi.class);
@@ -39,7 +39,7 @@ public final class ApiClient {
 
 
         return new Retrofit.Builder()
-                .baseUrl("https://segundo-api-app.onrender.com/")
+                .baseUrl("https://mobile-api.fixa.solutions")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

@@ -17,6 +17,8 @@ import com.aula.fixa.ui.common.FragmentUi;
 import com.aula.fixa.ui.common.DataChangeNotifier;
 import com.aula.fixa.data.local.preferences.SessionStorage;
 import com.aula.fixa.data.repository.RequestRepository;
+import com.aula.fixa.data.repository.AuthRepository;
+import com.aula.fixa.ui.auth.VerifyEmailActivity;
 import com.google.gson.JsonObject;
 import com.bumptech.glide.Glide;
 import android.widget.ImageView;
@@ -62,7 +64,10 @@ public class EditProfileFragment extends Fragment {
         password = view.findViewById(R.id.etPassword);
         birth.setEnabled(false);
         email.setEnabled(false);
-        password.setEnabled(false);
+        password.setFocusable(false);
+        password.setFocusableInTouchMode(false);
+        password.setCursorVisible(false);
+        password.setClickable(true);
         picker = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
             if (uri != null) uploadProfilePhoto(uri, view);
         });
@@ -75,6 +80,7 @@ public class EditProfileFragment extends Fragment {
         view.findViewById(R.id.btnChangePhoto).setOnClickListener(v -> choosePhoto(view));
         loadProfile(view);
         password.setText("*************");
+        password.setOnClickListener(v -> requestPasswordChange(view));
         initial = snapshot();
 
         view.findViewById(R.id.btnBack).setOnClickListener(v -> leave());
@@ -113,6 +119,30 @@ public class EditProfileFragment extends Fragment {
             } catch (Exception e) {
                 FragmentUi.runIfViewActive(this, view, () -> android.widget.Toast.makeText(
                         view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+            }
+        }).start();
+    }
+
+    private void requestPasswordChange(View view) {
+        String address = email.getText().toString().trim();
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(address).matches()) {
+            Toast.makeText(view.getContext(), R.string.recovery_email_invalid, Toast.LENGTH_LONG).show();
+            return;
+        }
+        password.setEnabled(false);
+        android.content.Context appContext = requireContext().getApplicationContext();
+        new Thread(() -> {
+            try {
+                new AuthRepository(new SessionStorage(appContext)).requestPasswordRecovery(address);
+                FragmentUi.runIfViewActive(this, view, () -> {
+                    password.setEnabled(true);
+                    startActivity(VerifyEmailActivity.intent(requireContext(), address, true));
+                });
+            } catch (Exception error) {
+                FragmentUi.runIfViewActive(this, view, () -> {
+                    password.setEnabled(true);
+                    Toast.makeText(view.getContext(), AuthRepository.messageFrom(error), Toast.LENGTH_LONG).show();
+                });
             }
         }).start();
     }

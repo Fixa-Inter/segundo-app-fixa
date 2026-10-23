@@ -112,18 +112,33 @@
                 tools:itemCount="2"
                 tools:listitem="@layout/item_app_event" />
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/tvEmptyEvents"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="Não há eventos para esta data."
-                android:textAppearance="@style/TextAppearance.FIXA.App.Events.Section"
+                android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
-                app:layout_constraintTop_toBottomOf="@id/tvSection" />
+                app:layout_constraintTop_toBottomOf="@id/tvSection">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="220dp"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/img_empty_results" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_events_empty"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.EmptyTitle" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

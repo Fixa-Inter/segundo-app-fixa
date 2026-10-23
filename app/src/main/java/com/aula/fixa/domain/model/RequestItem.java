@@ -6,7 +6,7 @@ import androidx.annotation.DrawableRes;
 public class RequestItem {
     public final long id;
 
-    public enum Status { ANALYSIS, APPROVED, DONE, REFUSED }
+    public enum Status { PENDING, APPROVED, DONE, REFUSED }
 
     public final String title;
     public final String location;

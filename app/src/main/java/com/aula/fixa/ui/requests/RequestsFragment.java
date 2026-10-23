@@ -118,13 +118,16 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         if ("CONCLUIDO".equalsIgnoreCase(value) || "CONCLUÍDO".equalsIgnoreCase(value)) {
             return RequestItem.Status.DONE;
         }
-        return RequestItem.Status.ANALYSIS;
+        if ("PENDENTE".equalsIgnoreCase(value)) {
+            return RequestItem.Status.PENDING;
+        }
+        return RequestItem.Status.PENDING;
     }
 
     @Nullable
     private RequestItem.Status statusFor(int checkedId) {
         if (checkedId == R.id.chipAnalysis) {
-            return RequestItem.Status.ANALYSIS;
+            return RequestItem.Status.PENDING;
         }
         if (checkedId == R.id.chipApproved) {
             return RequestItem.Status.APPROVED;

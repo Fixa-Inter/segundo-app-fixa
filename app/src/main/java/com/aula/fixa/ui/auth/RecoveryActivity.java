@@ -20,6 +20,9 @@ import com.aula.fixa.ui.common.ImmersiveActivity;
  */
 public abstract class RecoveryActivity extends ImmersiveActivity {
 
+    public static final String EXTRA_EMAIL = "recovery_email";
+    public static final String EXTRA_PROFILE_FLOW = "recovery_profile_flow";
+
     @LayoutRes
     private final int layoutRes;
 

@@ -47,13 +47,15 @@ public class RequestDetailsFragment extends Fragment {
 
         view.findViewById(R.id.btnBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v,
-                new RequestItem(title, "", "", RequestItem.Status.ANALYSIS)));
+                new RequestItem(title, "", "", RequestItem.Status.PENDING)));
 
         RecyclerView list = view.findViewById(R.id.rvTimeline);
         if (requestId > 0) {
             loadDetails(view, list, requestId);
             DataChangeNotifier.observe(getViewLifecycleOwner(), ignored -> {
-                if (getView() == view) loadDetails(view, list, requestId);
+                if (getView() == view) {
+                    loadDetails(view, list, requestId);
+                }
             });
         }
 
@@ -64,27 +66,24 @@ public class RequestDetailsFragment extends Fragment {
         new Thread(() -> {
             try {
                 JsonObject item = new RequestRepository(new SessionStorage(requireContext())).detalhes(id);
-            FragmentUi.runIfViewActive(this, view, () -> {
+                FragmentUi.runIfViewActive(this, view, () -> {
                     ((TextView) view.findViewById(R.id.tvTitle)).setText(item.get("titulo").getAsString());
-                String status = item.has("status") ? item.get("status").getAsString() : "PENDENTE";
-                boolean editable = status.equalsIgnoreCase("PENDENTE")
-                        || status.equalsIgnoreCase("EM_ANALISE")
-                        || status.equalsIgnoreCase("EM ANÁLISE")
-                        || status.equalsIgnoreCase("EM_ANALISE");
-                view.findViewById(R.id.btnMore).setVisibility(editable ? View.VISIBLE : View.GONE);
-                if (editable) {
-                    RequestItem current = new RequestItem(
-                            id,
-                            item.has("titulo") ? item.get("titulo").getAsString() : "",
-                            item.has("localUnidade") && !item.get("localUnidade").isJsonNull() ? item.get("localUnidade").getAsString() : "",
-                            "",
-                            RequestItem.Status.ANALYSIS,
-                            item.has("descricaoProblema") ? item.get("descricaoProblema").getAsString() : "",
-                            item.has("categoriaEquipamento") && !item.get("categoriaEquipamento").isJsonNull() ? item.get("categoriaEquipamento").getAsString() : "",
-                            0);
-                    view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v, current));
-                }
-                list.setAdapter(new TimelineAdapter(timeline(status)));
+                    String status = item.has("status") ? item.get("status").getAsString() : "PENDENTE";
+                    boolean editable = status.equalsIgnoreCase("PENDENTE");
+                    view.findViewById(R.id.btnMore).setVisibility(editable ? View.VISIBLE : View.GONE);
+                    if (editable) {
+                        RequestItem current = new RequestItem(
+                                id,
+                                item.has("titulo") ? item.get("titulo").getAsString() : "",
+                                item.has("localUnidade") && !item.get("localUnidade").isJsonNull() ? item.get("localUnidade").getAsString() : "",
+                                "",
+                                RequestItem.Status.PENDING,
+                                item.has("descricaoProblema") ? item.get("descricaoProblema").getAsString() : "",
+                                item.has("categoriaEquipamento") && !item.get("categoriaEquipamento").isJsonNull() ? item.get("categoriaEquipamento").getAsString() : "",
+                                0);
+                        view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v, current));
+                    }
+                    list.setAdapter(new TimelineAdapter(timeline(status)));
                 });
             } catch (Exception e) {
                 FragmentUi.runIfViewActive(this, view, () -> android.widget.Toast.makeText(view.getContext(), e.getMessage(), android.widget.Toast.LENGTH_LONG).show());

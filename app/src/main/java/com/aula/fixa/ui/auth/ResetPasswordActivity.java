@@ -2,10 +2,14 @@ package com.aula.fixa.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.aula.fixa.R;
+import com.aula.fixa.data.local.preferences.SessionStorage;
+import com.aula.fixa.data.repository.AuthRepository;
 import com.aula.fixa.ui.common.AppText;
 
 public class ResetPasswordActivity extends RecoveryActivity {
@@ -14,13 +18,56 @@ public class ResetPasswordActivity extends RecoveryActivity {
         super(R.layout.activity_reset_password);
     }
 
+    public static Intent intent(android.content.Context context, String email, int code, boolean profileFlow) {
+        return new Intent(context, ResetPasswordActivity.class)
+                .putExtra(EXTRA_EMAIL, email)
+                .putExtra("recovery_code", code)
+                .putExtra(EXTRA_PROFILE_FLOW, profileFlow);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppText.setTwoTone(findViewById(R.id.tvTitle), R.string.recovery_reset_title_lead,
                 R.string.recovery_reset_title_rest, R.color.app_primary_dark);
 
-        findViewById(R.id.btnConfirm).setOnClickListener(view ->
-                startActivity(new Intent(this, PasswordSuccessActivity.class)));
+        findViewById(R.id.btnConfirm).setOnClickListener(view -> resetPassword());
+    }
+
+    private void resetPassword() {
+        String password = ((EditText) findViewById(R.id.etPassword)).getText().toString();
+        String confirmation = ((EditText) findViewById(R.id.etConfirmPassword)).getText().toString();
+        if (password.isBlank() || confirmation.isBlank()) {
+            Toast.makeText(this, R.string.recovery_password_required, Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (!password.equals(confirmation)) {
+            Toast.makeText(this, R.string.recovery_password_mismatch, Toast.LENGTH_LONG).show();
+            return;
+        }
+        String email = getIntent().getStringExtra(EXTRA_EMAIL);
+        int code = getIntent().getIntExtra("recovery_code", -1);
+        if (email == null || code < 0) {
+            Toast.makeText(this, R.string.recovery_code_invalid, Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
+        findViewById(R.id.btnConfirm).setEnabled(false);
+        new Thread(() -> {
+            try {
+                new AuthRepository(new SessionStorage(this)).resetPassword(email, code, password);
+                runOnUiThread(() -> {
+                    startActivity(PasswordSuccessActivity.intent(this,
+                            getIntent().getBooleanExtra(EXTRA_PROFILE_FLOW, false)));
+                    finish();
+                });
+            } catch (Exception error) {
+                runOnUiThread(() -> {
+                    findViewById(R.id.btnConfirm).setEnabled(true);
+                    Toast.makeText(this, AuthRepository.messageFrom(error), Toast.LENGTH_LONG).show();
+                });
+            }
+        }).start();
     }
 }

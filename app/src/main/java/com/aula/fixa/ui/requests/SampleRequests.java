@@ -14,7 +14,7 @@ public final class SampleRequests {
     public static List<RequestItem> all() {
         return Arrays.asList(
                 // Descrição, equipamento e foto do Figma "Editar solicitação" (pop-up 7015).
-                new RequestItem("Luz piscando", "Sala T07 - 2º andar", "11 Mar 2026", RequestItem.Status.ANALYSIS,
+                new RequestItem("Luz piscando", "Sala T07 - 2º andar", "11 Mar 2026", RequestItem.Status.PENDING,
                         "A luz pisca com frequência e apresenta ruído.", "Lâmpada", R.drawable.img_edit_photo_lamp),
                 new RequestItem("Daniel farmou aura", "Átrio", "11 Mar 2026", RequestItem.Status.REFUSED),
                 new RequestItem("Projetor quebrado", "Sala T02 - 2º andar", "11 Mar 2026", RequestItem.Status.DONE),

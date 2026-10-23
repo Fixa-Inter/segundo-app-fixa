@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                 JsonArray response = repository.minhas();
                 JsonObject profile = repository.perfil();
                 List<RequestItem> items = new ArrayList<>();
-                int done = 0, approved = 0, analysis = 0, refused = 0;
+                int done = 0, approved = 0, pending = 0, refused = 0;
                 for (var element : response) {
                     JsonObject item = element.getAsJsonObject();
                     String status = item.get("status").getAsString();
@@ -109,10 +109,10 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                         approved++;
                     } else if (status.equalsIgnoreCase("REPROVADO")) {
                         refused++;
-                    } else if (status.equalsIgnoreCase("CONCLUIDO")) {
+                    } else if (status.equalsIgnoreCase("CONCLUIDO") || status.equalsIgnoreCase("CONCLUÍDO")) {
                         done++;
-                    } else {
-                        analysis++;
+                    } else if (status.equalsIgnoreCase("PENDENTE")) {
+                        pending++;
                     }
                     items.add(new RequestItem(item.get("id").getAsLong(), item.get("titulo").getAsString(), item.has("localUnidade") ? item.get("localUnidade").getAsString() : "", item.has("dataCriacao") ? item.get("dataCriacao").getAsString() : "", statusOf(status), item.has("descricaoProblema") ? item.get("descricaoProblema").getAsString() : "", item.has("categoriaEquipamento") ? item.get("categoriaEquipamento").getAsString() : "", 0));
                 }
@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                 String profilePhotoUrl = profile.has("urlFotoPerfil") && !profile.get("urlFotoPerfil").isJsonNull()
                         ? profile.get("urlFotoPerfil").getAsString().trim() : "";
                 List<RequestItem> finalItems = items;
-                int a = analysis, d = done, ap = approved, r = refused;
+                int p = pending, d = done, ap = approved, r = refused;
                 FragmentUi.runIfViewActive(this, view, () -> {
                     AppLoading.hide(loading);
                     view.findViewById(R.id.homeRoot).setVisibility(View.VISIBLE);
@@ -133,9 +133,11 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                     loadProfilePhoto(view.findViewById(R.id.ivAvatar), profilePhotoUrl);
                     bindLegend(view, R.id.legendDone, R.string.app_home_status_done, d, R.color.app_status_done_chart);
                     bindLegend(view, R.id.legendApproved, R.string.app_home_status_approved, ap, R.color.app_status_approved);
-                    bindLegend(view, R.id.legendAnalysis, R.string.app_home_status_analysis, a, R.color.app_status_analysis);
+                    bindLegend(view, R.id.legendAnalysis, R.string.app_home_status_analysis, p, R.color.app_status_analysis);
                     bindLegend(view, R.id.legendRefused, R.string.app_home_status_refused, r, R.color.app_status_refused_chart);
-                    bindChart(view.findViewById(R.id.ivChart), d, ap, a, r);
+                    bindChart(view.findViewById(R.id.ivChart), d, ap, p, r);
+                    view.findViewById(R.id.layoutHomeRequestsEmpty).setVisibility(finalItems.isEmpty() ? View.VISIBLE : View.GONE);
+                    view.findViewById(R.id.rvHomeRequests).setVisibility(finalItems.isEmpty() ? View.GONE : View.VISIBLE);
                     ((RecyclerView) view.findViewById(R.id.rvHomeRequests)).getAdapter().notifyDataSetChanged();
                     ((RequestAdapter) ((RecyclerView) view.findViewById(R.id.rvHomeRequests)).getAdapter()).submitList(finalItems);
                 });
@@ -178,14 +180,16 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
     }
 
     private void bindChart(PieChart chart, int done, int approved, int analysis, int refused) {
+        boolean hasRequests = done + approved + analysis + refused > 0;
         PieDataSet dataSet = new PieDataSet(Arrays.asList(
-                new PieEntry(done), new PieEntry(approved),
+                new PieEntry(hasRequests ? done : 1), new PieEntry(approved),
                 new PieEntry(analysis), new PieEntry(refused)), "");
-        dataSet.setColors(Arrays.asList(
+        dataSet.setColors(hasRequests ? Arrays.asList(
                 ContextCompat.getColor(requireContext(), R.color.app_status_done_chart),
                 ContextCompat.getColor(requireContext(), R.color.app_status_approved),
                 ContextCompat.getColor(requireContext(), R.color.app_status_analysis),
-                ContextCompat.getColor(requireContext(), R.color.app_status_refused_chart)));
+                ContextCompat.getColor(requireContext(), R.color.app_status_refused_chart))
+                : java.util.Collections.singletonList(ContextCompat.getColor(requireContext(), R.color.app_chart_empty)));
         dataSet.setDrawValues(false);
         chart.setData(new PieData(dataSet));
         chart.setUsePercentValues(false);
@@ -208,10 +212,10 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
         if (value.equalsIgnoreCase("REPROVADO")) {
             return RequestItem.Status.REFUSED;
         }
-        if (value.equalsIgnoreCase("CONCLUIDO")) {
+        if (value.equalsIgnoreCase("CONCLUIDO") || value.equalsIgnoreCase("CONCLUÍDO")) {
             return RequestItem.Status.DONE;
         }
-        return RequestItem.Status.ANALYSIS;
+        return RequestItem.Status.PENDING;
     }
 
     private void bindLegend(View root, @IdRes int rowId, int labelRes, int count, @ColorRes int color) {

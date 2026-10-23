@@ -9,9 +9,9 @@ import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import okhttp3.ResponseBody;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -61,7 +61,30 @@ public final class AuthRepository {
     }
 
     public JSONObject requestPasswordRecovery(String email) throws Exception {
-        return execute(api.requestPasswordRecovery(URLEncoder.encode(email, "UTF-8")));
+        return execute(api.requestPasswordRecovery(android.net.Uri.encode(email)));
+    }
+
+    public boolean validateRecoveryCode(String email, int code) throws Exception {
+        JsonObject body = new JsonObject();
+        body.addProperty("email", email);
+        body.addProperty("codigo", code);
+        Response<Boolean> response = api.validateRecoveryCode(body).execute();
+        if (!response.isSuccessful()) {
+            throw new ApiException(response.code(), response.errorBody() == null ? "" : response.errorBody().string());
+        }
+        return Boolean.TRUE.equals(response.body());
+    }
+
+    public String resetPassword(String email, int code, String newPassword) throws Exception {
+        JsonObject body = new JsonObject();
+        body.addProperty("email", email);
+        body.addProperty("codigo", code);
+        body.addProperty("novaSenha", newPassword);
+        Response<ResponseBody> response = api.resetPassword(body).execute();
+        if (!response.isSuccessful()) {
+            throw new ApiException(response.code(), response.errorBody() == null ? "" : response.errorBody().string());
+        }
+        return response.body() == null ? "" : response.body().string();
     }
 
     public List<CadastroOption> institutions() throws Exception {
