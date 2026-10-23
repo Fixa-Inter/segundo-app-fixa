@@ -69,6 +69,8 @@ Implementa detalhes externos e converte seus formatos para contratos internos.
 - `adapter/`: adapters visuais de listas/RecyclerViews, atualmente em `solicitacao/` (por exemplo, `RequestAdapter` e `TimelineAdapter`). Recebem modelos apropriados e encaminham eventos por callbacks; não fazem chamadas de rede nem regras de negócio.
 - `config/`: componentes e utilitários de UI reutilizáveis, como diálogos, loading, navegação auxiliar, notificadores e comportamento compartilhado. Não use esta pasta como depósito de regras de negócio ou acesso a dados.
 
+O fluxo de gestor/técnico usa `ui/view/operations/` para sua Activity, Fragments e auxiliares exclusivos de renderização/interação, `adapter/operations/` para `OperationsViewModel` e `ui/config/operations/` para o catálogo de telas. O catálogo JSON fica em `app/src/main/assets/operations/screens.json`; layouts e recursos visuais correspondentes permanecem em `res/`. Esse fluxo ainda é um protótipo com dados locais e não possui integração de negócio com a API. Quando essa integração for criada, introduza modelos e contratos em `domain`, casos de uso em `application` e implementações em `infrastructure` antes de conectar o ViewModel. Não coloque a configuração estática de layout em DTOs de API.
+
 ### Recursos Android
 
 - `app/src/main/res/layout/`: layouts. Preserve dimensões, hierarquia e composição visual em refatorações arquiteturais.
@@ -103,7 +105,7 @@ Não pule diretamente da view para `infrastructure`. A interface do repositório
 | URL da API | `infrastructure/remote/api/ApiClient.java` | A URL base de produção está atualmente escrita no `ApiClient`. Use configuração centralizada por ambiente para novos ambientes; não replique a URL em cada endpoint. |
 | Configuração Cloudinary | `local.properties` | O Gradle lê `cloudinary.cloud_name`, `cloudinary.api_key`, `cloudinary.upload_preset` (com aliases legados) e `cloudinary.solicitacoes_folder` e os injeta como campos `BuildConfig`. Configure localmente; nunca inclua valores reais em documentação, commits, logs ou exemplos. Credenciais embutidas em um app distribuído podem ser extraídas; use apenas credenciais/presets apropriados para upload público e restrito. |
 | Firebase/Google | `app/google-services.json` e plugin Google Services | Arquivo de configuração local do Firebase associado ao `applicationId`. Não copie seu conteúdo para documentos ou mensagens. Para OAuth, mantenha os client IDs e a configuração do console alinhados com a aplicação e o ambiente. |
-| Sessão | `infrastructure/auth/session/SessionStorage.java` | Token de acesso cifrado com chave Android Keystore; operações autenticadas adicionam `Authorization: Bearer` no cliente configurado em `ApiClient`. Não registre nem exponha esse token. |
+| Sessão e acesso | `infrastructure/auth/session/SessionStorage.java`, `infrastructure/auth/JwtAccessReader.java`, `domain/enums/TipoAcesso.java` | Token de acesso cifrado com chave Android Keystore. A API inclui o tipo em `role` no JWT; a infraestrutura interpreta esse claim para montar `SessaoUsuario`, e a navegação escolhe solicitante, técnico ou gestor. A leitura local só decide qual fluxo visual abrir; autorização continua no backend. Não registre nem exponha o token. |
 | Textos | `app/src/main/res/values/strings*.xml` | Texto de interface deve ser recurso, para consistência e localização.
 | Permissões e destinos | Manifest e `res/navigation/nav_graph_app.xml` | Atualize ao introduzir Activity, permissões ou destino de navegação; não exponha componentes sem necessidade. |
 

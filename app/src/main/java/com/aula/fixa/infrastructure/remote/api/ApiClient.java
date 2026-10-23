@@ -49,6 +49,10 @@ public final class ApiClient {
         return authenticatedRetrofit(session).create(SolicitacaoApi.class);
     }
 
+    public static OrdemServicoApi ordensServico(SessionStorage session) {
+        return authenticatedRetrofit(session).create(OrdemServicoApi.class);
+    }
+
     public static PerfilApi perfil(SessionStorage session) {
         return authenticatedRetrofit(session).create(PerfilApi.class);
     }

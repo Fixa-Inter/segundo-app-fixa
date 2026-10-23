@@ -1,4 +1,4 @@
-package com.aula.fixa.ui.operations;
+package com.aula.fixa.ui.view.operations;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,11 +7,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import com.aula.fixa.R;
+import com.aula.fixa.adapter.operations.OperationsViewModel;
+import com.aula.fixa.domain.model.ManagerHomeData;
 import com.bumptech.glide.Glide;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.List;
+import java.text.SimpleDateFormat;
 
 /** Estado de apresentação local para a revisão dos fluxos, sem simular gravações na API. */
 public final class OperationsData {
@@ -65,7 +77,151 @@ public final class OperationsData {
                 }
             }
         }
+        if ("manager_home".equals(key)) bindEmptyManagerHome(activity, root);
     }
+
+    private static void bindEmptyManagerHome(OperationsActivity activity, View root) {
+        TextView greeting = root.findViewById(R.id.ops_5717_7299);
+        if (greeting != null) greeting.setText("");
+        for (int id : new int[]{7312, 7315, 7327, 7319, 7323}) setOrderCount(root, id, 0);
+        for (int id : new int[]{7266, 7283}) {
+            View mock = root.findViewById(activity.getResources().getIdentifier(
+                    "ops_5717_" + id, "id", activity.getPackageName()));
+            if (mock != null) mock.setVisibility(View.GONE);
+        }
+        View chart = root.findViewById(R.id.ops_5717_7330);
+        if (chart instanceof PieChart) bindOrderChart(activity, (PieChart) chart, 0, 0, 0, 0, 0);
+    }
+
+    public static void bindManagerHome(OperationsActivity activity, View root, ManagerHomeData data) {
+        TextView greeting = root.findViewById(R.id.ops_5717_7299);
+        if (greeting != null) greeting.setText(activity.getString(R.string.ops_home_greeting,
+                data.nomeGestor.trim().isEmpty() ? activity.getString(R.string.ops_home_unknown_manager) : data.nomeGestor.trim()));
+        loadAvatar(activity, root.findViewById(R.id.ops_5717_7336), data.fotoGestor);
+
+        int completed = 0, active = 0, notStarted = 0, overdue = 0, paused = 0;
+        for (ManagerHomeData.OrdemServicoHomeItem order : data.ordens) {
+            String status = normalizeStatus(order.status);
+            if (status.contains("CONCLUID")) completed++;
+            else if (status.contains("ANDAMENTO")) active++;
+            else if (status.contains("NAO_INICIADA") || status.equals("NAOINICIADA")) notStarted++;
+            else if (status.contains("ATRASAD")) overdue++;
+            else if (status.contains("PAUSAD")) paused++;
+        }
+        setOrderCount(root, 7312, completed);
+        setOrderCount(root, 7315, active);
+        setOrderCount(root, 7327, notStarted);
+        setOrderCount(root, 7319, overdue);
+        setOrderCount(root, 7323, paused);
+        View chart = root.findViewById(R.id.ops_5717_7330);
+        if (chart instanceof PieChart) bindOrderChart(activity, (PieChart) chart, completed, active, notStarted, overdue, paused);
+        bindRecentRequests(activity, root, data.solicitacoes);
+    }
+
+    private static String normalizeStatus(String value) {
+        return value == null ? "" : java.text.Normalizer.normalize(value, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "").trim().toUpperCase(Locale.ROOT).replace(' ', '_');
+    }
+
+    private static void setOrderCount(View root, int suffix, int count) {
+        int id = root.getResources().getIdentifier("ops_5717_" + suffix, "id", root.getContext().getPackageName());
+        TextView value = root.findViewById(id);
+        if (value != null) value.setText(root.getContext().getString(R.string.ops_home_order_count, count));
+    }
+
+    private static void bindOrderChart(OperationsActivity activity, PieChart chart,
+                                       int completed, int active, int notStarted, int overdue, int paused) {
+        boolean hasData = completed + active + notStarted + overdue + paused > 0;
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        entries.add(new PieEntry(hasData ? completed : 1));
+        entries.add(new PieEntry(active));
+        entries.add(new PieEntry(notStarted));
+        entries.add(new PieEntry(overdue));
+        entries.add(new PieEntry(paused));
+        PieDataSet set = new PieDataSet(entries, "");
+        set.setDrawValues(false);
+        set.setSliceSpace(1f);
+        set.setColors(hasData ? Arrays.asList(
+                ContextCompat.getColor(activity, R.color.app_status_done_chart),
+                ContextCompat.getColor(activity, R.color.app_status_approved),
+                ContextCompat.getColor(activity, R.color.app_status_analysis),
+                ContextCompat.getColor(activity, R.color.app_status_refused_chart),
+                ContextCompat.getColor(activity, R.color.app_status_pending))
+                : java.util.Collections.singletonList(ContextCompat.getColor(activity, R.color.app_chart_empty)));
+        chart.setData(new PieData(set));
+        chart.setDrawEntryLabels(false);
+        chart.setDrawHoleEnabled(true);
+        chart.setHoleColor(android.graphics.Color.TRANSPARENT);
+        chart.setHoleRadius(66f);
+        chart.setTransparentCircleRadius(68f);
+        chart.getDescription().setEnabled(false);
+        chart.getLegend().setEnabled(false);
+        chart.setRotationEnabled(false);
+        chart.setHighlightPerTapEnabled(false);
+        chart.invalidate();
+    }
+
+    private static void bindRecentRequests(OperationsActivity activity, View root,
+                                           List<ManagerHomeData.SolicitacaoHomeItem> requests) {
+        ConstraintLayout content = findContent(root);
+        if (content == null) return;
+        View previous = content.findViewWithTag("manager_home_recent_requests");
+        if (previous != null) content.removeView(previous);
+        LinearLayout list = new LinearLayout(activity);
+        list.setOrientation(LinearLayout.VERTICAL);
+        list.setTag("manager_home_recent_requests");
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+        params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+        params.topToBottom = R.id.ops_5717_7298;
+        params.topMargin = Math.round(13 * scale(activity));
+        params.setMarginStart(activity.getResources().getDimensionPixelSize(R.dimen.app_home_card_side_margin));
+        params.setMarginEnd(activity.getResources().getDimensionPixelSize(R.dimen.app_home_card_side_margin));
+        content.addView(list, params);
+        if (requests.isEmpty()) {
+            TextView empty = new TextView(activity);
+            empty.setText(R.string.ops_home_request_empty);
+            empty.setTextColor(ContextCompat.getColor(activity, R.color.app_text_secondary));
+            empty.setTextSize(13);
+            empty.setPadding(0, Math.round(14 * scale(activity)), 0, Math.round(14 * scale(activity)));
+            list.addView(empty);
+            return;
+        }
+        for (ManagerHomeData.SolicitacaoHomeItem request : requests) {
+            View card = activity.getLayoutInflater().inflate(R.layout.item_ops_manager_home_request, list, false);
+            ((TextView) card.findViewById(R.id.opsHomeRequestDate)).setText(formatDate(request.dataCriacao));
+            ((TextView) card.findViewById(R.id.opsHomeRequestTitle)).setText(request.titulo.trim().isEmpty()
+                    ? activity.getString(R.string.ops_home_untitled_request) : request.titulo.trim());
+            String location = (request.local + (request.descricaoLocal.isEmpty() ? "" : " - " + request.descricaoLocal)).trim();
+            ((TextView) card.findViewById(R.id.opsHomeRequestLocation)).setText(location.isEmpty()
+                    ? activity.getString(R.string.ops_home_unknown_location) : location);
+            String requester = request.solicitante.trim().isEmpty()
+                    ? activity.getString(R.string.ops_home_unknown_requester) : request.solicitante.trim();
+            ((TextView) card.findViewById(R.id.opsHomeRequestOwner)).setText(
+                    activity.getString(R.string.ops_home_request_owner, requester));
+            loadAvatar(activity, card.findViewById(R.id.opsHomeRequestAvatar), null);
+            card.setContentDescription(request.titulo + ", " + location + ", " + requester);
+            list.addView(card);
+        }
+    }
+
+    private static ImageView loadAvatar(OperationsActivity activity, ImageView image, String url) {
+        if (image != null) Glide.with(activity)
+                .load(url == null || url.trim().isEmpty() ? null : url.trim())
+                .placeholder(R.drawable.img_avatar_115).fallback(R.drawable.img_avatar_115)
+                .error(R.drawable.img_avatar_115).circleCrop().into(image);
+        return image;
+    }
+
+    private static String formatDate(String value) {
+        if (value == null || value.trim().isEmpty()) return "Data não informada";
+        try {
+            String date = value.trim();
+            Date parsed = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(date.substring(0, Math.min(10, date.length())));
+            return new SimpleDateFormat("dd MMM yyyy", new Locale("pt", "BR")).format(parsed);
+        } catch (Exception ignored) { return "Data não informada"; }
+    }
+
     private static void review(OperationsActivity activity,View root,JSONObject screen) {
         String role=activity.role(), title=activity.model.field(role+"_occurrence_service","Título"), description=activity.model.field(role+"_occurrence_service","Problema encontrado");
         String place=activity.model.field(role+"_occurrence_location","Local"),date=activity.model.field(role+"_occurrence_location","Data"),solution=activity.model.field(role+"_occurrence_result","Solução aplicada"),difficulty=activity.model.field(role+"_occurrence_result","Grau de dificuldade");

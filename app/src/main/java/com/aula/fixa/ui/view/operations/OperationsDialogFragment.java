@@ -1,4 +1,4 @@
-package com.aula.fixa.ui.operations;
+package com.aula.fixa.ui.view.operations;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import com.aula.fixa.ui.config.operations.ScreenCatalog;
 import org.json.JSONObject;
 
 /** Diálogos do protótipo com rolagem, teclado e ciclo de vida nativos. */

@@ -17,11 +17,15 @@
     <dimen name="app_home_avatar_margin_top">96dp</dimen>
     <dimen name="app_home_greeting_margin_start">22dp</dimen>
     <dimen name="app_home_card_height">380dp</dimen>
+    <dimen name="app_manager_home_status_card_height">392dp</dimen>
     <dimen name="app_home_chart_size">300dp</dimen>
     <dimen name="app_home_legend_label_text_size">14sp</dimen>
     <dimen name="app_home_legend_value_text_size">16sp</dimen>
+    <dimen name="app_manager_home_legend_label_text_size">12sp</dimen>
+    <dimen name="app_manager_home_legend_value_text_size">14sp</dimen>
 
     <dimen name="app_request_card_height">140dp</dimen>
+    <dimen name="app_manager_home_request_card_height">148dp</dimen>
     <dimen name="app_requests_title_margin_start">64dp</dimen>
     <dimen name="app_requests_search_text_size">15sp</dimen>
     <dimen name="app_requests_empty_image_size">420dp</dimen>

@@ -1,4 +1,4 @@
-package com.aula.fixa.ui.operations;
+package com.aula.fixa.adapter.operations;
 
 import android.os.Bundle;
 import androidx.lifecycle.SavedStateHandle;

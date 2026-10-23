@@ -1,4 +1,4 @@
-package com.aula.fixa.ui.operations;
+package com.aula.fixa.ui.config.operations;
 
 import android.content.Context;
 import org.json.JSONArray;

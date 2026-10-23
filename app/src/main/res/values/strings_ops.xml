@@ -1,6 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="ops_text_0_ordens_de_s_1a8273" formatted="false">0 Ordens de S.</string>
+    <string name="ops_home_load_error">Não foi possível carregar os dados da home.</string>
+    <string name="ops_home_request_empty">Nenhuma solicitação pendente encontrada.</string>
+    <string name="ops_home_untitled_request">Solicitação sem título</string>
+    <string name="ops_home_unknown_location">Local não informado</string>
+    <string name="ops_home_unknown_requester">Solicitante não informado</string>
+    <string name="ops_home_order_count">%1$d OSs</string>
+    <string name="ops_home_request_owner">Registrado por %1$s (Solicitante)</string>
+    <string name="ops_home_greeting">Olá, %1$s!</string>
+    <string name="ops_home_unknown_manager">gestor</string>
+    <string name="ops_text_0_ordens_de_s_1a8273" formatted="false">0 OSs</string>
     <string name="ops_text_10_00_18_00_bf9db2" formatted="false">10:00 - 18:00</string>
     <string name="ops_text_10_4a44dc" formatted="false">10</string>
     <string name="ops_text_10_8d99e2" formatted="false">_/10</string>
@@ -25,7 +34,7 @@
     <string name="ops_text_18_mar_2026_7e1166" formatted="false">18 Mar 2026</string>
     <string name="ops_text_19_9400f1" formatted="false">19</string>
     <string name="ops_text_1_6b86b2" formatted="false">1</string>
-    <string name="ops_text_1_ordens_de_s_3cffe3" formatted="false">1 Ordens de S.</string>
+    <string name="ops_text_1_ordens_de_s_3cffe3" formatted="false">1 OSs</string>
     <string name="ops_text_1o_7b8135" formatted="false">1º</string>
     <string name="ops_text_20_02_2026_f3e646" formatted="false">20/02/2026</string>
     <string name="ops_text_20_f5ca38" formatted="false">20</string>
@@ -41,13 +50,13 @@
     <string name="ops_text_28_59e197" formatted="false">28</string>
     <string name="ops_text_29_35135a" formatted="false">29</string>
     <string name="ops_text_2_d4735e" formatted="false">2</string>
-    <string name="ops_text_2_ordens_de_s_822722" formatted="false">2 Ordens de S.</string>
+    <string name="ops_text_2_ordens_de_s_822722" formatted="false">2 OSs</string>
     <string name="ops_text_2o_267c1e" formatted="false">2º</string>
     <string name="ops_text_30_624b60" formatted="false">30</string>
     <string name="ops_text_30_dias_59c86f" formatted="false">30 dias</string>
     <string name="ops_text_3_10_088ae5" formatted="false">3/10</string>
     <string name="ops_text_3_4e0740" formatted="false">3</string>
-    <string name="ops_text_3_ordens_de_s_91e35e" formatted="false">3 Ordens de S.</string>
+    <string name="ops_text_3_ordens_de_s_91e35e" formatted="false">3 OSs</string>
     <string name="ops_text_3_tarefas_8af4f5" formatted="false">3 tarefas</string>
     <string name="ops_text_3o_9065d3" formatted="false">3º</string>
     <string name="ops_text_4_4b2277" formatted="false">4</string>
@@ -208,7 +217,7 @@
     <string name="ops_text_escreva_o_motivo_da_exclusao_620987" formatted="false">Escreva o motivo da exclusão</string>
     <string name="ops_text_escreva_o_texto_da_opcao_2507ec" formatted="false">Escreva o texto da opção</string>
     <string name="ops_text_essa_acao_nao_podera_ser_desfeita_ccfb48" formatted="false">Essa ação não poderá ser desfeita.</string>
-    <string name="ops_text_estados_das_os_8d6b5d" formatted="false">Estados das OS</string>
+    <string name="ops_text_estados_das_os_8d6b5d" formatted="false">Estados das OSs</string>
     <string name="ops_text_event_details_a1955d" formatted="false">event_details</string>
     <string name="ops_text_eventos_aef5bd" formatted="false">Eventos</string>
     <string name="ops_text_events_862417" formatted="false">events</string>

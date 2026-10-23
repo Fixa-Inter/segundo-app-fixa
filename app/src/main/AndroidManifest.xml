@@ -62,6 +62,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.view.operations.OperationsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.view.offline.OfflineActivity"
             android:exported="false"
             android:launchMode="singleTop" />

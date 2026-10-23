@@ -12,9 +12,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.aula.fixa.R;
-import com.aula.fixa.ui.view.main.MainActivity;
 import com.aula.fixa.adapter.auth.SessaoViewModel;
 import com.aula.fixa.adapter.auth.SessaoViewModelFactory;
+import com.aula.fixa.ui.config.NavegacaoAcesso;
 import com.aula.fixa.ui.config.ImmersiveActivity;
 import com.aula.fixa.ui.view.onboarding.OnboardingActivity;
 
@@ -37,9 +37,10 @@ public class SplashActivity extends ImmersiveActivity {
         });
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            boolean hasSession = sessaoViewModel.temSessao();
-            Intent intent = new Intent(SplashActivity.this,
-                    hasSession ? MainActivity.class : OnboardingActivity.class);
+            if (sessaoViewModel.temSessao() && sessaoViewModel.tokenValido()
+                    && NavegacaoAcesso.abrir(this, sessaoViewModel.tipoAcesso())) return;
+            sessaoViewModel.encerrar();
+            Intent intent = new Intent(SplashActivity.this, OnboardingActivity.class);
             startActivity(intent);
             finish();
         }, SPLASH_DURATION_MILLIS);

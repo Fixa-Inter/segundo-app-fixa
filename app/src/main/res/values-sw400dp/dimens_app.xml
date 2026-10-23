@@ -10,6 +10,7 @@
     <dimen name="app_home_avatar_size">85dp</dimen>
     <dimen name="app_home_greeting_text_size">24sp</dimen>
     <dimen name="app_home_card_height">240dp</dimen>
+    <dimen name="app_manager_home_status_card_height">260dp</dimen>
     <dimen name="app_home_card_title_text_size">25sp</dimen>
     <dimen name="app_home_chart_size">190dp</dimen>
     <dimen name="app_home_open_button_width">115dp</dimen>
@@ -158,6 +159,8 @@
     <dimen name="app_home_legend_text_margin_start">12dp</dimen>
     <dimen name="app_home_legend_label_text_size">9sp</dimen>
     <dimen name="app_home_legend_value_text_size">10sp</dimen>
+    <dimen name="app_manager_home_legend_label_text_size">8sp</dimen>
+    <dimen name="app_manager_home_legend_value_text_size">9sp</dimen>
     <dimen name="app_home_chart_margin_top">31dp</dimen>
     <dimen name="app_home_section_margin_top">35dp</dimen>
     <dimen name="app_home_section_title_text_size">15sp</dimen>
@@ -165,6 +168,7 @@
     <dimen name="app_home_open_button_text_size">9.5sp</dimen>
     <dimen name="app_home_list_margin_top">35dp</dimen>
     <dimen name="app_request_card_height">110dp</dimen>
+    <dimen name="app_manager_home_request_card_height">118dp</dimen>
     <dimen name="app_request_card_radius">15dp</dimen>
     <dimen name="app_request_card_spacing">14dp</dimen>
     <dimen name="app_request_card_accent_width">13dp</dimen>
@@ -179,6 +183,7 @@
     <dimen name="app_request_card_title_margin_start">30dp</dimen>
     <dimen name="app_request_card_title_text_size">16sp</dimen>
     <dimen name="app_request_card_subtitle_text_size">11sp</dimen>
+    <dimen name="app_request_card_owner_text_size">8.5sp</dimen>
     <dimen name="app_request_card_status_margin_top">9dp</dimen>
     <dimen name="app_request_card_status_text_size">9sp</dimen>
     <dimen name="app_request_card_menu_size">14dp</dimen>

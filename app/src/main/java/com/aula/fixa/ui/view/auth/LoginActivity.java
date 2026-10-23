@@ -10,9 +10,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.view.WindowCompat;
 
-import com.aula.fixa.ui.view.main.MainActivity;
 import com.aula.fixa.R;
 import com.aula.fixa.adapter.auth.AutenticacaoViewModel;
+import com.aula.fixa.adapter.auth.SessaoViewModel;
+import com.aula.fixa.adapter.auth.SessaoViewModelFactory;
+import com.aula.fixa.domain.model.SessaoUsuario;
+import com.aula.fixa.ui.config.NavegacaoAcesso;
 import com.aula.fixa.ui.config.ImmersiveActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -87,8 +90,8 @@ public class LoginActivity extends ImmersiveActivity {
         findViewById(R.id.btnLogin).setEnabled(false);
         new Thread(() -> {
             try {
-                authRepository.login(email, password);
-                runOnUiThread(this::openMain);
+                SessaoUsuario sessao = authRepository.login(email, password);
+                runOnUiThread(() -> abrirFluxo(sessao.tipoAcesso));
             } catch (Exception e) {
                 runOnUiThread(() -> {
                     findViewById(R.id.btnLogin).setEnabled(true);
@@ -123,7 +126,7 @@ public class LoginActivity extends ImmersiveActivity {
                         String responseEmail = response.email == null ? "" : response.email;
 
                         if ("AUTHENTICATED".equals(status) && response.token != null && !response.token.trim().isEmpty()) {
-                            runOnUiThread(this::openMain);
+                            runOnUiThread(() -> abrirFluxo(response.tipoAcesso));
                         } else if ("REGISTRATION_REQUIRED".equals(status)
                                 || (!responseEmail.trim().isEmpty() && (response.token == null || response.token.trim().isEmpty()))) {
                             Intent intent = new Intent(this, RegisterActivity.class)
@@ -151,9 +154,13 @@ public class LoginActivity extends ImmersiveActivity {
         finish();
     }
 
-    private void openMain() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+    private void abrirFluxo(com.aula.fixa.domain.enums.TipoAcesso tipoAcesso) {
+        if (NavegacaoAcesso.abrir(this, tipoAcesso)) return;
+        new androidx.lifecycle.ViewModelProvider(this, new SessaoViewModelFactory(this))
+                .get(SessaoViewModel.class).encerrar();
+        findViewById(R.id.btnLogin).setEnabled(true);
+        findViewById(R.id.btnGoogle).setEnabled(true);
+        Toast.makeText(this, R.string.app_access_role_unsupported, Toast.LENGTH_LONG).show();
     }
 
     private void showLoginError(Throwable error) {

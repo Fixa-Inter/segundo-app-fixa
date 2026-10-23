@@ -14,10 +14,14 @@ public final class AppLoading {
     private AppLoading() {}
 
     public static Dialog show(Context context) {
+        return show(context, Color.argb(150, 0, 0, 0));
+    }
+
+    private static Dialog show(Context context, int backgroundColor) {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         FrameLayout overlay = new FrameLayout(context);
-        overlay.setBackgroundColor(Color.argb(150, 0, 0, 0));
+        overlay.setBackgroundColor(backgroundColor);
         ProgressBar progress = new ProgressBar(context);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(72, 72, Gravity.CENTER);
         overlay.addView(progress, params);

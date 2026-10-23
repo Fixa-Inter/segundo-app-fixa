@@ -264,4 +264,5 @@
     <string name="recovery_success_back_to_login">Voltar para login</string>
     <string name="recovery_success_back_to_profile">Voltar ao perfil</string>
     <string name="app_offline_message">Verifique sua conexão com a internet</string>
+    <string name="app_access_role_unsupported">Este tipo de acesso ainda não possui um fluxo disponível no aplicativo.</string>
 </resources>

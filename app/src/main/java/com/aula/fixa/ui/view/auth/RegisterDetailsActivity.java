@@ -9,8 +9,11 @@ import androidx.activity.EdgeToEdge;
 import androidx.core.view.WindowCompat;
 
 import com.aula.fixa.R;
-import com.aula.fixa.ui.view.main.MainActivity;
 import com.aula.fixa.adapter.auth.AutenticacaoViewModel;
+import com.aula.fixa.adapter.auth.SessaoViewModel;
+import com.aula.fixa.adapter.auth.SessaoViewModelFactory;
+import com.aula.fixa.domain.model.SessaoUsuario;
+import com.aula.fixa.ui.config.NavegacaoAcesso;
 import com.aula.fixa.ui.config.ImmersiveActivity;
 
 import java.util.Calendar;
@@ -76,14 +79,17 @@ public class RegisterDetailsActivity extends ImmersiveActivity {
         findViewById(R.id.btnCreateAccount).setEnabled(false);
         new Thread(() -> {
             try {
-                autenticacao.register(
+                SessaoUsuario sessao = autenticacao.register(
                         name.getText().toString().trim(),
                         email.getText().toString().trim(),
                         password.getText().toString(), unitId, role.getText().toString().trim(), birthDate);
-                
                 runOnUiThread(() -> {
-                    startActivity(new Intent(this, MainActivity.class));
-                    finishAffinity();
+                    if (NavegacaoAcesso.abrir(this, sessao.tipoAcesso)) return;
+                    new androidx.lifecycle.ViewModelProvider(this, new SessaoViewModelFactory(this))
+                            .get(SessaoViewModel.class).encerrar();
+                    findViewById(R.id.btnCreateAccount).setEnabled(true);
+                    android.widget.Toast.makeText(this, R.string.app_access_role_unsupported,
+                            android.widget.Toast.LENGTH_LONG).show();
                 });
             } catch (Exception e) {
                 runOnUiThread(() -> {

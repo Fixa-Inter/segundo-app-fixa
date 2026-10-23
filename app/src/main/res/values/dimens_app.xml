@@ -45,6 +45,7 @@
     <dimen name="app_home_card_margin_top">18dp</dimen>
     <dimen name="app_home_card_side_margin">24dp</dimen>
     <dimen name="app_home_card_height">232dp</dimen>
+    <dimen name="app_manager_home_status_card_height">244dp</dimen>
     <dimen name="app_home_card_radius">17dp</dimen>
     <dimen name="app_home_card_padding">13dp</dimen>
     <dimen name="app_home_card_title_text_size">22sp</dimen>
@@ -55,6 +56,8 @@
     <dimen name="app_home_legend_text_margin_start">10dp</dimen>
     <dimen name="app_home_legend_label_text_size">12sp</dimen>
     <dimen name="app_home_legend_value_text_size">12sp</dimen>
+    <dimen name="app_manager_home_legend_label_text_size">10sp</dimen>
+    <dimen name="app_manager_home_legend_value_text_size">10sp</dimen>
     <dimen name="app_home_chart_size">160dp</dimen>
     <dimen name="app_home_chart_margin_top">27dp</dimen>
     <dimen name="app_home_section_margin_top">31dp</dimen>
@@ -66,6 +69,7 @@
 
     <!-- Card de solicitação -->
     <dimen name="app_request_card_height">96dp</dimen>
+    <dimen name="app_manager_home_request_card_height">104dp</dimen>
     <dimen name="app_request_card_radius">13dp</dimen>
     <dimen name="app_request_card_spacing">12dp</dimen>
     <dimen name="app_request_card_accent_width">11dp</dimen>
@@ -80,6 +84,7 @@
     <dimen name="app_request_card_title_margin_start">26dp</dimen>
     <dimen name="app_request_card_title_text_size">17sp</dimen>
     <dimen name="app_request_card_subtitle_text_size">12sp</dimen>
+    <dimen name="app_request_card_owner_text_size">9.5sp</dimen>
     <dimen name="app_request_card_status_margin_top">8dp</dimen>
     <dimen name="app_request_card_status_text_size">9sp</dimen>
     <dimen name="app_request_card_menu_size">12dp</dimen>

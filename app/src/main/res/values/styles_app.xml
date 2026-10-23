@@ -75,9 +75,21 @@
         <item name="android:textColor">@color/app_text_navy</item>
         <item name="android:textSize">@dimen/app_home_legend_value_text_size</item>
     </style>
+    <style name="TextAppearance.FIXA.App.ManagerHome.LegendLabel" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_navy</item>
+        <item name="android:textSize">@dimen/app_manager_home_legend_label_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.ManagerHome.LegendValue" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textColor">@color/app_text_navy</item>
+        <item name="android:textSize">@dimen/app_manager_home_legend_value_text_size</item>
+    </style>
     <style name="TextAppearance.FIXA.App.Home.SectionTitle" parent="TextAppearance.FIXA.App.Medium">
         <item name="android:textColor">@color/app_primary_deep</item>
         <item name="android:textSize">@dimen/app_home_section_title_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Home.Subtitle" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/app_home_legend_label_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Home.OpenButton" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_primary_deep</item>
@@ -96,6 +108,10 @@
     <style name="TextAppearance.FIXA.App.RequestCard.Subtitle" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_text_black</item>
         <item name="android:textSize">@dimen/app_request_card_subtitle_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.RequestCard.Owner" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textSize">@dimen/app_request_card_owner_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.RequestCard.Status" parent="TextAppearance.FIXA.App.SemiBold">
         <item name="android:textSize">@dimen/app_request_card_status_text_size</item>

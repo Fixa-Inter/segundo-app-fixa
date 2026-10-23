@@ -1,6 +1,8 @@
-package com.aula.fixa.ui.operations;
+package com.aula.fixa.ui.view.operations;
 
 import android.content.Context;
+import com.aula.fixa.adapter.operations.OperationsViewModel;
+import com.aula.fixa.ui.config.operations.ScreenCatalog;
 import org.json.JSONObject;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;

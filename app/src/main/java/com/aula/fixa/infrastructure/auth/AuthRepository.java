@@ -1,6 +1,7 @@
 package com.aula.fixa.infrastructure.auth;
 
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
+import com.aula.fixa.domain.enums.TipoAcesso;
 import com.aula.fixa.infrastructure.remote.api.ApiClient;
 import com.aula.fixa.infrastructure.remote.api.AuthApi;
 import com.aula.fixa.infrastructure.remote.ApiException;
@@ -40,14 +41,16 @@ public final class AuthRepository implements AutenticacaoRepository {
         body.email = email;
         body.senha = password;
         LoginResponse result = execute(api.login(body));
-        return new SessaoUsuario(result.email, result.token);
+        return new SessaoUsuario(result.email, result.token, tipoAcesso(result.token));
     }
 
     @Override public ResultadoLoginGoogle loginGoogle(String idToken) throws Exception {
         LoginGoogleRequest body = new LoginGoogleRequest();
         body.idToken = idToken;
         LoginGoogleResponse result = execute(api.loginGoogle(body));
-        return new ResultadoLoginGoogle(result.status, result.email, result.nome, result.token);
+        TipoAcesso tipoAcesso = result.token == null || result.token.trim().isEmpty()
+                ? null : tipoAcesso(result.token);
+        return new ResultadoLoginGoogle(result.status, result.email, result.nome, result.token, tipoAcesso);
     }
 
     @Override public SessaoUsuario cadastrar(
@@ -66,7 +69,16 @@ public final class AuthRepository implements AutenticacaoRepository {
         body.cargo = role;
         body.dataNascimento = birthDate;
         LoginResponse result = execute(api.register(body));
-        return new SessaoUsuario(result.email, result.token);
+        return new SessaoUsuario(result.email, result.token, tipoAcesso(result.token));
+    }
+
+    private TipoAcesso tipoAcesso(String token) throws Exception {
+        try {
+            return JwtAccessReader.read(token);
+        } catch (Exception error) {
+            session.clear();
+            throw new IOException("A API não retornou um tipo de acesso válido.", error);
+        }
     }
 
     @Override public ResultadoRecuperacaoSenha solicitarRecuperacao(String email) throws Exception {

@@ -1,4 +1,4 @@
-package com.aula.fixa.ui.operations;
+package com.aula.fixa.ui.view.operations;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,7 +15,9 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import com.aula.fixa.R;
-import com.aula.fixa.ui.common.TouchTargets;
+import com.aula.fixa.adapter.operations.OperationsViewModel;
+import com.aula.fixa.ui.config.TouchTargets;
+import com.aula.fixa.ui.config.operations.ScreenCatalog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;

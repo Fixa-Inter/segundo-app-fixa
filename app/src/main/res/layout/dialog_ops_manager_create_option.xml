@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:8293 • manager / create_option. Componentes nativos; dimensões em values e sw400dp. -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_b18732bb6c" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.operations.OperationsScreenFragment">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_b18732bb6c" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_273" android:clipChildren="false" android:clipToPadding="false">
         <TextView
             android:id="@+id/ops_5717_8294"

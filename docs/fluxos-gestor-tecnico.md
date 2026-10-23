@@ -12,7 +12,7 @@ activity_operations.xml, view_ops_bottom_nav.xml e nav_graph_operations.xml comp
 
 ## Como revisar sem alterar a entrada atual do app
 
-Compile a variante debug no Android Studio. O launcher FIXA · Protótipos abre uma galeria dos 135 estados sem login. A galeria e sua declaração de manifesto são arquivos novos em src/debug e não entram na variante release.
+Os fluxos de Gestor e Técnico são acessados pelo aplicativo principal após a autenticação. Não há uma galeria de protótipos separada no launcher.
 
 O manifesto principal, MainActivity, o grafo de navegação existente e todos os outros arquivos anteriores permanecem intactos. Por isso, a entrada automática dos novos perfis pelo login não está aplicada. A integração ao fluxo existente deve ser combinada em uma alteração posterior.
 
@@ -29,7 +29,5 @@ O texto e as imagens seguem o protótipo, que contém alguns nomes, mensagens e 
 O dispositivo prioritário para a feira é o Galaxy Tab A7 Lite em retrato. Foram conferidos os 135 estados em telefones de 360dp e 412dp e, na resolução 800×1340, em duas densidades ilustrativas (160 e 213dpi). A revisão anterior inclui capturas dos dois perfis de tablet, auditoria das medidas e revisão visual. As telas mais compridas usam rolagem vertical.
 
 O ambiente de emulação utiliza Android 16/API36. A densidade e a versão do Android do tablet físico não foram confirmadas; teclado, rolagem, tamanho das fontes e desempenho ainda precisam da conferência final nele. Esses testes comprovam as configurações descritas, sem garantir todo dispositivo ou configuração.
-
-OperationsScreensTest verifica a abertura de todos os 135 estados e permite selecionar uma lista pelo argumento screens. OperationsInteractionTest verifica inclusão local de categoria, restauração de rascunho e confirmação de aprovação. São testes instrumentados e exigem emulador ou dispositivo.
 
 A validação para publicação usa uma cópia limpa do commit desta proposta. Os comandos e resultados finais constam no PR. O lint global da base tem erros anteriores em arquivos preservados; esses erros não devem ser ocultados nem corrigidos como parte desta adição de telas.
