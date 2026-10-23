@@ -15,7 +15,7 @@
     android:clipToPadding="false"
     android:fillViewport="true"
     android:paddingBottom="@dimen/app_home_card_side_margin"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.view.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/homeRoot"

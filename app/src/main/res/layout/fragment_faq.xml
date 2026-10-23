@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_background"
     android:orientation="vertical"
-    tools:context=".ui.profile.FaqFragment">
+    tools:context=".ui.view.profile.FaqFragment">
 
     <include
         android:id="@+id/header"

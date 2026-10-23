@@ -8,7 +8,7 @@
     android:background="@color/login_panel_background"
     android:fillViewport="true"
     android:overScrollMode="never"
-    tools:context=".ui.auth.RegisterDetailsActivity">
+    tools:context=".ui.view.auth.RegisterDetailsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

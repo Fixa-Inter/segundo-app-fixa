@@ -13,7 +13,7 @@
     android:background="@color/app_surface"
     android:fillViewport="true"
     android:overScrollMode="never"
-    tools:context=".ui.auth.VerifyEmailActivity">
+    tools:context=".ui.view.auth.VerifyEmailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

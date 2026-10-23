@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_background"
     android:fillViewport="true"
-    tools:context=".ui.newrequest.NewRequestIntroFragment">
+    tools:context=".ui.view.newrequest.NewRequestIntroFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/introRoot"

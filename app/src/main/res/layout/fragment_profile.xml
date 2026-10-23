@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_background"
     android:fillViewport="true"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".ui.view.profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

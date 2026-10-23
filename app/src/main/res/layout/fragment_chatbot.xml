@@ -10,7 +10,7 @@
     android:id="@+id/drawerChat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.chatbot.ChatbotFragment">
+    tools:context=".ui.view.chatbot.ChatbotFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/chatRoot"

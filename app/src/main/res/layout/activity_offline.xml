@@ -12,7 +12,7 @@
     android:background="@color/app_background_alt"
     android:fillViewport="true"
     android:overScrollMode="never"
-    tools:context=".ui.common.OfflineActivity">
+    tools:context=".ui.view.offline.OfflineActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -17,7 +17,7 @@
         android:theme="@style/Theme.FIXA">
 
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.view.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,43 +26,43 @@
         </activity>
 
         <activity
-            android:name=".ui.onboarding.OnboardingActivity"
+            android:name=".ui.view.onboarding.OnboardingActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.auth.RegisterActivity"
+            android:name=".ui.view.auth.RegisterActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.auth.RegisterDetailsActivity"
+            android:name=".ui.view.auth.RegisterDetailsActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.auth.LoginActivity"
+            android:name=".ui.view.auth.LoginActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.auth.ForgotPasswordActivity"
+            android:name=".ui.view.auth.ForgotPasswordActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.auth.VerifyEmailActivity"
+            android:name=".ui.view.auth.VerifyEmailActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.auth.ResetPasswordActivity"
+            android:name=".ui.view.auth.ResetPasswordActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.auth.PasswordSuccessActivity"
+            android:name=".ui.view.auth.PasswordSuccessActivity"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.view.main.MainActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.common.OfflineActivity"
+            android:name=".ui.view.offline.OfflineActivity"
             android:exported="false"
             android:launchMode="singleTop" />
 

@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
-    tools:context=".ui.newrequest.NewRequestDescriptionFragment">
+    tools:context=".ui.view.newrequest.NewRequestDescriptionFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollContent"

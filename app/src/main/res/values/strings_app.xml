@@ -131,6 +131,10 @@
     <string name="app_success_title">Solicitação criada com sucesso!</string>
     <string name="app_success_home">Ir para a Home</string>
     <string name="app_success_new">Registrar novo problema</string>
+    <string name="app_request_updated_success">Solicitação atualizada com sucesso.</string>
+    <string name="app_request_deleted_success">Solicitação excluída com sucesso.</string>
+    <string name="app_generic_error">Não foi possível concluir a operação.</string>
+    <string name="app_home_load_error">Não foi possível carregar os dados.</string>
 
     <!-- Perfil -->
     <string name="app_profile_edit">Editar perfil</string>
