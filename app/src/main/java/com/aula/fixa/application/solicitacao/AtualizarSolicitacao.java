@@ -1,8 +1,8 @@
 package com.aula.fixa.application.solicitacao;
 
-import com.aula.fixa.domain.model.AtualizacaoSolicitacao;
-import com.aula.fixa.domain.model.Problema;
-import com.aula.fixa.domain.repository.SolicitacaoRepository;
+import com.aula.fixa.domain.model.solicitacao.AtualizacaoSolicitacao;
+import com.aula.fixa.domain.model.solicitacao.Problema;
+import com.aula.fixa.domain.repository.solicitacao.SolicitacaoRepository;
 
 public final class AtualizarSolicitacao {
     private final SolicitacaoRepository repository;

@@ -72,6 +72,9 @@ public final class OperationsActions {
         if (asset.equals("97246.svg")) {
             return () -> open("profile");
         }
+        if (key.equals("manager_home") && item.optString("id").equals("ops_5717_7336")) {
+            return () -> open("profile");
+        }
         if (asset.equals("58b2a.svg") && item.optJSONArray("bounds").optDouble(0) > 200) {
             return this::create;
         }

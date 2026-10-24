@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
 import com.aula.fixa.domain.enums.StatusProblema;
-import com.aula.fixa.domain.model.EtapaLinhaTempo;
+import com.aula.fixa.domain.model.solicitacao.EtapaLinhaTempo;
 import com.aula.fixa.ui.config.DashedLineDrawable;
 import java.util.List;
 /**

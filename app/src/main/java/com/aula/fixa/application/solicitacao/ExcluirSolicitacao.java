@@ -1,6 +1,6 @@
 package com.aula.fixa.application.solicitacao;
 
-import com.aula.fixa.domain.repository.SolicitacaoRepository;
+import com.aula.fixa.domain.repository.solicitacao.SolicitacaoRepository;
 
 public final class ExcluirSolicitacao {
     private final SolicitacaoRepository repository;

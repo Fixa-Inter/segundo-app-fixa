@@ -3,6 +3,7 @@ package com.aula.fixa.infrastructure.remote.repository;
 import com.aula.fixa.infrastructure.remote.api.ApiClient;
 import com.aula.fixa.infrastructure.remote.api.SolicitacaoApi;
 import com.aula.fixa.infrastructure.remote.dto.ProblemaAtualizarRequest;
+import com.aula.fixa.infrastructure.remote.dto.ProblemaAtualizarStatusRequest;
 import com.aula.fixa.infrastructure.remote.dto.ProblemaCriarRequest;
 import com.aula.fixa.infrastructure.remote.dto.ProblemaResponse;
 import com.aula.fixa.infrastructure.remote.ApiException;
@@ -33,6 +34,16 @@ public final class SolicitacaoRemoteRepository {
         return response.body();
     }
 
+    public List<ProblemaResponse> listarUnidade() throws Exception {
+        Response<List<ProblemaResponse>> response = api.listarUnidade(null, "dataCriacao", -1).execute();
+        if (!response.isSuccessful()) {
+            String body = response.errorBody() == null ? "" : response.errorBody().string();
+            throw new ApiException(response.code(), body);
+        }
+        if (response.body() == null) throw new IOException("A API retornou uma resposta vazia.");
+        return response.body();
+    }
+
     public ProblemaResponse detalhes(long id) throws Exception {
         return requireBody(api.detalhes(id).execute());
     }
@@ -43,6 +54,10 @@ public final class SolicitacaoRemoteRepository {
 
     public ProblemaResponse atualizar(ProblemaAtualizarRequest request) throws Exception {
         return requireBody(api.atualizar(request).execute());
+    }
+
+    public ProblemaResponse atualizarStatus(long id, String status, String motivo) throws Exception {
+        return requireBody(api.atualizarStatus(new ProblemaAtualizarStatusRequest(id,status, motivo)).execute());
     }
 
     public ProblemaResponse excluir(long id) throws Exception {

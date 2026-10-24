@@ -1,10 +1,11 @@
-package com.aula.fixa.infrastructure.remote.repository;
+package com.aula.fixa.infrastructure.remote.repository.home;
 
-import com.aula.fixa.domain.model.ManagerHomeData;
-import com.aula.fixa.domain.repository.ManagerHomeRepository;
+import com.aula.fixa.domain.model.home.ManagerHomeData;
+import com.aula.fixa.domain.repository.home.ManagerHomeRepository;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
 import com.aula.fixa.infrastructure.remote.ApiException;
 import com.aula.fixa.infrastructure.remote.api.ApiClient;
+import com.aula.fixa.infrastructure.remote.repository.SolicitacaoRemoteRepository;
 import com.aula.fixa.infrastructure.remote.dto.OrdemServicoResponse;
 import com.aula.fixa.infrastructure.remote.dto.PerfilResponse;
 import com.aula.fixa.infrastructure.remote.dto.ProblemaResponse;

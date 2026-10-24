@@ -1,4 +1,4 @@
-package com.aula.fixa.domain.model;
+package com.aula.fixa.domain.model.solicitacao;
 
 public final class FotoProblema {
     public final long id;

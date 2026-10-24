@@ -74,6 +74,8 @@
     <dimen name="app_request_card_spacing">12dp</dimen>
     <dimen name="app_request_card_accent_width">11dp</dimen>
     <dimen name="app_request_card_content_margin_start">24dp</dimen>
+    <dimen name="app_request_card_owner_avatar_size">14dp</dimen>
+    <dimen name="app_request_card_owner_text_margin_start">43dp</dimen>
     <dimen name="app_request_card_date_pill_width">86dp</dimen>
     <dimen name="app_request_card_date_pill_height">17dp</dimen>
     <dimen name="app_request_card_date_pill_margin_top">10dp</dimen>

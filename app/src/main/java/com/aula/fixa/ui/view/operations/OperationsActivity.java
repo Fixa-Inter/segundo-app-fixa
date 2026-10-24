@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
@@ -110,7 +111,18 @@ public class OperationsActivity extends AppCompatActivity {
             findViewById(tabs[2]).setContentDescription(getString(R.string.ops_nav_profile));
         }
 
-        navigation.addOnDestinationChangedListener((nav, dest, args) -> updateBar(args == null ? role + "_home" : args.getString("screen", role + "_home")));
+        navigation.addOnDestinationChangedListener((nav, dest, args) -> {
+            boolean focusScreen = isFocusDestination(dest.getId());
+            bar.setVisibility(focusScreen ? View.GONE : View.VISIBLE);
+            WindowInsetsControllerCompat systemBars = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+            systemBars.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            if (focusScreen) {
+                systemBars.hide(WindowInsetsCompat.Type.navigationBars());
+            } else {
+                systemBars.show(WindowInsetsCompat.Type.navigationBars());
+                updateBar(args == null ? role + "_home" : args.getString("screen", role + "_home"));
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.operationsRoot), (view, insets) -> {
             Insets system = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
             int keyboard = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
@@ -126,6 +138,16 @@ public class OperationsActivity extends AppCompatActivity {
 
     public String role() {
         return role;
+    }
+
+    private boolean isFocusDestination(int id) {
+        return id == R.id.ops_new_request_intro
+                || id == R.id.ops_new_request_description
+                || id == R.id.ops_new_request_location
+                || id == R.id.ops_new_request_photo
+                || id == R.id.ops_new_request_confirm
+                || id == R.id.ops_new_request_success
+                || (role.equals("manager") && id == R.id.ops_manager_request_details);
     }
 
     public void photos() {
@@ -165,6 +187,17 @@ public class OperationsActivity extends AppCompatActivity {
 
     public void openName(String name) {
         open(role + "_" + name);
+    }
+
+    public void openRequestDetails(long id, String title) {
+        Bundle args = new Bundle();
+        args.putLong("requestId", id);
+        args.putString("requestTitle", title == null ? "" : title);
+        navigation.navigate(destination(role + "_request_details"), args);
+    }
+
+    public void openRequestCreation() {
+        navigation.navigate(R.id.ops_new_request_intro);
     }
 
     public void back() {

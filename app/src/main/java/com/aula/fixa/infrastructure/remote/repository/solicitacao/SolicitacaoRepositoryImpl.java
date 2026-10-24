@@ -1,13 +1,13 @@
-package com.aula.fixa.infrastructure.remote.repository;
+package com.aula.fixa.infrastructure.remote.repository.solicitacao;
 
 import com.aula.fixa.infrastructure.remote.dto.ProblemaCriarRequest;
 import com.aula.fixa.infrastructure.remote.dto.ProblemaResponse;
 import com.aula.fixa.infrastructure.remote.repository.SolicitacaoRemoteRepository;
-import com.aula.fixa.domain.model.NovaSolicitacao;
-import com.aula.fixa.domain.model.Problema;
-import com.aula.fixa.domain.model.AtualizacaoSolicitacao;
-import com.aula.fixa.domain.model.FotoProblema;
-import com.aula.fixa.domain.repository.SolicitacaoRepository;
+import com.aula.fixa.domain.model.solicitacao.NovaSolicitacao;
+import com.aula.fixa.domain.model.solicitacao.Problema;
+import com.aula.fixa.domain.model.solicitacao.AtualizacaoSolicitacao;
+import com.aula.fixa.domain.model.solicitacao.FotoProblema;
+import com.aula.fixa.domain.repository.solicitacao.SolicitacaoRepository;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
 import java.util.ArrayList;
 import java.util.Collections;

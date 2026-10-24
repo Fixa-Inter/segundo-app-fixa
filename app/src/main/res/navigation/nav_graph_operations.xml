@@ -59,6 +59,8 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_request_details" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_request_details_69c55e">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_request_details" />
+        <argument android:name="requestId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="requestTitle" app:argType="string" android:defaultValue="" />
     </fragment>
     <fragment android:id="@+id/ops_manager_home" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_home_4ea140">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_home" />
@@ -66,7 +68,7 @@
     <fragment android:id="@+id/ops_manager_notifications" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_notifications_8bb692">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_notifications" />
     </fragment>
-    <fragment android:id="@+id/ops_manager_edit_profile" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_edit_profile_6ee2e4">
+    <fragment android:id="@+id/ops_manager_edit_profile" android:name="com.aula.fixa.ui.view.profile.EditProfileFragment" android:label="@string/ops_text_edit_profile_6ee2e4">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_edit_profile" />
     </fragment>
     <fragment android:id="@+id/ops_manager_my_profile" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_my_profile_d83acc">
@@ -230,5 +232,25 @@
     </fragment>
     <fragment android:id="@+id/ops_technician_chatbot" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_chatbot_386ebc">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_chatbot" />
+    </fragment>
+    <!-- O gestor reutiliza integralmente o fluxo de criação do solicitante. -->
+    <fragment android:id="@+id/ops_new_request_intro" android:name="com.aula.fixa.ui.view.newrequest.NewRequestIntroFragment" android:label="@string/app_new_request_title">
+        <action android:id="@+id/action_intro_to_description" app:destination="@id/ops_new_request_description" />
+    </fragment>
+    <fragment android:id="@+id/ops_new_request_description" android:name="com.aula.fixa.ui.view.newrequest.NewRequestDescriptionFragment" android:label="@string/app_step_description_title">
+        <action android:id="@+id/action_description_to_location" app:destination="@id/ops_new_request_location" />
+    </fragment>
+    <fragment android:id="@+id/ops_new_request_location" android:name="com.aula.fixa.ui.view.newrequest.NewRequestLocationFragment" android:label="@string/app_step_location_title">
+        <action android:id="@+id/action_location_to_photo" app:destination="@id/ops_new_request_photo" />
+    </fragment>
+    <fragment android:id="@+id/ops_new_request_photo" android:name="com.aula.fixa.ui.view.newrequest.NewRequestPhotoFragment" android:label="@string/app_step_photo_title">
+        <action android:id="@+id/action_photo_to_confirm" app:destination="@id/ops_new_request_confirm" />
+    </fragment>
+    <fragment android:id="@+id/ops_new_request_confirm" android:name="com.aula.fixa.ui.view.newrequest.NewRequestConfirmFragment" android:label="@string/app_confirm_title">
+        <action android:id="@+id/action_confirm_to_success" app:destination="@id/ops_new_request_success" app:popUpTo="@id/ops_new_request_intro" app:popUpToInclusive="true" />
+    </fragment>
+    <fragment android:id="@+id/ops_new_request_success" android:name="com.aula.fixa.ui.view.newrequest.NewRequestSuccessFragment" android:label="@string/app_success_title">
+        <action android:id="@+id/action_success_to_home" app:destination="@id/ops_manager_home" app:popUpTo="@id/ops_manager_home" app:popUpToInclusive="false" />
+        <action android:id="@+id/action_success_to_new_request" app:destination="@id/ops_new_request_intro" app:popUpTo="@id/ops_new_request_success" app:popUpToInclusive="true" />
     </fragment>
 </navigation>

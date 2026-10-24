@@ -1,4 +1,4 @@
-package com.aula.fixa.domain.model;
+package com.aula.fixa.domain.model.solicitacao;
 
 import com.aula.fixa.domain.enums.StatusProblema;
 

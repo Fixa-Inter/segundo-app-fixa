@@ -10,7 +10,7 @@ import com.aula.fixa.application.solicitacao.DetalharSolicitacao;
 import com.aula.fixa.application.solicitacao.AtualizarSolicitacao;
 import com.aula.fixa.application.solicitacao.ExcluirSolicitacao;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
-import com.aula.fixa.infrastructure.remote.repository.SolicitacaoRepositoryImpl;
+import com.aula.fixa.infrastructure.remote.repository.solicitacao.SolicitacaoRepositoryImpl;
 
 /** Montagem das dependências do fluxo de solicitações. */
 public final class SolicitacaoViewModelFactory implements ViewModelProvider.Factory {

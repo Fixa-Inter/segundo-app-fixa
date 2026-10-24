@@ -1,10 +1,10 @@
-package com.aula.fixa.adapter.operations;
+package com.aula.fixa.adapter.home;
 
 import android.os.Handler;
 import android.os.Looper;
 import androidx.lifecycle.ViewModel;
-import com.aula.fixa.application.operations.LoadManagerHome;
-import com.aula.fixa.domain.model.ManagerHomeData;
+import com.aula.fixa.application.home.LoadManagerHome;
+import com.aula.fixa.domain.model.home.ManagerHomeData;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

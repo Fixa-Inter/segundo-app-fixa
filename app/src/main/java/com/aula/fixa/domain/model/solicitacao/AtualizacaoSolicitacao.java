@@ -1,4 +1,4 @@
-package com.aula.fixa.domain.model;
+package com.aula.fixa.domain.model.solicitacao;
 
 import java.util.ArrayList;
 import java.util.Collections;

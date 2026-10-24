@@ -32,7 +32,8 @@ public class NewRequestIntroFragment extends Fragment {
         AppText.setHtml(view.findViewById(R.id.tvTitle), R.string.app_new_request_title);
         view.findViewById(R.id.btnBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         view.findViewById(R.id.btnCancel).setOnClickListener(v -> {
-            SolicitacaoFormularioViewModel form = new ViewModelProvider(NavHostFragment.findNavController(this).getViewModelStoreOwner(R.id.nav_graph_app)).get(SolicitacaoFormularioViewModel.class);
+            androidx.navigation.NavController nav = NavHostFragment.findNavController(this);
+            SolicitacaoFormularioViewModel form = new ViewModelProvider(nav.getViewModelStoreOwner(nav.getGraph().getId())).get(SolicitacaoFormularioViewModel.class);
             for (String token : new java.util.ArrayList<>(form.photoDeleteTokens)) fotoViewModel.excluir(token);
             form.clear();
             Navigation.findNavController(v).navigateUp();

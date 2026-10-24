@@ -1,4 +1,4 @@
-package com.aula.fixa.ui.config;;
+package com.aula.fixa.ui.config;
 
 import android.view.View;
 

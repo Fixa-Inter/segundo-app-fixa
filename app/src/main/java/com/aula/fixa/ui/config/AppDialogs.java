@@ -20,8 +20,8 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 
 import com.aula.fixa.R;
-import com.aula.fixa.domain.model.ProblemaItem;
-import com.aula.fixa.domain.model.Problema;
+import com.aula.fixa.domain.model.solicitacao.ProblemaItem;
+import com.aula.fixa.domain.model.solicitacao.Problema;
 import com.google.android.material.button.MaterialButton;
 import com.bumptech.glide.Glide;
 
@@ -174,7 +174,7 @@ public final class AppDialogs {
         View photo = content.findViewById(R.id.layoutEditPhoto1);
         photo.setVisibility(View.GONE);
         if (details != null && !details.fotos.isEmpty()) {
-            for (com.aula.fixa.domain.model.FotoProblema photoModel : details.fotos) {
+            for (com.aula.fixa.domain.model.solicitacao.FotoProblema photoModel : details.fotos) {
                 long photoId = photoModel.id;
                 FrameLayout frame = new FrameLayout(context);
                 LinearLayout.LayoutParams frameParams = new LinearLayout.LayoutParams(100, -1);

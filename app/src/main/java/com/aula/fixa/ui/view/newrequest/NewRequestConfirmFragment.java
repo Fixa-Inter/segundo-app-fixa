@@ -32,8 +32,8 @@ import com.aula.fixa.adapter.foto.FotoViewModelFactory;
 import com.bumptech.glide.Glide;
 import com.aula.fixa.adapter.solicitacao.SolicitacaoViewModel;
 import com.aula.fixa.adapter.solicitacao.SolicitacaoViewModelFactory;
-import com.aula.fixa.domain.model.NovaSolicitacao;
-import com.aula.fixa.domain.model.Problema;
+import com.aula.fixa.domain.model.solicitacao.NovaSolicitacao;
+import com.aula.fixa.domain.model.solicitacao.Problema;
 import com.aula.fixa.adapter.auth.AutenticacaoViewModel;
 
 public class NewRequestConfirmFragment extends Fragment {
@@ -47,8 +47,9 @@ public class NewRequestConfirmFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fotoViewModel = new ViewModelProvider(this, new FotoViewModelFactory(requireContext())).get(FotoViewModel.class);
-        SolicitacaoFormularioViewModel form = new ViewModelProvider(NavHostFragment.findNavController(this)
-                .getViewModelStoreOwner(R.id.nav_graph_app)).get(SolicitacaoFormularioViewModel.class);
+        androidx.navigation.NavController navController = NavHostFragment.findNavController(this);
+        SolicitacaoFormularioViewModel form = new ViewModelProvider(navController
+                .getViewModelStoreOwner(navController.getGraph().getId())).get(SolicitacaoFormularioViewModel.class);
 
         view.findViewById(R.id.btnBack).setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();

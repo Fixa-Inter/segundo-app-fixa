@@ -22,14 +22,14 @@ import com.aula.fixa.ui.config.AppText;
 import com.aula.fixa.ui.config.FragmentUi;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.DashedLineDrawable;
-import com.aula.fixa.domain.model.ProblemaItem;
-import com.aula.fixa.domain.model.EtapaLinhaTempo;
+import com.aula.fixa.domain.model.solicitacao.ProblemaItem;
+import com.aula.fixa.domain.model.solicitacao.EtapaLinhaTempo;
 import com.aula.fixa.ui.adapter.solicitacao.TimelineAdapter;
 import com.aula.fixa.adapter.cadastro.CadastroViewModel;
 import com.aula.fixa.adapter.cadastro.CadastroViewModelFactory;
 import com.aula.fixa.adapter.solicitacao.SolicitacaoViewModel;
 import com.aula.fixa.adapter.solicitacao.SolicitacaoViewModelFactory;
-import com.aula.fixa.domain.model.Problema;
+import com.aula.fixa.domain.model.solicitacao.Problema;
 
 import java.util.List;
 

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
-import com.aula.fixa.domain.model.ProblemaItem;
+import com.aula.fixa.domain.model.solicitacao.ProblemaItem;
 
 public class RequestAdapter extends ListAdapter<ProblemaItem, RequestAdapter.ViewHolder> {
 

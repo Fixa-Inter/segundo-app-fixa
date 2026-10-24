@@ -24,14 +24,14 @@
     <string name="app_home_greeting"><![CDATA[<b><font color="#153D7D">Olá,</font></b> %1$s!]]></string>
     <string name="app_home_notifications">Notificações</string>
     <string name="app_home_profile">Perfil</string>
-    <string name="app_home_status_title">Estados das solicitações</string>
+    <string name="app_home_status_title">Status das solicitações</string>
     <string name="app_home_status_done">Concluído</string>
     <string name="app_home_status_approved">Aprovado</string>
     <string name="app_home_status_analysis">Pendente</string>
     <string name="app_home_status_refused">Reprovado</string>
     <string name="app_home_requests_title">Minhas Solicitações</string>
     <string name="app_home_open_request">Abrir Solicitação</string>
-    <string name="app_home_chart_description">Gráfico de estados das solicitações</string>
+    <string name="app_home_chart_description">Gráfico de status das solicitações</string>
     <string name="app_home_requests_empty">Sem registros</string>
     <plurals name="app_home_requests_count">
         <item quantity="one">%d Solicitação</item>
@@ -196,6 +196,8 @@
     <string name="app_filter_location_default">Todos os locais</string>
     <string name="app_filter_status">Situação</string>
     <string name="app_filter_status_default">Todas</string>
+    <string name="app_filter_author">Autor</string>
+    <string name="app_filter_author_default">Nome do autor</string>
 
     <!-- Dialogs -->
     <string name="app_dialog_edit_title">Editar solicitação</string>

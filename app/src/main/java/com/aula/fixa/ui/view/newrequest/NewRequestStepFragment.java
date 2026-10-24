@@ -48,7 +48,7 @@ public abstract class NewRequestStepFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController nav = NavHostFragment.findNavController(this);
-        form = new ViewModelProvider(nav.getViewModelStoreOwner(R.id.nav_graph_app)).get(SolicitacaoFormularioViewModel.class);
+        form = new ViewModelProvider(nav.getViewModelStoreOwner(nav.getGraph().getId())).get(SolicitacaoFormularioViewModel.class);
         AppText.setHtml(view.findViewById(R.id.tvTitle), titleRes);
         bindIndicator(view);
         restoreForm(view);

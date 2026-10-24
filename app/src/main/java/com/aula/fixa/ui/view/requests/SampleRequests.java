@@ -3,7 +3,7 @@ package com.aula.fixa.ui.view.requests;
 import com.aula.fixa.domain.enums.StatusProblema;
 
 import com.aula.fixa.R;
-import com.aula.fixa.domain.model.ProblemaItem;
+import com.aula.fixa.domain.model.solicitacao.ProblemaItem;
 
 import java.util.Arrays;
 import java.util.List;

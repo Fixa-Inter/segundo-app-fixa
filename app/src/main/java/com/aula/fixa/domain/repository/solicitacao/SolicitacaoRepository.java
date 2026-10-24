@@ -1,8 +1,8 @@
-package com.aula.fixa.domain.repository;
+package com.aula.fixa.domain.repository.solicitacao;
 
-import com.aula.fixa.domain.model.NovaSolicitacao;
-import com.aula.fixa.domain.model.Problema;
-import com.aula.fixa.domain.model.AtualizacaoSolicitacao;
+import com.aula.fixa.domain.model.solicitacao.NovaSolicitacao;
+import com.aula.fixa.domain.model.solicitacao.Problema;
+import com.aula.fixa.domain.model.solicitacao.AtualizacaoSolicitacao;
 import java.util.List;
 
 /** Porta do domínio para operações de solicitação. */
