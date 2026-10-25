@@ -20,6 +20,7 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_plan_information" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_plan_information_33aba1">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_plan_information" />
+        <argument android:name="requestId" app:argType="long" android:defaultValue="0L" />
     </fragment>
     <fragment android:id="@+id/ops_manager_occurrence_service" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_service_ecb9fd">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_service" />
@@ -121,18 +122,22 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_planning_success" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_planning_success_a72542">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_planning_success" />
+        <argument android:name="requestId" app:argType="long" android:defaultValue="0L" />
     </fragment>
     <fragment android:id="@+id/ops_manager_planning_intro" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_planning_intro_1a5a04">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_planning_intro" />
+        <argument android:name="requestId" app:argType="long" android:defaultValue="0L" />
     </fragment>
     <fragment android:id="@+id/ops_manager_planning_tasks" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_planning_tasks_3cf422">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_planning_tasks" />
+        <argument android:name="requestId" app:argType="long" android:defaultValue="0L" />
     </fragment>
     <fragment android:id="@+id/ops_manager_board" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_board_859169">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_board" />
     </fragment>
     <fragment android:id="@+id/ops_manager_assign_member" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_assign_member_49be11">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_assign_member" />
+        <argument android:name="requestId" app:argType="long" android:defaultValue="0L" />
     </fragment>
     <fragment android:id="@+id/ops_manager_assign_date" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_assign_date_690b4c">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_assign_date" />

@@ -12,11 +12,19 @@ public final class ListarSolicitacoesGestor {
     public ListarSolicitacoesGestor(SolicitacaoGestorRepository repository) { this.repository = repository; }
 
     public List<SolicitacaoGestor> executar() throws Exception {
-        List<SolicitacaoGestor> pending = new ArrayList<>(repository.listarSolicitacoesDaUnidade());
-        pending.removeIf(item -> item == null || !"PENDENTE".equalsIgnoreCase(item.status));
+        return ordenar(repository.listarSolicitacoesDaUnidade(), "PENDENTE");
+    }
+
+    public List<SolicitacaoGestor> executarAprovadas() throws Exception {
+        return ordenar(repository.listarSolicitacoesDaUnidade(), "APROVADO");
+    }
+
+    private static List<SolicitacaoGestor> ordenar(List<SolicitacaoGestor> source, String status) {
+        List<SolicitacaoGestor> result = new ArrayList<>(source);
+        result.removeIf(item -> item == null || !status.equalsIgnoreCase(item.status));
         Comparator<SolicitacaoGestor> byDate = Comparator.comparing(item -> item.dataCriacao,
                 Comparator.nullsLast(Comparator.<String>reverseOrder()));
-        pending.sort(byDate.thenComparing(Comparator.comparingLong((SolicitacaoGestor item) -> item.id).reversed()));
-        return pending;
+        result.sort(byDate.thenComparing(Comparator.comparingLong((SolicitacaoGestor item) -> item.id).reversed()));
+        return result;
     }
 }

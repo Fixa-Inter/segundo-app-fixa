@@ -443,6 +443,14 @@
     <string name="ops_text_solicitacao_recusada_f5aaca" formatted="false">Solicitação recusada!</string>
     <string name="ops_text_solicitacoes_07d0b7" formatted="false">Solicitações</string>
     <string name="ops_text_solicitacoes_para_se_planejar_fc51ec" formatted="false">Solicitações para se planejar</string>
+    <string name="ops_planning_assign_technician">Atribuir a um técnico</string>
+    <string name="ops_planning_select_competence_priority">Selecione uma competência e uma prioridade</string>
+    <string name="ops_text_selecione_mes">Selecione o mês</string>
+    <string name="ops_planning_required_fields">Selecione competência, prioridade, mês e prazo para continuar</string>
+    <string name="ops_text_colocar_descricao_tarefa">Coloque a descrição da tarefa</string>
+    <string name="ops_task_options">Opções da tarefa</string>
+    <string name="ops_task_options_for">Opções da tarefa %1$s</string>
+    <string name="ops_manager_no_approved_requests">Não existem solicitações aprovadas</string>
     <string name="ops_text_solucao_aplicada_1bf2b7" formatted="false">Solução aplicada:</string>
     <string name="ops_text_solucao_aplicada_423f3c" formatted="false">Solução aplicada</string>
     <string name="ops_text_split_12_000_btus_fffc05" formatted="false">Split 12.000 BTUs</string>

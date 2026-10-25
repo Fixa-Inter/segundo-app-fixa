@@ -20,15 +20,21 @@ import java.util.Locale;
 
 /** RecyclerView adapter for the manager's pending request cards and empty state. */
 public final class SolicitacaoGestorListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public interface Listener { void onRequestSelected(long id, String title); }
+    public interface Listener { void onRequestSelected(SolicitacaoGestor request); }
 
     private static final int TYPE_REQUEST = 0;
     private static final int TYPE_EMPTY = 1;
     private final List<SolicitacaoGestor> items = new ArrayList<>();
     private final Listener listener;
+    private final int emptyText;
 
     public SolicitacaoGestorListAdapter(Listener listener) {
+        this(listener, R.string.ops_manager_no_pending_requests);
+    }
+
+    public SolicitacaoGestorListAdapter(Listener listener, int emptyText) {
         this.listener = listener;
+        this.emptyText = emptyText;
         setHasStableIds(true);
     }
 
@@ -75,8 +81,10 @@ public final class SolicitacaoGestorListAdapter extends RecyclerView.Adapter<Rec
             requestHolder.avatar.setImageResource(R.drawable.img_avatar_115);
             requestHolder.itemView.setContentDescription(title + ", " + location + ", " + requester);
             requestHolder.itemView.setOnClickListener(v -> {
-                if (listener != null) listener.onRequestSelected(request.id, title);
+                if (listener != null) listener.onRequestSelected(request);
             });
+        } else if (holder instanceof EmptyHolder) {
+            ((EmptyHolder) holder).text.setText(emptyText);
         }
     }
 
@@ -106,6 +114,7 @@ public final class SolicitacaoGestorListAdapter extends RecyclerView.Adapter<Rec
     }
 
     private static final class EmptyHolder extends RecyclerView.ViewHolder {
-        EmptyHolder(@NonNull View view) { super(view); }
+        final TextView text;
+        EmptyHolder(@NonNull View view) { super(view); text = view.findViewById(R.id.opsManagerRequestEmptyText); }
     }
 }

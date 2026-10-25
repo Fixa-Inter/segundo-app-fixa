@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/planningTaskCard"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ops_dp_70_0"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_ops_892fe1afbe"
+    android:elevation="@dimen/ops_dp_2"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <View
+        android:layout_width="@dimen/ops_dp_15_0"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_ops_ae50174a28" />
+
+    <TextView
+        android:id="@+id/planningTaskTitle"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/ops_dp_21"
+        android:layout_marginStart="@dimen/ops_dp_30_0"
+        android:layout_marginTop="@dimen/ops_dp_14_0"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.ab97e42497"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/planningTaskDescription"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/ops_dp_18"
+        android:layout_marginStart="@dimen/ops_dp_30_0"
+        android:layout_marginTop="@dimen/ops_dp_3_0"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/planningTaskTitle"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.c9e7c40f6d"
+        android:fontFamily="@font/poppins_light"
+        android:includeFontPadding="false"
+        android:maxLines="1" />
+
+    <ImageView
+        android:id="@+id/planningTaskMore"
+        android:layout_width="40dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="12dp"
+        android:src="@drawable/figma_499de"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/ops_task_options" />
+</androidx.constraintlayout.widget.ConstraintLayout>

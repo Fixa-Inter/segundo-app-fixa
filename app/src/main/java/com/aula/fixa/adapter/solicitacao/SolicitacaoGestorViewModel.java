@@ -30,6 +30,10 @@ public final class SolicitacaoGestorViewModel extends ViewModel {
         executor.execute(() -> run(callback, listar::executar));
     }
 
+    public void loadApproved(Callback<List<SolicitacaoGestor>> callback) {
+        executor.execute(() -> run(callback, listar::executarAprovadas));
+    }
+
     public void details(long id, Callback<SolicitacaoGestor> callback) {
         executor.execute(() -> run(callback, () -> detalhar.executar(id)));
     }

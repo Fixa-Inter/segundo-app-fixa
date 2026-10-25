@@ -200,6 +200,29 @@ public class OperationsActivity extends AppCompatActivity {
         navigation.navigate(R.id.ops_new_request_intro);
     }
 
+    public void openPlanningIntro(long requestId) {
+        model.clearEntries("planning_tasks");
+        model.field("planning_tasks", "ordemServicoId", "");
+        for (String field : new String[]{"tecnicoId", "Competência", "CompetênciaId",
+                "Prioridade", "PrioridadeId", "mes", "prazo"}) {
+            model.field("plan_information", field, "");
+        }
+        model.selected("planning:first_task_prompt_shown", false);
+        Bundle args = new Bundle();
+        args.putLong("requestId", requestId);
+        navigation.navigate(R.id.ops_manager_planning_intro, args);
+    }
+
+    public void openPlanningStep(String screen) {
+        int id = getResources().getIdentifier("ops_manager_" + screen, "id", getPackageName());
+        if (id == 0) throw new IllegalArgumentException("Etapa de planejamento não registrada: " + screen);
+        Bundle args = new Bundle();
+        androidx.navigation.NavBackStackEntry current = navigation.getCurrentBackStackEntry();
+        long requestId = current == null ? 0 : current.getArguments().getLong("requestId", 0);
+        args.putLong("requestId", requestId);
+        navigation.navigate(id, args);
+    }
+
     public void back() {
         if (!navigation.navigateUp()) {
             finish();

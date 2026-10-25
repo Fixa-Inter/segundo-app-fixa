@@ -141,6 +141,16 @@ public final class OperationsActions {
         if (!kind.equals("text") && !kind.equals("button")) {
             return null;
         }
+        if (key.equals("manager_assign_member") && text.trim().equals("Finalizar")) {
+            return () -> {
+                if (activity.model.field("plan_information", "tecnicoId") == null) {
+                    android.widget.Toast.makeText(activity, "Selecione um técnico para continuar.",
+                            android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                activity.openPlanningStep("planning_success");
+            };
+        }
         if (name.equals("export") && java.util.Arrays.asList("Solicitações", "Ordens de serviço", "Ocorrências", "Checklists").contains(text)) {
             return () -> select(view, "export:" + text);
         }
@@ -396,6 +406,14 @@ public final class OperationsActions {
     }
 
     private void next() {
+        if (name.equals("plan_information")
+                && (activity.model.field("plan_information", "CompetênciaId") == null
+                || activity.model.field("plan_information", "PrioridadeId") == null
+                || empty(activity.model.field("plan_information", "mes"))
+                || empty(activity.model.field("plan_information", "prazo")))) {
+            android.widget.Toast.makeText(activity, R.string.ops_planning_required_fields, android.widget.Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!binder.validate()) {
             return;
         }
@@ -413,13 +431,13 @@ public final class OperationsActions {
                 open("occurrence_review");
                 break;
             case "planning_intro":
-                open("plan_information");
+                activity.openPlanningStep("plan_information");
                 break;
             case "plan_information":
-                open("planning_tasks");
+                activity.openPlanningStep("planning_tasks");
                 break;
             case "planning_tasks":
-                open("planning_success");
+                activity.openPlanningStep("assign_member");
                 break;
             case "checklist_intro":
                 open("checklist_information");
@@ -438,6 +456,8 @@ public final class OperationsActions {
                 break;
         }
     }
+
+    private boolean empty(String value) { return value == null || value.trim().isEmpty(); }
 
     private void confirm() {
         switch (name) {

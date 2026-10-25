@@ -27,6 +27,8 @@ public final class OperationsDialogFragment extends DialogFragment {
         View content = getLayoutInflater().inflate(ScreenCatalog.get(requireContext()).layout(requireContext(), key), null, false);
         content.setLayoutParams(new android.view.ViewGroup.LayoutParams(-1, -2));
         new OperationsBinder((OperationsActivity) requireActivity(), content, key, this).bind();
+        com.aula.fixa.ui.view.task.PlanejamentoTarefasFluxo.bindDialog(
+                (OperationsActivity) requireActivity(), content, key, this);
         AlertDialog dialog = new AlertDialog.Builder(requireContext()).setView(content).create();
         return dialog;
     }

@@ -40,6 +40,7 @@ public final class SolicitacaoGestorFluxo {
     private String locationFilter = "";
     private String categoryFilter = "";
     private String authorFilter = "";
+    private boolean planningSelection;
 
     public SolicitacaoGestorFluxo(OperationsScreenFragment host, OperationsActivity activity) {
         this.host = host;
@@ -47,12 +48,40 @@ public final class SolicitacaoGestorFluxo {
     }
 
     public void bindList(View content) {
+        bindList(content, false);
+    }
+
+    public void bindApprovedForPlanning(View content) {
+        planningSelection = true;
+        bindList(content, true);
+    }
+
+    private void bindList(View content, boolean approvedForPlanning) {
         ensureViewModel();
+        android.widget.TextView heading = content.findViewById(R.id.ops_5717_6864);
+        if (heading != null) heading.setText(approvedForPlanning
+                ? R.string.ops_text_planeje_as_tarefas_da_os_0527e3 : R.string.ops_text_solicitacoes_07d0b7);
+        View back = content.findViewWithTag("image:arrow-left");
+        if (back != null) back.setOnClickListener(v -> activity.back());
+        if (approvedForPlanning) {
+            for (int suffix : new int[]{6893, 6910, 6927}) {
+                View sample = content.findViewById(host.getResources().getIdentifier(
+                        "ops_5717_" + suffix, "id", host.requireContext().getPackageName()));
+                if (sample != null) sample.setVisibility(View.GONE);
+            }
+        }
         RecyclerView requestsList = content.findViewById(R.id.ops_manager_requests_list);
         if (requestsList != null) {
             requestsList.setLayoutManager(new LinearLayoutManager(host.requireContext()));
             listAdapter = new SolicitacaoGestorListAdapter(
-                    (id, title) -> activity.openRequestDetails(id, title));
+                    request -> {
+                        if (planningSelection) {
+                            activity.model.field("planning_tasks", "source_title", request.titulo);
+                            activity.model.field("planning_tasks", "source_description", request.descricao);
+                            activity.openPlanningIntro(request.id);
+                        } else activity.openRequestDetails(request.id, request.titulo);
+                    }, approvedForPlanning ? R.string.ops_manager_no_approved_requests
+                            : R.string.ops_manager_no_pending_requests);
             requestsList.setAdapter(listAdapter);
         }
         View filter = content.findViewById(R.id.ops_manager_requests_filter);
@@ -64,7 +93,10 @@ public final class SolicitacaoGestorFluxo {
             });
         }
         View fab = content.findViewById(R.id.ops_manager_requests_fab);
-        if (fab != null) fab.setOnClickListener(ignored -> activity.openRequestCreation());
+        if (fab != null) {
+            if (approvedForPlanning) fab.setVisibility(View.GONE);
+            else fab.setOnClickListener(ignored -> activity.openRequestCreation());
+        }
         EditText search = content.findViewById(R.id.ops_5717_6869);
         if (search != null) {
             search.addTextChangedListener(new TextWatcher() {
@@ -73,7 +105,7 @@ public final class SolicitacaoGestorFluxo {
                 @Override public void afterTextChanged(Editable s) { }
             });
         }
-        loadList(content);
+        loadList(content, approvedForPlanning);
     }
 
     public void bindDetails(View content) {
@@ -82,14 +114,15 @@ public final class SolicitacaoGestorFluxo {
     }
 
     public void refreshList(View content) {
-        if (viewModel != null) loadList(content);
+        if (viewModel != null) loadList(content, planningSelection);
     }
 
     public void onFiltersChanged(String period, String location, String category, String author) {
-        activity.model.field("manager_requests", "Período", period);
-        activity.model.field("manager_requests", "Local", location);
-        activity.model.field("manager_requests", "Categoria", category);
-        activity.model.field("manager_requests", "Autor", author);
+        String screen = planningSelection ? "manager_planning" : "manager_requests";
+        activity.model.field(screen, "Período", period);
+        activity.model.field(screen, "Local", location);
+        activity.model.field(screen, "Categoria", category);
+        activity.model.field(screen, "Autor", author);
         periodFilter = period == null ? "" : period;
         locationFilter = location == null ? "" : location;
         categoryFilter = category == null ? "" : category;
@@ -113,10 +146,10 @@ public final class SolicitacaoGestorFluxo {
         }
     }
 
-    private void loadList(View content) {
+    private void loadList(View content, boolean approvedForPlanning) {
         content.setVisibility(View.INVISIBLE);
         showLoading();
-        viewModel.load(new SolicitacaoGestorViewModel.Callback<List<SolicitacaoGestor>>() {
+        SolicitacaoGestorViewModel.Callback<List<SolicitacaoGestor>> callback = new SolicitacaoGestorViewModel.Callback<List<SolicitacaoGestor>>() {
             @Override public void success(List<SolicitacaoGestor> result) {
                 if (!isCurrent(content)) return;
                 pendingRequests.clear();
@@ -131,7 +164,9 @@ public final class SolicitacaoGestorFluxo {
                 finishLoading(content);
                 Toast.makeText(host.requireContext(), AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
             }
-        });
+        };
+        if (approvedForPlanning) viewModel.loadApproved(callback);
+        else viewModel.load(callback);
     }
 
     private void renderList(View content) {

@@ -61,6 +61,7 @@ public final class OperationsViewModel extends ViewModel {
         java.util.ArrayList<Bundle> data=state.get("rows:"+scope);
         return data==null?new java.util.ArrayList<>():new java.util.ArrayList<>(data);
     }
+    public void clearEntries(String scope) { state.set("rows:"+scope, new java.util.ArrayList<Bundle>()); }
     public void saveEntry(String scope,String id,String title,String description) {
         java.util.ArrayList<Bundle> data=entries(scope);
         String entryId=id.isEmpty()?java.util.UUID.randomUUID().toString():id;

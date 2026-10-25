@@ -66,6 +66,10 @@ public final class ApiClient {
         return authenticatedRetrofit(session).create(OrdemServicoApi.class);
     }
 
+    public static TarefaApi tarefas(SessionStorage session) {
+        return authenticatedRetrofit(session).create(TarefaApi.class);
+    }
+
     public static PerfilApi perfil(SessionStorage session) {
         return authenticatedRetrofit(session).create(PerfilApi.class);
     }
@@ -80,5 +84,9 @@ public final class ApiClient {
 
     public static CategoriaEquipamentoApi categorias(SessionStorage session) {
         return authenticatedRetrofit(session).create(CategoriaEquipamentoApi.class);
+    }
+
+    public static TecnicoApi tecnicos(SessionStorage session) {
+        return authenticatedRetrofit(session).create(TecnicoApi.class);
     }
 }
