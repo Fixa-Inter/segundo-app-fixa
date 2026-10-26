@@ -137,7 +137,13 @@ public class EventsFragment extends Fragment {
         list.setAdapter(new EventAdapter(events, selected -> {
             Bundle args = new Bundle();
             args.putLong("eventId", selected.id);
-            Navigation.findNavController(view).navigate(R.id.action_events_to_event_info, args);
+            androidx.navigation.NavController navigation = Navigation.findNavController(view);
+            if (navigation.getCurrentDestination() != null
+                    && navigation.getCurrentDestination().getId() == R.id.ops_manager_events) {
+                navigation.navigate(R.id.action_ops_manager_events_to_event_details, args);
+            } else {
+                navigation.navigate(R.id.action_events_to_event_info, args);
+            }
         }));
     }
 

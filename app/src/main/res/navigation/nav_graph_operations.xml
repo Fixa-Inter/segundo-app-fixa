@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph_operations" app:startDestination="@id/ops_manager_home">
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph_operations" app:startDestination="@id/ops_manager_home">
     <fragment android:id="@+id/ops_manager_password_success" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_password_success_676cf1">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_password_success" />
     </fragment>
@@ -32,11 +32,13 @@
     <fragment android:id="@+id/ops_manager_occurrence_review" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_review_002604">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_review" />
     </fragment>
-    <fragment android:id="@+id/ops_manager_event_details" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_event_details_a1955d">
+    <fragment android:id="@+id/ops_manager_event_details" android:name="com.aula.fixa.ui.view.events.EventInfoFragment" android:label="@string/app_event_info_title">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_event_details" />
+        <argument android:name="eventId" app:argType="long" android:defaultValue="0L" />
     </fragment>
-    <fragment android:id="@+id/ops_manager_events" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_events_862417">
+    <fragment android:id="@+id/ops_manager_events" android:name="com.aula.fixa.ui.view.events.EventsFragment" android:label="@string/app_nav_events" tools:layout="@layout/fragment_events">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_events" />
+        <action android:id="@+id/action_ops_manager_events_to_event_details" app:destination="@id/ops_manager_event_details" />
     </fragment>
     <fragment android:id="@+id/ops_manager_categories" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_categories_a6216e">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_categories" />
