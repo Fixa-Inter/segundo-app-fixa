@@ -20,12 +20,24 @@ public final class ScreenCatalog {
             int count;
             while ((count = stream.read(buffer)) != -1) bytes.write(buffer, 0, count);
             JSONArray data = new JSONArray(new String(bytes.toByteArray(), StandardCharsets.UTF_8));
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject item = data.getJSONObject(i);
-                screens.put(item.getString("key"), item);
-            }
+            addScreens(data);
         } catch (Exception e) {
             throw new IllegalStateException("Não foi possível abrir o catálogo de telas", e);
+        }
+    }
+
+    /** Accepts screen entries grouped in nested arrays as well as the flat catalog format. */
+    private void addScreens(JSONArray entries) throws org.json.JSONException {
+        for (int i = 0; i < entries.length(); i++) {
+            Object entry = entries.get(i);
+            if (entry instanceof JSONArray) {
+                addScreens((JSONArray) entry);
+            } else if (entry instanceof JSONObject) {
+                JSONObject item = (JSONObject) entry;
+                screens.put(item.getString("key"), item);
+            } else {
+                throw new org.json.JSONException("Entrada inválida no catálogo de telas: " + i);
+            }
         }
     }
 

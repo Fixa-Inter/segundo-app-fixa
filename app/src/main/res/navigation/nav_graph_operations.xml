@@ -27,6 +27,7 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_occurrence_result" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_result_5a3186">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_result" />
+        <argument android:name="orderId" app:argType="long" android:defaultValue="0L" />
     </fragment>
     <fragment android:id="@+id/ops_manager_occurrence_review" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_review_002604">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_review" />
@@ -144,6 +145,8 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_execution_pending" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_execution_pending_9a5ca8">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_execution_pending" />
+        <argument android:name="orderId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="orderTitle" app:argType="string" android:defaultValue="" />
     </fragment>
     <fragment android:id="@+id/ops_manager_execution_completed" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_execution_completed_febc12">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_execution_completed" />
@@ -153,6 +156,24 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_occurrence_details" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_details_35f190">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_details" />
+        <argument android:name="occurrenceId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="occurrenceTitle" app:argType="string" android:defaultValue="" />
+    </fragment>
+    <fragment android:id="@+id/ops_manager_occurrence_edit_information" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_occurrence_edit_title">
+        <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_edit_information" />
+        <argument android:name="occurrenceId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="localName" app:argType="string" android:defaultValue="" />
+        <argument android:name="equipmentName" app:argType="string" android:defaultValue="" />
+        <argument android:name="categoryName" app:argType="string" android:defaultValue="" />
+        <argument android:name="priorityName" app:argType="string" android:defaultValue="" />
+        <argument android:name="photoIds" app:argType="long[]" />
+        <argument android:name="photoUrls" app:argType="string[]" />
+    </fragment>
+    <fragment android:id="@+id/ops_manager_occurrence_edit_photos" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_occurrence_edit_photos_title">
+        <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_edit_photos" />
+        <argument android:name="occurrenceId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="photoIds" app:argType="long[]" />
+        <argument android:name="photoUrls" app:argType="string[]" />
     </fragment>
     <fragment android:id="@+id/ops_technician_password_success" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_password_success_676cf1">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_password_success" />

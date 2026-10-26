@@ -53,8 +53,28 @@ public class OperationsActivity extends AppCompatActivity {
                     selected.put(uri.toString());
                 }
 
-                model.field(role + "_occurrence_result", "photos", selected.toString());
-                Toast.makeText(this, getString(R.string.ops_photos_added, uris.size()), Toast.LENGTH_SHORT).show();
+                boolean managerOccurrenceCreation = role.equals("manager") && navigation != null
+                        && navigation.getCurrentDestination() != null
+                        && navigation.getCurrentDestination().getId() == R.id.ops_manager_occurrence_result
+                        && navigation.getCurrentBackStackEntry() != null
+                        && navigation.getCurrentBackStackEntry().getArguments() != null
+                        && navigation.getCurrentBackStackEntry().getArguments().getLong("orderId", 0) == 0;
+                if (managerOccurrenceCreation) {
+                    org.json.JSONArray current;
+                    try { current = new org.json.JSONArray(model.field("manager_new_occurrence_form", "photos")); }
+                    catch (Exception ignored) { current = new org.json.JSONArray(); }
+                    int added = 0;
+                    for (android.net.Uri uri : uris) {
+                        if (current.length() >= 3) break;
+                        current.put(uri.toString()); added++;
+                    }
+                    model.field("manager_new_occurrence_form", "photos", current.toString());
+                    if (added < uris.size()) Toast.makeText(this, "É possível adicionar no máximo 3 fotos.", Toast.LENGTH_LONG).show();
+                    else Toast.makeText(this, getString(R.string.ops_photos_added, added), Toast.LENGTH_SHORT).show();
+                } else {
+                    model.field(role + "_occurrence_result", "photos", selected.toString());
+                    Toast.makeText(this, getString(R.string.ops_photos_added, uris.size()), Toast.LENGTH_SHORT).show();
+                }
                 refresh();
             });
     private final ActivityResultLauncher<String> exportDocument = registerForActivityResult(
@@ -147,7 +167,8 @@ public class OperationsActivity extends AppCompatActivity {
                 || id == R.id.ops_new_request_photo
                 || id == R.id.ops_new_request_confirm
                 || id == R.id.ops_new_request_success
-                || (role.equals("manager") && id == R.id.ops_manager_request_details);
+                || (role.equals("manager") && (id == R.id.ops_manager_request_details
+                || id == R.id.ops_manager_occurrence_result));
     }
 
     public void photos() {
@@ -194,6 +215,56 @@ public class OperationsActivity extends AppCompatActivity {
         args.putLong("requestId", id);
         args.putString("requestTitle", title == null ? "" : title);
         navigation.navigate(destination(role + "_request_details"), args);
+    }
+
+    public void openOrderDetails(long id, String title) {
+        Bundle args = new Bundle();
+        args.putLong("orderId", id);
+        args.putString("orderTitle", title == null ? "" : title);
+        navigation.navigate(R.id.ops_manager_execution_pending, args);
+    }
+
+    public void openOccurrenceDetails(long id, String title) {
+        Bundle args = new Bundle();
+        args.putLong("occurrenceId", id);
+        args.putString("occurrenceTitle", title == null ? "" : title);
+        navigation.navigate(R.id.ops_manager_occurrence_details, args);
+    }
+
+    public void openOccurrenceEdit(com.aula.fixa.domain.model.ocorrencia.OcorrenciaItem item) {
+        Bundle args = new Bundle();
+        args.putLong("occurrenceId", item.id);
+        args.putString("localName", item.localUnidade);
+        args.putString("equipmentName", item.categoriaEquipamento);
+        args.putString("categoryName", item.categoriaProblema);
+        args.putString("priorityName", item.prioridade);
+        long[] photoIds = new long[item.fotos.size()];
+        java.util.ArrayList<String> photoUrls = new java.util.ArrayList<>();
+        for (int i = 0; i < item.fotos.size(); i++) {
+            photoIds[i] = item.fotos.get(i).id;
+            photoUrls.add(item.fotos.get(i).url);
+        }
+        args.putLongArray("photoIds", photoIds);
+        args.putStringArray("photoUrls", photoUrls.toArray(new String[0]));
+        navigation.navigate(R.id.ops_manager_occurrence_edit_information, args);
+    }
+
+    public void openOccurrenceEditPhotos(long occurrenceId, long[] photoIds, java.util.ArrayList<String> photoUrls) {
+        Bundle args = new Bundle();
+        args.putLong("occurrenceId", occurrenceId);
+        args.putLongArray("photoIds", photoIds);
+        args.putStringArray("photoUrls", photoUrls == null ? new String[0] : photoUrls.toArray(new String[0]));
+        navigation.navigate(R.id.ops_manager_occurrence_edit_photos, args);
+    }
+
+    public void finishOccurrenceEdit() {
+        if (!navigation.popBackStack(R.id.ops_manager_occurrences, false)) back();
+    }
+
+    public void openOrderCompletion(long id) {
+        Bundle args = new Bundle();
+        args.putLong("orderId", id);
+        navigation.navigate(R.id.ops_manager_occurrence_result, args);
     }
 
     public void openRequestCreation() {

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -93,6 +94,12 @@ public final class PlanejamentoTarefasFluxo {
     /** Substitui os eventos genéricos dos diálogos pela edição local do rascunho da OS. */
     public static void bindDialog(OperationsActivity activity, View content, String key,
                                   OperationsDialogFragment dialog) {
+        String executionOrder = activity.model.field("execution", "orderId");
+        if (executionOrder != null && !executionOrder.trim().isEmpty()
+                && ("manager_create_task".equals(key) || "manager_edit_task".equals(key) || "manager_delete_task".equals(key))) {
+            bindExecutionTaskDialog(activity, content, key, dialog, executionOrder);
+            return;
+        }
         switch (key) {
             case "manager_first_task":
                 bindFirstTask(activity, content, dialog);
@@ -106,6 +113,44 @@ public final class PlanejamentoTarefasFluxo {
                 break;
         }
     }
+
+    private static void bindExecutionTaskDialog(OperationsActivity activity, View content, String key,
+                                                OperationsDialogFragment dialog, String orderId) {
+        com.aula.fixa.adapter.os.ExecucaoOSViewModel vm = new androidx.lifecycle.ViewModelProvider(activity,
+                new com.aula.fixa.adapter.os.ExecucaoOSViewModelFactory(activity)).get(com.aula.fixa.adapter.os.ExecucaoOSViewModel.class);
+        if ("manager_delete_task".equals(key)) {
+            View delete = content.findViewWithTag("action:Excluir");
+            if (delete != null) delete.setOnClickListener(v -> {
+                long id = parseLong(activity.model.selectedId());
+                if (id <= 0) return;
+                delete.setEnabled(false);
+                vm.excluirTarefa(id, new com.aula.fixa.adapter.os.ExecucaoOSViewModel.Callback<Void>() {
+                    @Override public void success(Void value) { dialog.dismissNow(); activity.refresh(); }
+                    @Override public void failure(Throwable error) { delete.setEnabled(true); Toast.makeText(activity, com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show(); }
+                });
+            });
+            return;
+        }
+        EditText title = content.findViewWithTag("field:Título da tarefa");
+        EditText description = content.findViewWithTag("field:Descrição");
+        View save = content.findViewWithTag("action:Salvar");
+        if (save == null || title == null || description == null) return;
+        save.setOnClickListener(v -> {
+            String t=title.getText().toString().trim(), d=description.getText().toString().trim();
+            if(t.isEmpty()){title.setError(activity.getString(R.string.ops_required));return;}
+            if(d.isEmpty()){description.setError(activity.getString(R.string.ops_required));return;}
+            save.setEnabled(false);
+            com.aula.fixa.adapter.os.ExecucaoOSViewModel.Callback<Void> cb=new com.aula.fixa.adapter.os.ExecucaoOSViewModel.Callback<Void>() {
+                @Override public void success(Void value){dialog.dismissNow();activity.refresh();}
+                @Override public void failure(Throwable error){save.setEnabled(true);Toast.makeText(activity,com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error),Toast.LENGTH_LONG).show();}
+            };
+            if("manager_create_task".equals(key)) vm.criar(Long.parseLong(orderId),t,d,cb);
+            else vm.atualizar(new com.aula.fixa.domain.model.os.TarefaOS(parseLong(activity.model.selectedId()),t,d,
+                    activity.model.field("execution_task","status")==null?"NAO_INICIADA":activity.model.field("execution_task","status")),cb);
+        });
+    }
+
+    private static long parseLong(String v){try{return Long.parseLong(v);}catch(Exception e){return 0;}}
 
     private static void bindFirstTask(OperationsActivity activity, View content, OperationsDialogFragment dialog) {
         View createAutomatically = content.findViewWithTag("action:Criar");

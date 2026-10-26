@@ -57,4 +57,32 @@
         <item>Unidade Norte</item>
         <item>Unidade Sul</item>
     </string-array>
+    <string name="ops_manager_occurrences_title">Ocorrências</string>
+    <string name="ops_manager_no_occurrences">Não existem ocorrências</string>
+    <string name="ops_occurrence_registered_by">Registrada por %1$s</string>
+    <string name="ops_occurrence_unknown_author">Usuário</string>
+    <string name="ops_occurrence_edit_title">Editar ocorrência</string>
+    <string name="ops_occurrence_title">Título da ocorrência</string>
+    <string name="ops_occurrence_description">Descrição</string>
+    <string name="ops_occurrence_location_description">Descrição do local</string>
+    <string name="ops_occurrence_create">Criar ocorrência</string>
+    <string name="ops_occurrence_deleted">Ocorrência excluída.</string>
+    <string name="ops_occurrence_updated">Ocorrência atualizada.</string>
+    <string name="ops_occurrence_required_fields">Preencha o título e a descrição.</string>
+    <string name="ops_occurrence_details_title">Detalhes da ocorrência</string>
+    <string name="ops_occurrence_load_error">Não foi possível carregar a ocorrência.</string>
+    <string name="ops_occurrence_equipment">Aparelho: %1$s</string>
+    <string name="ops_occurrence_local">Local: %1$s</string>
+    <string name="ops_filter_equipment_category">Categoria de Equipamento</string>
+    <string name="ops_filter_problem_category">Categoria do Problema</string>
+    <string name="ops_filter_priority">Prioridade</string>
+    <string name="ops_occurrence_edit_information_subtitle">Atualize as informações da ocorrência.</string>
+    <string name="ops_occurrence_edit_photos_title">Atualizar fotos</string>
+    <string name="ops_occurrence_edit_photos_subtitle">Mantenha as fotos atuais, remova ou adicione novas.</string>
+    <string name="ops_occurrence_add_photos">Adicionar fotos</string>
+    <string name="ops_occurrence_photo_description">Foto da ocorrência</string>
+    <string name="ops_occurrence_remove_photo">Remover esta foto</string>
+    <string name="ops_occurrence_edit_completed">Ocorrência atualizada com sucesso.</string>
+    <string name="ops_occurrence_select_all_fields">Selecione local, categoria de equipamento, categoria do problema e prioridade.</string>
+    <string name="ops_occurrence_wait_photos">Aguarde o envio das fotos antes de salvar.</string>
 </resources>

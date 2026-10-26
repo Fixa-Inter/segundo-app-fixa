@@ -57,7 +57,7 @@ public final class TecnicoDisponivelAdapter extends RecyclerView.Adapter<Tecnico
                     .circleCrop().into(holder.avatar);
         }
         boolean selected = selectedId != null && selectedId == technician.id;
-        holder.itemView.setBackgroundResource(selected || position == 0
+        holder.itemView.setBackgroundResource(selected
                 ? R.drawable.bg_ops_87bb22303a : R.drawable.bg_ops_e04d888c51);
         holder.itemView.setContentDescription(technician.nome + ", Técnico"
                 + (position == 0 ? ", Recomendado" : "")

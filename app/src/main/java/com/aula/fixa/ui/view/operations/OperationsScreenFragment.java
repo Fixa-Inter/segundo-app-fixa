@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.aula.fixa.adapter.home.ManagerHomeViewModel;
 import com.aula.fixa.adapter.home.ManagerHomeViewModelFactory;
+import com.aula.fixa.R;
 import com.aula.fixa.adapter.planejamento.PlanejamentoOSViewModel;
 import com.aula.fixa.adapter.planejamento.PlanejamentoOSViewModelFactory;
 import com.aula.fixa.adapter.tecnico.TecnicoViewModel;
@@ -41,13 +42,25 @@ import java.util.List;
 /**
  * Fragment nativo para uma tela do catálogo. O layout permanece editável em XML.
  */
-public final class OperationsScreenFragment extends Fragment implements ManagerRequestFiltersSheet.Listener {
+public final class OperationsScreenFragment extends Fragment implements ManagerRequestFiltersSheet.Listener, com.aula.fixa.ui.view.os.QuadroOSFiltersSheet.Listener, com.aula.fixa.ui.view.ocorrencia.OcorrenciaFiltrosSheet.Listener {
     private Dialog homeLoading;
     private boolean firstResume = true;
     private OperationsProfileFlow profileFlow;
     private Uri pendingProfileCameraUri;
     private SolicitacaoGestorFluxo solicitacaoGestorFluxo;
     private PlanejamentoTarefasFluxo planejamentoTarefasFluxo;
+    private com.aula.fixa.ui.view.os.QuadroOSFluxo quadroOSFluxo;
+    private com.aula.fixa.ui.view.os.ExecucaoOSFluxo execucaoOSFluxo;
+    private com.aula.fixa.ui.view.os.ConclusaoOSFluxo conclusaoOSFluxo;
+    private com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo ocorrenciaGestorFluxo;
+    private final ActivityResultLauncher<String> occurrenceEditPhotoPicker = registerForActivityResult(
+            new ActivityResultContracts.GetMultipleContents(), uris -> {
+                if (ocorrenciaGestorFluxo != null && uris != null) ocorrenciaGestorFluxo.uploadNewPhotos(uris);
+            });
+    private final ActivityResultLauncher<String> completionPhotoPicker = registerForActivityResult(
+            new ActivityResultContracts.GetMultipleContents(), uris -> {
+                if (conclusaoOSFluxo != null && uris != null) conclusaoOSFluxo.uploadPhotos(uris);
+            });
     private final ActivityResultLauncher<String> profilePhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetContent(), uri -> {
                 if (uri != null && profileFlow != null) {
@@ -90,8 +103,12 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         android.widget.FrameLayout host = (android.widget.FrameLayout) getView();
         String screen = requireArguments().getString("screen", "manager_home");
+        if ("manager_board".equals(screen)) ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId", "");
         host.removeAllViews();
-        int screenLayout = "manager_request_details".equals(screen)
+        boolean managerOccurrenceCreate = isManagerOccurrenceCreateScreen(screen);
+        int screenLayout = managerOccurrenceCreate
+                ? managerOccurrenceLayout(screen)
+                : "manager_request_details".equals(screen)
                 ? com.aula.fixa.R.layout.fragment_new_request_confirm
                 : "manager_planning".equals(screen)
                 ? com.aula.fixa.R.layout.fragment_ops_manager_requests
@@ -108,8 +125,10 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             AppLoading.hide(homeLoading);
             homeLoading = null;
         }
-        OperationsBinder binder = new OperationsBinder((OperationsActivity) requireActivity(), content, screen, null);
-        binder.bind();
+        if (!managerOccurrenceCreate) {
+            OperationsBinder binder = new OperationsBinder((OperationsActivity) requireActivity(), content, screen, null);
+            binder.bind();
+        }
         if ("manager_assign_member".equals(screen)) {
             bindFinishPlanning(content, (OperationsActivity) requireActivity());
         }
@@ -121,6 +140,13 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         if ("manager_plan_information".equals(screen)) {
             bindPlanningCalendar(content, (OperationsActivity) requireActivity());
+        }
+        String editingOrder = ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId");
+        if ("manager_plan_information".equals(screen) && editingOrder != null && !editingOrder.trim().isEmpty()) {
+            bindOrderEditInformation(content, (OperationsActivity) requireActivity());
+        }
+        if ("manager_assign_member".equals(screen) && editingOrder != null && !editingOrder.trim().isEmpty()) {
+            bindOrderEditTechnician(content);
         }
         if ("manager_planning_tasks".equals(screen)) {
             planejamentoTarefasFluxo = new PlanejamentoTarefasFluxo(this, (OperationsActivity) requireActivity(), content);
@@ -161,6 +187,55 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if ("manager_home".equals(screen)) {
             loadManagerHome(host, content);
         }
+        if ("manager_execution_pending".equals(screen)) {
+            long orderId = getArguments() == null ? 0 : getArguments().getLong("orderId", 0);
+            execucaoOSFluxo = new com.aula.fixa.ui.view.os.ExecucaoOSFluxo(this,(OperationsActivity)requireActivity(),content,orderId);
+            execucaoOSFluxo.bind();
+        } else execucaoOSFluxo = null;
+        if ("manager_occurrence_result".equals(screen) && getArguments() != null
+                && getArguments().getLong("orderId", 0) > 0) {
+            conclusaoOSFluxo = new com.aula.fixa.ui.view.os.ConclusaoOSFluxo(this,
+                    (OperationsActivity) requireActivity(), content, getArguments().getLong("orderId"));
+            conclusaoOSFluxo.bind();
+        } else conclusaoOSFluxo = null;
+        if ("manager_board".equals(screen)) {
+            quadroOSFluxo = new com.aula.fixa.ui.view.os.QuadroOSFluxo(this, (OperationsActivity) requireActivity());
+            quadroOSFluxo.bind(content);
+        } else quadroOSFluxo = null;
+        if (managerOccurrenceCreate) {
+            ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
+            ocorrenciaGestorFluxo.bindCreateStep(content, screen);
+        } else if ("manager_occurrences".equals(screen)) {
+            ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
+            ocorrenciaGestorFluxo.bindList(content);
+        } else if ("manager_occurrence_details".equals(screen)) {
+            ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
+            ocorrenciaGestorFluxo.bindDetails(content);
+        } else {
+            ocorrenciaGestorFluxo = null;
+        }
+        if ("manager_occurrence_edit_information".equals(screen)) {
+            ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
+            ocorrenciaGestorFluxo.bindEditInformation(content);
+        } else if ("manager_occurrence_edit_photos".equals(screen)) {
+            ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
+            ocorrenciaGestorFluxo.bindEditPhotos(content);
+        }
+    }
+
+    private boolean isManagerOccurrenceCreateScreen(String screen) {
+        return "manager_occurrence_intro".equals(screen)
+                || "manager_occurrence_service".equals(screen)
+                || "manager_occurrence_location".equals(screen)
+                || ("manager_occurrence_result".equals(screen)
+                && (getArguments() == null || getArguments().getLong("orderId", 0) == 0));
+    }
+
+    private int managerOccurrenceLayout(String screen) {
+        if ("manager_occurrence_intro".equals(screen)) return R.layout.fragment_ops_manager_occurrence_create_basic;
+        if ("manager_occurrence_service".equals(screen)) return R.layout.fragment_ops_manager_occurrence_create_location;
+        if ("manager_occurrence_location".equals(screen)) return R.layout.fragment_ops_manager_occurrence_create_technical;
+        return R.layout.fragment_ops_manager_occurrence_create_photos;
     }
 
     private void bindFinishPlanning(View content, OperationsActivity activity) {
@@ -169,6 +244,40 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             return;
         }
         finish.setOnClickListener(view -> {
+            String editOrderId = activity.model.field("execution", "editOrderId");
+            if (editOrderId != null && !editOrderId.trim().isEmpty()) {
+                String technician = activity.model.field("plan_information", "tecnicoId");
+                String category = activity.model.field("plan_information", "Competência");
+                String date = activity.model.field("plan_information", "prazo");
+                String priority = activity.model.field("plan_information", "Prioridade");
+                if (technician == null || category == null || date == null || date.trim().isEmpty() || priority == null) {
+                    android.widget.Toast.makeText(activity, "Selecione técnico, competência, prioridade e prazo.", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                long osId;
+                try { osId = Long.parseLong(editOrderId); } catch (NumberFormatException error) { return; }
+                long technicianId;
+                try { technicianId = Long.parseLong(technician); } catch (NumberFormatException error) { return; }
+                com.aula.fixa.domain.enums.CategoriaProblema categoryEnum = null;
+                for (com.aula.fixa.domain.enums.CategoriaProblema option : com.aula.fixa.domain.enums.CategoriaProblema.values()) if (option.getNome().equalsIgnoreCase(category)) categoryEnum = option;
+                com.aula.fixa.domain.enums.Prioridade priorityEnum = null;
+                for (com.aula.fixa.domain.enums.Prioridade option : com.aula.fixa.domain.enums.Prioridade.values()) if (option.getNome().equalsIgnoreCase(priority)) priorityEnum = option;
+                if (categoryEnum == null || priorityEnum == null) return;
+                android.app.Dialog loading = AppLoading.show(activity);
+                com.aula.fixa.adapter.os.ExecucaoOSViewModel editModel = new ViewModelProvider(this,
+                        new com.aula.fixa.adapter.os.ExecucaoOSViewModelFactory(activity)).get(com.aula.fixa.adapter.os.ExecucaoOSViewModel.class);
+                String dateForApi = planningDateForApi(date);
+                if (dateForApi == null) {
+                    android.widget.Toast.makeText(activity, "Selecione um prazo válido.", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                editModel.atualizarOS(osId, technicianId, categoryEnum.name(), dateForApi, priorityEnum.name(),
+                        new com.aula.fixa.adapter.os.ExecucaoOSViewModel.Callback<Void>() {
+                            @Override public void success(Void value) { AppLoading.hide(loading); activity.model.field("execution", "editOrderId", ""); activity.open("manager_board"); }
+                            @Override public void failure(Throwable error) { AppLoading.hide(loading); finish.setEnabled(true); android.widget.Toast.makeText(activity, com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error), android.widget.Toast.LENGTH_LONG).show(); }
+                        });
+                return;
+            }
             String technicianValue = activity.model.field("plan_information", "tecnicoId");
             String categoryIdValue = activity.model.field("plan_information", "CompetênciaId");
             String priorityIdValue = activity.model.field("plan_information", "PrioridadeId");
@@ -260,6 +369,49 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                         }
                     });
         });
+    }
+
+    private String planningDateForApi(String value) {
+        if (value == null || value.trim().isEmpty()) return null;
+        try {
+            return new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.ROOT)
+                    .format(new java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ROOT).parse(value));
+        } catch (java.text.ParseException ignored) {
+            try { return java.time.LocalDate.parse(value).toString(); }
+            catch (java.time.format.DateTimeParseException invalid) { return null; }
+        }
+    }
+
+    private void bindOrderEditInformation(View content, OperationsActivity activity) {
+        hidePlanningTimeline(content);
+        View next = content.findViewWithTag("action:Próximo");
+        if (next != null) next.setOnClickListener(v -> {
+            String date = activity.model.field("plan_information", "prazo");
+            if (date == null || date.trim().isEmpty()) {
+                android.widget.Toast.makeText(activity, "Selecione um prazo de entrega.", android.widget.Toast.LENGTH_SHORT).show();
+                return;
+            }
+            activity.openPlanningStep("assign_member");
+        });
+        View back = content.findViewWithTag("text:Voltar"); if (back != null) back.setOnClickListener(v -> { activity.model.field("execution", "editOrderId", ""); activity.back(); });
+    }
+
+    private void bindOrderEditTechnician(View content) {
+        for (int id : new int[]{com.aula.fixa.R.id.ops_assign_step_1, com.aula.fixa.R.id.ops_assign_step_2,
+                com.aula.fixa.R.id.ops_assign_step_number_1, com.aula.fixa.R.id.ops_assign_step_number_2,
+                com.aula.fixa.R.id.ops_assign_step_line, com.aula.fixa.R.id.ops_assign_step_label_1,
+                com.aula.fixa.R.id.ops_assign_step_label_2}) { View v = content.findViewById(id); if (v != null) v.setVisibility(View.GONE); }
+        View finish = content.findViewWithTag("action:Finalizar"); if (finish instanceof android.widget.TextView) ((android.widget.TextView) finish).setText("Salvar");
+        View back = content.findViewWithTag("text:Voltar"); if (back != null) back.setOnClickListener(v -> requireActivity().onBackPressed());
+    }
+
+    private void hidePlanningTimeline(View content) {
+        for (int id : new int[]{com.aula.fixa.R.id.ops_5717_6249, com.aula.fixa.R.id.ops_5717_6246,
+                com.aula.fixa.R.id.ops_5717_6250, com.aula.fixa.R.id.ops_5717_6247,
+                com.aula.fixa.R.id.ops_shape_2, com.aula.fixa.R.id.ops_shape_9,
+                com.aula.fixa.R.id.ops_5717_6243, com.aula.fixa.R.id.ops_5717_6244}) {
+            View v = content.findViewById(id); if (v != null) v.setVisibility(View.GONE);
+        }
     }
 
     private void bindAvailableTechnicians(View content, OperationsActivity activity) {
@@ -533,7 +685,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 boolean past = dateOnly(candidate).before(dateOnly(today));
                 String dateValue = String.format(java.util.Locale.ROOT, "%02d/%02d/%04d", day,
                         first.get(java.util.Calendar.MONTH) + 1, first.get(java.util.Calendar.YEAR));
-                boolean selected = dateValue.equals(selectedDate);
+                boolean selected = isSelectedPlanningDate(selectedDate, dateValue);
                 if (selected) {
                     android.graphics.drawable.GradientDrawable selectedBg = new android.graphics.drawable.GradientDrawable();
                     selectedBg.setShape(android.graphics.drawable.GradientDrawable.OVAL);
@@ -566,6 +718,18 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         params.height = height;
         params.setGravity(android.view.Gravity.FILL_HORIZONTAL);
         return params;
+    }
+
+    private boolean isSelectedPlanningDate(String selectedValue, String calendarValue) {
+        if (selectedValue == null || selectedValue.trim().isEmpty()) return false;
+        try {
+            java.time.LocalDate selected = java.time.LocalDate.parse(selectedValue.trim());
+            java.time.LocalDate cell = java.time.LocalDate.parse(calendarValue,
+                    java.time.format.DateTimeFormatter.ofPattern("dd/MM/uuuu", new java.util.Locale("pt", "BR")));
+            return selected.equals(cell);
+        } catch (java.time.format.DateTimeParseException ignored) {
+            return calendarValue.equals(selectedValue.trim());
+        }
     }
 
     private java.util.Date dateOnly(java.util.Calendar date) {
@@ -641,6 +805,18 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
     }
 
+    public void selectCompletionPhotos() { completionPhotoPicker.launch("image/*"); }
+    public void selectOccurrenceEditPhotos() { occurrenceEditPhotoPicker.launch("image/*"); }
+
+    @Override public void onManagerOSFilters(String equipment,String problem,String priority,String period,String status) {
+        if(quadroOSFluxo!=null)quadroOSFluxo.filters(equipment,problem,priority,period,status);
+    }
+
+    @Override public void onOccurrenceFilters(String period,String author,String location,String equipment,String category,String priority) {
+        if(ocorrenciaGestorFluxo!=null)ocorrenciaGestorFluxo.filters(period,author,location,equipment,category,priority);
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -659,6 +835,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 solicitacaoGestorFluxo.refreshList(host.getChildAt(0));
             }
         }
+        if("manager_board".equals(screen)&&!initialResume&&quadroOSFluxo!=null)quadroOSFluxo.refresh();
+        if("manager_occurrences".equals(screen)&&!initialResume&&ocorrenciaGestorFluxo!=null)ocorrenciaGestorFluxo.refresh();
         if (!"manager_home".equals(requireArguments().getString("screen", "manager_home")) || getView() == null) {
             return;
         }
@@ -683,6 +861,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             solicitacaoGestorFluxo = null;
         }
         planejamentoTarefasFluxo = null;
+        if(quadroOSFluxo!=null){quadroOSFluxo.clear();quadroOSFluxo=null;}
+        if(ocorrenciaGestorFluxo!=null){ocorrenciaGestorFluxo.clear();ocorrenciaGestorFluxo=null;}
+        execucaoOSFluxo=null;
         super.onDestroyView();
     }
 }

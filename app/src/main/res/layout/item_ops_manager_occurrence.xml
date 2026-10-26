@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="@dimen/app_manager_home_request_card_height" android:layout_marginBottom="@dimen/app_request_card_spacing"
+    app:cardBackgroundColor="@color/app_surface" app:cardCornerRadius="@dimen/app_request_card_radius" app:cardElevation="2dp" app:strokeWidth="0dp">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <View android:layout_width="@dimen/app_request_card_accent_width" android:layout_height="match_parent"
+            android:background="@color/app_primary" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:id="@+id/occurrenceDate" android:layout_width="@dimen/app_request_card_date_pill_width" android:layout_height="@dimen/app_request_card_date_pill_height"
+            android:layout_marginStart="@dimen/app_request_card_content_margin_start" android:layout_marginTop="@dimen/app_request_card_date_pill_margin_top"
+            android:background="@drawable/bg_app_date_pill" android:gravity="center" android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Date" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton android:id="@+id/occurrenceMenu" android:layout_width="32dp" android:layout_height="32dp" android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless" android:padding="8dp" android:contentDescription="@string/app_more_options"
+            android:src="@drawable/ic_more_vertical_14" android:tint="@color/ops_color_ff0b013c"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:id="@+id/occurrenceTitle" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_request_card_title_margin_start" android:layout_marginTop="@dimen/app_request_card_title_margin_top"
+            android:layout_marginEnd="12dp" android:ellipsize="end" android:maxLines="1" android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Title"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceDate" />
+        <TextView android:id="@+id/occurrenceLocation" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_request_card_title_margin_start" android:layout_marginEnd="12dp" android:ellipsize="end"
+            android:maxLines="1" android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Subtitle"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceTitle" />
+        <com.google.android.material.imageview.ShapeableImageView android:id="@+id/occurrenceAvatar" android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_marginStart="@dimen/app_request_card_content_margin_start" android:layout_marginTop="2dp" android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceLocation"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" app:srcCompat="@drawable/img_avatar_115" />
+        <TextView android:id="@+id/occurrenceAuthor" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp" android:layout_marginEnd="10dp" android:ellipsize="end" android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Owner" app:layout_constraintStart_toEndOf="@id/occurrenceAvatar"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceLocation" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
