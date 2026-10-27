@@ -11,4 +11,7 @@ public final class OrdemServicoResponse {
     public String status;
     public String nomeUsuario;
     public String dataCriacao;
+    public String localUnidade;
+    public String descricaoLocal;
+    public String solicitante;
 }

@@ -294,7 +294,7 @@
     <string name="ops_text_modelos_8fccd1" formatted="false">Modelos</string>
     <string name="ops_text_models_8edcc2" formatted="false">models</string>
     <string name="ops_text_motivo_c7b288" formatted="false">Motivo</string>
-    <string name="ops_text_motivo_opcional_9691da" formatted="false">Motivo(opcional)</string>
+    <string name="ops_text_motivo_opcional_9691da" formatted="false">Motivo (obrigatório)</string>
     <string name="ops_text_my_profile_d83acc" formatted="false">my_profile</string>
     <string name="ops_text_nao_9bc947" formatted="false">Não</string>
     <string name="ops_text_nao_definido_9824c5" formatted="false">Não definido</string>

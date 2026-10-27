@@ -19,7 +19,8 @@ public final class NavegacaoAcesso {
             intent = new Intent(activity, OperationsActivity.class)
                     .putExtra(OperationsActivity.EXTRA_ROLE, "technician");
 
-        } else if (tipoAcesso == TipoAcesso.GESTOR) {
+        } else if (tipoAcesso == TipoAcesso.GESTOR
+                || tipoAcesso == TipoAcesso.ADMINISTRADOR) {
             intent = new Intent(activity, OperationsActivity.class)
                     .putExtra(OperationsActivity.EXTRA_ROLE, "manager");
 

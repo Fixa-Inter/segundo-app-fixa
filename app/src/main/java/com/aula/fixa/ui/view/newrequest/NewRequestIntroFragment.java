@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
+import androidx.navigation.NavController;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.AppText;
@@ -30,15 +30,19 @@ public class NewRequestIntroFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         fotoViewModel = new ViewModelProvider(this, new FotoViewModelFactory(requireContext())).get(FotoViewModel.class);
         AppText.setHtml(view.findViewById(R.id.tvTitle), R.string.app_new_request_title);
-        view.findViewById(R.id.btnBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        NavController nav = NavHostFragment.findNavController(this);
+        view.findViewById(R.id.btnBack).setOnClickListener(v -> navigateBack(nav));
         view.findViewById(R.id.btnCancel).setOnClickListener(v -> {
-            androidx.navigation.NavController nav = NavHostFragment.findNavController(this);
             SolicitacaoFormularioViewModel form = new ViewModelProvider(nav.getViewModelStoreOwner(nav.getGraph().getId())).get(SolicitacaoFormularioViewModel.class);
             for (String token : new java.util.ArrayList<>(form.photoDeleteTokens)) fotoViewModel.excluir(token);
             form.clear();
-            Navigation.findNavController(v).navigateUp();
+            navigateBack(nav);
         });
         view.findViewById(R.id.btnContinue).setOnClickListener(v ->
-                Navigation.findNavController(v).navigate(R.id.action_intro_to_description));
+                nav.navigate(R.id.action_intro_to_description));
+    }
+
+    private void navigateBack(NavController nav) {
+        if (!nav.popBackStack()) requireActivity().getOnBackPressedDispatcher().onBackPressed();
     }
 }

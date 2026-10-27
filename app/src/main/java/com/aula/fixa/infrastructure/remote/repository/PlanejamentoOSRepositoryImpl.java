@@ -8,6 +8,7 @@ import com.aula.fixa.infrastructure.remote.api.ApiClient;
 import com.aula.fixa.infrastructure.remote.dto.OrdemServicoResponse;
 import com.aula.fixa.infrastructure.remote.dto.PlanejamentoOrdemRequest;
 import com.aula.fixa.infrastructure.remote.dto.TarefaPlanejamentoRequest;
+import com.aula.fixa.infrastructure.remote.dto.TarefasCriarRequest;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public final class PlanejamentoOSRepositoryImpl implements PlanejamentoOSReposit
         for (TarefaPlanejada tarefa : tarefas) {
             body.add(new TarefaPlanejamentoRequest(ordemServicoId, tarefa.titulo, tarefa.descricao));
         }
-        Response<List<JsonObject>> response = tarefasApi.criar(body).execute();
+        Response<List<JsonObject>> response = tarefasApi.criar(new TarefasCriarRequest(body)).execute();
         if (!response.isSuccessful()) throw apiError(response.code(), response.errorBody());
     }
 

@@ -53,6 +53,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     private com.aula.fixa.ui.view.os.ExecucaoOSFluxo execucaoOSFluxo;
     private com.aula.fixa.ui.view.os.ConclusaoOSFluxo conclusaoOSFluxo;
     private com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo ocorrenciaGestorFluxo;
+    private com.aula.fixa.ui.view.equipamento.CategoriaEquipamentoGestorFluxo categoriaEquipamentoGestorFluxo;
     private final ActivityResultLauncher<String> occurrenceEditPhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(), uris -> {
                 if (ocorrenciaGestorFluxo != null && uris != null) ocorrenciaGestorFluxo.uploadNewPhotos(uris);
@@ -106,6 +107,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if ("manager_board".equals(screen)) ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId", "");
         host.removeAllViews();
         boolean managerOccurrenceCreate = isManagerOccurrenceCreateScreen(screen);
+        boolean managerCategories = "manager_categories".equals(screen);
         int screenLayout = managerOccurrenceCreate
                 ? managerOccurrenceLayout(screen)
                 : "manager_request_details".equals(screen)
@@ -125,7 +127,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             AppLoading.hide(homeLoading);
             homeLoading = null;
         }
-        if (!managerOccurrenceCreate) {
+        if (!managerOccurrenceCreate && !managerCategories) {
             OperationsBinder binder = new OperationsBinder((OperationsActivity) requireActivity(), content, screen, null);
             binder.bind();
         }
@@ -202,6 +204,11 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             quadroOSFluxo = new com.aula.fixa.ui.view.os.QuadroOSFluxo(this, (OperationsActivity) requireActivity());
             quadroOSFluxo.bind(content);
         } else quadroOSFluxo = null;
+        if (managerCategories) {
+            categoriaEquipamentoGestorFluxo = new com.aula.fixa.ui.view.equipamento.CategoriaEquipamentoGestorFluxo(
+                    this, (OperationsActivity) requireActivity());
+            categoriaEquipamentoGestorFluxo.bindList(content);
+        } else categoriaEquipamentoGestorFluxo = null;
         if (managerOccurrenceCreate) {
             ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
             ocorrenciaGestorFluxo.bindCreateStep(content, screen);
@@ -400,21 +407,34 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         for (int id : new int[]{com.aula.fixa.R.id.ops_assign_step_1, com.aula.fixa.R.id.ops_assign_step_2,
                 com.aula.fixa.R.id.ops_assign_step_number_1, com.aula.fixa.R.id.ops_assign_step_number_2,
                 com.aula.fixa.R.id.ops_assign_step_line, com.aula.fixa.R.id.ops_assign_step_label_1,
-                com.aula.fixa.R.id.ops_assign_step_label_2}) { View v = content.findViewById(id); if (v != null) v.setVisibility(View.GONE); }
+                com.aula.fixa.R.id.ops_assign_step_line_1_progress,
+                com.aula.fixa.R.id.ops_assign_step_label_2, com.aula.fixa.R.id.ops_assign_step_3,
+                com.aula.fixa.R.id.ops_assign_step_number_3, com.aula.fixa.R.id.ops_assign_step_line_2,
+                com.aula.fixa.R.id.ops_assign_step_line_1_progress,
+                com.aula.fixa.R.id.ops_assign_step_line_2_progress,
+                com.aula.fixa.R.id.ops_assign_step_label_3}) { View v = content.findViewById(id); if (v != null) v.setVisibility(View.GONE); }
         View finish = content.findViewWithTag("action:Finalizar"); if (finish instanceof android.widget.TextView) ((android.widget.TextView) finish).setText("Salvar");
-        View back = content.findViewWithTag("text:Voltar"); if (back != null) back.setOnClickListener(v -> requireActivity().onBackPressed());
+        View back = content.findViewWithTag("text:Voltar"); if (back != null) back.setOnClickListener(v -> ((OperationsActivity) requireActivity()).returnFromPlanningAssignment(true));
+        View backArrow = content.findViewWithTag("image:arrow-left"); if (backArrow != null) backArrow.setOnClickListener(v -> ((OperationsActivity) requireActivity()).returnFromPlanningAssignment(true));
     }
 
     private void hidePlanningTimeline(View content) {
         for (int id : new int[]{com.aula.fixa.R.id.ops_5717_6249, com.aula.fixa.R.id.ops_5717_6246,
                 com.aula.fixa.R.id.ops_5717_6250, com.aula.fixa.R.id.ops_5717_6247,
                 com.aula.fixa.R.id.ops_shape_2, com.aula.fixa.R.id.ops_shape_9,
-                com.aula.fixa.R.id.ops_5717_6243, com.aula.fixa.R.id.ops_5717_6244}) {
+                com.aula.fixa.R.id.ops_5717_6243, com.aula.fixa.R.id.ops_5717_6244,
+                com.aula.fixa.R.id.ops_plan_step_3_circle, com.aula.fixa.R.id.ops_plan_step_3_number,
+                com.aula.fixa.R.id.ops_plan_step_connector_2, com.aula.fixa.R.id.ops_plan_step_3_label}) {
             View v = content.findViewById(id); if (v != null) v.setVisibility(View.GONE);
         }
     }
 
     private void bindAvailableTechnicians(View content, OperationsActivity activity) {
+        View.OnClickListener returnToTasks = v -> activity.returnFromPlanningAssignment(false);
+        View backButton = content.findViewWithTag("text:Voltar");
+        if (backButton != null) backButton.setOnClickListener(returnToTasks);
+        View backArrow = content.findViewWithTag("image:arrow-left");
+        if (backArrow != null) backArrow.setOnClickListener(returnToTasks);
         RecyclerView list = content.findViewById(com.aula.fixa.R.id.ops_available_technicians_list);
         TextView empty = content.findViewById(com.aula.fixa.R.id.ops_available_technicians_empty);
         if (list == null || empty == null) {
@@ -617,7 +637,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
 
         View.OnClickListener chooseMonth = anchor -> {
-            java.util.Calendar current = java.util.Calendar.getInstance();
+            java.util.Calendar today = java.util.Calendar.getInstance();
+            java.util.Calendar current = (java.util.Calendar) today.clone();
             current.set(java.util.Calendar.DAY_OF_MONTH, 1);
             android.widget.PopupMenu menu = new android.widget.PopupMenu(requireContext(), anchor);
             java.text.DateFormatSymbols symbols = new java.text.DateFormatSymbols(new java.util.Locale("pt", "BR"));
@@ -632,7 +653,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                             activity.model.field("plan_information", "mes", value);
                             activity.model.field("plan_information", "prazo", "");
                             setMonthText(monthLabel, option);
-                            renderPlanningCalendar(calendar, option, current, activity);
+                            renderPlanningCalendar(calendar, option, today, activity);
                             return true;
                         });
             }
@@ -862,6 +883,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         planejamentoTarefasFluxo = null;
         if(quadroOSFluxo!=null){quadroOSFluxo.clear();quadroOSFluxo=null;}
+        if(categoriaEquipamentoGestorFluxo!=null){categoriaEquipamentoGestorFluxo.clear();categoriaEquipamentoGestorFluxo=null;}
         if(ocorrenciaGestorFluxo!=null){ocorrenciaGestorFluxo.clear();ocorrenciaGestorFluxo=null;}
         execucaoOSFluxo=null;
         super.onDestroyView();

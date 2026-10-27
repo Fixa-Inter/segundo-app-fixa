@@ -20,6 +20,11 @@ public class NewRequestDescriptionFragment extends NewRequestStepFragment {
     }
 
     @Override
+    protected int operationsDestinationId() {
+        return R.id.ops_new_request_description;
+    }
+
+    @Override
     protected void restoreForm(View root) {
         ((EditText) root.findViewById(R.id.etTitle)).setText(form.title);
         ((EditText) root.findViewById(R.id.etDescription)).setText(form.description);

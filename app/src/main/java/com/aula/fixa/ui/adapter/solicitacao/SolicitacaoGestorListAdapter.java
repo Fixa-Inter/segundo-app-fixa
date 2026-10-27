@@ -29,7 +29,7 @@ public final class SolicitacaoGestorListAdapter extends RecyclerView.Adapter<Rec
     private final int emptyText;
 
     public SolicitacaoGestorListAdapter(Listener listener) {
-        this(listener, R.string.ops_manager_no_pending_requests);
+        this(listener, R.string.app_requests_empty);
     }
 
     public SolicitacaoGestorListAdapter(Listener listener, int emptyText) {

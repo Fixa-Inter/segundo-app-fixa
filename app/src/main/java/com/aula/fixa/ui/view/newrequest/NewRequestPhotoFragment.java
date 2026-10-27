@@ -219,6 +219,11 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
     }
 
     @Override
+    protected int operationsDestinationId() {
+        return R.id.ops_new_request_photo;
+    }
+
+    @Override
     protected void restoreForm(View root) {
         ((AutoCompleteTextView) root.findViewById(R.id.actvDevice)).setText(form.device, false);
     }

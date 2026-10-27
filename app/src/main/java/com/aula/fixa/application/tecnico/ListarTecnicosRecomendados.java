@@ -10,4 +10,5 @@ public final class ListarTecnicosRecomendados {
     public List<TecnicoDisponivel> executar(String categoriaProblema) throws Exception {
         return repository.recomendar(categoriaProblema);
     }
+    public List<TecnicoDisponivel> listar() throws Exception { return repository.listar(); }
 }

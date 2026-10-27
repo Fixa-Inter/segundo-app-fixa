@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.aula.fixa.R;
 import com.aula.fixa.adapter.cadastro.CadastroViewModel;
 import com.aula.fixa.adapter.cadastro.CadastroViewModelFactory;
@@ -20,6 +19,7 @@ import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,10 +48,14 @@ public final class ManagerRequestFiltersSheet extends BottomSheetDialogFragment 
                 .setImageResource(R.drawable.ic_calendar_20);
 
         AutoCompleteTextView author = field(view, R.id.fieldAuthor);
-        author.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        author.setThreshold(1);
+        author.setThreshold(0);
+        author.setKeyListener(null);
+        author.setCursorVisible(false);
 
         loadOptions(view);
+        ArrayList<String> authors = getArguments() == null
+                ? new ArrayList<>() : getArguments().getStringArrayList(ARG_AUTHORS);
+        setStringAdapter(view, R.id.fieldAuthor, authors == null ? Collections.emptyList() : authors);
         view.findViewById(R.id.btnApply).setOnClickListener(v -> {
             Fragment target = getTargetFragment();
             if (target instanceof Listener) {
@@ -66,7 +70,19 @@ public final class ManagerRequestFiltersSheet extends BottomSheetDialogFragment 
             setDefault(view, R.id.fieldLocation, R.string.app_filter_location_default);
             setDefault(view, R.id.fieldCategory, R.string.app_filter_location_default);
             setDefault(view, R.id.fieldAuthor, R.string.app_filter_author_default);
+            Fragment target = getTargetFragment();
+            if (target instanceof Listener) {
+                ((Listener) target).onManagerRequestFilters("", "", "", "");
+            }
         });
+    }
+
+    private static final String ARG_AUTHORS = "authors";
+
+    public void setAuthorOptions(List<String> authors) {
+        Bundle args = new Bundle();
+        args.putStringArrayList(ARG_AUTHORS, new ArrayList<>(authors == null ? Collections.emptyList() : authors));
+        setArguments(args);
     }
 
     private void loadOptions(View view) {
@@ -91,6 +107,16 @@ public final class ManagerRequestFiltersSheet extends BottomSheetDialogFragment 
     }
 
     private void setAdapter(View view, int id, List<OpcaoCadastro> values) {
+        AutoCompleteTextView field = field(view, id);
+        field.setAdapter(new ArrayAdapter<>(view.getContext(), R.layout.item_app_dropdown, values));
+        field.setOnClickListener(v -> field.showDropDown());
+        field.setOnTouchListener((v, event) -> {
+            if (event.getAction() == android.view.MotionEvent.ACTION_UP) field.showDropDown();
+            return false;
+        });
+    }
+
+    private void setStringAdapter(View view, int id, List<String> values) {
         AutoCompleteTextView field = field(view, id);
         field.setAdapter(new ArrayAdapter<>(view.getContext(), R.layout.item_app_dropdown, values));
         field.setOnClickListener(v -> field.showDropDown());

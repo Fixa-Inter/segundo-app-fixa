@@ -406,6 +406,12 @@ public final class OperationsActions {
     }
 
     private void next() {
+        if (name.equals("planning_tasks") && activity.model.entries("planning_tasks").isEmpty()) {
+            android.widget.Toast.makeText(activity,
+                    "Adicione ao menos uma tarefa antes de continuar.",
+                    android.widget.Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (name.equals("plan_information")
                 && (activity.model.field("plan_information", "CompetênciaId") == null
                 || activity.model.field("plan_information", "PrioridadeId") == null

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +22,7 @@ import com.aula.fixa.ui.adapter.solicitacao.SolicitacaoGestorPhotoAdapter;
 import com.aula.fixa.ui.config.AppLoading;
 import com.aula.fixa.ui.config.AppText;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
+import com.aula.fixa.ui.view.operations.OperationsDialogFragment;
 import com.aula.fixa.ui.view.operations.OperationsScreenFragment;
 
 import java.util.ArrayList;
@@ -63,13 +63,6 @@ public final class SolicitacaoGestorFluxo {
                 ? R.string.ops_text_planeje_as_tarefas_da_os_0527e3 : R.string.ops_text_solicitacoes_07d0b7);
         View back = content.findViewWithTag("image:arrow-left");
         if (back != null) back.setOnClickListener(v -> activity.back());
-        if (approvedForPlanning) {
-            for (int suffix : new int[]{6893, 6910, 6927}) {
-                View sample = content.findViewById(host.getResources().getIdentifier(
-                        "ops_5717_" + suffix, "id", host.requireContext().getPackageName()));
-                if (sample != null) sample.setVisibility(View.GONE);
-            }
-        }
         RecyclerView requestsList = content.findViewById(R.id.ops_manager_requests_list);
         if (requestsList != null) {
             requestsList.setLayoutManager(new LinearLayoutManager(host.requireContext()));
@@ -81,13 +74,20 @@ public final class SolicitacaoGestorFluxo {
                             activity.openPlanningIntro(request.id);
                         } else activity.openRequestDetails(request.id, request.titulo);
                     }, approvedForPlanning ? R.string.ops_manager_no_approved_requests
-                            : R.string.ops_manager_no_pending_requests);
+                            : R.string.app_requests_empty);
             requestsList.setAdapter(listAdapter);
         }
         View filter = content.findViewById(R.id.ops_manager_requests_filter);
         if (filter != null) {
             filter.setOnClickListener(ignored -> {
                 ManagerRequestFiltersSheet sheet = new ManagerRequestFiltersSheet();
+                java.util.LinkedHashSet<String> authors = new java.util.LinkedHashSet<>();
+                for (SolicitacaoGestor request : pendingRequests) {
+                    if (request.solicitante != null && !request.solicitante.trim().isEmpty()) {
+                        authors.add(request.solicitante.trim());
+                    }
+                }
+                sheet.setAuthorOptions(new ArrayList<>(authors));
                 sheet.setTargetFragment(host, 0);
                 sheet.show(host.getParentFragmentManager(), ManagerRequestFiltersSheet.TAG);
             });
@@ -243,23 +243,10 @@ public final class SolicitacaoGestorFluxo {
     }
 
     private void showRejectDialog(long id) {
-        EditText reason = new EditText(host.requireContext());
-        reason.setHint("Motivo da reprovação");
-        int padding = Math.round(20 * host.getResources().getDisplayMetrics().density);
-        reason.setPadding(padding, padding, padding, padding);
-        AlertDialog dialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(host.requireContext())
-                .setTitle("Reprovar solicitação").setView(reason).setNegativeButton("Cancelar", null)
-                .setPositiveButton("Reprovar", null).create();
-        dialog.setOnShowListener(ignored -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            String value = reason.getText().toString().trim();
-            if (value.isEmpty()) {
-                reason.setError("Informe o motivo da reprovação.");
-                return;
-            }
-            dialog.dismiss();
-            updateStatus(id, StatusProblema.REPROVADO, value);
-        }));
-        dialog.show();
+        android.os.Bundle args = new android.os.Bundle();
+        args.putLong("requestId", id);
+        OperationsDialogFragment.create("manager_reject_request", args)
+                .show(activity.getSupportFragmentManager(), "ops_dialog");
     }
 
     private void updateStatus(long id, StatusProblema status, String reason) {

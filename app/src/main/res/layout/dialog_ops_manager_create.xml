@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:7860 • manager / create_category. Componentes nativos; dimensões em values e sw400dp. -->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_b18732bb6c" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_273" android:clipChildren="false" android:clipToPadding="false">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="310dp" android:clipChildren="false" android:clipToPadding="false">
         <TextView
             android:id="@+id/ops_5717_7861"
             android:layout_width="@dimen/ops_dp_190_65"
@@ -63,7 +63,9 @@
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
             android:tag="field:Nome" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7863" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_69_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7868" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
+        <TextView android:id="@+id/ops_category_description_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="35dp" android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7866" android:text="Descrição" android:textAppearance="@style/TextAppearance.FIXA.Operations.a4a8627d1d" android:fontFamily="@font/poppins_medium" />
+        <androidx.appcompat.widget.AppCompatEditText android:id="@+id/ops_category_description" android:layout_width="0dp" android:layout_height="35dp" android:layout_marginStart="35dp" android:layout_marginTop="7dp" android:layout_marginEnd="35dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_category_description_label" android:background="@drawable/bg_ops_70aaab1e67" android:paddingStart="15dp" android:paddingEnd="12dp" android:hint="Descreva a categoria" android:inputType="textCapSentences|textMultiLine" android:importantForAutofill="no" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7863" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="260dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_7864"
                 android:layout_width="@dimen/ops_dp_62"
@@ -87,7 +89,7 @@
             android:layout_width="@dimen/ops_dp_140_0"
             android:layout_height="@dimen/ops_dp_40_0"
             android:layout_marginStart="@dimen/ops_dp_185_0"
-            android:layout_marginTop="@dimen/ops_dp_193_0"
+            android:layout_marginTop="260dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/bg_ops_eaf7bf3250"

@@ -57,15 +57,23 @@ public abstract class NewRequestStepFragment extends Fragment {
         next.setText(R.string.app_next);
         next.setOnClickListener(v -> {
             // Evita navegação dupla quando o botão é tocado duas vezes durante a transição.
-            if (nav.getCurrentDestination() == null || nav.getCurrentDestination().getId() != currentDestinationId()) return;
+            if (nav.getCurrentDestination() == null
+                    || (nav.getCurrentDestination().getId() != currentDestinationId()
+                    && nav.getCurrentDestination().getId() != operationsDestinationId())) return;
             saveForm(view);
             if (!validateStep(view)) return;
             nav.navigate(nextAction);
         });
         view.findViewById(R.id.btnStepBack).setOnClickListener(v -> {
             saveForm(view);
-            nav.navigateUp();
+            navigateBack(nav);
         });
+    }
+
+    protected int operationsDestinationId() { return View.NO_ID; }
+
+    protected final void navigateBack(NavController nav) {
+        if (!nav.popBackStack()) requireActivity().getOnBackPressedDispatcher().onBackPressed();
     }
 
     /** Id do destino deste passo, para ignorar cliques repetidos durante a transição. */

@@ -268,7 +268,12 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void openRequestCreation() {
-        navigation.navigate(R.id.ops_new_request_intro);
+        if (navigation.getCurrentDestination() != null
+                && navigation.getCurrentDestination().getId() == R.id.ops_manager_requests) {
+            navigation.navigate(R.id.action_manager_requests_to_new_request);
+        } else {
+            navigation.navigate(R.id.ops_new_request_intro);
+        }
     }
 
     public void openPlanningIntro(long requestId) {
@@ -295,8 +300,19 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void back() {
-        if (!navigation.navigateUp()) {
+        if (!navigation.popBackStack()) {
             finish();
+        }
+    }
+
+    public void returnFromPlanningAssignment(boolean editingOrder) {
+        int target = editingOrder ? R.id.ops_manager_plan_information : R.id.ops_manager_planning_tasks;
+        if (!navigation.popBackStack(target, false)) {
+            long requestId = navigation.getCurrentBackStackEntry() == null ? 0
+                    : navigation.getCurrentBackStackEntry().getArguments().getLong("requestId", 0);
+            Bundle arguments = new Bundle();
+            arguments.putLong("requestId", requestId);
+            navigation.navigate(target, arguments);
         }
     }
 

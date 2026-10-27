@@ -52,11 +52,11 @@ public class NewRequestConfirmFragment extends Fragment {
                 .getViewModelStoreOwner(navController.getGraph().getId())).get(SolicitacaoFormularioViewModel.class);
 
         view.findViewById(R.id.btnBack).setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
+            navigateBack(navController);
         });
 
         view.findViewById(R.id.btnStepBack).setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
+            navigateBack(navController);
         });
 
         MaterialButton finish = view.findViewById(R.id.btnStepNext);
@@ -116,6 +116,10 @@ public class NewRequestConfirmFragment extends Fragment {
             fotoViewModel.excluir(token);
         }
         form.clear();
+    }
+
+    private void navigateBack(androidx.navigation.NavController navController) {
+        if (!navController.popBackStack()) requireActivity().getOnBackPressedDispatcher().onBackPressed();
     }
 
     static class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {

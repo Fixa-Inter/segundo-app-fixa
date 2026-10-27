@@ -28,5 +28,16 @@ public final class TecnicoViewModel extends ViewModel {
         });
     }
 
+    public void listar(Callback<List<TecnicoDisponivel>> callback) {
+        executor.execute(() -> {
+            try {
+                List<TecnicoDisponivel> result = listar.listar();
+                main.post(() -> callback.success(result));
+            } catch (Throwable error) {
+                main.post(() -> callback.failure(error));
+            }
+        });
+    }
+
     @Override protected void onCleared() { executor.shutdownNow(); }
 }

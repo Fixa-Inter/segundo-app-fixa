@@ -56,6 +56,11 @@ public class NewRequestLocationFragment extends NewRequestStepFragment {
     }
 
     @Override
+    protected int operationsDestinationId() {
+        return R.id.ops_new_request_location;
+    }
+
+    @Override
     protected void restoreForm(View root) {
         ((AutoCompleteTextView) root.findViewById(R.id.actvLocation)).setText(form.location, false);
         ((EditText) root.findViewById(R.id.etLocationDescription)).setText(form.locationDescription);

@@ -57,6 +57,7 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_requests" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_requests_ec7242">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_requests" />
+        <action android:id="@+id/action_manager_requests_to_new_request" app:destination="@id/ops_new_request_intro" />
     </fragment>
     <fragment android:id="@+id/ops_manager_planning" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_planning_423614">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_planning" />

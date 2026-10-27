@@ -81,7 +81,6 @@ public final class OperationsData {
             }
         }
         if ("manager_home".equals(key)) bindEmptyManagerHome(activity, root);
-        if ("manager_requests".equals(key)) bindManagerRequestCards(activity, root);
     }
 
     private static void bindEmptyManagerHome(OperationsActivity activity, View root) {
@@ -220,25 +219,6 @@ public final class OperationsData {
             card.setContentDescription(request.titulo + ", " + location + ", " + requester);
             list.addView(card);
         }
-    }
-
-    private static void bindManagerRequestCards(OperationsActivity activity, View root) {
-        ConstraintLayout content = findContent(root);
-        if (content == null) return;
-
-        int[][] ids = {
-                {6893, 6903, 6905, 6906, 6904},
-                {6910, 6920, 6922, 6923, 6921},
-                {6927, 6937, 6939, 6940, 6938}
-        };
-        for (int i = 0; i < ids.length; i++) {
-            View oldCard = content.findViewById(resourceId(activity, ids[i][0]));
-            if (oldCard != null) oldCard.setVisibility(View.GONE);
-        }
-    }
-
-    private static int resourceId(OperationsActivity activity, int suffix) {
-        return activity.getResources().getIdentifier("ops_5717_" + suffix, "id", activity.getPackageName());
     }
 
     private static ImageView loadAvatar(OperationsActivity activity, ImageView image, String url) {

@@ -70,9 +70,9 @@
             android:id="@+id/ops_available_technicians_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
-            android:layout_marginEnd="49dp"
+            android:layout_marginEnd="16dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,22 +99,24 @@
             android:id="@+id/ops_assign_step_1"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_marginStart="@dimen/ops_dp_122_0"
             android:layout_marginTop="32dp"
             android:scaleType="fitXY"
             android:src="@drawable/figma_31d92"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.17"
             app:layout_constraintTop_toBottomOf="@id/ops_available_technicians_container" />
 
         <ImageView
             android:id="@+id/ops_assign_step_2"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_marginStart="@dimen/ops_dp_245_27"
             android:scaleType="fitXY"
-            android:src="@drawable/figma_9b3d6"
+            android:src="@drawable/figma_31d92"
             app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.50"
             app:layout_constraintTop_toTopOf="@id/ops_assign_step_1" />
 
         <TextView
@@ -149,10 +151,10 @@
             android:id="@+id/ops_assign_step_line"
             android:layout_width="@dimen/ops_dp_65_0"
             android:layout_height="@dimen/ops_dp_4_0"
-            android:layout_marginStart="@dimen/ops_dp_169_0"
             android:background="@drawable/bg_ops_56c27dd68d"
             app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ops_assign_step_2"
+            app:layout_constraintStart_toEndOf="@id/ops_assign_step_1"
             app:layout_constraintTop_toTopOf="@id/ops_assign_step_1" />
 
         <TextView
@@ -164,7 +166,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/ops_text_informacoes_07156d"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.f6b24267d1"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.5bbbc2094a"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/ops_assign_step_1"
             app:layout_constraintStart_toStartOf="@id/ops_assign_step_1"
@@ -179,11 +181,82 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/ops_text_tarefas_4b2b8a"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.f6b24267d1"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.5bbbc2094a"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/ops_assign_step_2"
             app:layout_constraintStart_toStartOf="@id/ops_assign_step_2"
             app:layout_constraintTop_toBottomOf="@id/ops_assign_step_2" />
+
+        <ImageView
+            android:id="@+id/ops_assign_step_3"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/figma_9b3d6"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.83"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_1"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1" />
+
+        <TextView
+            android:id="@+id/ops_assign_step_number_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="3"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.5329b36968"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/ops_assign_step_3"
+            app:layout_constraintEnd_toEndOf="@id/ops_assign_step_3"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_3"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_3" />
+
+        <View
+            android:id="@+id/ops_assign_step_line_2"
+            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_height="4dp"
+            android:background="@drawable/bg_ops_56c27dd68d"
+            app:layout_constraintStart_toEndOf="@id/ops_assign_step_2"
+            app:layout_constraintEnd_toStartOf="@id/ops_assign_step_3"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_2"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_2" />
+
+        <View
+            android:id="@+id/ops_assign_step_line_2_progress"
+            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_height="4dp"
+            android:background="@drawable/bg_ops_053a9b3e5e"
+            app:layout_constraintStart_toEndOf="@id/ops_assign_step_2"
+            app:layout_constraintEnd_toStartOf="@id/ops_assign_step_3"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_2"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_2" />
+
+        <View
+            android:id="@+id/ops_assign_step_line_1_progress"
+            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_height="@dimen/ops_dp_4_0"
+            android:background="@drawable/bg_ops_053a9b3e5e"
+            app:layout_constraintStart_toEndOf="@id/ops_assign_step_1"
+            app:layout_constraintEnd_toStartOf="@id/ops_assign_step_2"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_1"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1" />
+
+        <TextView
+            android:id="@+id/ops_assign_step_label_3"
+            android:layout_width="108dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/ops_planning_assign_technician"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.f6b24267d1"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="@id/ops_assign_step_3"
+            app:layout_constraintEnd_toEndOf="@id/ops_assign_step_3"
+            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_3" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ops_5717_8745"
@@ -195,7 +268,7 @@
             android:clipChildren="false"
             android:clipToPadding="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_label_1">
+            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_label_3">
 
             <TextView
                 android:id="@+id/ops_5717_8746"
@@ -235,6 +308,6 @@
             android:textAppearance="@style/TextAppearance.FIXA.Operations.755f0ac70d"
             app:backgroundTint="@null"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_label_1" />
+            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_label_3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
