@@ -210,6 +210,22 @@ public class OperationsActivity extends AppCompatActivity {
         open(role + "_" + name);
     }
 
+    public void openCompetencies(long technicianId) {
+        Bundle args = new Bundle();
+        args.putLong("technicianId", technicianId);
+        navigation.navigate(R.id.ops_manager_competencies, args);
+    }
+
+    public void openCompetencyEdit(com.aula.fixa.domain.model.tecnico.CompetenciaTecnico competence) {
+        Bundle args = new Bundle();
+        args.putLong("competenceId", competence.id == null ? 0 : competence.id);
+        args.putString("competenceName", competence.nome);
+        args.putString("oldScore", competence.nota == null ? "_" : competence.nota.stripTrailingZeros().toPlainString());
+        if (getSupportFragmentManager().findFragmentByTag("ops_dialog") == null) {
+            OperationsDialogFragment.create("manager_edit_competency", args).show(getSupportFragmentManager(), "ops_dialog");
+        }
+    }
+
     public void openRequestDetails(long id, String title) {
         Bundle args = new Bundle();
         args.putLong("requestId", id);

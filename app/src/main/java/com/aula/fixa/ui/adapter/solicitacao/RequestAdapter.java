@@ -76,7 +76,8 @@ public class RequestAdapter extends ListAdapter<ProblemaItem, RequestAdapter.Vie
             menu.setOnClickListener(v -> listener.onRequestMenuClick(item, v));
             boolean finalStatus = item.status == StatusProblema.APROVADO
                     || item.status == StatusProblema.CONCLUIDO
-                    || item.status == StatusProblema.REPROVADO;
+                    || item.status == StatusProblema.REPROVADO
+                    || item.status == StatusProblema.OS_CRIADA;
             menu.setVisibility(finalStatus ? View.GONE : View.VISIBLE);
         }
 
@@ -89,6 +90,8 @@ public class RequestAdapter extends ListAdapter<ProblemaItem, RequestAdapter.Vie
                     return R.string.app_request_status_done;
                 case REPROVADO:
                     return R.string.app_request_status_refused;
+                case OS_CRIADA:
+                    return R.string.app_request_status_os_created;
                 default:
                     return R.string.app_request_status_analysis;
             }
@@ -103,6 +106,8 @@ public class RequestAdapter extends ListAdapter<ProblemaItem, RequestAdapter.Vie
                     return R.color.app_status_done_chart;
                 case REPROVADO:
                     return R.color.app_status_refused;
+                case OS_CRIADA:
+                    return R.color.app_status_approved;
                 default:
                     return R.color.app_status_analysis;
             }

@@ -5,6 +5,7 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_competencies" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_competencies_938e05">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_competencies" />
+        <argument android:name="technicianId" app:argType="long" android:defaultValue="0L" />
     </fragment>
     <fragment android:id="@+id/ops_manager_occurrence_success" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_success_6c33d9">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_success" />

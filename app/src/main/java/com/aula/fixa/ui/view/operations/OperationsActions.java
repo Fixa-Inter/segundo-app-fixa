@@ -262,8 +262,13 @@ public final class OperationsActions {
             case "Criar eu mesmo":
                 return () -> open("create_task");
             case "Competências":
-            case "Ver mais":
                 return () -> open("competencies");
+            case "Ver mais":
+                return () -> {
+                    String id = activity.model.field("manager_member_details", "tecnicoId");
+                    try { if (id != null) activity.openCompetencies(Long.parseLong(id)); }
+                    catch (NumberFormatException ignored) { }
+                };
             case "Novo chat":
             case "Nova conversa":
             case "Ajuda com solicitação":

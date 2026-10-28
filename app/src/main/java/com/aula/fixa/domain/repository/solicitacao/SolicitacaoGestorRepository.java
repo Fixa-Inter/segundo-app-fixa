@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface SolicitacaoGestorRepository {
     List<SolicitacaoGestor> listarSolicitacoesDaUnidade() throws Exception;
+    List<SolicitacaoGestor> listarSolicitacoesAprovadasDaUnidade() throws Exception;
     SolicitacaoGestor detalhar(long id) throws Exception;
     SolicitacaoGestor atualizarStatus(long id, StatusProblema status, String motivo) throws Exception;
 }

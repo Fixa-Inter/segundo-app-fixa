@@ -43,6 +43,7 @@
     <string name="app_request_status_refused">Solicitação reprovada</string>
     <string name="app_request_status_done">Solicitação concluída</string>
     <string name="app_request_status_approved">Solicitação aprovada</string>
+    <string name="app_request_status_os_created">OS criada</string>
 
     <!-- Minhas solicitações -->
     <string name="app_requests_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> suas solicitações]]></string>

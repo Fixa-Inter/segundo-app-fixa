@@ -1,0 +1,143 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="14dp"
+    android:background="@drawable/bg_ops_e04d888c51"
+    android:elevation="2dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/teamTechnicianAvatar"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_avatar_115"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.Operations.d978b6fd23" />
+
+    <TextView
+        android:id="@+id/teamTechnicianName"
+        android:layout_width="121dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="25dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/ops_color_ff0b013c"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/teamTechnicianAccess"
+        android:layout_width="125dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="75dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/ops_color_ff8a93a2"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/teamTechnicianName" />
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="219dp"
+        android:layout_marginTop="28dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/figma_7c18e"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/teamTechnicianShiftHours"
+        android:layout_width="56dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="202dp"
+        android:layout_marginTop="46dp"
+        android:autoSizeMaxTextSize="9sp"
+        android:autoSizeMinTextSize="7sp"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/ops_color_ff000000"
+        android:textSize="9sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/teamTechnicianShift"
+        android:layout_width="53dp"
+        android:layout_height="11dp"
+        android:layout_marginStart="202dp"
+        android:layout_marginTop="61dp"
+        android:autoSizeMaxTextSize="8sp"
+        android:autoSizeMinTextSize="7sp"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/ops_color_ff8a93a2"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="11dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="287dp"
+        android:layout_marginTop="28dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/figma_57fba"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/teamTechnicianCompetence"
+        android:layout_width="48dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="46dp"
+        android:autoSizeMaxTextSize="9sp"
+        android:autoSizeMinTextSize="6sp"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/ops_color_ff8a93a2"
+        android:textSize="9sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/teamTechnicianCompetenceLabel"
+        android:layout_width="54dp"
+        android:layout_height="11dp"
+        android:layout_marginStart="267dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="Área"
+        android:textColor="@color/ops_color_ff8a93a2"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/teamTechnicianCompetence" />
+</androidx.constraintlayout.widget.ConstraintLayout>

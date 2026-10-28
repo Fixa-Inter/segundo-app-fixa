@@ -25,8 +25,12 @@ import com.aula.fixa.adapter.tecnico.TecnicoViewModel;
 import com.aula.fixa.adapter.tecnico.TecnicoViewModelFactory;
 import com.aula.fixa.domain.enums.CategoriaProblema;
 import com.aula.fixa.domain.model.tecnico.TecnicoDisponivel;
+import com.aula.fixa.domain.model.tecnico.TecnicoDetalhes;
+import com.aula.fixa.domain.model.tecnico.CompetenciaTecnico;
 import com.aula.fixa.domain.model.planejamento.TarefaPlanejada;
 import com.aula.fixa.ui.adapter.tecnico.TecnicoDisponivelAdapter;
+import com.aula.fixa.ui.adapter.tecnico.TecnicoEquipeAdapter;
+import com.aula.fixa.ui.adapter.tecnico.ResponsabilidadesTecnicoAdapter;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.AppLoading;
 import com.aula.fixa.ui.config.operations.ScreenCatalog;
@@ -56,11 +60,15 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     private com.aula.fixa.ui.view.equipamento.CategoriaEquipamentoGestorFluxo categoriaEquipamentoGestorFluxo;
     private final ActivityResultLauncher<String> occurrenceEditPhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(), uris -> {
-                if (ocorrenciaGestorFluxo != null && uris != null) ocorrenciaGestorFluxo.uploadNewPhotos(uris);
+                if (ocorrenciaGestorFluxo != null && uris != null) {
+                    ocorrenciaGestorFluxo.uploadNewPhotos(uris);
+                }
             });
     private final ActivityResultLauncher<String> completionPhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(), uris -> {
-                if (conclusaoOSFluxo != null && uris != null) conclusaoOSFluxo.uploadPhotos(uris);
+                if (conclusaoOSFluxo != null && uris != null) {
+                    conclusaoOSFluxo.uploadPhotos(uris);
+                }
             });
     private final ActivityResultLauncher<String> profilePhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetContent(), uri -> {
@@ -104,10 +112,13 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         android.widget.FrameLayout host = (android.widget.FrameLayout) getView();
         String screen = requireArguments().getString("screen", "manager_home");
-        if ("manager_board".equals(screen)) ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId", "");
+        if ("manager_board".equals(screen)) {
+            ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId", "");
+        }
         host.removeAllViews();
         boolean managerOccurrenceCreate = isManagerOccurrenceCreateScreen(screen);
         boolean managerCategories = "manager_categories".equals(screen);
+        boolean managerMemberDetails = "manager_member_details".equals(screen);
         int screenLayout = managerOccurrenceCreate
                 ? managerOccurrenceLayout(screen)
                 : "manager_request_details".equals(screen)
@@ -127,7 +138,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             AppLoading.hide(homeLoading);
             homeLoading = null;
         }
-        if (!managerOccurrenceCreate && !managerCategories) {
+        if (!managerOccurrenceCreate && !managerCategories && !managerMemberDetails) {
             OperationsBinder binder = new OperationsBinder((OperationsActivity) requireActivity(), content, screen, null);
             binder.bind();
         }
@@ -136,6 +147,15 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         if ("manager_assign_member".equals(screen)) {
             bindAvailableTechnicians(content, (OperationsActivity) requireActivity());
+        }
+        if ("manager_team".equals(screen)) {
+            bindTeamTechnicians(content);
+        }
+        if ("manager_member_details".equals(screen)) {
+            bindMemberDetails(content);
+        }
+        if ("manager_competencies".equals(screen)) {
+            bindCompetencies(content);
         }
         if ("manager_plan_information".equals(screen)) {
             bindPlanningOptions(content, (OperationsActivity) requireActivity());
@@ -191,24 +211,32 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         if ("manager_execution_pending".equals(screen)) {
             long orderId = getArguments() == null ? 0 : getArguments().getLong("orderId", 0);
-            execucaoOSFluxo = new com.aula.fixa.ui.view.os.ExecucaoOSFluxo(this,(OperationsActivity)requireActivity(),content,orderId);
+            execucaoOSFluxo = new com.aula.fixa.ui.view.os.ExecucaoOSFluxo(this, (OperationsActivity) requireActivity(), content, orderId);
             execucaoOSFluxo.bind();
-        } else execucaoOSFluxo = null;
+        } else {
+            execucaoOSFluxo = null;
+        }
         if ("manager_occurrence_result".equals(screen) && getArguments() != null
                 && getArguments().getLong("orderId", 0) > 0) {
             conclusaoOSFluxo = new com.aula.fixa.ui.view.os.ConclusaoOSFluxo(this,
                     (OperationsActivity) requireActivity(), content, getArguments().getLong("orderId"));
             conclusaoOSFluxo.bind();
-        } else conclusaoOSFluxo = null;
+        } else {
+            conclusaoOSFluxo = null;
+        }
         if ("manager_board".equals(screen)) {
             quadroOSFluxo = new com.aula.fixa.ui.view.os.QuadroOSFluxo(this, (OperationsActivity) requireActivity());
             quadroOSFluxo.bind(content);
-        } else quadroOSFluxo = null;
+        } else {
+            quadroOSFluxo = null;
+        }
         if (managerCategories) {
             categoriaEquipamentoGestorFluxo = new com.aula.fixa.ui.view.equipamento.CategoriaEquipamentoGestorFluxo(
                     this, (OperationsActivity) requireActivity());
             categoriaEquipamentoGestorFluxo.bindList(content);
-        } else categoriaEquipamentoGestorFluxo = null;
+        } else {
+            categoriaEquipamentoGestorFluxo = null;
+        }
         if (managerOccurrenceCreate) {
             ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
             ocorrenciaGestorFluxo.bindCreateStep(content, screen);
@@ -239,9 +267,15 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     private int managerOccurrenceLayout(String screen) {
-        if ("manager_occurrence_intro".equals(screen)) return R.layout.fragment_ops_manager_occurrence_create_basic;
-        if ("manager_occurrence_service".equals(screen)) return R.layout.fragment_ops_manager_occurrence_create_location;
-        if ("manager_occurrence_location".equals(screen)) return R.layout.fragment_ops_manager_occurrence_create_technical;
+        if ("manager_occurrence_intro".equals(screen)) {
+            return R.layout.fragment_ops_manager_occurrence_create_basic;
+        }
+        if ("manager_occurrence_service".equals(screen)) {
+            return R.layout.fragment_ops_manager_occurrence_create_location;
+        }
+        if ("manager_occurrence_location".equals(screen)) {
+            return R.layout.fragment_ops_manager_occurrence_create_technical;
+        }
         return R.layout.fragment_ops_manager_occurrence_create_photos;
     }
 
@@ -262,14 +296,32 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                     return;
                 }
                 long osId;
-                try { osId = Long.parseLong(editOrderId); } catch (NumberFormatException error) { return; }
+                try {
+                    osId = Long.parseLong(editOrderId);
+                } catch (NumberFormatException error) {
+                    return;
+                }
                 long technicianId;
-                try { technicianId = Long.parseLong(technician); } catch (NumberFormatException error) { return; }
+                try {
+                    technicianId = Long.parseLong(technician);
+                } catch (NumberFormatException error) {
+                    return;
+                }
                 com.aula.fixa.domain.enums.CategoriaProblema categoryEnum = null;
-                for (com.aula.fixa.domain.enums.CategoriaProblema option : com.aula.fixa.domain.enums.CategoriaProblema.values()) if (option.getNome().equalsIgnoreCase(category)) categoryEnum = option;
+                for (com.aula.fixa.domain.enums.CategoriaProblema option : com.aula.fixa.domain.enums.CategoriaProblema.values()) {
+                    if (option.getNome().equalsIgnoreCase(category)) {
+                        categoryEnum = option;
+                    }
+                }
                 com.aula.fixa.domain.enums.Prioridade priorityEnum = null;
-                for (com.aula.fixa.domain.enums.Prioridade option : com.aula.fixa.domain.enums.Prioridade.values()) if (option.getNome().equalsIgnoreCase(priority)) priorityEnum = option;
-                if (categoryEnum == null || priorityEnum == null) return;
+                for (com.aula.fixa.domain.enums.Prioridade option : com.aula.fixa.domain.enums.Prioridade.values()) {
+                    if (option.getNome().equalsIgnoreCase(priority)) {
+                        priorityEnum = option;
+                    }
+                }
+                if (categoryEnum == null || priorityEnum == null) {
+                    return;
+                }
                 android.app.Dialog loading = AppLoading.show(activity);
                 com.aula.fixa.adapter.os.ExecucaoOSViewModel editModel = new ViewModelProvider(this,
                         new com.aula.fixa.adapter.os.ExecucaoOSViewModelFactory(activity)).get(com.aula.fixa.adapter.os.ExecucaoOSViewModel.class);
@@ -280,8 +332,19 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 }
                 editModel.atualizarOS(osId, technicianId, categoryEnum.name(), dateForApi, priorityEnum.name(),
                         new com.aula.fixa.adapter.os.ExecucaoOSViewModel.Callback<Void>() {
-                            @Override public void success(Void value) { AppLoading.hide(loading); activity.model.field("execution", "editOrderId", ""); activity.open("manager_board"); }
-                            @Override public void failure(Throwable error) { AppLoading.hide(loading); finish.setEnabled(true); android.widget.Toast.makeText(activity, com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error), android.widget.Toast.LENGTH_LONG).show(); }
+                            @Override
+                            public void success(Void value) {
+                                AppLoading.hide(loading);
+                                activity.model.field("execution", "editOrderId", "");
+                                activity.open("manager_board");
+                            }
+
+                            @Override
+                            public void failure(Throwable error) {
+                                AppLoading.hide(loading);
+                                finish.setEnabled(true);
+                                android.widget.Toast.makeText(activity, com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error), android.widget.Toast.LENGTH_LONG).show();
+                            }
                         });
                 return;
             }
@@ -379,28 +442,41 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     private String planningDateForApi(String value) {
-        if (value == null || value.trim().isEmpty()) return null;
+        if (value == null || value.trim().isEmpty()) {
+            return null;
+        }
         try {
             return new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.ROOT)
                     .format(new java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ROOT).parse(value));
         } catch (java.text.ParseException ignored) {
-            try { return java.time.LocalDate.parse(value).toString(); }
-            catch (java.time.format.DateTimeParseException invalid) { return null; }
+            try {
+                return java.time.LocalDate.parse(value).toString();
+            } catch (java.time.format.DateTimeParseException invalid) {
+                return null;
+            }
         }
     }
 
     private void bindOrderEditInformation(View content, OperationsActivity activity) {
         hidePlanningTimeline(content);
         View next = content.findViewWithTag("action:Próximo");
-        if (next != null) next.setOnClickListener(v -> {
-            String date = activity.model.field("plan_information", "prazo");
-            if (date == null || date.trim().isEmpty()) {
-                android.widget.Toast.makeText(activity, "Selecione um prazo de entrega.", android.widget.Toast.LENGTH_SHORT).show();
-                return;
-            }
-            activity.openPlanningStep("assign_member");
-        });
-        View back = content.findViewWithTag("text:Voltar"); if (back != null) back.setOnClickListener(v -> { activity.model.field("execution", "editOrderId", ""); activity.back(); });
+        if (next != null) {
+            next.setOnClickListener(v -> {
+                String date = activity.model.field("plan_information", "prazo");
+                if (date == null || date.trim().isEmpty()) {
+                    android.widget.Toast.makeText(activity, "Selecione um prazo de entrega.", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                activity.openPlanningStep("assign_member");
+            });
+        }
+        View back = content.findViewWithTag("text:Voltar");
+        if (back != null) {
+            back.setOnClickListener(v -> {
+                activity.model.field("execution", "editOrderId", "");
+                activity.back();
+            });
+        }
     }
 
     private void bindOrderEditTechnician(View content) {
@@ -412,10 +488,24 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 com.aula.fixa.R.id.ops_assign_step_number_3, com.aula.fixa.R.id.ops_assign_step_line_2,
                 com.aula.fixa.R.id.ops_assign_step_line_1_progress,
                 com.aula.fixa.R.id.ops_assign_step_line_2_progress,
-                com.aula.fixa.R.id.ops_assign_step_label_3}) { View v = content.findViewById(id); if (v != null) v.setVisibility(View.GONE); }
-        View finish = content.findViewWithTag("action:Finalizar"); if (finish instanceof android.widget.TextView) ((android.widget.TextView) finish).setText("Salvar");
-        View back = content.findViewWithTag("text:Voltar"); if (back != null) back.setOnClickListener(v -> ((OperationsActivity) requireActivity()).returnFromPlanningAssignment(true));
-        View backArrow = content.findViewWithTag("image:arrow-left"); if (backArrow != null) backArrow.setOnClickListener(v -> ((OperationsActivity) requireActivity()).returnFromPlanningAssignment(true));
+                com.aula.fixa.R.id.ops_assign_step_label_3}) {
+            View v = content.findViewById(id);
+            if (v != null) {
+                v.setVisibility(View.GONE);
+            }
+        }
+        View finish = content.findViewWithTag("action:Finalizar");
+        if (finish instanceof android.widget.TextView) {
+            ((android.widget.TextView) finish).setText("Salvar");
+        }
+        View back = content.findViewWithTag("text:Voltar");
+        if (back != null) {
+            back.setOnClickListener(v -> ((OperationsActivity) requireActivity()).returnFromPlanningAssignment(true));
+        }
+        View backArrow = content.findViewWithTag("image:arrow-left");
+        if (backArrow != null) {
+            backArrow.setOnClickListener(v -> ((OperationsActivity) requireActivity()).returnFromPlanningAssignment(true));
+        }
     }
 
     private void hidePlanningTimeline(View content) {
@@ -425,16 +515,23 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 com.aula.fixa.R.id.ops_5717_6243, com.aula.fixa.R.id.ops_5717_6244,
                 com.aula.fixa.R.id.ops_plan_step_3_circle, com.aula.fixa.R.id.ops_plan_step_3_number,
                 com.aula.fixa.R.id.ops_plan_step_connector_2, com.aula.fixa.R.id.ops_plan_step_3_label}) {
-            View v = content.findViewById(id); if (v != null) v.setVisibility(View.GONE);
+            View v = content.findViewById(id);
+            if (v != null) {
+                v.setVisibility(View.GONE);
+            }
         }
     }
 
     private void bindAvailableTechnicians(View content, OperationsActivity activity) {
         View.OnClickListener returnToTasks = v -> activity.returnFromPlanningAssignment(false);
         View backButton = content.findViewWithTag("text:Voltar");
-        if (backButton != null) backButton.setOnClickListener(returnToTasks);
+        if (backButton != null) {
+            backButton.setOnClickListener(returnToTasks);
+        }
         View backArrow = content.findViewWithTag("image:arrow-left");
-        if (backArrow != null) backArrow.setOnClickListener(returnToTasks);
+        if (backArrow != null) {
+            backArrow.setOnClickListener(returnToTasks);
+        }
         RecyclerView list = content.findViewById(com.aula.fixa.R.id.ops_available_technicians_list);
         TextView empty = content.findViewById(com.aula.fixa.R.id.ops_available_technicians_empty);
         if (list == null || empty == null) {
@@ -500,6 +597,260 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                         android.widget.Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void bindTeamTechnicians(View content) {
+        RecyclerView list = content.findViewById(R.id.ops_manager_team_list);
+        TextView empty = content.findViewById(R.id.ops_manager_team_empty);
+        if (list == null || empty == null) {
+            return;
+        }
+        list.setLayoutManager(new LinearLayoutManager(requireContext()));
+        list.setNestedScrollingEnabled(false);
+        list.setClipToPadding(false);
+        OperationsActivity activity = (OperationsActivity) requireActivity();
+        TecnicoEquipeAdapter adapter = new TecnicoEquipeAdapter(technician -> {
+            activity.model.field("manager_member_details", "tecnicoId", String.valueOf(technician.id));
+            activity.model.field("manager_member_details", "nome", technician.nome);
+            activity.model.field("manager_member_details", "tipoAcesso", technician.tipoAcesso);
+            activity.model.field("manager_member_details", "foto", technician.urlFoto);
+            activity.openName("member_details");
+        });
+        list.setAdapter(adapter);
+        list.setVisibility(View.INVISIBLE);
+        Dialog loading = AppLoading.show(requireContext());
+        TecnicoViewModel viewModel = new ViewModelProvider(this,
+                new TecnicoViewModelFactory(requireContext())).get(TecnicoViewModel.class);
+        viewModel.listar(new TecnicoViewModel.Callback<List<TecnicoDisponivel>>() {
+            @Override
+            public void success(List<TecnicoDisponivel> technicians) {
+                AppLoading.hide(loading);
+                if (!isAdded() || getView() == null || !content.isAttachedToWindow()) {
+                    return;
+                }
+                List<TecnicoDisponivel> values = technicians == null
+                        ? java.util.Collections.emptyList() : technicians;
+                adapter.submit(values);
+                list.setVisibility(values.isEmpty() ? View.GONE : View.VISIBLE);
+                empty.setText(values.isEmpty() ? "Sem técnicos cadastrados." : "");
+                empty.setVisibility(values.isEmpty() ? View.VISIBLE : View.GONE);
+            }
+
+            @Override
+            public void failure(Throwable error) {
+                AppLoading.hide(loading);
+                if (!isAdded() || getView() == null || !content.isAttachedToWindow()) {
+                    return;
+                }
+                list.setVisibility(View.GONE);
+                empty.setText("Não foi possível carregar os técnicos. Toque para tentar novamente.");
+                empty.setVisibility(View.VISIBLE);
+                empty.setOnClickListener(v -> bindTeamTechnicians(content));
+                android.widget.Toast.makeText(requireContext(),
+                        com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error),
+                        android.widget.Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void bindMemberDetails(View content) {
+        OperationsActivity activity = (OperationsActivity) requireActivity();
+        TextView name = content.findViewById(R.id.ops_5717_7671);
+        TextView role = content.findViewById(R.id.ops_5717_7672);
+        TextView activeCount = content.findViewById(R.id.ops_5717_7679);
+        TextView completedCount = content.findViewById(R.id.ops_5717_7680);
+        android.widget.ImageView avatar = content.findViewById(R.id.ops_5717_7670);
+        String technicianName = activity.model.field("manager_member_details", "nome");
+        String accessType = activity.model.field("manager_member_details", "tipoAcesso");
+        String photoUrl = activity.model.field("manager_member_details", "foto");
+        String technicianId = activity.model.field("manager_member_details", "tecnicoId");
+        if (name != null) {
+            name.setText(technicianName == null ? "" : technicianName);
+        }
+        if (role != null) {
+            role.setText(accessType == null || accessType.isEmpty() ? "Técnico" : accessType);
+        }
+        View backArrow = content.findViewWithTag("image:arrow-left");
+        if (backArrow != null) {
+            backArrow.setOnClickListener(v -> activity.back());
+        }
+        View seeMoreCompetencies = content.findViewById(R.id.ops_5717_7681);
+        View seeMoreArrow = content.findViewById(R.id.ops_5717_7682);
+        View.OnClickListener openCompetencies = v -> {
+            try {
+                long id = technicianId == null ? 0 : Long.parseLong(technicianId);
+                if (id > 0) activity.openCompetencies(id);
+                else android.widget.Toast.makeText(requireContext(), "Técnico inválido.", android.widget.Toast.LENGTH_LONG).show();
+            } catch (NumberFormatException ignored) {
+                android.widget.Toast.makeText(requireContext(), "Técnico inválido.", android.widget.Toast.LENGTH_LONG).show();
+            }
+        };
+        if (seeMoreCompetencies != null) seeMoreCompetencies.setOnClickListener(openCompetencies);
+        if (seeMoreArrow != null) seeMoreArrow.setOnClickListener(openCompetencies);
+        if (avatar != null) {
+            avatar.setImageResource(R.drawable.img_avatar_115);
+            if (photoUrl != null && !photoUrl.trim().isEmpty()) {
+                com.bumptech.glide.Glide.with(avatar).load(photoUrl)
+                        .placeholder(R.drawable.img_avatar_115).fallback(R.drawable.img_avatar_115)
+                        .error(R.drawable.img_avatar_115).circleCrop().into(avatar);
+            }
+        }
+        RecyclerView responsibilities = content.findViewById(R.id.ops_manager_member_responsibilities);
+        ResponsabilidadesTecnicoAdapter responsibilityAdapter = new ResponsabilidadesTecnicoAdapter();
+        if (responsibilities != null) {
+            responsibilities.setLayoutManager(new LinearLayoutManager(requireContext()));
+            responsibilities.setNestedScrollingEnabled(false);
+            responsibilities.setClipToPadding(false);
+            responsibilities.setAdapter(responsibilityAdapter);
+        }
+        if (activeCount != null) {
+            activeCount.setText("—");
+        }
+        if (completedCount != null) {
+            completedCount.setText("—");
+        }
+        bindCompetence(content, java.util.Collections.emptyList(), 0, R.id.ops_5717_7694, R.id.ops_5717_7695);
+        bindCompetence(content, java.util.Collections.emptyList(), 1, R.id.ops_5717_7686, R.id.ops_5717_7687);
+        bindCompetence(content, java.util.Collections.emptyList(), 2, R.id.ops_5717_7690, R.id.ops_5717_7691);
+        long id;
+        try {
+            id = technicianId == null ? 0 : Long.parseLong(technicianId);
+        } catch (NumberFormatException ignored) {
+            id = 0;
+        }
+        if (id <= 0) {
+            return;
+        }
+        Dialog loading = AppLoading.show(requireContext());
+        TecnicoViewModel viewModel = new ViewModelProvider(this,
+                new TecnicoViewModelFactory(requireContext())).get(TecnicoViewModel.class);
+        viewModel.detalhes(id, new TecnicoViewModel.Callback<TecnicoDetalhes>() {
+            @Override
+            public void success(TecnicoDetalhes data) {
+                AppLoading.hide(loading);
+                if (!isAdded() || getView() == null || !content.isAttachedToWindow()) {
+                    return;
+                }
+                if (activeCount != null) {
+                    activeCount.setText(String.valueOf(data.ordensAtivas));
+                }
+                if (completedCount != null) {
+                    completedCount.setText(String.valueOf(data.ordensConcluidas));
+                }
+                bindCompetence(content, data.competencias, 0, R.id.ops_5717_7694, R.id.ops_5717_7695);
+                bindCompetence(content, data.competencias, 1, R.id.ops_5717_7686, R.id.ops_5717_7687);
+                bindCompetence(content, data.competencias, 2, R.id.ops_5717_7690, R.id.ops_5717_7691);
+                RecyclerView list = content.findViewById(R.id.ops_manager_member_responsibilities);
+                if (list != null && list.getAdapter() instanceof ResponsabilidadesTecnicoAdapter) {
+                    ((ResponsabilidadesTecnicoAdapter) list.getAdapter()).submit(data.responsabilidades);
+                }
+            }
+
+            @Override
+            public void failure(Throwable error) {
+                AppLoading.hide(loading);
+                if (!isAdded() || getView() == null || !content.isAttachedToWindow()) {
+                    return;
+                }
+                android.widget.Toast.makeText(requireContext(),
+                        com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error),
+                        android.widget.Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void bindCompetencies(View content) {
+        OperationsActivity activity = (OperationsActivity) requireActivity();
+        View back = content.findViewWithTag("image:arrow-left");
+        if (back != null) back.setOnClickListener(v -> activity.back());
+        long technicianId = getArguments() == null ? 0 : getArguments().getLong("technicianId", 0);
+        int[] cardIds = {R.id.ops_5717_6041, R.id.ops_5717_6032, R.id.ops_5717_5996,
+                R.id.ops_5717_6005, R.id.ops_5717_6014, R.id.ops_5717_6023};
+        int[] nameIds = {R.id.ops_5717_6045, R.id.ops_5717_6036, R.id.ops_5717_6000,
+                R.id.ops_5717_6009, R.id.ops_5717_6018, R.id.ops_5717_6027};
+        int[] scoreIds = {R.id.ops_5717_6046, R.id.ops_5717_6037, R.id.ops_5717_6001,
+                R.id.ops_5717_6010, R.id.ops_5717_6019, R.id.ops_5717_6028};
+        int[] editIds = {R.id.ops_5717_6042, R.id.ops_5717_6033, R.id.ops_5717_5997,
+                R.id.ops_5717_6006, R.id.ops_5717_6015, R.id.ops_5717_6024};
+        for (int i = 0; i < cardIds.length; i++) {
+            View card = content.findViewById(cardIds[i]);
+            if (card != null) card.setVisibility(View.GONE);
+        }
+        if (technicianId <= 0) {
+            String saved = activity.model.field("manager_member_details", "tecnicoId");
+            try { technicianId = saved == null ? 0 : Long.parseLong(saved); }
+            catch (NumberFormatException ignored) { technicianId = 0; }
+        }
+        if (technicianId <= 0) {
+            android.widget.Toast.makeText(requireContext(), "Técnico inválido.", android.widget.Toast.LENGTH_LONG).show();
+            return;
+        }
+        Dialog loading = AppLoading.show(requireContext());
+        TecnicoViewModel viewModel = new ViewModelProvider(this,
+                new TecnicoViewModelFactory(requireContext())).get(TecnicoViewModel.class);
+        final long targetId = technicianId;
+        viewModel.competencias(targetId, new TecnicoViewModel.Callback<List<CompetenciaTecnico>>() {
+            @Override public void success(List<CompetenciaTecnico> values) {
+                AppLoading.hide(loading);
+                if (!isAdded() || !content.isAttachedToWindow()) return;
+                int count = Math.min(values == null ? 0 : values.size(), cardIds.length);
+                for (int i = 0; i < count; i++) {
+                    CompetenciaTecnico competence = values.get(i);
+                    View card = content.findViewById(cardIds[i]);
+                    TextView name = content.findViewById(nameIds[i]);
+                    TextView score = content.findViewById(scoreIds[i]);
+                    View edit = content.findViewById(editIds[i]);
+                    if (card != null) card.setVisibility(View.VISIBLE);
+                    if (name != null) name.setText(competenceName(competence.nome));
+                    if (score != null) score.setText(competence.nota == null ? "_"
+                            : competence.nota.stripTrailingZeros().toPlainString());
+                    if (edit != null) {
+                        edit.setVisibility(competence.id == null ? View.INVISIBLE : View.VISIBLE);
+                        edit.setOnClickListener(v -> activity.openCompetencyEdit(competence));
+                    }
+                }
+            }
+            @Override public void failure(Throwable error) {
+                AppLoading.hide(loading);
+                if (isAdded()) android.widget.Toast.makeText(requireContext(),
+                        com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error),
+                        android.widget.Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void bindCompetence(
+            View content, List<CompetenciaTecnico> values, int index,
+            int nameId, int scoreId) {
+        TextView name = content.findViewById(nameId);
+        TextView score = content.findViewById(scoreId);
+        if (name == null || score == null) {
+            return;
+        }
+        if (values == null || values.size() <= index) {
+            name.setText("—");
+            score.setText("—");
+            return;
+        }
+        CompetenciaTecnico competence = values.get(index);
+        name.setText(competenceName(competence.nome));
+        score.setText(competence.nota == null ? "_"
+                : competence.nota.stripTrailingZeros().toPlainString());
+    }
+
+    private String competenceName(String raw) {
+        if (raw == null) {
+            return "";
+        }
+        for (CategoriaProblema category : CategoriaProblema.values()) {
+            if (category.name().equalsIgnoreCase(raw) || category.getNome().equalsIgnoreCase(raw)) {
+                if (category == CategoriaProblema.REDE_CONECTIVIDADE) return "Rede";
+                if (category == CategoriaProblema.LIMPEZA_CONSERVACAO) return "Limpeza";
+                if (category == CategoriaProblema.CLIMATIZACAO) return "Clima";
+                return category.getNome();
+            }
+        }
+        return raw;
     }
 
     private java.util.List<TecnicoDisponivel> currentTechnicians = java.util.Collections.emptyList();
@@ -742,7 +1093,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     private boolean isSelectedPlanningDate(String selectedValue, String calendarValue) {
-        if (selectedValue == null || selectedValue.trim().isEmpty()) return false;
+        if (selectedValue == null || selectedValue.trim().isEmpty()) {
+            return false;
+        }
         try {
             java.time.LocalDate selected = java.time.LocalDate.parse(selectedValue.trim());
             java.time.LocalDate cell = java.time.LocalDate.parse(calendarValue,
@@ -826,15 +1179,26 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
     }
 
-    public void selectCompletionPhotos() { completionPhotoPicker.launch("image/*"); }
-    public void selectOccurrenceEditPhotos() { occurrenceEditPhotoPicker.launch("image/*"); }
-
-    @Override public void onManagerOSFilters(String equipment,String problem,String priority,String period,String status) {
-        if(quadroOSFluxo!=null)quadroOSFluxo.filters(equipment,problem,priority,period,status);
+    public void selectCompletionPhotos() {
+        completionPhotoPicker.launch("image/*");
     }
 
-    @Override public void onOccurrenceFilters(String period,String author,String location,String equipment,String category,String priority) {
-        if(ocorrenciaGestorFluxo!=null)ocorrenciaGestorFluxo.filters(period,author,location,equipment,category,priority);
+    public void selectOccurrenceEditPhotos() {
+        occurrenceEditPhotoPicker.launch("image/*");
+    }
+
+    @Override
+    public void onManagerOSFilters(String equipment, String problem, String priority, String period, String status) {
+        if (quadroOSFluxo != null) {
+            quadroOSFluxo.filters(equipment, problem, priority, period, status);
+        }
+    }
+
+    @Override
+    public void onOccurrenceFilters(String period, String author, String location, String equipment, String category, String priority) {
+        if (ocorrenciaGestorFluxo != null) {
+            ocorrenciaGestorFluxo.filters(period, author, location, equipment, category, priority);
+        }
     }
 
 
@@ -856,8 +1220,12 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 solicitacaoGestorFluxo.refreshList(host.getChildAt(0));
             }
         }
-        if("manager_board".equals(screen)&&!initialResume&&quadroOSFluxo!=null)quadroOSFluxo.refresh();
-        if("manager_occurrences".equals(screen)&&!initialResume&&ocorrenciaGestorFluxo!=null)ocorrenciaGestorFluxo.refresh();
+        if ("manager_board".equals(screen) && !initialResume && quadroOSFluxo != null) {
+            quadroOSFluxo.refresh();
+        }
+        if ("manager_occurrences".equals(screen) && !initialResume && ocorrenciaGestorFluxo != null) {
+            ocorrenciaGestorFluxo.refresh();
+        }
         if (!"manager_home".equals(requireArguments().getString("screen", "manager_home")) || getView() == null) {
             return;
         }
@@ -882,10 +1250,19 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             solicitacaoGestorFluxo = null;
         }
         planejamentoTarefasFluxo = null;
-        if(quadroOSFluxo!=null){quadroOSFluxo.clear();quadroOSFluxo=null;}
-        if(categoriaEquipamentoGestorFluxo!=null){categoriaEquipamentoGestorFluxo.clear();categoriaEquipamentoGestorFluxo=null;}
-        if(ocorrenciaGestorFluxo!=null){ocorrenciaGestorFluxo.clear();ocorrenciaGestorFluxo=null;}
-        execucaoOSFluxo=null;
+        if (quadroOSFluxo != null) {
+            quadroOSFluxo.clear();
+            quadroOSFluxo = null;
+        }
+        if (categoriaEquipamentoGestorFluxo != null) {
+            categoriaEquipamentoGestorFluxo.clear();
+            categoriaEquipamentoGestorFluxo = null;
+        }
+        if (ocorrenciaGestorFluxo != null) {
+            ocorrenciaGestorFluxo.clear();
+            ocorrenciaGestorFluxo = null;
+        }
+        execucaoOSFluxo = null;
         super.onDestroyView();
     }
 }

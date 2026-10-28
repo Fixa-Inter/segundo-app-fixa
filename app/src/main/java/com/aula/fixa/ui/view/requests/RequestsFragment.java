@@ -132,6 +132,9 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         if ("CONCLUIDO".equalsIgnoreCase(value) || "CONCLUÍDO".equalsIgnoreCase(value)) {
             return StatusProblema.CONCLUIDO;
         }
+        if ("OS_CRIADA".equalsIgnoreCase(value)) {
+            return StatusProblema.OS_CRIADA;
+        }
         if ("PENDENTE".equalsIgnoreCase(value)) {
             return StatusProblema.PENDENTE;
         }

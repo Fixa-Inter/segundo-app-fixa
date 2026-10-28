@@ -16,7 +16,7 @@ public final class ListarSolicitacoesGestor {
     }
 
     public List<SolicitacaoGestor> executarAprovadas() throws Exception {
-        return ordenar(repository.listarSolicitacoesDaUnidade(), "APROVADO");
+        return ordenar(repository.listarSolicitacoesAprovadasDaUnidade(), "APROVADO");
     }
 
     private static List<SolicitacaoGestor> ordenar(List<SolicitacaoGestor> source, String status) {

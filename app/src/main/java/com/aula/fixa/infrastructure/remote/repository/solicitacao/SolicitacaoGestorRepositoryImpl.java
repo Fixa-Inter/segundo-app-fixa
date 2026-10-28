@@ -21,8 +21,16 @@ public final class SolicitacaoGestorRepositoryImpl implements SolicitacaoGestorR
     }
 
     @Override public List<SolicitacaoGestor> listarSolicitacoesDaUnidade() throws Exception {
+        return mapAll(remote.listarUnidade());
+    }
+
+    @Override public List<SolicitacaoGestor> listarSolicitacoesAprovadasDaUnidade() throws Exception {
+        return mapAll(remote.listarUnidade("APROVADO"));
+    }
+
+    private static List<SolicitacaoGestor> mapAll(List<ProblemaResponse> values) {
         List<SolicitacaoGestor> result = new ArrayList<>();
-        for (ProblemaResponse value : remote.listarUnidade()) {
+        for (ProblemaResponse value : values) {
             if (value != null) result.add(map(value));
         }
         return result;

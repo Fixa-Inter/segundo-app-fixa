@@ -27,7 +27,7 @@ public final class ManagerHomeRepositoryImpl implements ManagerHomeRepository {
         List<OrdemServicoResponse> ordens = optionalList(
                 ApiClient.ordensServico(session).minhas(null, null, null, null).execute());
         List<ProblemaResponse> solicitacoes = new ArrayList<>(optionalList(
-                ApiClient.solicitacoes(session).listarUnidade(null, "dataCriacao", -1).execute()));
+                ApiClient.solicitacoes(session).listarUnidade(null, null, "dataCriacao", -1).execute()));
 
         solicitacoes.removeIf(item -> item == null || !"PENDENTE".equals(normalize(item.status)));
         solicitacoes.sort(Comparator

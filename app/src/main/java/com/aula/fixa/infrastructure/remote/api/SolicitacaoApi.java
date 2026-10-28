@@ -21,6 +21,7 @@ public interface SolicitacaoApi {
 
     @GET("api/v1/solicitacoes")
     Call<List<ProblemaResponse>> listarUnidade(
+            @Query("status_problema") String statusProblema,
             @Query("limite") Integer limite,
             @Query("campo_ordenacao") String campoOrdenacao,
             @Query("direcao_ordenacao") Integer direcaoOrdenacao);

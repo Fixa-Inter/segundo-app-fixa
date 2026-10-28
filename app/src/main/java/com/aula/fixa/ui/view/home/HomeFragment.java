@@ -217,6 +217,9 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
         if (value.equalsIgnoreCase("CONCLUIDO") || value.equalsIgnoreCase("CONCLUÍDO")) {
             return StatusProblema.CONCLUIDO;
         }
+        if (value.equalsIgnoreCase("OS_CRIADA")) {
+            return StatusProblema.OS_CRIADA;
+        }
         return StatusProblema.PENDENTE;
     }
 

@@ -35,7 +35,11 @@ public final class SolicitacaoRemoteRepository {
     }
 
     public List<ProblemaResponse> listarUnidade() throws Exception {
-        Response<List<ProblemaResponse>> response = api.listarUnidade(null, "dataCriacao", -1).execute();
+        return listarUnidade(null);
+    }
+
+    public List<ProblemaResponse> listarUnidade(String statusProblema) throws Exception {
+        Response<List<ProblemaResponse>> response = api.listarUnidade(statusProblema, null, "dataCriacao", -1).execute();
         if (!response.isSuccessful()) {
             String body = response.errorBody() == null ? "" : response.errorBody().string();
             throw new ApiException(response.code(), body);

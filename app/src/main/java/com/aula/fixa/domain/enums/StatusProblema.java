@@ -4,5 +4,6 @@ public enum StatusProblema {
     PENDENTE,
     APROVADO,
     CONCLUIDO,
-    REPROVADO
+    REPROVADO,
+    OS_CRIADA
 }
