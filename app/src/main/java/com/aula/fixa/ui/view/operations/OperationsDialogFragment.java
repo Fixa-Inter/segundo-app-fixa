@@ -47,10 +47,19 @@ public final class OperationsDialogFragment extends DialogFragment {
         if (key.equals("manager_create_category") || key.equals("manager_edit_category")
                 || key.equals("manager_delete_category")) {
             com.aula.fixa.ui.view.equipamento.CategoriaEquipamentoGestorFluxo.bindDialog(this, content, key);
+        } else if (key.equals("manager_create_model") || key.equals("manager_edit_model")
+                || key.equals("manager_delete_model")) {
+            com.aula.fixa.ui.view.equipamento.ModeloEquipamentoGestorFluxo.bindDialog(this, content, key);
+        } else if (key.equals("manager_create_device") || key.equals("manager_edit_device")
+                || key.equals("manager_delete_device")) {
+            com.aula.fixa.ui.view.equipamento.EquipamentoGestorFluxo.bindDialog(this, content, key);
         } else if (key.equals("manager_edit_competency")) {
             bindEditCompetency(content);
         } else if (key.equals("manager_reject_request")) {
             bindRejectRequest(content);
+        } else if (key.equals("manager_create_field") || key.equals("manager_edit_field")
+                || key.equals("manager_create_choice_field") || key.equals("manager_delete_checklist")) {
+            com.aula.fixa.ui.view.checklist.ChecklistFlow.bindDialog(this, content, key);
         } else {
             new OperationsBinder((OperationsActivity) requireActivity(), content, key, this).bind();
             com.aula.fixa.ui.view.task.PlanejamentoTarefasFluxo.bindDialog(

@@ -14,6 +14,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import com.google.gson.JsonObject;
 
 public interface SolicitacaoApi {
     @GET("api/v1/solicitacoes/minhas")
@@ -21,6 +22,13 @@ public interface SolicitacaoApi {
 
     @GET("api/v1/solicitacoes")
     Call<List<ProblemaResponse>> listarUnidade(
+            @Query("status_problema") String statusProblema,
+            @Query("limite") Integer limite,
+            @Query("campo_ordenacao") String campoOrdenacao,
+            @Query("direcao_ordenacao") Integer direcaoOrdenacao);
+
+    @GET("api/v1/solicitacoes")
+    Call<List<JsonObject>> exportarUnidade(
             @Query("status_problema") String statusProblema,
             @Query("limite") Integer limite,
             @Query("campo_ordenacao") String campoOrdenacao,

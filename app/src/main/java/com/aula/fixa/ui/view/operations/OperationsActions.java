@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.view.ViewGroup;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import androidx.core.view.ViewCompat;
 
 import com.aula.fixa.R;
 
@@ -85,6 +89,10 @@ public final class OperationsActions {
             return () -> open("chat_drawer");
         }
         if (kind.equals("card")) {
+            if (name.equals("export") && java.util.Arrays.asList(
+                    "Solicitações", "Ordens de serviço", "Ocorrências", "Checklists").contains(text)) {
+                return () -> selectExportOption(view, text);
+            }
             switch (name) {
                 case "home":
                     return () -> open(text.contains("Manu") ? "chatbot" : activity.role().equals("manager") ? "planning" : "execution_pending");
@@ -152,7 +160,7 @@ public final class OperationsActions {
             };
         }
         if (name.equals("export") && java.util.Arrays.asList("Solicitações", "Ordens de serviço", "Ocorrências", "Checklists").contains(text)) {
-            return () -> select(view, "export:" + text);
+            return () -> selectExportOption(view, text);
         }
         if (text.contains("Teve algum impedimento?")) {
             return () -> open(name.startsWith("task_completed") ? "task_completed_obstacle" : "task_pending_obstacle");
@@ -525,11 +533,55 @@ public final class OperationsActions {
     }
 
     private void select(View view, String field) {
+        if (name.equals("export") && field.startsWith("export:")) {
+            for (String option : new String[]{"Solicitações", "Ordens de serviço", "Ocorrências", "Checklists"}) {
+                if (!field.equals("export:" + option)) {
+                    activity.model.selected(key + ":export:" + option, false);
+                }
+            }
+        }
         boolean selected = !view.isSelected();
         view.setSelected(selected);
         activity.model.selected(key + ":" + field, selected);
         view.setAlpha(selected ? 1f : .65f);
         androidx.core.view.ViewCompat.setStateDescription(view, activity.getString(selected ? R.string.ops_selected : R.string.ops_unselected));
+    }
+
+    private void selectExportOption(View clicked, String option) {
+        String stateKey = key + ":export:" + option;
+        boolean selected = !activity.model.selected(stateKey);
+        for (String candidate : new String[]{"Solicitações", "Ordens de serviço", "Ocorrências", "Checklists"}) {
+            activity.model.selected(key + ":export:" + candidate, selected && candidate.equals(option));
+        }
+
+        View card = clicked;
+        ViewGroup parent = card.getParent() instanceof ViewGroup ? (ViewGroup) card.getParent() : null;
+        while (parent != null && !String.valueOf(card.getTag()).startsWith("card:")) {
+            card = parent;
+            parent = card.getParent() instanceof ViewGroup ? (ViewGroup) card.getParent() : null;
+        }
+        if (!String.valueOf(card.getTag()).startsWith("card:")) card = clicked;
+        ViewGroup cardContainer = card.getParent() instanceof ViewGroup ? (ViewGroup) card.getParent() : null;
+        if (cardContainer != null) {
+            for (int i = 0; i < cardContainer.getChildCount(); i++) {
+                View sibling = cardContainer.getChildAt(i);
+                Object tag = sibling.getTag();
+                if (tag instanceof String && ((String) tag).startsWith("card:")) {
+                    boolean active = ((String) tag).equals("card:" + option);
+                    sibling.setSelected(active && selected);
+                    sibling.setAlpha(!selected || active ? 1f : 0.82f);
+                    ViewCompat.setBackgroundTintList(sibling, active && selected
+                            ? ColorStateList.valueOf(Color.rgb(237, 242, 255)) : null);
+                    sibling.setElevation(active && selected ? dp(5) : dp(2));
+                }
+            }
+        } else {
+            card.setSelected(selected);
+        }
+    }
+
+    private float dp(float value) {
+        return value * activity.getResources().getDisplayMetrics().density;
     }
 
     public void choose(EditText input, String label) {

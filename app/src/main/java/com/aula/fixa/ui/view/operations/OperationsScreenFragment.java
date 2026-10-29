@@ -58,6 +58,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     private com.aula.fixa.ui.view.os.ConclusaoOSFluxo conclusaoOSFluxo;
     private com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo ocorrenciaGestorFluxo;
     private com.aula.fixa.ui.view.equipamento.CategoriaEquipamentoGestorFluxo categoriaEquipamentoGestorFluxo;
+    private com.aula.fixa.ui.view.equipamento.ModeloEquipamentoGestorFluxo modeloEquipamentoGestorFluxo;
+    private com.aula.fixa.ui.view.equipamento.EquipamentoGestorFluxo equipamentoGestorFluxo;
+    private com.aula.fixa.ui.view.checklist.ChecklistFlow checklistFlow;
     private final ActivityResultLauncher<String> occurrenceEditPhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(), uris -> {
                 if (ocorrenciaGestorFluxo != null && uris != null) {
@@ -142,6 +145,13 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             OperationsBinder binder = new OperationsBinder((OperationsActivity) requireActivity(), content, screen, null);
             binder.bind();
         }
+        if (screen.contains("checklist") || screen.contains("inspection")) {
+            checklistFlow = new com.aula.fixa.ui.view.checklist.ChecklistFlow(
+                    this, (OperationsActivity) requireActivity());
+            checklistFlow.bind(content, screen);
+        } else {
+            checklistFlow = null;
+        }
         if ("manager_assign_member".equals(screen)) {
             bindFinishPlanning(content, (OperationsActivity) requireActivity());
         }
@@ -150,6 +160,20 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         if ("manager_team".equals(screen)) {
             bindTeamTechnicians(content);
+        }
+        if ("manager_models".equals(screen)) {
+            modeloEquipamentoGestorFluxo = new com.aula.fixa.ui.view.equipamento.ModeloEquipamentoGestorFluxo(
+                    this, (OperationsActivity) requireActivity());
+            modeloEquipamentoGestorFluxo.bindList(content);
+        } else {
+            modeloEquipamentoGestorFluxo = null;
+        }
+        if ("manager_devices".equals(screen)) {
+            equipamentoGestorFluxo = new com.aula.fixa.ui.view.equipamento.EquipamentoGestorFluxo(
+                    this, (OperationsActivity) requireActivity());
+            equipamentoGestorFluxo.bindList(content);
+        } else {
+            equipamentoGestorFluxo = null;
         }
         if ("manager_member_details".equals(screen)) {
             bindMemberDetails(content);

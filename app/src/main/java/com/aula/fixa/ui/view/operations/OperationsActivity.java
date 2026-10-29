@@ -24,9 +24,15 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.aula.fixa.adapter.operations.OperationsViewModel;
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.operations.ScreenCatalog;
+import com.aula.fixa.infrastructure.auth.session.SessionStorage;
+import com.aula.fixa.infrastructure.remote.repository.ExportacaoRepository;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Host de Gestor/Técnico; usa a mesma arquitetura de Fragments do Solicitante.
@@ -40,6 +46,9 @@ public class OperationsActivity extends AppCompatActivity {
     private NavController navigation;
     private View bar;
     private String role;
+    private String exportType;
+    private List<Map<String, String>> exportRows;
+    private final ExecutorService exportExecutor = Executors.newSingleThreadExecutor();
     public OperationsViewModel model;
     private final ActivityResultLauncher<String[]> photoPicker = registerForActivityResult(
             new ActivityResultContracts.OpenMultipleDocuments(), uris -> {
@@ -88,7 +97,7 @@ public class OperationsActivity extends AppCompatActivity {
                         throw new java.io.IOException();
                     }
 
-                    OperationsExport.write(this, model, stream);
+                    OperationsExport.write(exportType, exportRows, stream);
                     Toast.makeText(this, R.string.ops_export_done, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(this, R.string.ops_export_error, Toast.LENGTH_LONG).show();
@@ -176,7 +185,40 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void export() {
-        exportDocument.launch("FIXA_exportacao.xlsx");
+        String exportKey = role + "_export:export:";
+        String[] types = {ExportacaoRepository.SOLICITACOES, ExportacaoRepository.ORDENS_SERVICO,
+                ExportacaoRepository.OCORRENCIAS, "Checklists"};
+        exportType = null;
+        for (String type : types) {
+            if (model.selected(exportKey + type)) {
+                exportType = type;
+                break;
+            }
+        }
+        if (exportType == null) {
+            Toast.makeText(this, "Selecione o tipo de dados para exportar.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if ("Checklists".equals(exportType)) {
+            Toast.makeText(this, "A exportação de checklists ainda não está disponível.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        final String selectedType = exportType;
+        Toast.makeText(this, "Buscando dados para exportação…", Toast.LENGTH_SHORT).show();
+        exportExecutor.execute(() -> {
+            try {
+                exportRows = new ExportacaoRepository(new SessionStorage(this)).listar(selectedType);
+                runOnUiThread(() -> exportDocument.launch(fileName(selectedType)));
+            } catch (Exception exception) {
+                runOnUiThread(() -> Toast.makeText(this, R.string.ops_export_error, Toast.LENGTH_LONG).show());
+            }
+        });
+    }
+
+    private String fileName(String type) {
+        String base = type.equals(ExportacaoRepository.SOLICITACOES) ? "solicitacoes" :
+                type.equals(ExportacaoRepository.ORDENS_SERVICO) ? "ordens_de_servico" : "ocorrencias";
+        return "FIXA_" + base + ".xlsx";
     }
 
     public void refresh() {
@@ -185,6 +227,12 @@ public class OperationsActivity extends AppCompatActivity {
         if (fragment instanceof OperationsScreenFragment) {
             ((OperationsScreenFragment) fragment).render();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        exportExecutor.shutdownNow();
+        super.onDestroy();
     }
 
     private int destination(String key) {

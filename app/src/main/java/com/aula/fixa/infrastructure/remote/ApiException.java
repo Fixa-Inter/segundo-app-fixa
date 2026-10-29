@@ -8,5 +8,6 @@ public final class ApiException extends Exception {
         super("API returned HTTP " + status);
         this.status = status;
         this.body = body == null ? "" : body;
+        System.out.println("[API ERROR BODY] HTTP " + status + " - " + this.body);
     }
 }
