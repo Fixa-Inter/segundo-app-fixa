@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.auth.LoginActivity">
+    tools:context=".ui.view.auth.LoginActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_panel_bottom"

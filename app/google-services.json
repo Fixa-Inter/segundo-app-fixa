@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "642306255929",
+    "project_id": "fixa-fead2",
+    "storage_bucket": "fixa-fead2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642306255929:android:9c43cef3875a41fd3fb1e8",
+        "android_client_info": {
+          "package_name": "com.aula.fixa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642306255929-qq89bj361e3git0co2scmuniac3s8t22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aula.fixa",
+            "certificate_hash": "572c228331fc84e23ef5be38eaa62adacf35f2fd"
+          }
+        },
+        {
+          "client_id": "642306255929-a3rvggrvs0gsqjojha7f5i59smn1qr83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1VqSto8jGJ3tXKPgN4oOa13K5L05gJ8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642306255929-a3rvggrvs0gsqjojha7f5i59smn1qr83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

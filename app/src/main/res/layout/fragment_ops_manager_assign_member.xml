@@ -1,0 +1,313 @@
+<!-- Figma 5717:8738 • manager / assign_member. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ops_color_fff5f7fa"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    tools:context=".ui.view.operations.OperationsScreenFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:minHeight="@dimen/ops_dp_700_0">
+
+        <ImageView
+            android:id="@+id/ops_5717_8740"
+            android:layout_width="@dimen/ops_dp_22_0"
+            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_marginStart="@dimen/ops_dp_11_0"
+            android:layout_marginTop="@dimen/ops_dp_22_0"
+            android:importantForAccessibility="no"
+            android:scaleType="fitXY"
+            android:src="@drawable/figma_eee40"
+            android:tag="image:arrow-left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ops_5717_8739"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_26"
+            android:layout_marginTop="@dimen/ops_dp_67_0"
+            android:layout_marginEnd="@dimen/ops_dp_50"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="start|center_vertical"
+            android:includeFontPadding="false"
+            android:minHeight="@dimen/ops_dp_81"
+            android:padding="@dimen/ops_dp_0"
+            android:tag="text:Atribuir OS para técnico"
+            android:text="@string/ops_text_atribuir_os_para_tecnico_2bdcdf"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ops_5717_8743"
+            android:layout_width="@dimen/ops_dp_191_68"
+            android:layout_height="@dimen/ops_dp_24"
+            android:layout_marginStart="@dimen/ops_dp_26"
+            android:layout_marginTop="@dimen/ops_dp_20_0"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="start|center_vertical"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:minHeight="@dimen/ops_dp_24"
+            android:padding="@dimen/ops_dp_0"
+            android:tag="text:Escolher o responsável"
+            android:text="@string/ops_text_escolher_o_responsavel_9cd526"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cf15159c54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8739" />
+
+        <LinearLayout
+            android:id="@+id/ops_available_technicians_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8743">
+
+            <TextView
+                android:id="@+id/ops_available_technicians_empty"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center"
+                android:textColor="@color/ops_color_ff8a93a2"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ops_available_technicians_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ops_assign_step_1"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="32dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/figma_31d92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.17"
+            app:layout_constraintTop_toBottomOf="@id/ops_available_technicians_container" />
+
+        <ImageView
+            android:id="@+id/ops_assign_step_2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/figma_31d92"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.50"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_1" />
+
+        <TextView
+            android:id="@+id/ops_assign_step_number_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="@string/ops_text_1_6b86b2"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.5329b36968"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1"
+            app:layout_constraintEnd_toEndOf="@id/ops_assign_step_1"
+            app:layout_constraintStart_toStartOf="@id/ops_assign_step_1"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_1" />
+
+        <TextView
+            android:id="@+id/ops_assign_step_number_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="@string/ops_text_2_d4735e"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.5329b36968"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_2"
+            app:layout_constraintEnd_toEndOf="@id/ops_assign_step_2"
+            app:layout_constraintStart_toStartOf="@id/ops_assign_step_2"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_2" />
+
+        <View
+            android:id="@+id/ops_assign_step_line"
+            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_height="@dimen/ops_dp_4_0"
+            android:background="@drawable/bg_ops_56c27dd68d"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1"
+            app:layout_constraintEnd_toStartOf="@id/ops_assign_step_2"
+            app:layout_constraintStart_toEndOf="@id/ops_assign_step_1"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_1" />
+
+        <TextView
+            android:id="@+id/ops_assign_step_label_1"
+            android:layout_width="100dp"
+            android:layout_height="@dimen/ops_dp_18"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/ops_text_informacoes_07156d"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.5bbbc2094a"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/ops_assign_step_1"
+            app:layout_constraintStart_toStartOf="@id/ops_assign_step_1"
+            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_1" />
+
+        <TextView
+            android:id="@+id/ops_assign_step_label_2"
+            android:layout_width="100dp"
+            android:layout_height="@dimen/ops_dp_18"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/ops_text_tarefas_4b2b8a"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.5bbbc2094a"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/ops_assign_step_2"
+            app:layout_constraintStart_toStartOf="@id/ops_assign_step_2"
+            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_2" />
+
+        <ImageView
+            android:id="@+id/ops_assign_step_3"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/figma_9b3d6"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.83"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_1"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1" />
+
+        <TextView
+            android:id="@+id/ops_assign_step_number_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="3"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.5329b36968"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/ops_assign_step_3"
+            app:layout_constraintEnd_toEndOf="@id/ops_assign_step_3"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_3"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_3" />
+
+        <View
+            android:id="@+id/ops_assign_step_line_2"
+            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_height="4dp"
+            android:background="@drawable/bg_ops_56c27dd68d"
+            app:layout_constraintStart_toEndOf="@id/ops_assign_step_2"
+            app:layout_constraintEnd_toStartOf="@id/ops_assign_step_3"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_2"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_2" />
+
+        <View
+            android:id="@+id/ops_assign_step_line_2_progress"
+            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_height="4dp"
+            android:background="@drawable/bg_ops_053a9b3e5e"
+            app:layout_constraintStart_toEndOf="@id/ops_assign_step_2"
+            app:layout_constraintEnd_toStartOf="@id/ops_assign_step_3"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_2"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_2" />
+
+        <View
+            android:id="@+id/ops_assign_step_line_1_progress"
+            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_height="@dimen/ops_dp_4_0"
+            android:background="@drawable/bg_ops_053a9b3e5e"
+            app:layout_constraintStart_toEndOf="@id/ops_assign_step_1"
+            app:layout_constraintEnd_toStartOf="@id/ops_assign_step_2"
+            app:layout_constraintTop_toTopOf="@id/ops_assign_step_1"
+            app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1" />
+
+        <TextView
+            android:id="@+id/ops_assign_step_label_3"
+            android:layout_width="108dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/ops_planning_assign_technician"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.f6b24267d1"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="@id/ops_assign_step_3"
+            app:layout_constraintEnd_toEndOf="@id/ops_assign_step_3"
+            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ops_5717_8745"
+            android:layout_width="@dimen/ops_dp_160_0"
+            android:layout_height="@dimen/ops_dp_45_0"
+            android:layout_marginStart="@dimen/ops_dp_36_0"
+            android:layout_marginTop="@dimen/ops_dp_20_0"
+            android:background="@drawable/bg_ops_6fc7f4db18"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_label_3">
+
+            <TextView
+                android:id="@+id/ops_5717_8746"
+                android:layout_width="@dimen/ops_dp_72"
+                android:layout_height="@dimen/ops_dp_23"
+                android:layout_marginStart="@dimen/ops_dp_45_0"
+                android:layout_marginTop="@dimen/ops_dp_11_0"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center|center_vertical"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:minHeight="@dimen/ops_dp_23"
+                android:padding="@dimen/ops_dp_0"
+                android:tag="text:Voltar"
+                android:text="@string/ops_text_voltar_59dc92"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.8448a6d123"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ops_5717_8744"
+            android:layout_width="@dimen/ops_dp_160_0"
+            android:layout_height="@dimen/ops_dp_45_0"
+            android:layout_marginTop="@dimen/ops_dp_20_0"
+            android:layout_marginEnd="@dimen/ops_dp_36_0"
+            android:background="@drawable/bg_ops_ac8a55a5cb"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:minWidth="@dimen/ops_dp_0"
+            android:minHeight="@dimen/ops_dp_0"
+            android:padding="@dimen/ops_dp_0"
+            android:tag="action:Finalizar"
+            android:text="@string/ops_text_finalizar_80a503"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.755f0ac70d"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_assign_step_label_3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

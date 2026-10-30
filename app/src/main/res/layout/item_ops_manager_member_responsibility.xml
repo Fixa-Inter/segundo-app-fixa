@@ -1,0 +1,86 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ops_dp_110_0"
+    android:layout_marginBottom="@dimen/ops_dp_12_0"
+    android:background="@drawable/bg_ops_9a20d877fd"
+    android:elevation="2dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+    <View
+        android:id="@+id/memberResponsibilityStatusStripe"
+        android:layout_width="@dimen/ops_dp_13_0"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_ops_9a48e661a7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/memberResponsibilityPriorityBadge"
+        android:layout_width="@dimen/ops_dp_30_0"
+        android:layout_height="@dimen/ops_dp_20_0"
+        android:layout_marginStart="@dimen/ops_dp_311_0"
+        android:layout_marginTop="@dimen/ops_dp_8_0"
+        android:background="@drawable/bg_ops_39dc043443"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/memberResponsibilityPriority"
+        android:layout_width="@dimen/ops_dp_14"
+        android:layout_height="@dimen/ops_dp_14"
+        android:layout_marginStart="@dimen/ops_dp_320_0"
+        android:layout_marginTop="@dimen/ops_dp_11_0"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text=""
+        android:textColor="@color/ops_color_ffffffff"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.8f3a2d26dc"
+        android:minHeight="@dimen/ops_dp_14"
+        android:padding="@dimen/ops_dp_0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/memberResponsibilityTitle"
+        android:layout_width="@dimen/ops_dp_177_32"
+        android:layout_height="@dimen/ops_dp_27"
+        android:layout_marginStart="@dimen/ops_dp_30_0"
+        android:layout_marginTop="@dimen/ops_dp_24_0"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.9232607394"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/memberResponsibilityLocation"
+        android:layout_width="@dimen/ops_dp_201_93"
+        android:layout_height="@dimen/ops_dp_16_8"
+        android:layout_marginStart="@dimen/ops_dp_30_0"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.17ce27b910"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/memberResponsibilityTitle" />
+
+    <TextView
+        android:id="@+id/memberResponsibilityDue"
+        android:layout_width="@dimen/ops_dp_86_1"
+        android:layout_height="@dimen/ops_dp_14"
+        android:layout_marginStart="@dimen/ops_dp_30_0"
+        android:layout_marginTop="@dimen/ops_dp_7_6"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.8f6932507c"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/memberResponsibilityLocation" />
+</androidx.constraintlayout.widget.ConstraintLayout>

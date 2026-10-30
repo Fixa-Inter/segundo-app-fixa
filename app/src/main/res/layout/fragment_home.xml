@@ -15,12 +15,24 @@
     android:clipToPadding="false"
     android:fillViewport="true"
     android:paddingBottom="@dimen/app_home_card_side_margin"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.view.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/homeRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvHomeMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_text_navy"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideStart"
@@ -38,33 +50,18 @@
 
         <!-- Header: ícones no tamanho exato, alinhados à guideline dos cards; área de toque expandida no Fragment -->
         <ImageView
-            android:id="@+id/btnProfile"
-            android:layout_width="@dimen/app_home_header_icon_size"
-            android:layout_height="@dimen/app_home_header_icon_size"
-            android:layout_marginTop="@dimen/app_home_header_margin_top"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="@string/app_home_profile"
-            android:focusable="true"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="@id/guideEnd"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_home_user_12"
-            app:tint="@color/app_text_navy" />
-
-        <ImageView
             android:id="@+id/btnNotifications"
-            android:layout_width="@dimen/app_home_header_icon_size"
-            android:layout_height="@dimen/app_home_header_icon_size"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginEnd="@dimen/app_home_header_icon_spacing"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@string/app_home_notifications"
             android:focusable="true"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@id/btnProfile"
-            app:layout_constraintEnd_toStartOf="@id/btnProfile"
-            app:layout_constraintTop_toTopOf="@id/btnProfile"
+            app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
+            app:layout_constraintEnd_toStartOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/tvGreeting"
             app:srcCompat="@drawable/ic_home_bell_13"
             app:tint="@color/app_text_navy" />
 
@@ -72,11 +69,14 @@
             android:id="@+id/ivAvatar"
             android:layout_width="@dimen/app_home_avatar_size"
             android:layout_height="@dimen/app_home_avatar_size"
-            android:layout_marginStart="3dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginTop="@dimen/app_home_avatar_margin_top"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:contentDescription="@string/app_user_avatar"
+            android:focusable="true"
             android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
             app:srcCompat="@drawable/img_avatar_115" />
@@ -84,13 +84,15 @@
         <TextView
             android:id="@+id/tvGreeting"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginStart="@dimen/app_home_greeting_margin_start"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
             android:maxLines="2"
             android:textAppearance="@style/TextAppearance.FIXA.App.Home.Greeting"
             app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
-            app:layout_constraintEnd_toEndOf="@id/guideEnd"
-            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintEnd_toStartOf="@id/btnNotifications"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toTopOf="@id/ivAvatar"
             tools:text="Olá, Ryan Cursino!" />
 
@@ -100,9 +102,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_home_card_margin_top"
-            app:cardBackgroundColor="@color/app_surface"
-            app:cardCornerRadius="@dimen/app_home_card_radius"
-            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toBottomOf="@id/ivAvatar"
@@ -111,13 +113,13 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/app_home_card_height"
-                android:padding="@dimen/app_home_card_padding">
+                android:minHeight="318dp"
+                android:padding="0dp">
 
                 <TextView
                     android:id="@+id/tvStatusTitle"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="1dp"
                     android:text="@string/app_home_status_title"
                     android:textAppearance="@style/TextAppearance.FIXA.App.SectionTitle"
@@ -164,7 +166,7 @@
                         android:layout_marginTop="@dimen/app_home_legend_row_spacing" />
                 </LinearLayout>
 
-                <ImageView
+                <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/ivChart"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -180,7 +182,253 @@
                     app:layout_constraintStart_toEndOf="@id/layoutLegend"
                     app:layout_constraintTop_toTopOf="@id/layoutLegend"
                     app:layout_constraintWidth_max="@dimen/app_home_chart_size"
-                    app:srcCompat="@drawable/img_home_chart" />
+                    />
+
+                <LinearLayout
+                    android:id="@+id/layoutBigNumbers"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="148dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/app_surface"
+                            app:cardCornerRadius="22dp"
+                            app:cardElevation="2dp"
+                            app:strokeWidth="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="15dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="22dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:contentDescription="@null"
+                                        android:src="@drawable/lupa_analise" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Em Análise"
+                                        android:textColor="#333333"
+                                        android:textSize="14sp"
+                                        android:fontFamily="@font/poppins_regular" />
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/bigNumberAnalysis"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:text="0"
+                                    android:textColor="#050505"
+                                    android:textSize="38sp"
+                                    android:fontFamily="@font/poppins_bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Solicitações"
+                                    android:textColor="#969696"
+                                    android:textSize="10sp"
+                                    android:fontFamily="@font/poppins_regular" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/app_surface"
+                            app:cardCornerRadius="22dp"
+                            app:cardElevation="2dp"
+                            app:strokeWidth="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="15dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="22dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:contentDescription="@null"
+                                        android:src="@drawable/check_concluido" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Concluídas"
+                                        android:textColor="#333333"
+                                        android:textSize="14sp"
+                                        android:fontFamily="@font/poppins_regular" />
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/bigNumberDone"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:text="0"
+                                    android:textColor="#050505"
+                                    android:textSize="38sp"
+                                    android:fontFamily="@font/poppins_bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Solicitações"
+                                    android:textColor="#969696"
+                                    android:textSize="10sp"
+                                    android:fontFamily="@font/poppins_regular" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="148dp"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/app_surface"
+                            app:cardCornerRadius="22dp"
+                            app:cardElevation="2dp"
+                            app:strokeWidth="0dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="15dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="22dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:contentDescription="@null"
+                                        android:src="@drawable/joia_aprovado" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Aprovadas"
+                                        android:textColor="#333333"
+                                        android:textSize="14sp"
+                                        android:fontFamily="@font/poppins_regular" />
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/bigNumberApproved"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:text="0"
+                                    android:textColor="#050505"
+                                    android:textSize="38sp"
+                                    android:fontFamily="@font/poppins_bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Solicitações"
+                                    android:textColor="#969696"
+                                    android:textSize="10sp"
+                                    android:fontFamily="@font/poppins_regular" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/app_surface"
+                            app:cardCornerRadius="22dp"
+                            app:cardElevation="2dp"
+                            app:strokeWidth="0dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="15dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="22dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:contentDescription="@null"
+                                        android:src="@drawable/x_reprovado" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Reprovadas"
+                                        android:textColor="#333333"
+                                        android:textSize="14sp"
+                                        android:fontFamily="@font/poppins_regular" />
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/bigNumberRefused"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:text="0"
+                                    android:textColor="#050505"
+                                    android:textSize="38sp"
+                                    android:fontFamily="@font/poppins_bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Solicitações"
+                                    android:textColor="#969696"
+                                    android:textSize="10sp"
+                                    android:fontFamily="@font/poppins_regular" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -240,6 +488,34 @@
             app:layout_constraintTop_toBottomOf="@id/btnOpenRequest"
             tools:itemCount="2"
             tools:listitem="@layout/item_app_request" />
+
+        <LinearLayout
+            android:id="@+id/layoutHomeRequestsEmpty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintTop_toBottomOf="@id/btnOpenRequest">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:adjustViewBounds="true"
+                android:maxHeight="180dp"
+                android:importantForAccessibility="no"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/img_empty_results" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_home_requests_empty"
+                android:textAppearance="@style/TextAppearance.FIXA.App.EmptyTitle" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

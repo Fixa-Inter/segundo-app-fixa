@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<dimen name="ops_list_side">40.78dp</dimen>
+<dimen name="ops_entry_gap">16.31dp</dimen>
+<dimen name="ops_entry_radius">27.18dp</dimen>
+<dimen name="ops_entry_height">95.15dp</dimen>
+<dimen name="ops_entry_padding">24.47dp</dimen>
+<dimen name="ops_entry_title_size">21.75sp</dimen>
+<dimen name="ops_entry_body_size">16.31sp</dimen>
+<dimen name="ops_photo_size">86.99dp</dimen>
+</resources>

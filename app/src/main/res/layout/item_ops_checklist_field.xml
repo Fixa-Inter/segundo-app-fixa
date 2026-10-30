@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/bg_ops_892fe1afbe"
+    android:elevation="@dimen/ops_dp_2"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <TextView
+        android:id="@+id/checklistFieldDrag"
+        android:layout_width="26dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="14dp"
+        android:contentDescription="Reordenar campo"
+        android:gravity="center"
+        android:text="≡"
+        android:textColor="@color/app_primary_dark"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/checklistFieldTitle"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.ed72944a40"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/poppins_medium"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/checklistFieldMeta"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="48dp"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.ea9c611a62"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/poppins_light"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checklistFieldTitle" />
+
+    <ImageView
+        android:id="@+id/checklistFieldMenu"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="14dp"
+        android:contentDescription="Editar ou excluir campo"
+        android:scaleType="fitXY"
+        android:src="@drawable/figma_499de"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

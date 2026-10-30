@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_ops_d29971270c"
+    android:fillViewport="true"
+    android:clipToPadding="false"
+    tools:context=".ui.view.operations.OperationsScreenFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/ops_dp_350"
+        android:paddingStart="24dp"
+        android:paddingTop="28dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:id="@+id/ops_5717_6053"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.6a9483c725"
+            android:maxLines="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/ops_5717_6055"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/ops_text_valor_antigo_490e8b"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.590d0b3c5b"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_6053" />
+
+        <EditText
+            android:id="@+id/ops_5717_6057"
+            android:layout_width="90dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_ops_22358b652d"
+            android:enabled="false"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="numberDecimal|numberSigned"
+            android:singleLine="true"
+            android:tag="input:Valor antigo"
+            android:text="_"
+            android:textColor="@color/ops_color_ff0b013c"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_6055"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_6055" />
+
+        <TextView
+            android:id="@+id/ops_5717_6059"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/ops_text_novo_valor_487093"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.590d0b3c5b"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_6055" />
+
+        <EditText
+            android:id="@+id/ops_5717_6051"
+            android:layout_width="88dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_ops_22358b652d"
+            android:gravity="center"
+            android:hint="Novo valor"
+            android:inputType="numberDecimal|numberSigned"
+            android:paddingHorizontal="8dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:tag="input:Novo valor"
+            android:textColor="@color/ops_color_ff0b013c"
+            android:textColorHint="@color/ops_color_ff8a93a2"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_6059"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_6059" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ops_5717_6050"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_ops_6fc7f4db18"
+            android:tag="action:Cancelar"
+            android:text="@string/ops_text_cancelar_bb9dbb"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/ops_5717_6049"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_6059" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ops_5717_6049"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_ops_ac8a55a5cb"
+            android:tag="action:Salvar"
+            android:text="@string/ops_text_salvar_aef7cd"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_6050"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/ops_5717_6050"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_6050" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

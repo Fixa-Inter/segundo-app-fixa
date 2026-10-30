@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_background"
     android:orientation="vertical"
-    tools:context=".ui.profile.SettingsFragment">
+    tools:context=".ui.view.profile.SettingsFragment">
 
     <include
         android:id="@+id/header"

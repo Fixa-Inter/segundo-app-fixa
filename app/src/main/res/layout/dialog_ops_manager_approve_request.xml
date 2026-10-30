@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:7103 • manager / approve_request. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_23c6f3b364" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_380" android:clipChildren="false" android:clipToPadding="false">
+        <ImageView
+            android:id="@+id/ops_5717_7110"
+            android:layout_width="@dimen/ops_dp_200_0"
+            android:layout_height="@dimen/ops_dp_154_0"
+            android:layout_marginStart="@dimen/ops_dp_65_0"
+            android:layout_marginTop="@dimen/ops_dp_43_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/figma_9511b"
+            android:scaleType="matrix"
+            android:importantForAccessibility="no"
+            android:tag="image:" />
+        <TextView
+            android:id="@+id/ops_5717_7104"
+            android:layout_width="@dimen/ops_dp_181_43"
+            android:layout_height="@dimen/ops_dp_26"
+            android:layout_marginStart="@dimen/ops_dp_77"
+            android:layout_marginTop="@dimen/ops_dp_221_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/ops_text_aprovar_solicitacao_0b335f"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.958cd417e0"
+            android:includeFontPadding="false"
+            android:gravity="center|center_vertical"
+            android:minHeight="@dimen/ops_dp_26"
+            android:tag="text:Aprovar solicitação?"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLines="1" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ops_5717_7108"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/ops_dp_35_0"
+            android:layout_marginStart="@dimen/ops_dp_55_0"
+            android:layout_marginTop="@dimen/ops_dp_70_0"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="@dimen/ops_dp_55_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_7110"
+            android:background="@drawable/bg_ops_ac8a55a5cb"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
+            android:padding="@dimen/ops_dp_0"
+            android:gravity="center"
+            android:minHeight="@dimen/ops_dp_0"
+            android:minWidth="@dimen/ops_dp_0"
+            android:text="@string/ops_text_confirmar_717bed"
+            android:textAllCaps="false"
+            android:tag="action:Confirmar"
+            app:backgroundTint="@null" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7105" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_55_0" android:layout_marginTop="@dimen/ops_dp_111_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_55_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7110" android:background="@drawable/bg_ops_6fc7f4db18" android:clipChildren="false" android:clipToPadding="false">
+            <TextView
+                android:id="@+id/ops_5717_7106"
+                android:layout_width="@dimen/ops_dp_62"
+                android:layout_height="@dimen/ops_dp_20"
+                android:layout_marginStart="@dimen/ops_dp_79_0"
+                android:layout_marginTop="@dimen/ops_dp_8_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/ops_text_cancelar_bb9dbb"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.be6ece948a"
+                android:includeFontPadding="false"
+                android:gravity="center|center_vertical"
+                android:minHeight="@dimen/ops_dp_20"
+                android:tag="text:Cancelar"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

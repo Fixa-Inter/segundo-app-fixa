@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:9716 • technician / management. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_447_0" android:clipChildren="false" android:clipToPadding="false">
+        <TextView
+            android:id="@+id/ops_5717_9737"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_31"
+            android:layout_marginTop="@dimen/ops_dp_52_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/ops_dp_45"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/ops_text_gerencie_todas_as_etapas_d44c27"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
+            android:includeFontPadding="false"
+            android:gravity="start|center_vertical"
+            android:minHeight="@dimen/ops_dp_80"
+            android:tag="text:Gerencie todas as etapas"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_bold" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9720" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_120_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_39_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_41_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9737" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Quadro">
+            <View
+                android:id="@+id/ops_5717_9721"
+                android:layout_width="@dimen/ops_dp_15_0"
+                android:layout_height="@dimen/ops_dp_120_0"
+                android:layout_marginStart="@dimen/ops_dp_0"
+                android:layout_marginTop="@dimen/ops_dp_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/bg_ops_ae50174a28"
+                android:elevation="@dimen/ops_dp_2"
+                android:clipChildren="false"
+                android:clipToPadding="false" />
+            <TextView
+                android:id="@+id/ops_5717_9722"
+                android:layout_width="@dimen/ops_dp_81"
+                android:layout_height="@dimen/ops_dp_40"
+                android:layout_marginStart="@dimen/ops_dp_29_0"
+                android:layout_marginTop="@dimen/ops_dp_24_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/ops_text_quadro_38b526"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.3fe8337954"
+                android:includeFontPadding="false"
+                android:gravity="start|center_vertical"
+                android:minHeight="@dimen/ops_dp_40"
+                android:tag="text:Quadro"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLines="1" />
+            <ImageView
+                android:id="@+id/ops_5717_9732"
+                android:layout_width="@dimen/ops_dp_40_0"
+                android:layout_height="@dimen/ops_dp_40_0"
+                android:layout_marginStart="@dimen/ops_dp_278_0"
+                android:layout_marginTop="@dimen/ops_dp_40_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/figma_488e5"
+                android:scaleType="fitXY"
+                android:importantForAccessibility="no"
+                android:tag="image:layout-9"
+                android:translationZ="@dimen/ops_dp_3" />
+            <TextView
+                android:id="@+id/ops_5717_9723"
+                android:layout_width="@dimen/ops_dp_160_93"
+                android:layout_height="@dimen/ops_dp_40"
+                android:layout_marginStart="@dimen/ops_dp_29_0"
+                android:layout_marginTop="@dimen/ops_dp_56_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/ops_text_veja_as_os_atribuidas_8a3082"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.dcf7565c8e"
+                android:includeFontPadding="false"
+                android:gravity="start|center_vertical"
+                android:minHeight="@dimen/ops_dp_40"
+                android:tag="text:Veja as OS atribuídas"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9727" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_120_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_12_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_41_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9720" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ocorrências">
+            <View
+                android:id="@+id/ops_5717_9728"
+                android:layout_width="@dimen/ops_dp_15_0"
+                android:layout_height="@dimen/ops_dp_120_0"
+                android:layout_marginStart="@dimen/ops_dp_0"
+                android:layout_marginTop="@dimen/ops_dp_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/bg_ops_ae50174a28"
+                android:elevation="@dimen/ops_dp_2"
+                android:clipChildren="false"
+                android:clipToPadding="false" />
+            <TextView
+                android:id="@+id/ops_5717_9729"
+                android:layout_width="@dimen/ops_dp_132_22"
+                android:layout_height="@dimen/ops_dp_40"
+                android:layout_marginStart="@dimen/ops_dp_29_0"
+                android:layout_marginTop="@dimen/ops_dp_24_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/ops_text_ocorrencias_f53116"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.3fe8337954"
+                android:includeFontPadding="false"
+                android:gravity="start|center_vertical"
+                android:minHeight="@dimen/ops_dp_40"
+                android:tag="text:Ocorrências"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLines="1" />
+            <ImageView
+                android:id="@+id/ops_5717_9735"
+                android:layout_width="@dimen/ops_dp_40_0"
+                android:layout_height="@dimen/ops_dp_40_0"
+                android:layout_marginStart="@dimen/ops_dp_278_0"
+                android:layout_marginTop="@dimen/ops_dp_40_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/figma_a267a"
+                android:scaleType="fitXY"
+                android:importantForAccessibility="no"
+                android:tag="image:megaphone-1"
+                android:translationZ="@dimen/ops_dp_3" />
+            <TextView
+                android:id="@+id/ops_5717_9730"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ops_dp_40"
+                android:layout_marginStart="@dimen/ops_dp_29_0"
+                android:layout_marginTop="@dimen/ops_dp_56_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/ops_dp_81_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/ops_text_registre_os_servicos_realizados_8d9071"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.dcf7565c8e"
+                android:includeFontPadding="false"
+                android:gravity="start|center_vertical"
+                android:minHeight="@dimen/ops_dp_40"
+                android:tag="text:Registre os serviços realizados"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

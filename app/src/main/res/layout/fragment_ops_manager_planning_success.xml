@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:8474 • manager / planning_success. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff4f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_717_0" android:clipChildren="false" android:clipToPadding="false">
+        <ImageView
+            android:id="@+id/ops_5717_8478"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/ops_dp_380_0"
+            android:layout_marginStart="@dimen/ops_dp_9_0"
+            android:layout_marginTop="@dimen/ops_dp_77_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/ops_dp_23_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/figma_d3bb1"
+            android:scaleType="centerCrop"
+            android:importantForAccessibility="no"
+            android:tag="image:image 172" />
+        <TextView
+            android:id="@+id/ops_5717_8479"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_20"
+            android:layout_marginTop="@dimen/ops_dp_448_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/ops_dp_15"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/ops_text_planejamento_da_os_concluida_com_suces_581236"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.138b4e19fa"
+            android:includeFontPadding="false"
+            android:gravity="center|center_vertical"
+            android:minHeight="@dimen/ops_dp_106"
+            android:tag="text:Planejamento da OS concluída com sucesso!"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_medium" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8475" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_50_0" android:layout_marginStart="@dimen/ops_dp_33_0" android:layout_marginTop="@dimen/ops_dp_599_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="@dimen/ops_dp_33_0" app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/bg_ops_e9ff3d87c6" android:clipChildren="false" android:clipToPadding="false">
+            <TextView
+                android:id="@+id/ops_5717_8476"
+                android:layout_width="@dimen/ops_dp_151_7"
+                android:layout_height="@dimen/ops_dp_27"
+                android:layout_marginStart="@dimen/ops_dp_98_21"
+                android:layout_marginTop="@dimen/ops_dp_11_58"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/ops_text_ir_para_o_quadro_a49bb8"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.54c6c7c509"
+                android:includeFontPadding="false"
+                android:gravity="center|center_vertical"
+                android:minHeight="@dimen/ops_dp_27"
+                android:tag="text:Ir para o quadro"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/ops_5717_8477"
+            android:layout_width="@dimen/ops_dp_57"
+            android:layout_height="@dimen/ops_dp_27"
+            android:layout_marginStart="@dimen/ops_dp_178"
+            android:layout_marginTop="@dimen/ops_dp_666_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/ops_text_voltar_59dc92"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cc01752800"
+            android:includeFontPadding="false"
+            android:gravity="center|center_vertical"
+            android:minHeight="@dimen/ops_dp_27"
+            android:tag="text:Voltar"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLines="1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

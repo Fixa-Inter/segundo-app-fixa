@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:6863 • manager / requests. Componentes nativos; dimensões em values e sw400dp. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:clipToPadding="false">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_658_0" android:clipChildren="false" android:clipToPadding="false">
+        <ImageView
+            android:id="@+id/ops_5717_6972"
+            android:layout_width="@dimen/ops_dp_22_0"
+            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_marginStart="@dimen/ops_dp_11_0"
+            android:layout_marginTop="@dimen/ops_dp_22_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/figma_eee40"
+            android:scaleType="fitXY"
+            android:importantForAccessibility="no"
+            android:tag="image:arrow-left" />
+        <TextView
+            android:id="@+id/ops_5717_6864"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_31"
+            android:layout_marginTop="@dimen/ops_dp_52_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/ops_dp_45"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/ops_text_organize_suas_solicitacoes_d4afc2"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
+            android:includeFontPadding="false"
+            android:gravity="start|center_vertical"
+            android:minHeight="@dimen/ops_dp_80"
+            android:tag="text:Organize suas solicitações"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_bold"
+            android:lineSpacingExtra="4dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6868" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_45_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_14_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_16_0" app:layout_constraintEnd_toStartOf="@id/ops_manager_requests_filter" app:layout_constraintTop_toBottomOf="@id/ops_5717_6864" android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/ops_5717_6869"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ops_dp_21"
+                android:layout_marginStart="@dimen/ops_dp_53_0"
+                android:layout_marginTop="@dimen/ops_dp_12_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/ops_dp_52_03"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.532bcc5bfe"
+                android:includeFontPadding="false"
+                android:gravity="start|center_vertical"
+                android:minHeight="@dimen/ops_dp_21"
+                android:tag="field:Pesquisar"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="1"
+                android:hint="@string/ops_text_pesquisar_d0839a"
+                android:background="@null"
+                android:singleLine="true"
+                android:inputType="text"
+                android:contentDescription="@string/ops_text_pesquisar_b89310" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/ops_5717_6871"
+            android:layout_width="@dimen/app_requests_search_height"
+            android:layout_height="@dimen/app_requests_search_height"
+            android:layout_marginStart="1dp"
+            android:background="@drawable/bg_app_circle_primary"
+            android:contentDescription="@string/app_requests_search"
+            android:elevation="3dp"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_6868"
+            app:layout_constraintStart_toStartOf="@id/ops_5717_6868"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_6868"
+            app:srcCompat="@drawable/ic_search_18"
+            app:tint="@color/app_on_primary" />
+        <ImageButton
+            android:id="@+id/ops_manager_requests_filter"
+            android:layout_width="@dimen/app_touch_target"
+            android:layout_height="@dimen/app_touch_target"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_requests_filters"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_6868"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_6868"
+            android:layout_marginEnd="@dimen/app_screen_side_margin"
+            app:srcCompat="@drawable/ic_filter_24"
+            app:tint="@color/app_primary_deep" />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ops_manager_requests_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_home_card_side_margin"
+            android:layout_marginTop="@dimen/ops_dp_14_0"
+            android:layout_marginEnd="@dimen/app_home_card_side_margin"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_6868" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ops_manager_requests_fab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="Criar solicitação"
+            android:background="@drawable/bg_app_circle_primary"
+            android:elevation="6dp"
+            android:padding="16dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_plus_24"
+            app:tint="@color/app_on_primary"
+            android:layout_gravity="bottom|end" />
+</FrameLayout>

@@ -1,0 +1,846 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <style name="TextAppearance.FIXA.Operations.138b4e19fa" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_30_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.54c6c7c509" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_fff4f2ff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cc01752800" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.424df92bb2" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.f1dfc65d30" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff96031a</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.958cd417e0" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_17_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.bdd494c4fd" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.be6ece948a" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_13_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.1ad84ad5b4" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_13_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cf6211d224" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.509d748eee" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.fda0f19c0b" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.d304b8f68b" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_24_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.3f0cb03cd2" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.fe0ce658a4" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.c9e7c40f6d" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.6851057a58" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_42_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.00762</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.7d175543e7" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.611c392c6a" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ffffd700</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.775d5142e8" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ffc0c0c0</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.184d41d4f9" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ffcd7f32</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.7317a3c514" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.6a9483c725" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_30_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.b3771de973" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.590d0b3c5b" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.b5693a5f5f" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.f7482f3f7a" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_42_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:lineHeight">@dimen/ops_sp_45_0</item>
+        <item name="android:letterSpacing">-0.00762</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.8579df6580" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_80000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cd7dadb185" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.7f8fe971f2" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_fff4f2ff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.1f1da13b18" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_80000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.ed72944a40" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.942c2bf75a" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:lineHeight">@dimen/ops_sp_45_0</item>
+        <item name="android:letterSpacing">-0.01778</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.54b68ac3b5" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:lineHeight">@dimen/ops_sp_45_0</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.776f506c8d" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.f1eea8a4e9" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_9_0</item>
+        <item name="android:textColor">@color/ops_color_ff202020</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.9232607394" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.e1d19c669a" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_9_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.e5f9024d56" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_34_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.32afd0b1db" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_40_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.403331c045" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff637087</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.19b0471ffc" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff202020</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.5329b36968" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_14_19</item>
+        <item name="android:textColor">@color/ops_color_fff4f2ff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.5bbbc2094a" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff1d9954</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.f6b24267d1" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.2845e169bb" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.5109b65e24" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.8145b0a777" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.368c56c742" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_40_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.907a5f5605" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_fff4f2ff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.360d59c4e1" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_25_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.e64b9e5e89" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.1ddd2e8c5d" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_13_0</item>
+        <item name="android:textColor">@color/ops_color_ff202020</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.39f440aaa3" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff202020</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.922bde740f" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_37_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.3e4a3fa596" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_30_0</item>
+        <item name="android:textColor">@color/ops_color_fff5f7fa</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.928fabc850" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_fff5f7fa</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.55efcc9309" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.ecc486dcb1" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cce53d82bb" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_37_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.00865</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.5f673c0e36" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_25_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.791a805bad" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_25_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.ce27e4d108" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_13_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.47f3f1b4d6" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_25_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.5764966c48" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_13_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.1327f28939" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_22_0</item>
+        <item name="android:textColor">@color/ops_color_ff202020</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.b2297dea55" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff202020</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.12c3c637c3" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff0e223f</item>
+        <item name="android:lineHeight">@dimen/ops_sp_20_0</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.532bcc5bfe" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_998a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.3dc51d1752" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.3fe8337954" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.dcf7565c8e" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.1be11be0ba" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.a2f03f1fa3" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_10_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.511411efb0" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_10_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.8aeedd4985" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_10_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.018e2251c8" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.717300c093" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_11_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.bfa9f8bfec" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.64d8355dbd" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_11_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.591d69b244" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff96031a</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cbdc50e78f" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.5b89c822b3" parent="TextAppearance.FIXA.App.Bold">
+        <item name="android:textSize">@dimen/ops_sp_26_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.01231</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.e4ac96a463" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_25_0</item>
+        <item name="android:textColor">@color/ops_color_ff0e223f</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.18673eef2e" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_10_0</item>
+        <item name="android:textColor">@color/ops_color_ff0e223f</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.d597a60796" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff0e223f</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.2b76d77ebb" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_11_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.7bdf099d67" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.33a8c6522a" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_32_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.9a781cdaa9" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.763cf0ce43" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.02133</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.b8a367f2e5" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ffbfc4ce</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.02667</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.388052dd20" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_25_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.0128</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.2ec00543fc" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_17_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.76984ac028" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cd139e46a6" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.a111e07c79" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.360f185ac4" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_22_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.103017a3bf" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_13_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.70a4ecd534" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.9cce18ddaf" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff202020</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.b77bb8c108" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_25_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.0128</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.12b0f540e6" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.02286</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.49fb01678f" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:lineHeight">@dimen/ops_sp_45_0</item>
+        <item name="android:letterSpacing">-0.01778</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.42fedf9101" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.01778</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.48910ca2bf" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:lineHeight">@dimen/ops_sp_25_0</item>
+        <item name="android:letterSpacing">-0.02286</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.57a6de02d3" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">-0.016</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.0e3e9efade" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_26_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.b19f776dd2" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.6fa398b17c" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_22_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.0d60049e41" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_20_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.962a192085" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.219ed183a7" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.99f507874c" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_22_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.8f3a2d26dc" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_9_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.17ce27b910" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.8f6932507c" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_9_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.f052e6a211" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.e2c802f5bf" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_9_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.d4d3a9448a" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_9_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.2eec3a0388" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_11_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.1e5e136331" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_8_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.1f72341542" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.bdef316e4e" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_10_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.76ee600648" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_24_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.a4a8627d1d" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.170a20c38b" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_10_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.ab97e42497" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.ea9c611a62" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.abfb3f0266" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cf15159c54" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cde9a92ba4" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:lineHeight">@dimen/ops_sp_40_0</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.f8412003c3" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.4ed059c75b" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ffde951b</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.f6741c3aa7" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff143c7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.4880bc1e34" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.d6bb038001" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.cf5bb363e6" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.8448a6d123" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.755f0ac70d" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.727ba1fece" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:lineHeight">@dimen/ops_sp_21_0</item>
+        <item name="android:letterSpacing">-0.02667</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.6b43081782" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_12_0</item>
+        <item name="android:textColor">@color/ops_color_ff0b013c</item>
+        <item name="android:lineHeight">@dimen/ops_sp_21_0</item>
+        <item name="android:letterSpacing">-0.02667</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.c237f4790e" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_9_0</item>
+        <item name="android:textColor">@color/ops_color_ff202020</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.7d12ebbd8b" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_80130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.21294f06f8" parent="TextAppearance.FIXA.App.SemiBold">
+        <item name="android:textSize">@dimen/ops_sp_11_0</item>
+        <item name="android:textColor">@color/ops_color_ff34c759</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.be0125e71c" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_10_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.0fa4d2c8a9" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_ff000000</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.19ffccbd00" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.0f436f2d4d" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ffffffff</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.8a1a5e05d8" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_25_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.b8ba73090e" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.e2b04c606f" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_18_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.529baf7f80" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_24_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.f0270205c2" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_15_0</item>
+        <item name="android:textColor">@color/ops_color_ff4c5461</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.ce8b6589d3" parent="TextAppearance.FIXA.App.Medium">
+        <item name="android:textSize">@dimen/ops_sp_16_0</item>
+        <item name="android:textColor">@color/ops_color_ff153d7d</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="TextAppearance.FIXA.Operations.dc5bab6a15" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
+        <item name="android:textColor">@color/ops_color_ff8a93a2</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.f1e42019ae" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_10_0</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.a2ce56549d" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_10_83</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.56824d16dc" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_11_0</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.7b713affff" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_42_5</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.eb7ab55927" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_57_5</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.257a85d35e" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_65_0</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.00c10b58d5" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_25_0</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.e15274dcfe" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_40_0</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.d978b6fd23" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/ops_dp_27_5</item>
+    </style>
+</resources>

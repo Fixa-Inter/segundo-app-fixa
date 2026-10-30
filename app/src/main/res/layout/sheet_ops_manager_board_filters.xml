@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_app_sheet">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/app_filter_side_margin"
+        android:paddingTop="@dimen/app_filter_title_margin_top"
+        android:paddingEnd="@dimen/app_filter_side_margin"
+        android:paddingBottom="@dimen/app_filter_sheet_padding_bottom">
+
+        <TextView
+            android:id="@+id/tvFilterTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_filter_title"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEquipmentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_filter_label_margin_top"
+            android:text="Categoria de Equipamento"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFilterTitle" />
+
+        <include
+            android:id="@+id/fieldEquipment"
+            layout="@layout/view_app_filter_dropdown"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_filter_field_height"
+            android:layout_marginTop="@dimen/app_filter_field_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEquipmentLabel" />
+
+        <TextView
+            android:id="@+id/tvProblemLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_filter_group_spacing"
+            android:text="Categoria do Problema"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldEquipment" />
+
+        <include
+            android:id="@+id/fieldProblem"
+            layout="@layout/view_app_filter_dropdown"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_filter_field_height"
+            android:layout_marginTop="@dimen/app_filter_field_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProblemLabel" />
+
+        <TextView
+            android:id="@+id/tvPriorityLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_filter_group_spacing"
+            android:text="Prioridade"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldProblem" />
+
+        <include
+            android:id="@+id/fieldPriority"
+            layout="@layout/view_app_filter_dropdown"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_filter_field_height"
+            android:layout_marginTop="@dimen/app_filter_field_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPriorityLabel" />
+
+        <TextView
+            android:id="@+id/tvPeriodLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_filter_group_spacing"
+            android:text="Período do Prazo de Entrega"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldPriority" />
+
+        <include
+            android:id="@+id/fieldPeriod"
+            layout="@layout/view_app_filter_dropdown"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_filter_field_height"
+            android:layout_marginTop="@dimen/app_filter_field_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPeriodLabel" />
+
+        <TextView
+            android:id="@+id/tvStatusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_filter_group_spacing"
+            android:text="Status"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldPeriod" />
+
+        <include
+            android:id="@+id/fieldStatus"
+            layout="@layout/view_app_filter_dropdown"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_filter_field_height"
+            android:layout_marginTop="@dimen/app_filter_field_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStatusLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnApply"
+            style="@style/Widget.FIXA.App.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_filter_apply_height"
+            android:layout_marginTop="@dimen/app_filter_apply_margin_top"
+            android:text="@string/app_apply"
+            android:textSize="@dimen/app_filter_apply_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldStatus" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClear"
+            style="@style/Widget.FIXA.App.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/app_filter_apply_height"
+            android:layout_marginTop="@dimen/app_filter_clear_margin_top"
+            android:text="@string/app_clear"
+            android:textColor="@color/app_primary_deep"
+            android:textSize="@dimen/app_filter_apply_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnApply"
+            app:rippleColor="@color/app_field_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

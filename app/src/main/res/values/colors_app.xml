@@ -18,6 +18,7 @@
     <color name="app_text_muted">#FF8A93A2</color>
     <color name="app_text_hint">#FF637087</color>
     <color name="app_text_hint_60">#998A93A2</color>
+    <color name="app_chart_empty">#FFD9DEE7</color>
     <color name="app_divider">#FFBFC4CE</color>
     <color name="app_nav_inactive">#FF637087</color>
     <color name="app_danger">#FF96031A</color>
@@ -34,6 +35,8 @@
     <color name="app_status_done_text">#FF399603</color>
     <color name="app_status_done_chart">#FF34C759</color>
     <color name="app_status_refused">#FF96031A</color>
+    <color name="app_status_refused_soft">#1AFF383C</color>
+    <color name="app_status_refused_text">#FF96031A</color>
     <color name="app_status_refused_chart">#FFFF383C</color>
     <color name="app_status_pending">#FF8A93A2</color>
 

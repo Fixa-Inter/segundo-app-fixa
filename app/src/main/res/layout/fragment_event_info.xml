@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
-    tools:context=".ui.events.EventInfoFragment">
+    tools:context=".ui.view.events.EventInfoFragment">
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -77,10 +77,9 @@
                 android:layout_marginTop="@dimen/app_event_info_meta_margin_top"
                 android:text="@string/app_event_info_location"
                 android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Label"
-                app:layout_constraintEnd_toStartOf="@id/tvDateLabel"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvEventName" />
+                app:layout_constraintTop_toBottomOf="@id/tvTime" />
 
             <TextView
                 android:id="@+id/tvDateLabel"
@@ -89,8 +88,8 @@
                 android:text="@string/app_event_info_date"
                 android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Label"
                 app:layout_constraintEnd_toStartOf="@id/tvTimeLabel"
-                app:layout_constraintStart_toEndOf="@id/tvLocationLabel"
-                app:layout_constraintTop_toTopOf="@id/tvLocationLabel" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvEventName" />
 
             <TextView
                 android:id="@+id/tvTimeLabel"
@@ -100,13 +99,12 @@
                 android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tvDateLabel"
-                app:layout_constraintTop_toTopOf="@id/tvLocationLabel" />
+                app:layout_constraintTop_toTopOf="@id/tvDateLabel" />
 
             <TextView
                 android:id="@+id/tvLocation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/app_event_info_value_margin_top"
                 android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Value"
                 app:layout_constraintEnd_toEndOf="@id/tvLocationLabel"
                 app:layout_constraintStart_toStartOf="@id/tvLocationLabel"
@@ -120,17 +118,18 @@
                 android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Value"
                 app:layout_constraintEnd_toEndOf="@id/tvDateLabel"
                 app:layout_constraintStart_toStartOf="@id/tvDateLabel"
-                app:layout_constraintTop_toTopOf="@id/tvLocation"
+                app:layout_constraintTop_toBottomOf="@id/tvDateLabel"
                 tools:text="20/02/2026" />
 
             <TextView
                 android:id="@+id/tvTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_event_info_value_margin_top"
                 android:textAppearance="@style/TextAppearance.FIXA.App.EventInfo.Value"
                 app:layout_constraintEnd_toEndOf="@id/tvTimeLabel"
                 app:layout_constraintStart_toStartOf="@id/tvTimeLabel"
-                app:layout_constraintTop_toTopOf="@id/tvLocation"
+                app:layout_constraintTop_toBottomOf="@id/tvTimeLabel"
                 tools:text="11:30 - 12:30" />
 
             <TextView

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:8731 • manager / first_task. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_b18732bb6c" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_310" android:clipChildren="false" android:clipToPadding="false">
+        <TextView
+            android:id="@+id/ops_5717_8732"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_35"
+            android:layout_marginTop="@dimen/ops_dp_40_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/ops_dp_29"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/ops_text_criar_primeira_tarefa_automaticamente_344f86"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.76ee600648"
+            android:includeFontPadding="false"
+            android:gravity="start|center_vertical"
+            android:minHeight="@dimen/ops_dp_72"
+            android:tag="text:Criar primeira tarefa automaticamente"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_semibold" />
+        <TextView
+            android:id="@+id/ops_5717_8737"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_35"
+            android:layout_marginTop="@dimen/ops_dp_21_0"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="@dimen/ops_dp_29"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8732"
+            android:text="@string/ops_text_voce_podera_editar_e_excluir_essa_acao_aa3ed1"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.a4a8627d1d"
+            android:includeFontPadding="false"
+            android:gravity="start|center_vertical"
+            android:minHeight="@dimen/ops_dp_42"
+            android:tag="text:Você poderá editar e excluir essa ação posteriormente"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_medium" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8734" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_42_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8737" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
+            <TextView
+                android:id="@+id/ops_5717_8735"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ops_dp_20"
+                android:layout_marginStart="@dimen/ops_dp_17_0"
+                android:layout_marginTop="@dimen/ops_dp_10_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/ops_dp_15_38"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/ops_text_criar_eu_mesmo_354277"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.be6ece948a"
+                android:includeFontPadding="false"
+                android:gravity="center|center_vertical"
+                android:minHeight="@dimen/ops_dp_20"
+                android:tag="text:Criar eu mesmo"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ops_5717_8733"
+            android:layout_width="@dimen/ops_dp_140_0"
+            android:layout_height="@dimen/ops_dp_40_0"
+            android:layout_marginStart="@dimen/ops_dp_185_0"
+            android:layout_marginTop="@dimen/ops_dp_217_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/bg_ops_eaf7bf3250"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
+            android:padding="@dimen/ops_dp_0"
+            android:gravity="center"
+            android:minHeight="@dimen/ops_dp_0"
+            android:minWidth="@dimen/ops_dp_0"
+            android:text="@string/ops_text_criar_49ba5d"
+            android:textAllCaps="false"
+            android:tag="action:Criar"
+            app:backgroundTint="@null" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

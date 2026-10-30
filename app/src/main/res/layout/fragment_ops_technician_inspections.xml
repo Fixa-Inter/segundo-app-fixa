@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:10290 • technician / inspections. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_825_8" android:clipChildren="false" android:clipToPadding="false">
+        <ImageButton
+            android:id="@+id/inspectionBack"
+            android:layout_width="@dimen/app_touch_target"
+            android:layout_height="@dimen/app_touch_target"
+            android:layout_marginStart="-2dp"
+            android:layout_marginTop="9dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_back"
+            android:scaleType="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_left_22"
+            app:tint="@color/app_primary_deep" />
+        <TextView
+            android:id="@+id/ops_5717_10291"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_31"
+            android:layout_marginTop="@dimen/ops_dp_67_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/ops_dp_45"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/ops_text_inspecione_os_aparelhos_a4db1f"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
+            android:includeFontPadding="false"
+            android:gravity="start|center_vertical"
+            android:minHeight="@dimen/ops_dp_81"
+            android:tag="text:Inspecione os aparelhos"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10328" android:layout_width="110dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginEnd="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_28_0" app:layout_constraintStart_toEndOf="@id/inspectionSearchContainer" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10291" android:background="@drawable/bg_ops_e7ed2e1d5e" android:clipChildren="false" android:clipToPadding="false">
+            <AutoCompleteTextView
+                android:id="@+id/inspectionStatusDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingStart="@dimen/ops_dp_17_0"
+                android:paddingEnd="@dimen/ops_dp_35_0"
+                android:popupBackground="@drawable/bg_app_popup_menu"
+                android:text="Status"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.776f506c8d" />
+            <ImageView
+                android:id="@+id/ops_5717_10333"
+                android:layout_width="@dimen/ops_dp_20_0"
+                android:layout_height="@dimen/ops_dp_20_0"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/figma_9a884"
+                android:scaleType="fitXY"
+                android:importantForAccessibility="no"
+                android:tag="image:chevron-down" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/inspectionSearchContainer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/ops_dp_45_0"
+            android:layout_marginStart="@dimen/ops_dp_30_0"
+            android:layout_marginTop="@dimen/ops_dp_28_0"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_ops_c5ebb731c9"
+            android:elevation="@dimen/ops_dp_2"
+            app:layout_constraintEnd_toStartOf="@id/ops_5717_10328"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_10291">
+            <ImageButton
+                android:id="@+id/inspectionSearchIcon"
+                android:layout_width="@dimen/app_requests_search_height"
+                android:layout_height="@dimen/app_requests_search_height"
+                android:layout_marginStart="1dp"
+                android:background="@drawable/bg_app_circle_primary"
+                android:contentDescription="@string/app_requests_search"
+                android:elevation="3dp"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_search_18"
+                app:tint="@color/app_on_primary" />
+            <EditText
+                android:id="@+id/inspectionSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="6dp"
+                android:background="@null"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:hint="Pesquisar código"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.532bcc5bfe"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/inspectionSearchIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/inspectionEquipmentList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_30_0"
+            android:layout_marginTop="@dimen/ops_dp_12_0"
+            android:layout_marginEnd="@dimen/ops_dp_30_0"
+            android:nestedScrollingEnabled="false"
+            android:paddingBottom="@dimen/ops_dp_100_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inspectionSearchContainer"
+            tools:listitem="@layout/item_ops_manager_inspection_equipment" />
+        <TextView
+            android:id="@+id/inspectionEquipmentEmpty"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="Não existem equipamentos neste status."
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.4880bc1e34"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inspectionSearchContainer" />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

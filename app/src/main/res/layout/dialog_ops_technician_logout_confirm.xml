@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:9262 • technician / logout_confirm. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_b18732bb6c" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_340" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9264" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_340_0" android:layout_marginStart="@dimen/ops_dp_0" android:layout_marginTop="@dimen/ops_dp_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="@dimen/ops_dp_0" app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/bg_ops_80d1968369" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Sair da conta?">
+            <ImageView
+                android:id="@+id/ops_5717_9265"
+                android:layout_width="@dimen/ops_dp_200_0"
+                android:layout_height="@dimen/ops_dp_200_0"
+                android:layout_marginStart="@dimen/ops_dp_60_0"
+                android:layout_marginTop="@dimen/ops_dp_5_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/figma_08394"
+                android:scaleType="centerCrop"
+                android:importantForAccessibility="no"
+                android:tag="image:image 176" />
+            <TextView
+                android:id="@+id/ops_5717_9266"
+                android:layout_width="@dimen/ops_dp_127_1"
+                android:layout_height="@dimen/ops_dp_26"
+                android:layout_marginStart="@dimen/ops_dp_97_0"
+                android:layout_marginTop="@dimen/ops_dp_201_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/ops_text_sair_da_conta_2bc9fb"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.958cd417e0"
+                android:includeFontPadding="false"
+                android:gravity="center|center_vertical"
+                android:minHeight="@dimen/ops_dp_26"
+                android:tag="text:Sair da conta?"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1" />
+            <TextView
+                android:id="@+id/ops_5717_9274"
+                android:layout_width="@dimen/ops_dp_194_75"
+                android:layout_height="@dimen/ops_dp_18"
+                android:layout_marginStart="@dimen/ops_dp_65_0"
+                android:layout_marginTop="@dimen/ops_dp_22_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ops_5717_9265"
+                android:text="@string/ops_text_voce_podera_entrar_novamente_cf611b"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.bdd494c4fd"
+                android:includeFontPadding="false"
+                android:gravity="center|center_vertical"
+                android:minHeight="@dimen/ops_dp_18"
+                android:tag="text:Você poderá entrar novamente"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_light"
+                android:maxLines="1" />
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9271" android:layout_width="@dimen/ops_dp_115_0" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_34_0" android:layout_marginTop="@dimen/ops_dp_273_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_6fc7f4db18" android:clipChildren="false" android:clipToPadding="false">
+                <TextView
+                    android:id="@+id/ops_5717_9272"
+                    android:layout_width="@dimen/ops_dp_62"
+                    android:layout_height="@dimen/ops_dp_20"
+                    android:layout_marginStart="@dimen/ops_dp_27_0"
+                    android:layout_marginTop="@dimen/ops_dp_7_0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/ops_text_cancelar_bb9dbb"
+                    android:textAppearance="@style/TextAppearance.FIXA.Operations.be6ece948a"
+                    android:includeFontPadding="false"
+                    android:gravity="center|center_vertical"
+                    android:minHeight="@dimen/ops_dp_20"
+                    android:tag="text:Cancelar"
+                    android:padding="@dimen/ops_dp_0"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9267" android:layout_width="@dimen/ops_dp_115_0" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_173_0" android:layout_marginTop="@dimen/ops_dp_273_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_ac8a55a5cb" android:clipChildren="false" android:clipToPadding="false">
+                <TextView
+                    android:id="@+id/ops_5717_9269"
+                    android:layout_width="@dimen/ops_dp_43"
+                    android:layout_height="@dimen/ops_dp_20"
+                    android:layout_marginStart="@dimen/ops_dp_37_0"
+                    android:layout_marginTop="@dimen/ops_dp_7_0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/ops_text_salvar_aef7cd"
+                    android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
+                    android:includeFontPadding="false"
+                    android:gravity="center|center_vertical"
+                    android:minHeight="@dimen/ops_dp_20"
+                    android:tag="text:Salvar"
+                    android:padding="@dimen/ops_dp_0"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="1" />
+                <TextView
+                    android:id="@+id/ops_5717_9273"
+                    android:layout_width="@dimen/ops_dp_27"
+                    android:layout_height="@dimen/ops_dp_20"
+                    android:layout_marginStart="@dimen/ops_dp_45_0"
+                    android:layout_marginTop="@dimen/ops_dp_7_0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/ops_text_sair_2d023d"
+                    android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
+                    android:includeFontPadding="false"
+                    android:gravity="center|center_vertical"
+                    android:minHeight="@dimen/ops_dp_20"
+                    android:tag="text:Sair"
+                    android:padding="@dimen/ops_dp_0"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/ops_5717_9270"
+                android:layout_width="@dimen/ops_dp_115_0"
+                android:layout_height="@dimen/ops_dp_35_0"
+                android:layout_marginStart="@dimen/ops_dp_173_0"
+                android:layout_marginTop="@dimen/ops_dp_273_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/bg_ops_ac8a55a5cb"
+                android:clipChildren="false"
+                android:clipToPadding="false" />
+            <TextView
+                android:id="@+id/ops_5717_9268"
+                android:layout_width="@dimen/ops_dp_62"
+                android:layout_height="@dimen/ops_dp_20"
+                android:layout_marginStart="@dimen/ops_dp_61_0"
+                android:layout_marginTop="@dimen/ops_dp_35_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ops_5717_9274"
+                android:text="@string/ops_text_cancelar_bb9dbb"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.be6ece948a"
+                android:includeFontPadding="false"
+                android:gravity="center|center_vertical"
+                android:minHeight="@dimen/ops_dp_20"
+                android:tag="text:Cancelar"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/ops_5717_9263"
+            android:layout_width="@dimen/ops_dp_200_0"
+            android:layout_height="@dimen/ops_dp_200_0"
+            android:layout_marginStart="@dimen/ops_dp_60_0"
+            android:layout_marginTop="@dimen/ops_dp_5_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/figma_d2474"
+            android:scaleType="centerCrop"
+            android:importantForAccessibility="no"
+            android:tag="image:image 176" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

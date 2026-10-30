@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/ops_color_fff5f7fa">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:fillViewport="true" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:minHeight="@dimen/ops_dp_658_0" android:clipChildren="false" android:clipToPadding="false">
+            <ImageView android:id="@+id/managerOccurrencesBack" android:layout_width="@dimen/ops_dp_22_0" android:layout_height="@dimen/ops_dp_22_0"
+                android:layout_marginStart="@dimen/ops_dp_11_0" android:layout_marginTop="@dimen/ops_dp_22_0"
+                android:src="@drawable/figma_eee40" android:tag="image:arrow-left"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            <TextView android:id="@+id/managerOccurrencesTitle" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/ops_dp_31" android:layout_marginTop="@dimen/ops_dp_52_0" android:layout_marginEnd="@dimen/ops_dp_45"
+                android:minHeight="@dimen/ops_dp_80" android:fontFamily="@font/poppins_bold" android:includeFontPadding="false"
+                android:lineSpacingExtra="4dp" android:text="@string/ops_manager_occurrences_title"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/managerOccurrencesSearchContainer"
+                android:layout_width="0dp" android:layout_height="@dimen/ops_dp_45_0" android:layout_marginStart="@dimen/ops_dp_30_0"
+                android:layout_marginTop="@dimen/ops_dp_14_0" android:layout_marginEnd="@dimen/ops_dp_16_0"
+                android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/managerOccurrencesFilter"
+                app:layout_constraintTop_toBottomOf="@id/managerOccurrencesTitle">
+                <ImageButton android:id="@+id/managerOccurrencesSearchButton" android:layout_width="@dimen/app_requests_search_height"
+                    android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="1dp"
+                    android:background="@drawable/bg_app_circle_primary" android:contentDescription="@string/app_requests_search"
+                    android:elevation="3dp" android:scaleType="center" app:srcCompat="@drawable/ic_search_18"
+                    app:tint="@color/app_on_primary" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+                <androidx.appcompat.widget.AppCompatEditText android:id="@+id/managerOccurrencesSearch"
+                    android:layout_width="0dp" android:layout_height="@dimen/ops_dp_21" android:layout_marginStart="@dimen/ops_dp_14_0"
+                    android:layout_marginEnd="@dimen/ops_dp_14_0" android:background="@null" android:singleLine="true"
+                    android:hint="@string/ops_text_pesquisar_d0839a" android:inputType="text" android:imeOptions="actionSearch"
+                    android:textAppearance="@style/TextAppearance.FIXA.Operations.532bcc5bfe" android:fontFamily="@font/poppins_regular"
+                    android:tag="field:Pesquisar" app:layout_constraintStart_toEndOf="@id/managerOccurrencesSearchButton"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton android:id="@+id/managerOccurrencesFilter" android:layout_width="@dimen/app_touch_target"
+                android:layout_height="@dimen/app_touch_target" android:layout_marginEnd="@dimen/app_screen_side_margin"
+                android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/app_requests_filters"
+                android:scaleType="center" app:srcCompat="@drawable/ic_filter_24" app:tint="@color/app_primary_deep"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/managerOccurrencesSearchContainer"
+                app:layout_constraintBottom_toBottomOf="@id/managerOccurrencesSearchContainer" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/managerOccurrencesList"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="@dimen/app_home_card_side_margin"
+                android:layout_marginTop="@dimen/ops_dp_14_0" android:layout_marginEnd="@dimen/app_home_card_side_margin"
+                android:nestedScrollingEnabled="false" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/managerOccurrencesSearchContainer" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.AppCompatImageButton android:id="@+id/managerOccurrencesFab"
+        android:layout_width="56dp" android:layout_height="56dp" android:layout_gravity="bottom|end"
+        android:layout_marginEnd="24dp" android:layout_marginBottom="24dp" android:background="@drawable/bg_app_circle_primary"
+        android:contentDescription="@string/ops_occurrence_create" android:elevation="6dp"
+        android:padding="16dp" android:scaleType="centerInside" android:src="@drawable/ic_plus_24"
+        app:tint="@color/app_on_primary" />
+</FrameLayout>

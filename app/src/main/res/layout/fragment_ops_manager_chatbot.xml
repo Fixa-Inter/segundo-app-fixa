@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 5717:9050 • manager / chatbot. Componentes nativos; dimensões em values e sw400dp. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_903_0" android:clipChildren="false" android:clipToPadding="false">
+        <TextView
+            android:id="@+id/ops_5717_9051"
+            android:layout_width="@dimen/ops_dp_74"
+            android:layout_height="@dimen/ops_dp_38"
+            android:layout_marginStart="@dimen/ops_dp_169"
+            android:layout_marginTop="@dimen/ops_dp_31_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/ops_text_manu_2d00f5"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.8a1a5e05d8"
+            android:includeFontPadding="false"
+            android:gravity="start|center_vertical"
+            android:minHeight="@dimen/ops_dp_38"
+            android:tag="text:Manu"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLines="1" />
+        <ImageView
+            android:id="@+id/ops_5717_9077"
+            android:layout_width="@dimen/ops_dp_24_0"
+            android:layout_height="@dimen/ops_dp_24_0"
+            android:layout_marginStart="@dimen/ops_dp_32_0"
+            android:layout_marginTop="@dimen/ops_dp_39_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/figma_93bb4"
+            android:scaleType="fitXY"
+            android:importantForAccessibility="no"
+            android:tag="image:align-justify" />
+        <ImageView
+            android:id="@+id/ops_5717_9074"
+            android:layout_width="@dimen/ops_dp_227_99"
+            android:layout_height="@dimen/ops_dp_87_28"
+            android:layout_marginStart="@dimen/ops_dp_126_01"
+            android:layout_marginTop="@dimen/ops_dp_332_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/figma_90270"
+            android:scaleType="fitXY"
+            android:importantForAccessibility="no"
+            android:tag="image:" />
+        <TextView
+            android:id="@+id/ops_5717_9075"
+            android:layout_width="@dimen/ops_dp_208_07"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_145"
+            android:layout_marginTop="@dimen/ops_dp_343_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/ops_text_ola_rapha_como_posso_te_ajudar_hoje_f87b89"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.b8ba73090e"
+            android:includeFontPadding="false"
+            android:gravity="start|center_vertical"
+            android:minHeight="@dimen/ops_dp_48"
+            android:tag="text:Olá Rapha, como posso te ajudar hoje?"
+            android:padding="@dimen/ops_dp_0"
+            android:fontFamily="@font/poppins_regular" />
+        <ImageView
+            android:id="@+id/ops_5717_9073"
+            android:layout_width="@dimen/ops_dp_130_0"
+            android:layout_height="@dimen/ops_dp_130_0"
+            android:layout_marginStart="@dimen/ops_dp_11_0"
+            android:layout_marginTop="@dimen/ops_dp_354_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/figma_1bac7"
+            android:scaleType="centerCrop"
+            android:importantForAccessibility="no"
+            android:tag="image:image 145" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9054" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_130_0" android:layout_marginStart="@dimen/ops_dp_16_0" android:layout_marginTop="@dimen/ops_dp_749_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="@dimen/ops_dp_16_0" app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/bg_ops_9c512df00f" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Como posso te ajudar hoje?">
+            <TextView
+                android:id="@+id/ops_5717_9065"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ops_dp_27"
+                android:layout_marginStart="@dimen/ops_dp_34_0"
+                android:layout_marginTop="@dimen/ops_dp_33_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/ops_dp_86_0"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/ops_text_como_posso_te_ajudar_hoje_1b83ea"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.e2b04c606f"
+                android:includeFontPadding="false"
+                android:gravity="start|center_vertical"
+                android:minHeight="@dimen/ops_dp_27"
+                android:tag="text:Como posso te ajudar hoje?"
+                android:padding="@dimen/ops_dp_0"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="1" />
+            <View
+                android:id="@+id/ops_5717_9057"
+                android:layout_width="@dimen/ops_dp_30_0"
+                android:layout_height="@dimen/ops_dp_30_0"
+                android:layout_marginStart="@dimen/ops_dp_317_0"
+                android:layout_marginTop="@dimen/ops_dp_78_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/bg_ops_6e67b5786e"
+                android:clipChildren="false"
+                android:clipToPadding="false" />
+            <ImageView
+                android:id="@+id/ops_5717_9069"
+                android:layout_width="@dimen/ops_dp_24_0"
+                android:layout_height="@dimen/ops_dp_24_0"
+                android:layout_marginStart="@dimen/ops_dp_31_0"
+                android:layout_marginTop="@dimen/ops_dp_24_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ops_5717_9065"
+                android:src="@drawable/figma_f01c4"
+                android:scaleType="fitXY"
+                android:importantForAccessibility="no"
+                android:tag="image:plus"
+                android:translationZ="@dimen/ops_dp_3" />
+            <ImageView
+                android:id="@+id/ops_5717_9062"
+                android:layout_width="@dimen/ops_dp_12_0"
+                android:layout_height="@dimen/ops_dp_12_0"
+                android:layout_marginStart="@dimen/ops_dp_326_0"
+                android:layout_marginTop="@dimen/ops_dp_87_25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/figma_81e30"
+                android:scaleType="fitXY"
+                android:importantForAccessibility="no"
+                android:tag="image:"
+                android:translationZ="@dimen/ops_dp_3" />
+            <ImageView
+                android:id="@+id/ops_5717_9066"
+                android:layout_width="@dimen/ops_dp_16_5"
+                android:layout_height="@dimen/ops_dp_17_39"
+                android:layout_marginStart="@dimen/ops_dp_71_25"
+                android:layout_marginTop="@dimen/ops_dp_89_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/figma_effad"
+                android:scaleType="fitXY"
+                android:importantForAccessibility="no"
+                android:tag="image:"
+                android:translationZ="@dimen/ops_dp_3" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

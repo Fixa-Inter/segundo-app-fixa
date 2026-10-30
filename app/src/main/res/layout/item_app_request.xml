@@ -101,6 +101,7 @@
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.FIXA.App.RequestCard.Status"
             android:textColor="@color/app_status_analysis"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/tvRequestTitle"
             app:layout_constraintStart_toStartOf="@id/tvRequestTitle"
             app:layout_constraintTop_toBottomOf="@id/tvRequestLocation"
