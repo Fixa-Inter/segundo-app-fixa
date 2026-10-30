@@ -8,6 +8,12 @@ public final class GerenciarOcorrencias {
     private final OcorrenciaRepository repository;
     public GerenciarOcorrencias(OcorrenciaRepository repository){this.repository=repository;}
     public List<OcorrenciaItem> listar() throws Exception{return repository.listar();}
+    public List<OcorrenciaItem> listarMinhas() throws Exception{return repository.listarMinhas();}
+    public void cadastrar(Long localId, Long equipmentId, com.aula.fixa.domain.enums.CategoriaProblema category,
+            com.aula.fixa.domain.enums.Prioridade priority, String title, String description,
+            String locationDescription, List<String> photoUrls) throws Exception {
+        repository.cadastrar(localId, equipmentId, category, priority, title, description, locationDescription, photoUrls);
+    }
     public OcorrenciaItem detalhar(long id) throws Exception{return repository.detalhar(id);}
     public void atualizar(long id,Long localId,Long equipmentId,com.aula.fixa.domain.enums.CategoriaProblema category,
             com.aula.fixa.domain.enums.Prioridade priority,List<Long> photosToDelete,List<String> photosToAdd)throws Exception{

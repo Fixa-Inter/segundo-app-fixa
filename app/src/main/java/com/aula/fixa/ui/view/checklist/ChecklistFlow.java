@@ -10,6 +10,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -23,14 +25,20 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.aula.fixa.R;
 import com.aula.fixa.adapter.auth.AutenticacaoViewModel;
 import com.aula.fixa.adapter.checklist.ChecklistViewModel;
 import com.aula.fixa.adapter.checklist.ChecklistViewModelFactory;
+import com.aula.fixa.ui.adapter.checklist.InspectionEquipmentAdapter;
 import com.aula.fixa.domain.enums.TipoCampoChecklist;
 import com.aula.fixa.domain.model.checklist.*;
 import com.aula.fixa.ui.config.AppLoading;
+import com.aula.fixa.ui.config.AppDialogs;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
 import com.google.gson.Gson;
 
@@ -48,6 +56,7 @@ public final class ChecklistFlow {
     private final ChecklistViewModel vm;
     private final Gson gson = new Gson();
     private List<ChecklistTemplate> templates = new ArrayList<>();
+    private final Map<String, List<ChecklistEquipment>> inspectionEquipmentCache = new HashMap<>();
     private List<EquipmentModelOption> availableModels = new ArrayList<>();
     private final Map<String, Object> answers = new LinkedHashMap<>();
     private LinearLayout answerContainer;
@@ -61,6 +70,7 @@ public final class ChecklistFlow {
     }
 
     public void bind(View content, String screen) {
+        if (screen.startsWith("manager_checklist_")) bindTimeline(content, screen);
         switch (screen) {
             case "manager_checklists":
             case "technician_checklists":
@@ -83,7 +93,7 @@ public final class ChecklistFlow {
                 break;
             case "manager_inspections":
             case "technician_inspections":
-                bindInspections(content, screen);
+                bindInspections(content);
                 break;
             case "manager_inspection_form":
             case "technician_inspection_form":
@@ -92,17 +102,71 @@ public final class ChecklistFlow {
         }
     }
 
+    private void bindTimeline(View content, String screen) {
+        int[][] circlesAndNumbers;
+        int[] labels = null;
+        if (screen.endsWith("intro")) {
+            circlesAndNumbers = new int[][]{{R.id.ops_5717_8025, R.id.ops_5717_8030},
+                    {R.id.ops_5717_8026, R.id.ops_5717_8031}, {R.id.ops_5717_8027, R.id.ops_5717_8032}};
+        } else if (screen.endsWith("information")) {
+            circlesAndNumbers = new int[][]{{R.id.ops_5717_8089, R.id.ops_5717_8090},
+                    {R.id.ops_5717_8095, R.id.ops_5717_8096}, {R.id.ops_5717_8092, R.id.ops_5717_8093}};
+            labels = new int[]{R.id.ops_5717_8085, R.id.ops_5717_8086, R.id.ops_5717_8087};
+        } else if (screen.endsWith("fields")) {
+            circlesAndNumbers = new int[][]{{R.id.ops_5717_8050, R.id.ops_5717_8051},
+                    {R.id.ops_5717_8056, R.id.ops_5717_8057}, {R.id.ops_5717_8053, R.id.ops_5717_8054}};
+            labels = new int[]{R.id.ops_5717_8046, R.id.ops_5717_8047, R.id.ops_5717_8048};
+        } else if (screen.endsWith("models")) {
+            circlesAndNumbers = new int[][]{{R.id.ops_5717_8131, R.id.ops_5717_8132},
+                    {R.id.ops_5717_8137, R.id.ops_5717_8138}, {R.id.ops_5717_8134, R.id.ops_5717_8135}};
+            labels = new int[]{R.id.ops_5717_8127, R.id.ops_5717_8128, R.id.ops_5717_8129};
+        } else return;
+
+        for (int[] pair : circlesAndNumbers) {
+            View circle = content.findViewById(pair[0]);
+            View number = content.findViewById(pair[1]);
+            if (circle == null || number == null
+                    || !(number.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) continue;
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) number.getLayoutParams();
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.startToStart = circle.getId();
+            params.endToEnd = circle.getId();
+            params.topToTop = circle.getId();
+            params.bottomToBottom = circle.getId();
+            params.leftMargin = params.rightMargin = params.topMargin = params.bottomMargin = 0;
+            number.setLayoutParams(params);
+            if (number instanceof TextView) ((TextView) number).setGravity(Gravity.CENTER);
+        }
+        if (labels != null) {
+            for (int i = 0; i < labels.length; i++) {
+                View label = content.findViewById(labels[i]);
+                if (label == null || !(label.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) continue;
+                androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                        (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) label.getLayoutParams();
+                params.startToStart = circlesAndNumbers[i][0];
+                params.endToEnd = circlesAndNumbers[i][0];
+                params.setMarginStart(0);
+                params.setMarginEnd(0);
+                params.leftMargin = 0;
+                params.rightMargin = 0;
+                label.setLayoutParams(params);
+                if (label instanceof TextView) ((TextView) label).setGravity(Gravity.CENTER);
+            }
+        }
+    }
+
     private void bindChecklistList(View content, String screen) {
         boolean canManage = activity.role().equals("manager");
-        View fab = content.findViewWithTag("text:+");
-        if (fab == null) {
-            fab = content.findViewWithTag("action:Adicionar");
-        }
-
-        if (fab != null) {
-            fab.setVisibility(canManage ? View.VISIBLE : View.GONE);
-            fab.setOnClickListener(v -> startNew());
-        }
+        boolean technician = screen.startsWith("technician");
+        int circleFabId = technician ? R.id.ops_5717_10222 : R.id.ops_5717_7935;
+        int plusFabId = technician ? R.id.ops_5717_10224 : R.id.ops_5717_7937;
+        View circleFab = content.findViewById(circleFabId);
+        View plusFab = content.findViewById(plusFabId);
+        if (circleFab != null) circleFab.setVisibility(View.GONE);
+        if (plusFab != null) plusFab.setVisibility(View.GONE);
+        installChecklistFab(content, canManage);
         loadTemplates(content, screen);
         for (View card : new View[]{content.findViewById(R.id.ops_5717_7973), content.findViewById(R.id.ops_5717_7988), content.findViewById(R.id.ops_5717_10260), content.findViewById(R.id.ops_5717_10275)}) {
             if (card != null) {
@@ -110,13 +174,40 @@ public final class ChecklistFlow {
             }
         }
         // Retain the existing card geometry/background while filling server data.
-        ViewGroup root = layoutRoot(content);
         LinearLayout list = new LinearLayout(activity);
         list.setOrientation(LinearLayout.VERTICAL);
         list.setTag("checklist:cards");
         attachBelow(content, list, screen.startsWith("technician") ? R.id.ops_5717_10217 : R.id.ops_5717_7930, 18);
         list.setPadding(dp(activity, 24), 0, dp(activity, 24), dp(activity, 100));
         content.setTag(R.id.ops_5717_7930, list);
+    }
+
+    private void installChecklistFab(View content, boolean visible) {
+        if (!(content.getParent() instanceof android.widget.FrameLayout)) return;
+        android.widget.FrameLayout host = (android.widget.FrameLayout) content.getParent();
+        com.google.android.material.floatingactionbutton.FloatingActionButton fab =
+                new com.google.android.material.floatingactionbutton.FloatingActionButton(activity);
+        fab.setTag("checklist:create-fab");
+        int fabSize = activity.getResources().getDimensionPixelSize(R.dimen.app_fab_size);
+        fab.setCustomSize(fabSize);
+        fab.setMaxImageSize(dp(activity, 24));
+        fab.setShapeAppearanceModel(com.google.android.material.shape.ShapeAppearanceModel.builder()
+                .setAllCornerSizes(fabSize / 2f)
+                .build());
+        fab.setImageResource(R.drawable.figma_c5cb2);
+        fab.setImageTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.WHITE));
+        fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
+                androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff184384)));
+        fab.setCompatElevation(dp(activity, 6));
+        fab.setContentDescription("Criar checklist");
+        fab.setOnClickListener(v -> startNew());
+        android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
+                android.view.Gravity.BOTTOM | android.view.Gravity.END);
+        params.setMargins(0, 0, dp(activity, 24), dp(activity, 24));
+        host.addView(fab, params);
+        fab.setVisibility(visible ? View.VISIBLE : View.GONE);
+        fab.bringToFront();
     }
 
     private void loadTemplates(View content, String screen) {
@@ -148,42 +239,22 @@ public final class ChecklistFlow {
         }
         list.removeAllViews();
         for (ChecklistTemplate template : templates) {
-            LinearLayout card = card(160, R.drawable.bg_ops_e04d888c51);
-            card.setPadding(dp(activity, 18), dp(activity, 12), dp(activity, 14), dp(activity, 10));
-            TextView title = text(template.nome, 18, true);
-            title.setMaxLines(1);
-            title.setEllipsize(android.text.TextUtils.TruncateAt.END);
-            TextView menu = text("⋮", 25, true);
-            LinearLayout header = row(title, menu);
-            card.addView(header);
-            TextView category = text(modelNames(template), 13, false);
-            card.addView(category);
-            TextView periodic = text("Periodicidade   " + (template.periodicidade == null ? "_" : template.periodicidade + " dias"), 13, false);
-            card.addView(periodic);
-            TextView status = text(status(template), 13, true);
-            card.addView(status);
-            TextView count = text("Modelos   " + (template.modelos == null ? 0 : template.modelos.size()), 13, false);
-            card.addView(count);
+            View card = activity.getLayoutInflater().inflate(R.layout.item_ops_manager_checklist, list, false);
+            ((TextView) card.findViewById(R.id.checklistCardTitle)).setText(template.nome == null ? "" : template.nome);
+            ((TextView) card.findViewById(R.id.checklistCardCategory)).setText(categoryNames(template));
+            ((TextView) card.findViewById(R.id.checklistCardPeriod)).setText(
+                    template.periodicidade == null ? "_" : template.periodicidade + " dias");
+            ((TextView) card.findViewById(R.id.checklistCardStatus)).setText(status(template));
+            ((TextView) card.findViewById(R.id.checklistCardModels)).setText(
+                    String.valueOf(template.modelos == null ? 0 : template.modelos.size()));
+            View menu = card.findViewById(R.id.checklistCardMenu);
             card.setOnClickListener(v -> selectChecklist(template));
             if (activity.role().equals("manager")) {
-                menu.setOnClickListener(v -> {
-                    PopupMenu popup = new PopupMenu(activity, menu);
-                    popup.getMenu().add("Editar");
-                    popup.getMenu().add("Excluir");
-                    popup.setOnMenuItemClickListener(item -> {
-                        if ("Editar".contentEquals(item.getTitle())) {
-                            edit(template);
-                        } else {
-                            confirmDelete(template);
-                        }
-                        return true;
-                    });
-                    popup.show();
-                });
+                menu.setOnClickListener(v -> showChecklistMenu(menu, template));
             } else {
                 menu.setVisibility(View.GONE);
             }
-            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(-1, dp(activity, 160));
+            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(-1, dp(activity, 210));
             cp.bottomMargin = dp(activity, 14);
             list.addView(card, cp);
         }
@@ -194,31 +265,54 @@ public final class ChecklistFlow {
         }
     }
 
-    private String modelNames(ChecklistTemplate t) {
+    private void showChecklistMenu(View anchor, ChecklistTemplate template) {
+        View menu = activity.getLayoutInflater().inflate(R.layout.popup_app_request_menu, null, false);
+        android.widget.PopupWindow popup = new android.widget.PopupWindow(
+                menu,
+                activity.getResources().getDimensionPixelSize(R.dimen.app_popup_menu_width),
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true);
+        popup.setBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(activity, R.drawable.bg_app_popup_menu));
+        popup.setElevation(dp(activity, 6));
+        popup.setOutsideTouchable(true);
+        menu.findViewById(R.id.tvPopupEdit).setOnClickListener(v -> {
+            popup.dismiss();
+            edit(template);
+        });
+        menu.findViewById(R.id.tvPopupDelete).setOnClickListener(v -> {
+            popup.dismiss();
+            confirmDelete(template);
+        });
+        popup.showAsDropDown(anchor, -popup.getWidth() + anchor.getWidth(), 0);
+    }
+
+    private String categoryNames(ChecklistTemplate t) {
         if (t.modelos == null || t.modelos.isEmpty()) {
-            return "Modelos de equipamento";
+            return "Categoria não informada";
         }
-        List<String> names = new ArrayList<>();
+        Set<String> names = new LinkedHashSet<>();
         for (ChecklistEquipmentModel m : t.modelos) {
-            names.add(m.nome);
+            if (m.categoria != null && !m.categoria.trim().isEmpty()) names.add(m.categoria.trim());
         }
-        return android.text.TextUtils.join(", ", names);
+        return names.isEmpty() ? "Categoria não informada" : android.text.TextUtils.join(", ", names);
     }
 
     private String status(ChecklistTemplate t) {
         if (t.modelos == null || t.modelos.isEmpty()) {
             return "Em andamento";
         }
+        boolean hasEquipment = false;
         for (ChecklistEquipmentModel m : t.modelos) {
             if (m.equipamentos != null) {
                 for (ChecklistEquipment e : m.equipamentos) {
+                    hasEquipment = true;
                     if (!isCompleted(e)) {
                         return "Em andamento";
                     }
                 }
             }
         }
-        return "Concluído";
+        return hasEquipment ? "Concluído" : "Em andamento";
     }
 
     private boolean isCompleted(ChecklistEquipment e) {
@@ -310,10 +404,21 @@ public final class ChecklistFlow {
             date.setText(t.primeiraAbertura);
         }
         if (date != null) {
+            date.setFocusable(false);
+            date.setCursorVisible(false);
             date.setOnClickListener(v -> chooseDate(date));
         }
+        View dateContainer = content.findViewById(R.id.ops_5717_8112);
+        View calendar = content.findViewById(R.id.ops_5717_8115);
+        View.OnClickListener openCalendar = v -> { if (date != null) chooseDate(date); };
+        if (dateContainer != null) dateContainer.setOnClickListener(openCalendar);
+        if (calendar != null) calendar.setOnClickListener(openCalendar);
+        // The generic operations binder treats calendar tags as request confirmation actions.
+        // Override that binding specifically on this checklist date field.
+        clickTag(content, "image:calendar", openCalendar);
         clickTag(content, "image:arrow-left", v -> activity.back());
         clickTag(content, "text:Voltar", v -> activity.back());
+        alignWizardFooter(content, content.findViewWithTag("text:Voltar"), content.findViewWithTag("action:Próximo"));
         clickTag(content, "action:Próximo", v -> {
             String n = name == null ? "" : name.getText().toString().trim(), p = periodic == null ? "" : periodic.getText().toString().trim(), d = date == null ? "" : date.getText().toString().trim();
             if (n.isEmpty()) {
@@ -344,7 +449,13 @@ public final class ChecklistFlow {
     private void chooseDate(TextView target) {
         Calendar c = Calendar.getInstance();
         try {
-            LocalDate d = LocalDate.parse(target.getText().toString());
+            String current = target.getText().toString().trim();
+            LocalDate d;
+            try {
+                d = LocalDate.parse(current);
+            } catch (Exception notIso) {
+                d = LocalDate.parse(current, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            }
             c.set(d.getYear(), d.getMonthValue() - 1, d.getDayOfMonth());
         } catch (Exception ignored) {
         }
@@ -361,13 +472,47 @@ public final class ChecklistFlow {
         if (sample != null) {
             sample.setVisibility(View.GONE);
         }
-        LinearLayout list = vertical();
+        RecyclerView list = new RecyclerView(activity);
         list.setTag("field:list");
         list.setId(View.generateViewId());
+        list.setLayoutManager(new LinearLayoutManager(activity));
+        list.setNestedScrollingEnabled(false);
         attachBelow(content, list, R.id.ops_5717_8041, 12);
         list.setPadding(dp(activity, 34), 0, dp(activity, 34), 0);
-        renderFields(list, template);
-        setBelow(content, add, list.getId(), 16);
+        FieldListAdapter adapter = new FieldListAdapter(template, list);
+        list.setAdapter(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+            @Override public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source,
+                                           RecyclerView.ViewHolder target) {
+                int from = source.getBindingAdapterPosition();
+                int to = target.getBindingAdapterPosition();
+                if (from == RecyclerView.NO_POSITION || to == RecyclerView.NO_POSITION || from == to) return false;
+                Collections.swap(template.campos, from, to);
+                adapter.notifyItemMoved(from, to);
+                saveDraft(template);
+                return true;
+            }
+            @Override public void onSwiped(RecyclerView.ViewHolder holder, int direction) { }
+        });
+        adapter.setTouchHelper(touchHelper);
+        touchHelper.attachToRecyclerView(list);
+        placeBelow(add, list.getId(), 16);
+        View back = content.findViewWithTag("text:Voltar");
+        View next = content.findViewWithTag("action:Próximo");
+        Runnable moveTimelineAfterContent = () -> positionChecklistFieldsFlow(content, add, back, next);
+        list.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
+                list.post(moveTimelineAfterContent));
+        if (add != null) {
+            add.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
+                    list.post(moveTimelineAfterContent));
+        }
+        list.post(moveTimelineAfterContent);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override public void onChanged() { list.post(moveTimelineAfterContent); }
+            @Override public void onItemRangeInserted(int positionStart, int itemCount) { list.post(moveTimelineAfterContent); }
+            @Override public void onItemRangeRemoved(int positionStart, int itemCount) { list.post(moveTimelineAfterContent); }
+        });
         if (add != null) {
             add.setOnClickListener(v -> showFieldDialog(null, -1));
         }
@@ -376,8 +521,6 @@ public final class ChecklistFlow {
         }
         clickTag(content, "image:arrow-left", v -> activity.back());
         clickTag(content, "text:Voltar", v -> activity.back());
-        setBelow(content, content.findViewWithTag("action:Próximo"), R.id.ops_5717_8078, 24);
-        setBelow(content, content.findViewWithTag("text:Voltar"), R.id.ops_5717_8078, 24);
         clickTag(content, "action:Próximo", v -> {
             if (template.campos == null || template.campos.isEmpty()) {
                 toast("Adicione ao menos um campo de inspeção.");
@@ -388,51 +531,190 @@ public final class ChecklistFlow {
         });
     }
 
-    private void renderFields(LinearLayout list, ChecklistTemplate t) {
-        list.removeAllViews();
-        if (t.campos == null) {
-            return;
+    private void positionChecklistFieldsFlow(View content, View add, View back, View next) {
+        if (add == null || add.getHeight() <= 0) return;
+        int[] circles = {R.id.ops_5717_8050, R.id.ops_5717_8056, R.id.ops_5717_8053};
+        int[] labels = {R.id.ops_5717_8046, R.id.ops_5717_8047, R.id.ops_5717_8048};
+        int baseTimelineTop = dp(activity, 430);
+        int gapAfterAdd = dp(activity, 40);
+        int timelineTopMargin = Math.max(gapAfterAdd, baseTimelineTop - add.getBottom());
+
+        for (int circleId : circles) setTopBelow(content, circleId, add.getId(), timelineTopMargin);
+        setCenteredVertically(content, R.id.ops_shape_1, circles[0]);
+        setCenteredVertically(content, R.id.ops_shape_2, circles[0]);
+        setCenteredVertically(content, R.id.ops_shape_3, circles[1]);
+        setCenteredVertically(content, R.id.ops_shape_13, circles[1]);
+        for (int i = 0; i < labels.length; i++) setTopBelow(content, labels[i], circles[i], 12);
+
+        if (next != null && next.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) next.getLayoutParams();
+            params.topToTop = -1;
+            params.topToBottom = labels[labels.length - 1];
+            params.bottomToBottom = -1;
+            params.topMargin = dp(activity, 60);
+            params.bottomMargin = 0;
+            params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.setMarginEnd(dp(activity, 36));
+            next.setLayoutParams(params);
         }
-        for (int i = 0; i < t.campos.size(); i++) {
-            final int index = i;
-            ChecklistField f = t.campos.get(i);
-            LinearLayout card = card(70, R.drawable.bg_ops_892fe1afbe);
-            card.setPadding(dp(activity, 14), dp(activity, 10), dp(activity, 12), dp(activity, 8));
-            TextView label = text(f.nome, 16, true), meta = text(f.tipoCampo.nome + (Boolean.TRUE.equals(f.obrigatorio) ? " · Obrigatório" : " · Opcional"), 12, false), menu = text("⋮", 23, true);
-            LinearLayout details = vertical();
-            details.addView(label);
-            details.addView(meta);
-            LinearLayout line = row(details, menu);
-            card.addView(line);
-            menu.setOnClickListener(v -> {
-                PopupMenu p = new PopupMenu(activity, menu);
-                p.getMenu().add("Editar");
-                p.getMenu().add("Excluir");
-                p.getMenu().add("↑ Mover para cima");
-                p.getMenu().add("↓ Mover para baixo");
-                p.setOnMenuItemClickListener(item -> {
-                    String a = item.getTitle().toString();
-                    if (a.startsWith("Editar")) {
-                        showFieldDialog(f, index);
-                    } else if (a.startsWith("Excluir")) {
-                        t.campos.remove(index);
-                        saveDraft(t);
-                        renderFields(list, t);
-                    } else {
-                        int dest = a.startsWith("↑") ? index - 1 : index + 1;
-                        if (dest >= 0 && dest < t.campos.size()) {
-                            Collections.swap(t.campos, index, dest);
-                            saveDraft(t);
-                            renderFields(list, t);
-                        }
-                    }
+        if (back != null && next != null
+                && back.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) back.getLayoutParams();
+            params.topToTop = next.getId();
+            params.topToBottom = -1;
+            params.bottomToBottom = next.getId();
+            params.topMargin = params.bottomMargin = 0;
+            params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.setMarginStart(dp(activity, 36));
+            back.setLayoutParams(params);
+        }
+    }
+
+    private void setTopBelow(View content, int childId, int anchorId, int marginDp) {
+        View child = content.findViewById(childId);
+        if (child == null || !(child.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) child.getLayoutParams();
+        params.topToTop = -1;
+        params.topToBottom = anchorId;
+        params.bottomToTop = -1;
+        params.bottomToBottom = -1;
+        params.topMargin = dp(activity, marginDp);
+        child.setLayoutParams(params);
+    }
+
+    private void setCenteredVertically(View content, int childId, int anchorId) {
+        View child = content.findViewById(childId);
+        if (child == null || !(child.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) child.getLayoutParams();
+        params.topToTop = anchorId;
+        params.bottomToBottom = anchorId;
+        params.topToBottom = -1;
+        params.bottomToTop = -1;
+        params.topMargin = params.bottomMargin = 0;
+        child.setLayoutParams(params);
+    }
+
+    private void placeBelow(View child, int anchorId, int marginDp) {
+        if (child == null || !(child.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) child.getLayoutParams();
+        params.topToTop = -1;
+        params.topToBottom = anchorId;
+        params.bottomToTop = -1;
+        params.bottomToBottom = -1;
+        params.topMargin = dp(activity, marginDp);
+        ((androidx.constraintlayout.widget.ConstraintLayout) child.getParent()).updateViewLayout(child, params);
+    }
+
+    private void alignWizardFooter(View content, View back, View next) {
+        if (!(content instanceof ViewGroup) || back == null || next == null) return;
+        ViewGroup parent = (ViewGroup) back.getParent();
+        if (!(parent instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams backParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) back.getLayoutParams();
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams nextParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) next.getLayoutParams();
+        int footerTop = activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_762_0);
+        backParams.topToBottom = -1;
+        backParams.topToTop = next.getId();
+        backParams.bottomToBottom = next.getId();
+        backParams.topMargin = backParams.bottomMargin = 0;
+        nextParams.topToBottom = -1;
+        nextParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        nextParams.bottomToBottom = -1;
+        nextParams.topMargin = footerTop;
+        nextParams.bottomMargin = 0;
+        backParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        nextParams.startToStart = -1;
+        nextParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        backParams.setMarginStart(dp(activity, 36));
+        nextParams.setMarginEnd(dp(activity, 36));
+        back.setLayoutParams(backParams);
+        next.setLayoutParams(nextParams);
+    }
+
+    private final class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.FieldHolder> {
+        private final ChecklistTemplate template;
+        private final RecyclerView recycler;
+        private ItemTouchHelper touchHelper;
+
+        FieldListAdapter(ChecklistTemplate template, RecyclerView recycler) {
+            this.template = template;
+            this.recycler = recycler;
+        }
+
+        void setTouchHelper(ItemTouchHelper helper) { touchHelper = helper; }
+
+        @Override public FieldHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View card = activity.getLayoutInflater().inflate(R.layout.item_ops_checklist_field, parent, false);
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, dp(activity, 100));
+            params.bottomMargin = dp(activity, 10);
+            card.setLayoutParams(params);
+            return new FieldHolder(card);
+        }
+
+        @Override public void onBindViewHolder(FieldHolder holder, int position) {
+            ChecklistField field = template.campos.get(position);
+            holder.title.setText(field.nome == null ? "" : field.nome);
+            String type = field.tipoCampo == null ? "" : field.tipoCampo.nome;
+            holder.meta.setText(type + (Boolean.TRUE.equals(field.obrigatorio) ? " · Obrigatório" : " · Opcional"));
+            holder.drag.setOnTouchListener((view, event) -> {
+                if (event.getActionMasked() == android.view.MotionEvent.ACTION_DOWN && touchHelper != null) {
+                    touchHelper.startDrag(holder);
                     return true;
-                });
-                p.show();
+                }
+                return false;
             });
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, dp(activity, 70));
-            lp.bottomMargin = dp(activity, 10);
-            list.addView(card, lp);
+            holder.menu.setOnClickListener(view -> showFieldMenu(view, holder.getBindingAdapterPosition()));
+        }
+
+        @Override public int getItemCount() { return template.campos == null ? 0 : template.campos.size(); }
+
+        private void showFieldMenu(View anchor, int position) {
+            if (position < 0 || position >= template.campos.size()) return;
+            ChecklistField field = template.campos.get(position);
+            View menu = activity.getLayoutInflater().inflate(R.layout.popup_app_request_menu, null, false);
+            android.widget.PopupWindow popup = new android.widget.PopupWindow(menu,
+                    activity.getResources().getDimensionPixelSize(R.dimen.app_popup_menu_width),
+                    ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            popup.setBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(activity, R.drawable.bg_app_popup_menu));
+            popup.setElevation(dp(activity, 6));
+            popup.setOutsideTouchable(true);
+            menu.findViewById(R.id.tvPopupEdit).setOnClickListener(v -> {
+                popup.dismiss();
+                showFieldDialog(field, position);
+            });
+            menu.findViewById(R.id.tvPopupDelete).setOnClickListener(v -> {
+                popup.dismiss();
+                AppDialogs.showDeleteConfirm(activity, () -> {
+                    int current = template.campos.indexOf(field);
+                    if (current >= 0) {
+                        template.campos.remove(current);
+                        saveDraft(template);
+                        notifyItemRemoved(current);
+                    }
+                });
+            });
+            popup.showAsDropDown(anchor, -popup.getWidth() + anchor.getWidth(), 0);
+        }
+
+        final class FieldHolder extends RecyclerView.ViewHolder {
+            final TextView title;
+            final TextView meta;
+            final View drag;
+            final View menu;
+            FieldHolder(View item) {
+                super(item);
+                title = item.findViewById(R.id.checklistFieldTitle);
+                meta = item.findViewById(R.id.checklistFieldMeta);
+                drag = item.findViewById(R.id.checklistFieldDrag);
+                menu = item.findViewById(R.id.checklistFieldMenu);
+            }
         }
     }
 
@@ -471,159 +753,493 @@ public final class ChecklistFlow {
         }
         ChecklistField old = null;
         if (args != null && args.getString("field") != null) {
-            try {
-                old = flow.gson.fromJson(args.getString("field"), ChecklistField.class);
-            } catch (Exception ignored) {
-            }
+            try { old = flow.gson.fromJson(args.getString("field"), ChecklistField.class); }
+            catch (Exception ignored) { }
         }
-        final ChecklistField editing = old;
-        boolean choiceDialog = key.equals("manager_create_choice_field");
-        int nameId = key.equals("manager_edit_field") ? R.id.ops_5717_8180 : choiceDialog ? R.id.ops_5717_8216 : R.id.ops_5717_8198;
+        flow.bindFieldDialog(owner, content, key, args, old);
+    }
+
+    private void bindFieldDialog(Fragment owner, View content, String key, Bundle args, ChecklistField editing) {
+        boolean editingDialog = key.equals("manager_edit_field") || key.equals("manager_edit_choice_field");
+        int nameId = editingDialog ? R.id.ops_5717_8180 : R.id.ops_5717_8198;
+        int typeId = editingDialog ? R.id.ops_5717_8183_input : R.id.ops_5717_8201_input;
+        int typeContainerId = editingDialog ? R.id.ops_5717_8183 : R.id.ops_5717_8201;
+        int toggleId = editingDialog ? R.id.ops_5717_8189 : R.id.ops_5717_8207;
+        int arrowId = editingDialog ? R.id.ops_5717_8184 : R.id.ops_5717_8202;
+        int saveId = editingDialog ? R.id.ops_5717_8176 : R.id.ops_5717_8194;
+
         EditText name = content.findViewById(nameId);
         if (name != null) {
-            if (editing != null) {
-                name.setText(editing.nome);
-            } else if (args != null && args.getString("fieldName") != null) {
-                name.setText(args.getString("fieldName"));
-            }
+            resizeView(name, dp(activity, 42));
+            name.setTextSize(14);
+            name.setIncludeFontPadding(true);
+            if (editing != null) name.setText(editing.nome);
+            else if (args != null && args.getString("fieldName") != null) name.setText(args.getString("fieldName"));
         }
-        int typeId = key.equals("manager_edit_field") ? R.id.ops_5717_8183_input : choiceDialog ? R.id.ops_5717_8219_input : R.id.ops_5717_8201_input;
-        TextView type = content.findViewById(typeId);
-        String initialType = args == null ? null : args.getString("fieldType");
+
+        AutoCompleteTextView type = replaceTypeDropdown(content, typeId, typeContainerId, arrowId);
         if (type != null) {
-            type.setText(editing != null ? editing.tipoCampo.nome : choiceDialog ? (initialType == null ? TipoCampoChecklist.CHECK.nome : initialType) : "Selecione um tipo de campo");
+            String initialType = args == null ? null : args.getString("fieldType");
+            String initialTypeValue = initialType != null ? initialType
+                    : editing != null && editing.tipoCampo != null ? editing.tipoCampo.nome : "";
+            if (!initialTypeValue.isEmpty()) type.setText(initialTypeValue, false);
         }
+
+        TextView requiredLabel = content.findViewWithTag("text:Campo obrigatório");
         TextView requiredValue = content.findViewWithTag("text:Sim");
-        final boolean[] required = {editing != null && Boolean.TRUE.equals(editing.obrigatorio) || (args != null && args.getBoolean("required", false))};
-        if (requiredValue != null) {
+        boolean initialRequired = editing != null && Boolean.TRUE.equals(editing.obrigatorio)
+                || args != null && args.getBoolean("required", false);
+        if (requiredValue != null) requiredValue.setText(initialRequired ? "Sim" : "Não");
+        SwitchCompat requiredSwitch = replaceRequiredSwitch(content, toggleId, initialRequired);
+        alignRequiredControls(requiredLabel, requiredValue, requiredSwitch);
+        final boolean[] required = {initialRequired};
+        if (requiredSwitch != null) requiredSwitch.setOnCheckedChangeListener((button, checked) -> {
+            required[0] = checked;
+            if (requiredValue != null) requiredValue.setText(checked ? "Sim" : "Não");
+        });
+        if (requiredValue != null) requiredValue.setOnClickListener(v -> {
+            required[0] = !required[0];
             requiredValue.setText(required[0] ? "Sim" : "Não");
-            requiredValue.setOnClickListener(v -> {
-                required[0] = !required[0];
-                requiredValue.setText(required[0] ? "Sim" : "Não");
-            });
-        }
-        LinearLayout optionList = flow.vertical();
-        List<EditText> optionInputs = new ArrayList<>();
+            if (requiredSwitch != null) requiredSwitch.setChecked(required[0]);
+        });
+
+        List<ChecklistOption> initialOptions = new ArrayList<>();
         if (editing != null && editing.opcoes != null) {
             for (ChecklistOption option : editing.opcoes) {
-                addOptionInput(activity, optionList, optionInputs, option.nome);
+                if (option != null) initialOptions.add(new ChecklistOption(option.id, option.nome, false));
             }
-        } else if (choiceDialog) {
-            addOptionInput(activity, optionList, optionInputs, "");
         }
-        if (choiceDialog || editing != null && editing.opcoes != null && !editing.opcoes.isEmpty()) {
-            ViewGroup root = flow.layoutRoot(content);
-            int optionsHeader = choiceDialog ? R.id.ops_5717_8225 : R.id.ops_5717_8183;
-            int footerId = choiceDialog ? R.id.ops_5717_8213 : R.id.ops_5717_8177;
-            optionList.setId(View.generateViewId());
-            flow.attachBelow(content, optionList, optionsHeader, 4);
-            flow.setBelow(content, content.findViewById(footerId), optionList.getId(), 18);
-            View addOption = choiceDialog ? content.findViewWithTag("text:+ Adicionar Campo") : null;
-            if (addOption != null) {
-                View addOptionCard = content.findViewById(R.id.ops_5717_8223);
-                flow.setBelow(content, addOptionCard, optionList.getId(), 8);
-                flow.setBelow(content, content.findViewById(footerId), addOptionCard == null ? optionList.getId() : addOptionCard.getId(), 18);
-                addOption.setOnClickListener(v -> addOptionInput(activity, optionList, optionInputs, ""));
-            }
-            TextView addMore = flow.text("+ Adicionar opção", 13, true);
-            optionList.addView(addMore);
-            addMore.setOnClickListener(v -> addOptionInput(activity, optionList, optionInputs, ""));
-        }
+        OptionDraftAdapter optionAdapter = new OptionDraftAdapter(initialOptions);
+        View optionSection = createOptionSection(content, optionAdapter);
+        int requiredLabelId = requiredLabel == null ? View.NO_ID : requiredLabel.getId();
+        View cancelLabel = content.findViewWithTag("text:Cancelar");
+        View cancelButton = cancelLabel != null && cancelLabel.getParent() instanceof View
+                ? (View) cancelLabel.getParent() : null;
+        View saveButton = content.findViewById(saveId);
+
+        Runnable updateOptionsSection = () -> {
+            boolean needsOptions = isOptionType(type == null ? "" : type.getText().toString());
+            if (needsOptions && optionAdapter.getItemCount() == 0) optionAdapter.addOption("");
+            optionSection.setVisibility(needsOptions ? View.VISIBLE : View.GONE);
+            positionFieldDialogFooter(content, cancelButton, cancelLabel, saveButton,
+                    needsOptions ? optionSection.getId() : requiredLabelId,
+                    needsOptions ? 16 : 36);
+        };
+        updateOptionsSection.run();
+
         if (type != null) {
-            type.setOnClickListener(v -> {
-                String[] labels = new String[TipoCampoChecklist.values().length];
-                for (int i = 0; i < labels.length; i++) {
-                    labels[i] = TipoCampoChecklist.values()[i].nome;
-                }
-                new AlertDialog.Builder(activity).setItems(labels, (dialog, which) -> {
-                    TipoCampoChecklist selected = TipoCampoChecklist.values()[which];
-                    if (key.equals("manager_create_field") && (selected == TipoCampoChecklist.RADIO || selected == TipoCampoChecklist.CHECK)) {
-                        Bundle next = new Bundle();
-                        next.putString("fieldName", name == null ? "" : name.getText().toString());
-                        next.putString("fieldType", selected.nome);
-                        next.putBoolean("required", required[0]);
-                        ((androidx.fragment.app.DialogFragment) owner).dismiss();
-                        com.aula.fixa.ui.view.operations.OperationsDialogFragment.create("manager_create_choice_field", next).show(activity.getSupportFragmentManager(), "ops_choice_field_dialog");
-                    } else {
-                        type.setText(selected.nome);
-                    }
-                }).show();
-            });
+            String[] typeNames = Arrays.stream(TipoCampoChecklist.values()).map(item -> item.nome).toArray(String[]::new);
+            type.setAdapter(new ArrayAdapter<>(activity, R.layout.item_app_dropdown, typeNames));
+            type.setOnItemClickListener((parent, row, position, id) -> updateOptionsSection.run());
+            type.setOnClickListener(v -> type.showDropDown());
+            View arrow = content.findViewById(arrowId);
+            if (arrow != null) arrow.setOnClickListener(v -> type.showDropDown());
         }
-        View cancel = content.findViewWithTag("text:Cancelar"), save = content.findViewWithTag("action:Salvar");
-        if (cancel != null) {
-            cancel.setOnClickListener(v -> ((androidx.fragment.app.DialogFragment) owner).dismiss());
-        }
-        if (save != null) {
-            save.setOnClickListener(v -> {
-                if (name == null || name.getText().toString().trim().isEmpty()) {
-                    if (name != null) {
-                        name.setError("Informe o nome do campo.");
-                    }
-                    return;
-                }
-                if (type == null || type.getText().toString().startsWith("Selecione")) {
-                    Toast.makeText(activity, "Selecione o tipo de campo.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                TipoCampoChecklist selected;
-                try {
-                    selected = TipoCampoChecklist.fromApi(type.getText().toString());
-                } catch (Exception invalid) {
-                    Toast.makeText(activity, "Selecione o tipo de campo.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ChecklistField field = editing == null ? new ChecklistField(UUID.randomUUID().toString(), name.getText().toString().trim(), selected, required[0], new ArrayList<>()) : editing;
-                field.nome = name.getText().toString().trim();
-                field.tipoCampo = selected;
-                field.obrigatorio = required[0];
-                field.opcoes = new ArrayList<>();
-                if (selected == TipoCampoChecklist.RADIO || selected == TipoCampoChecklist.CHECK) {
-                    for (int i = 0; i < optionInputs.size(); i++) {
-                        String value = optionInputs.get(i).getText().toString().trim();
-                        if (!value.isEmpty()) {
-                            String optionId = editing != null && editing.opcoes != null && i < editing.opcoes.size() ? editing.opcoes.get(i).id : UUID.randomUUID().toString();
-                            field.opcoes.add(new ChecklistOption(optionId, value, false));
-                        }
-                    }
-                    if (field.opcoes.isEmpty()) {
-                        Toast.makeText(activity, "Adicione ao menos uma opção.", Toast.LENGTH_SHORT).show();
+
+        View.OnClickListener dismissDialog = v -> ((androidx.fragment.app.DialogFragment) owner).dismiss();
+        if (cancelLabel != null) cancelLabel.setOnClickListener(dismissDialog);
+        if (cancelButton != null) cancelButton.setOnClickListener(dismissDialog);
+        if (saveButton != null) saveButton.setOnClickListener(v -> {
+            if (name == null || name.getText().toString().trim().isEmpty()) {
+                if (name != null) name.setError("Informe o nome do campo.");
+                return;
+            }
+            if (type == null) return;
+            TipoCampoChecklist selected;
+            try { selected = TipoCampoChecklist.fromApi(type.getText().toString()); }
+            catch (Exception invalid) { Toast.makeText(activity, "Selecione o tipo de campo.", Toast.LENGTH_SHORT).show(); return; }
+
+            ChecklistField field = editing == null
+                    ? new ChecklistField(UUID.randomUUID().toString(), name.getText().toString().trim(), selected, required[0], new ArrayList<>())
+                    : editing;
+            field.nome = name.getText().toString().trim();
+            field.tipoCampo = selected;
+            field.obrigatorio = required[0];
+            field.opcoes = new ArrayList<>();
+            if (selected == TipoCampoChecklist.RADIO || selected == TipoCampoChecklist.CHECK) {
+                List<ChecklistOption> values = optionAdapter.optionValues();
+                for (ChecklistOption option : values) {
+                    String value = option.nome == null ? "" : option.nome.trim();
+                    if (value.isEmpty()) {
+                        Toast.makeText(activity, "Preencha ou remova todas as opções.", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    String optionId = option.id == null ? UUID.randomUUID().toString() : option.id;
+                    field.opcoes.add(new ChecklistOption(optionId, value, false));
                 }
-                ChecklistTemplate template = flow.draft();
-                if (template.campos == null) {
-                    template.campos = new ArrayList<>();
+                if (field.opcoes.isEmpty()) {
+                    Toast.makeText(activity, "Adicione ao menos uma opção.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                if (editing == null) {
-                    template.campos.add(field);
-                } else {
-                    int index = args == null ? -1 : args.getInt("index", -1);
-                    if (index < 0 || index >= template.campos.size()) {
-                        Toast.makeText(activity, "Campo não encontrado.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    template.campos.set(index, field);
+            }
+            ChecklistTemplate template = draft();
+            if (template.campos == null) template.campos = new ArrayList<>();
+            if (editing == null) template.campos.add(field);
+            else {
+                int index = args == null ? -1 : args.getInt("index", -1);
+                if (index < 0 || index >= template.campos.size()) {
+                    Toast.makeText(activity, "Campo não encontrado.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                flow.saveDraft(template);
-                ((androidx.fragment.app.DialogFragment) owner).dismiss();
-                activity.refresh();
-            });
+                template.campos.set(index, field);
+            }
+            saveDraft(template);
+            ((androidx.fragment.app.DialogFragment) owner).dismiss();
+            activity.refresh();
+        });
+    }
+
+    private AutoCompleteTextView replaceTypeDropdown(View content, int inputId, int containerId, int arrowId) {
+        View existing = content.findViewById(inputId);
+        View container = content.findViewById(containerId);
+        if (existing == null || !(existing.getParent() instanceof ViewGroup)) return null;
+        ViewGroup parent = (ViewGroup) existing.getParent();
+        ViewGroup.LayoutParams oldParams = existing.getLayoutParams();
+        String value = existing instanceof TextView ? ((TextView) existing).getText().toString() : "";
+        String hint = existing instanceof TextView ? ((TextView) existing).getHint().toString() : "Selecione um tipo de campo";
+        androidx.appcompat.widget.AppCompatAutoCompleteTextView dropdown = new androidx.appcompat.widget.AppCompatAutoCompleteTextView(activity);
+        dropdown.setId(inputId);
+        dropdown.setTag("field:Tipo");
+        dropdown.setText(value, false);
+        dropdown.setHint(hint);
+        dropdown.setTextSize(14);
+        dropdown.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff202020));
+        dropdown.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff637087));
+        dropdown.setSingleLine(true);
+        dropdown.setKeyListener(null);
+        dropdown.setThreshold(0);
+        dropdown.setBackgroundColor(Color.TRANSPARENT);
+        dropdown.setPadding(dp(activity, 15), 0, dp(activity, 36), 0);
+        dropdown.setGravity(Gravity.CENTER_VERTICAL);
+        dropdown.setDropDownBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(activity, R.drawable.bg_app_popup_menu));
+        dropdown.setDropDownVerticalOffset(dp(activity, 4));
+        if (oldParams instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) oldParams;
+            params.width = 0;
+            params.height = 0;
+            dropdown.setLayoutParams(params);
+        } else dropdown.setLayoutParams(oldParams);
+        int index = parent.indexOfChild(existing);
+        parent.removeView(existing);
+        parent.addView(dropdown, Math.max(0, index));
+        resizeView(container, dp(activity, 42));
+
+        View arrow = content.findViewById(arrowId);
+        if (arrow != null && arrow.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) arrow.getLayoutParams();
+            params.startToStart = -1;
+            params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.topMargin = params.bottomMargin = 0;
+            params.setMarginEnd(dp(activity, 15));
+            arrow.setLayoutParams(params);
+        }
+        return dropdown;
+    }
+
+    private View createOptionSection(View content, OptionDraftAdapter adapter) {
+        ViewGroup root = layoutRoot(content);
+        LinearLayout section = vertical();
+        section.setId(View.generateViewId());
+        TextView heading = new TextView(activity);
+        heading.setText("Opções");
+        heading.setTextSize(14);
+        heading.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff130943));
+        heading.setTypeface(activity.getResources().getFont(R.font.poppins_medium));
+        section.addView(heading, new LinearLayout.LayoutParams(-1, dp(activity, 24)));
+
+        RecyclerView optionList = new RecyclerView(activity);
+        optionList.setLayoutManager(new LinearLayoutManager(activity));
+        optionList.setNestedScrollingEnabled(false);
+        optionList.setAdapter(adapter);
+        LinearLayout.LayoutParams optionListParams = new LinearLayout.LayoutParams(-1, -2);
+        optionListParams.topMargin = dp(activity, 12);
+        section.addView(optionList, optionListParams);
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+            @Override public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
+                int from = source.getBindingAdapterPosition();
+                int to = target.getBindingAdapterPosition();
+                if (from == RecyclerView.NO_POSITION || to == RecyclerView.NO_POSITION || from == to) return false;
+                adapter.move(from, to);
+                return true;
+            }
+            @Override public void onSwiped(RecyclerView.ViewHolder holder, int direction) { }
+        });
+        adapter.setTouchHelper(helper);
+        helper.attachToRecyclerView(optionList);
+
+        TextView add = new TextView(activity);
+        add.setText("+ Adicionar opção");
+        add.setTextSize(14);
+        add.setGravity(Gravity.CENTER);
+        add.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d));
+        add.setBackgroundResource(R.drawable.bg_ops_70aaab1e67);
+        add.setOnClickListener(v -> adapter.addOption(""));
+        LinearLayout.LayoutParams addParams = new LinearLayout.LayoutParams(-1, dp(activity, 44));
+        addParams.topMargin = dp(activity, 8);
+        section.addView(add, addParams);
+
+        TextView requiredLabel = content.findViewWithTag("text:Campo obrigatório");
+        if (root instanceof androidx.constraintlayout.widget.ConstraintLayout && requiredLabel != null) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(0, -2);
+            params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.topToBottom = requiredLabel.getId();
+            params.topMargin = dp(activity, 12);
+            params.setMarginStart(dp(activity, 35));
+            params.setMarginEnd(dp(activity, 35));
+            ((androidx.constraintlayout.widget.ConstraintLayout) root).addView(section, params);
+        }
+        section.setVisibility(View.GONE);
+        return section;
+    }
+
+    private void alignRequiredControls(TextView label, TextView value, SwitchCompat toggle) {
+        if (label == null || !(label.getParent() instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
+        androidx.constraintlayout.widget.ConstraintLayout parent = (androidx.constraintlayout.widget.ConstraintLayout) label.getParent();
+        if (toggle != null && toggle.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) toggle.getLayoutParams();
+            params.width = dp(activity, 42);
+            params.height = dp(activity, 28);
+            params.startToStart = -1;
+            params.startToEnd = -1;
+            params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.topToTop = label.getId();
+            params.bottomToBottom = label.getId();
+            params.topMargin = params.bottomMargin = 0;
+            params.setMarginEnd(dp(activity, 35));
+            toggle.setLayoutParams(params);
+        }
+        if (value != null && toggle != null) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(-2, -2);
+            params.endToStart = toggle.getId();
+            params.topToTop = label.getId();
+            params.bottomToBottom = label.getId();
+            params.setMarginEnd(dp(activity, 8));
+            value.setLayoutParams(params);
+            value.setGravity(Gravity.CENTER_VERTICAL);
         }
     }
 
-    private static void addOptionInput(Context context, LinearLayout container, List<EditText> inputs, String value) {
-        EditText input = new EditText(context);
-        input.setSingleLine(true);
-        input.setHint("Título da opção");
-        input.setText(value);
-        inputs.add(input);
-        container.addView(input, new LinearLayout.LayoutParams(-1, dp(context, 48)));
+    private void positionFieldDialogFooter(View content, View cancelButton, View cancelLabel,
+                                          View saveButton, int anchorId, int marginDp) {
+        ViewGroup root = layoutRoot(content);
+        if (!(root instanceof androidx.constraintlayout.widget.ConstraintLayout)
+                || cancelButton == null || saveButton == null) return;
+        androidx.constraintlayout.widget.ConstraintLayout parent =
+                (androidx.constraintlayout.widget.ConstraintLayout) root;
+
+        LinearLayout footer = parent.findViewWithTag("field:footer-row");
+        if (footer == null) {
+            if (cancelButton.getParent() == parent) parent.removeView(cancelButton);
+            if (saveButton.getParent() == parent) parent.removeView(saveButton);
+            footer = new LinearLayout(activity);
+            footer.setTag("field:footer-row");
+            footer.setId(View.generateViewId());
+            footer.setOrientation(LinearLayout.HORIZONTAL);
+            footer.setGravity(Gravity.CENTER_VERTICAL);
+
+            LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, dp(activity, 44), 1f);
+            footer.addView(cancelButton, buttonParams);
+            View gap = new View(activity);
+            footer.addView(gap, new LinearLayout.LayoutParams(dp(activity, 12), 1));
+            footer.addView(saveButton, new LinearLayout.LayoutParams(0, dp(activity, 44), 1f));
+
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams footerParams =
+                    new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(0, dp(activity, 44));
+            footerParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            footerParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            footerParams.topToBottom = anchorId;
+            footerParams.setMarginStart(dp(activity, 35));
+            footerParams.setMarginEnd(dp(activity, 35));
+            parent.addView(footer, footerParams);
+
+            if (cancelLabel != null && cancelLabel.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+                androidx.constraintlayout.widget.ConstraintLayout.LayoutParams labelParams =
+                        (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancelLabel.getLayoutParams();
+                labelParams.width = 0;
+                labelParams.height = 0;
+                labelParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+                labelParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+                labelParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+                labelParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+                labelParams.leftMargin = labelParams.rightMargin = labelParams.topMargin = labelParams.bottomMargin = 0;
+                cancelLabel.setLayoutParams(labelParams);
+                if (cancelLabel instanceof TextView) ((TextView) cancelLabel).setGravity(Gravity.CENTER);
+            }
+        }
+
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams footerParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) footer.getLayoutParams();
+        footerParams.topToTop = -1;
+        footerParams.topToBottom = anchorId;
+        footerParams.bottomToBottom = -1;
+        footerParams.topMargin = dp(activity, marginDp);
+        footerParams.bottomMargin = 0;
+        footer.setLayoutParams(footerParams);
+
+        View bottomSpacer = parent.findViewWithTag("field:option-footer-spacer");
+        if (bottomSpacer == null) {
+            bottomSpacer = new View(activity);
+            bottomSpacer.setTag("field:option-footer-spacer");
+            bottomSpacer.setId(View.generateViewId());
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams spacerParams =
+                    new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(0, dp(activity, 32));
+            spacerParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            spacerParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            spacerParams.topToBottom = footer.getId();
+            parent.addView(bottomSpacer, spacerParams);
+        }
+        bottomSpacer.setVisibility(View.VISIBLE);
+    }
+
+    private boolean isOptionType(String typeName) {
+        try {
+            TipoCampoChecklist type = TipoCampoChecklist.fromApi(typeName);
+            return type == TipoCampoChecklist.RADIO || type == TipoCampoChecklist.CHECK;
+        } catch (Exception ignored) { return false; }
+    }
+
+    private final class OptionDraftAdapter extends RecyclerView.Adapter<OptionDraftAdapter.OptionHolder> {
+        private final List<ChecklistOption> values = new ArrayList<>();
+        private ItemTouchHelper touchHelper;
+        OptionDraftAdapter(List<ChecklistOption> initial) { values.addAll(initial); }
+        void setTouchHelper(ItemTouchHelper helper) { touchHelper = helper; }
+        void addOption(String value) {
+            values.add(new ChecklistOption(UUID.randomUUID().toString(), value, false));
+            notifyItemInserted(values.size() - 1);
+        }
+        List<ChecklistOption> optionValues() { return new ArrayList<>(values); }
+        void move(int from, int to) { Collections.swap(values, from, to); notifyItemMoved(from, to); }
+        @Override public OptionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LinearLayout row = new LinearLayout(activity);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setPadding(dp(activity, 8), 0, dp(activity, 8), 0);
+            row.setBackgroundResource(R.drawable.bg_ops_70aaab1e67);
+            TextView handle = new TextView(activity);
+            handle.setText("≡");
+            handle.setTextSize(21);
+            handle.setGravity(Gravity.CENTER);
+            handle.setContentDescription("Reordenar opção");
+            row.addView(handle, new LinearLayout.LayoutParams(dp(activity, 36), -1));
+            EditText input = new EditText(activity);
+            input.setSingleLine(true);
+            input.setHint("Título da opção");
+            input.setTextSize(14);
+            input.setIncludeFontPadding(true);
+            input.setPadding(dp(activity, 8), 0, dp(activity, 8), 0);
+            input.setBackgroundColor(Color.TRANSPARENT);
+            row.addView(input, new LinearLayout.LayoutParams(0, -1, 1));
+            TextView remove = new TextView(activity);
+            remove.setText("×");
+            remove.setTextSize(22);
+            remove.setGravity(Gravity.CENTER);
+            remove.setContentDescription("Remover opção");
+            row.addView(remove, new LinearLayout.LayoutParams(dp(activity, 34), -1));
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(-1, dp(activity, 48));
+            params.bottomMargin = dp(activity, 8);
+            row.setLayoutParams(params);
+            return new OptionHolder(row, handle, input, remove);
+        }
+        @Override public void onBindViewHolder(OptionHolder holder, int position) {
+            if (holder.watcher != null) holder.input.removeTextChangedListener(holder.watcher);
+            holder.input.setText(values.get(position).nome == null ? "" : values.get(position).nome);
+            holder.watcher = new android.text.TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    int current = holder.getBindingAdapterPosition();
+                    if (current != RecyclerView.NO_POSITION && current < values.size()) values.get(current).nome = s.toString();
+                }
+                @Override public void afterTextChanged(android.text.Editable s) { }
+            };
+            holder.input.addTextChangedListener(holder.watcher);
+            holder.handle.setOnTouchListener((view, event) -> {
+                if (event.getActionMasked() == android.view.MotionEvent.ACTION_DOWN && touchHelper != null) {
+                    touchHelper.startDrag(holder);
+                    return true;
+                }
+                return false;
+            });
+            holder.remove.setOnClickListener(v -> {
+                int current = holder.getBindingAdapterPosition();
+                if (current != RecyclerView.NO_POSITION) {
+                    values.remove(current);
+                    notifyItemRemoved(current);
+                }
+            });
+        }
+        @Override public int getItemCount() { return values.size(); }
+        final class OptionHolder extends RecyclerView.ViewHolder {
+            final View handle; final EditText input; final View remove;
+            android.text.TextWatcher watcher;
+            OptionHolder(View row, View handle, EditText input, View remove) {
+                super(row); this.handle = handle; this.input = input; this.remove = remove;
+            }
+        }
+    }
+    private static void resizeView(View view, int height) {
+        if (view == null || view.getLayoutParams() == null) return;
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = height;
+        view.setLayoutParams(params);
+    }
+
+    private static void moveConstraintTopMargin(View view, int margin) {
+        if (view == null || !(view.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) view.getLayoutParams();
+        params.topMargin = margin;
+        view.setLayoutParams(params);
+    }
+
+    private SwitchCompat replaceRequiredSwitch(View content, int switchId, boolean checked) {
+        View original = content.findViewById(switchId);
+        if (original instanceof SwitchCompat) {
+            SwitchCompat existing = (SwitchCompat) original;
+            existing.setChecked(checked);
+            return existing;
+        }
+        if (original == null || !(original.getParent() instanceof ViewGroup)) return null;
+        ViewGroup parent = (ViewGroup) original.getParent();
+        ViewGroup.LayoutParams originalParams = original.getLayoutParams();
+        SwitchCompat toggle = new SwitchCompat(activity);
+        toggle.setId(switchId);
+        toggle.setShowText(false);
+        toggle.setTextOn("");
+        toggle.setTextOff("");
+        toggle.setChecked(checked);
+        toggle.setContentDescription("Campo obrigatório");
+        toggle.setMinWidth(dp(activity, 42));
+        toggle.setMinimumHeight(dp(activity, 28));
+        if (originalParams instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) originalParams;
+            params.width = dp(activity, 42);
+            params.height = dp(activity, 28);
+            toggle.setLayoutParams(params);
+        } else toggle.setLayoutParams(originalParams);
+        int index = parent.indexOfChild(original);
+        parent.removeView(original);
+        parent.addView(toggle, Math.max(0, index));
+        return toggle;
     }
 
     private void bindModels(View content) {
         ChecklistTemplate template = draft();
         EditText search = content.findViewWithTag("field:Pesquisar");
+        android.widget.ImageView searchIcon = content.findViewById(R.id.ops_5717_8157);
+        if (searchIcon != null) {
+            searchIcon.setImageResource(R.drawable.ic_search_18);
+            searchIcon.setColorFilter(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff0b013c));
+            searchIcon.setVisibility(View.VISIBLE);
+            searchIcon.bringToFront();
+        }
         View back = content.findViewWithTag("text:Voltar"), next = content.findViewWithTag("action:Próximo");
         clickTag(content, "image:arrow-left", v -> activity.back());
         if (back != null) {
@@ -639,10 +1255,9 @@ public final class ChecklistFlow {
         LinearLayout list = vertical();
         list.setTag("model:list");
         list.setId(View.generateViewId());
-        attachBelow(content, list, R.id.ops_5717_8149, 12);
+        attachBelow(content, list, R.id.ops_5717_8149, 22);
         list.setPadding(dp(activity, 30), 0, dp(activity, 30), dp(activity, 100));
-        setBelow(content, next, list.getId(), 24);
-        setBelow(content, back, list.getId(), 24);
+        alignWizardFooter(content, back, next);
         Dialog loading = AppLoading.show(activity);
         vm.listar(new ChecklistViewModel.Callback<List<ChecklistTemplate>>() {
             public void success(List<ChecklistTemplate> values) {
@@ -753,31 +1368,65 @@ public final class ChecklistFlow {
         list.removeAllViews();
         String query = filter == null ? "" : filter.toLowerCase(Locale.ROOT);
         for (EquipmentModelOption model : availableModels) {
-            if (model.nome == null || !model.nome.toLowerCase(Locale.ROOT).contains(query)) {
-                continue;
-            }
-            CheckBox modelBox = new CheckBox(activity);
-            modelBox.setText(model.nome + " (" + model.equipamentos.size() + ")");
-            modelBox.setChecked(modelSelected(model));
-            list.addView(modelBox);
-            modelBox.setOnCheckedChangeListener((button, checked) -> {
-                activity.model.selected("checklist:model:" + model.id, checked);
-                for (int i = 0; i < list.getChildCount(); i++) {
-                    View row = list.getChildAt(i);
-                    if (("equipment:" + model.id).equals(row.getTag())) {
-                        row.setVisibility(checked ? View.VISIBLE : View.GONE);
+            boolean modelMatches = model.nome != null && model.nome.toLowerCase(Locale.ROOT).contains(query);
+            boolean equipmentMatches = false;
+            if (!modelMatches && !query.isEmpty() && model.equipamentos != null) {
+                for (ChecklistEquipment equipment : model.equipamentos) {
+                    if (equipment.codigo != null && equipment.codigo.toLowerCase(Locale.ROOT).contains(query)) {
+                        equipmentMatches = true;
+                        break;
                     }
                 }
+            }
+            if (!modelMatches && !equipmentMatches) {
+                continue;
+            }
+
+            LinearLayout modelGroup = new LinearLayout(activity);
+            modelGroup.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams groupParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            groupParams.bottomMargin = dp(activity, 12);
+            modelGroup.setLayoutParams(groupParams);
+
+            CheckBox modelBox = new CheckBox(activity);
+            modelBox.setText(model.nome == null ? "" : model.nome);
+            modelBox.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 16);
+            modelBox.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_semibold));
+            modelBox.setMaxLines(1);
+            modelBox.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            modelBox.setChecked(modelSelected(model));
+            modelGroup.addView(modelBox, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            modelBox.setOnCheckedChangeListener((button, checked) -> {
+                activity.model.selected("checklist:model:" + model.id, checked);
+                for (int i = 1; i < modelGroup.getChildCount(); i++) {
+                    View row = modelGroup.getChildAt(i);
+                    row.setVisibility(checked ? View.VISIBLE : View.GONE);
+                }
             });
-            for (ChecklistEquipment equipment : model.equipamentos) {
+
+            if (model.equipamentos != null) for (ChecklistEquipment equipment : model.equipamentos) {
+                if (!modelMatches && !query.isEmpty()
+                        && (equipment.codigo == null || !equipment.codigo.toLowerCase(Locale.ROOT).contains(query))) {
+                    continue;
+                }
                 CheckBox equipmentBox = new CheckBox(activity);
-                equipmentBox.setText(equipment.codigo);
-                equipmentBox.setTag("equipment:" + model.id);
+                equipmentBox.setText(equipment.codigo == null ? "" : equipment.codigo);
+                equipmentBox.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14);
+                equipmentBox.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
+                equipmentBox.setMaxLines(1);
+                equipmentBox.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                LinearLayout.LayoutParams equipmentParams = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                equipmentParams.setMarginStart(dp(activity, 28));
+                modelGroup.addView(equipmentBox, equipmentParams);
                 equipmentBox.setChecked(equipmentSelected(model, equipment));
                 equipmentBox.setVisibility(modelBox.isChecked() ? View.VISIBLE : View.GONE);
                 equipmentBox.setOnCheckedChangeListener((button, checked) -> activity.model.selected("checklist:equipment:" + equipment.id, checked));
-                list.addView(equipmentBox);
             }
+            list.addView(modelGroup);
         }
         if (list.getChildCount() == 0) {
             TextView empty = text("Não existem modelos disponíveis.", 15, false);
@@ -809,115 +1458,62 @@ public final class ChecklistFlow {
         }
     }
 
-    private void bindInspections(View content, String screen) {
+    private void bindInspections(View content) {
         String checklistId = activity.model.field("checklist", "checklistId");
         if (checklistId == null || checklistId.isEmpty()) {
             toast("Selecione um checklist.");
             activity.back();
             return;
         }
-        boolean tech = screen.startsWith("technician");
-        int[] mockIds = {R.id.ops_5717_8358, R.id.ops_5717_8368, R.id.ops_5717_8378, R.id.ops_5717_8388, R.id.ops_5717_10337, R.id.ops_5717_10347, R.id.ops_5717_10357, R.id.ops_5717_10367, R.id.ops_5717_8314, R.id.ops_5717_8315, R.id.ops_5717_10293, R.id.ops_5717_10294};
-        for (int id : mockIds) {
-            View mock = content.findViewById(id);
-            if (mock != null) {
-                mock.setVisibility(View.GONE);
-            }
-        }
-        TextView modelLabel = content.findViewWithTag("text:Modelo"), statusLabel = content.findViewWithTag("text:Status");
-        LinearLayout list = vertical();
-        attachBelow(content, list, tech ? R.id.ops_5717_10328 : R.id.ops_5717_8349, 12);
-        list.setPadding(dp(activity, 30), 0, dp(activity, 30), dp(activity, 100));
-        final List<ChecklistEquipmentModel>[] models = new List[]{new ArrayList<>()};
-        final long[] selectedModel = {-1};
+        AutoCompleteTextView statusDropdown = content.findViewById(R.id.inspectionStatusDropdown);
+        EditText search = content.findViewById(R.id.inspectionSearch);
+        RecyclerView list = content.findViewById(R.id.inspectionEquipmentList);
+        View back = content.findViewById(R.id.inspectionBack);
+        if (back != null) back.setOnClickListener(v -> activity.back());
+        list.setLayoutManager(new LinearLayoutManager(activity));
+        list.setNestedScrollingEnabled(false);
+        InspectionEquipmentAdapter adapter = new InspectionEquipmentAdapter(
+                this::openInspection,
+                this::isCompleted);
+        list.setAdapter(adapter);
+        statusDropdown.setAdapter(new ArrayAdapter<>(activity, R.layout.item_app_dropdown, new String[]{"Pendente", "Realizada"}));
+        statusDropdown.setKeyListener(null);
+        statusDropdown.setOnClickListener(v -> statusDropdown.showDropDown());
+        final TextView empty = content.findViewById(R.id.inspectionEquipmentEmpty);
         final String[] statusFilter = {"Todos"};
-        int modelControl = tech ? R.id.ops_5717_10327 : R.id.ops_5717_8348, statusControl = tech ? R.id.ops_5717_10328 : R.id.ops_5717_8349;
-        View modelBox = content.findViewById(modelControl), statusBox = content.findViewById(statusControl);
-        Dialog loading = AppLoading.show(activity);
-        vm.modelos(checklistId, new ChecklistViewModel.Callback<List<ChecklistEquipmentModel>>() {
-            public void success(List<ChecklistEquipmentModel> result) {
-                AppLoading.hide(loading);
-                models[0] = result == null ? new ArrayList<>() : result;
-                if (models[0].isEmpty()) {
-                    TextView empty = text("Não existem modelos para este checklist.", 15, false);
-                    list.addView(empty);
-                    return;
-                }
-                selectedModel[0] = models[0].get(0).modeloEquipamentoId;
-                if (modelLabel != null) {
-                    modelLabel.setText(models[0].get(0).nome);
-                }
-                activity.model.field("checklist", "equipmentModelName", models[0].get(0).nome);
-                fetchEquipment(checklistId, selectedModel[0], list, statusFilter);
-            }
-
-            public void failure(Throwable error) {
-                AppLoading.hide(loading);
-                toast(AutenticacaoViewModel.messageFrom(error));
-            }
+        loadChecklistEquipment(checklistId, adapter, empty, statusFilter, search.getText().toString());
+        statusDropdown.setOnItemClickListener((parent, view, position, id) -> {
+            statusFilter[0] = String.valueOf(parent.getItemAtPosition(position));
+            loadChecklistEquipment(checklistId, adapter, empty, statusFilter, search.getText().toString());
         });
-        if (modelBox != null) {
-            modelBox.setOnClickListener(v -> {
-                String[] names = new String[models[0].size()];
-                for (int i = 0; i < names.length; i++) {
-                    names[i] = models[0].get(i).nome;
-                }
-                new AlertDialog.Builder(activity).setItems(names, (dialog, which) -> {
-                    selectedModel[0] = models[0].get(which).modeloEquipamentoId;
-                    if (modelLabel != null) {
-                        modelLabel.setText(names[which]);
-                    }
-                    activity.model.field("checklist", "equipmentModelName", names[which]);
-                    fetchEquipment(checklistId, selectedModel[0], list, statusFilter);
-                }).show();
-            });
-        }
-        if (statusBox != null) {
-            statusBox.setOnClickListener(v -> new AlertDialog.Builder(activity).setItems(new String[]{"Todos", "Pendente", "Realizada"}, (dialog, which) -> {
-                statusFilter[0] = new String[]{"Todos", "Pendente", "Realizada"}[which];
-                if (statusLabel != null) {
-                    statusLabel.setText(statusFilter[0]);
-                }
-                fetchEquipment(checklistId, selectedModel[0], list, statusFilter);
-            }).show());
-        }
+        search.addTextChangedListener(watcher(value -> loadChecklistEquipment(checklistId, adapter, empty, statusFilter, value)));
     }
 
-    private void fetchEquipment(String checklistId, long modelId, LinearLayout list, String[] statusFilter) {
-        if (modelId <= 0) {
+    private void loadChecklistEquipment(String checklistId, InspectionEquipmentAdapter adapter, View empty, String[] statusFilter, String query) {
+        String cacheKey = checklistId;
+        if (inspectionEquipmentCache.containsKey(cacheKey)) {
+            renderEquipment(inspectionEquipmentCache.get(cacheKey), adapter, empty, statusFilter, query);
             return;
         }
         Dialog loading = AppLoading.show(activity);
-        vm.equipamentos(checklistId, modelId, new ChecklistViewModel.Callback<List<ChecklistEquipment>>() {
-            public void success(List<ChecklistEquipment> values) {
+        vm.modelos(checklistId, new ChecklistViewModel.Callback<List<ChecklistEquipmentModel>>() {
+            public void success(List<ChecklistEquipmentModel> models) {
                 AppLoading.hide(loading);
-                list.removeAllViews();
-                if (values != null) {
-                    for (ChecklistEquipment equipment : values) {
-                        boolean done = isCompleted(equipment);
-                        if (!statusFilter[0].equals("Todos") && ((done && !statusFilter[0].equals("Realizada")) || (!done && !statusFilter[0].equals("Pendente")))) {
-                            continue;
+                List<ChecklistEquipment> equipmentList = new ArrayList<>();
+                if (models != null) {
+                    for (ChecklistEquipmentModel model : models) {
+                        if (model != null && model.equipamentos != null) {
+                            for (ChecklistEquipment equipment : model.equipamentos) {
+                                if (equipment != null) {
+                                    equipment.modeloNome = model.nome;
+                                    equipmentList.add(equipment);
+                                }
+                            }
                         }
-                        LinearLayout card = card(100, R.drawable.bg_ops_9a20d877fd);
-                        card.setPadding(dp(activity, 18), dp(activity, 14), dp(activity, 14), dp(activity, 12));
-                        card.addView(text(equipment.codigo, 18, true));
-                        card.addView(text(done ? "Inspeção realizada" : "Inspeção pendente", 14, false));
-                        if (equipment.prazoInspecao != null) {
-                            card.addView(text("Prazo: " + equipment.prazoInspecao, 12, false));
-                        }
-                        card.setAlpha(done ? .58f : 1f);
-                        if (!done) {
-                            card.setOnClickListener(v -> openInspection(equipment));
-                        }
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, dp(activity, 100));
-                        params.bottomMargin = dp(activity, 10);
-                        list.addView(card, params);
                     }
                 }
-                if (list.getChildCount() == 0) {
-                    TextView empty = text("Não existem equipamentos neste status.", 15, false);
-                    list.addView(empty);
-                }
+                inspectionEquipmentCache.put(cacheKey, equipmentList);
+                renderEquipment(equipmentList, adapter, empty, statusFilter, query);
             }
 
             public void failure(Throwable error) {
@@ -925,6 +1521,23 @@ public final class ChecklistFlow {
                 toast(AutenticacaoViewModel.messageFrom(error));
             }
         });
+    }
+
+    private void renderEquipment(List<ChecklistEquipment> values, InspectionEquipmentAdapter adapter, View empty, String[] statusFilter, String query) {
+        List<ChecklistEquipment> filtered = new ArrayList<>();
+        if (values != null) {
+            for (ChecklistEquipment equipment : values) {
+                boolean done = isCompleted(equipment);
+                if (!statusFilter[0].equals("Todos") && ((done && !statusFilter[0].equals("Realizada")) || (!done && !statusFilter[0].equals("Pendente")))) {
+                    continue;
+                }
+                String code = equipment.codigo == null ? "" : equipment.codigo;
+                if (query != null && !code.toLowerCase(Locale.ROOT).contains(query.trim().toLowerCase(Locale.ROOT))) continue;
+                filtered.add(equipment);
+            }
+        }
+        adapter.submit(filtered);
+        if (empty != null) empty.setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     private void openInspection(ChecklistEquipment equipment) {
@@ -932,6 +1545,7 @@ public final class ChecklistFlow {
         activeTemplate = json == null ? null : gson.fromJson(json, ChecklistTemplate.class);
         activity.model.field("checklist", "equipmentId", String.valueOf(equipment.id));
         activity.model.field("checklist", "equipmentCode", equipment.codigo);
+        activity.model.field("checklist", "equipmentModelName", equipment.modeloNome);
         activity.openName("inspection_form");
     }
 
@@ -981,11 +1595,25 @@ public final class ChecklistFlow {
         }
         int footerId = tech ? R.id.ops_5717_10433 : R.id.ops_5717_8454;
         View footer = content.findViewById(footerId);
-        setBelow(content, footer, answerContainer.getId(), 22);
-        setBelow(content, content.findViewWithTag("action:Enviar"), answerContainer.getId(), 22);
+        View submit = content.findViewWithTag("action:Enviar");
+        positionInspectionActions(footer, submit, answerContainer.getId());
         clickTag(content, "image:arrow-left", v -> activity.back());
         clickTag(content, "text:Cancelar", v -> activity.back());
         clickTag(content, "action:Enviar", v -> submitInspection());
+    }
+
+    private void positionInspectionActions(View cancel, View submit, int fieldsId) {
+        for (View action : new View[]{cancel, submit}) {
+            if (action == null || !(action.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) continue;
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) action.getLayoutParams();
+            params.topToTop = -1;
+            params.topToBottom = fieldsId;
+            params.bottomToTop = -1;
+            params.bottomToBottom = -1;
+            params.topMargin = dp(activity, 24);
+            action.setLayoutParams(params);
+        }
     }
 
     private void renderAnswer(ChecklistField field) {
@@ -1004,7 +1632,7 @@ public final class ChecklistFlow {
                 input.setInputType(field.tipoCampo == TipoCampoChecklist.NUMERO ? InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
                 answerContainer.addView(input);
                 input.addTextChangedListener(watcher(value -> {
-                    if (field.tipoCampo == TipoCampoChecklist.NUMERO && value.trim().isEmpty()) {
+                    if (value.trim().isEmpty()) {
                         answers.remove(field.id);
                     } else {
                         answers.put(field.id, value);
@@ -1063,10 +1691,14 @@ public final class ChecklistFlow {
             case AVALIACAO: {
                 RatingBar rating = new RatingBar(activity);
                 rating.setNumStars(5);
+                rating.setMax(5);
                 rating.setStepSize(1);
                 answerContainer.addView(rating);
                 answers.remove(field.id);
-                rating.setOnRatingBarChangeListener((bar, value, user) -> answers.put(field.id, (int) value));
+                rating.setOnRatingBarChangeListener((bar, value, user) -> {
+                    if (value <= 0) answers.remove(field.id);
+                    else answers.put(field.id, (int) value);
+                });
                 break;
             }
         }
@@ -1076,10 +1708,19 @@ public final class ChecklistFlow {
         if (activeTemplate == null || activeEquipment == null) {
             return;
         }
-        for (ChecklistField field : activeTemplate.campos) {
+        if (activeTemplate.campos != null) for (ChecklistField field : activeTemplate.campos) {
+            if (Boolean.TRUE.equals(field.obrigatorio) && !hasInspectionAnswer(field)) {
+                toast("Preencha o campo obrigatório: " + field.nome + ".");
+                return;
+            }
             if (field.tipoCampo == TipoCampoChecklist.NUMERO && answers.get(field.id) instanceof String) {
+                String raw = ((String) answers.get(field.id)).trim();
+                if (raw.isEmpty()) {
+                    answers.remove(field.id);
+                    continue;
+                }
                 try {
-                    answers.put(field.id, Double.valueOf((String) answers.get(field.id)));
+                    answers.put(field.id, Double.valueOf(raw));
                 } catch (Exception e) {
                     toast("Informe um número válido em " + field.nome + ".");
                     return;
@@ -1091,6 +1732,7 @@ public final class ChecklistFlow {
         vm.inspecionar(checklistId, activeEquipment.id, activeTemplate, new LinkedHashMap<>(answers), new ChecklistViewModel.Callback<Void>() {
             public void success(Void value) {
                 AppLoading.hide(loading);
+                inspectionEquipmentCache.clear();
                 activity.back();
                 activity.refresh();
                 toast("Inspeção registrada.");
@@ -1101,6 +1743,28 @@ public final class ChecklistFlow {
                 toast(AutenticacaoViewModel.messageFrom(error));
             }
         });
+    }
+
+    private boolean hasInspectionAnswer(ChecklistField field) {
+        Object value = answers.get(field.id);
+        if (value == null) return false;
+        if (field.tipoCampo == TipoCampoChecklist.TEXTO
+                || field.tipoCampo == TipoCampoChecklist.NUMERO) {
+            return !String.valueOf(value).trim().isEmpty();
+        }
+        if (field.tipoCampo == TipoCampoChecklist.RADIO
+                || field.tipoCampo == TipoCampoChecklist.CHECK) {
+            if (!(value instanceof Map)) return false;
+            for (Object selected : ((Map<?, ?>) value).values()) {
+                if (Boolean.TRUE.equals(selected)) return true;
+            }
+            return false;
+        }
+        if (field.tipoCampo == TipoCampoChecklist.AVALIACAO) {
+            return value instanceof Number && ((Number) value).intValue() >= 1;
+        }
+        // BOOLEANO armazena false como uma resposta válida, pois o switch representa ambos os valores.
+        return field.tipoCampo == TipoCampoChecklist.BOOLEANO;
     }
 
     private interface TextValue {
@@ -1140,7 +1804,9 @@ public final class ChecklistFlow {
             args.putString("field", gson.toJson(field));
         }
         args.putInt("index", index);
-        com.aula.fixa.ui.view.operations.OperationsDialogFragment.create(field == null ? "manager_create_field" : "manager_edit_field", args).show(activity.getSupportFragmentManager(), "ops_dialog");
+        String key = field == null ? "manager_create_field" : "manager_edit_field";
+        com.aula.fixa.ui.view.operations.OperationsDialogFragment.create(key, args)
+                .show(activity.getSupportFragmentManager(), "ops_dialog");
     }
 
     private ViewGroup layoutRoot(View content) {

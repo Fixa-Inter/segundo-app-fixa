@@ -58,7 +58,8 @@ public final class OperationsDialogFragment extends DialogFragment {
         } else if (key.equals("manager_reject_request")) {
             bindRejectRequest(content);
         } else if (key.equals("manager_create_field") || key.equals("manager_edit_field")
-                || key.equals("manager_create_choice_field") || key.equals("manager_delete_checklist")) {
+                || key.equals("manager_create_choice_field") || key.equals("manager_edit_choice_field")
+                || key.equals("manager_delete_checklist")) {
             com.aula.fixa.ui.view.checklist.ChecklistFlow.bindDialog(this, content, key);
         } else {
             new OperationsBinder((OperationsActivity) requireActivity(), content, key, this).bind();

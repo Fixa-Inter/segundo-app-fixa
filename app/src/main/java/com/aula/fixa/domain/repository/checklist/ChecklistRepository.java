@@ -1,6 +1,5 @@
 package com.aula.fixa.domain.repository.checklist;
 
-import com.aula.fixa.domain.model.checklist.ChecklistEquipment;
 import com.aula.fixa.domain.model.checklist.ChecklistEquipmentModel;
 import com.aula.fixa.domain.model.checklist.ChecklistTemplate;
 import com.aula.fixa.domain.model.checklist.EquipmentModelOption;
@@ -11,7 +10,6 @@ public interface ChecklistRepository {
     List<ChecklistTemplate> listar() throws Exception;
     List<EquipmentModelOption> modelosDisponiveis(List<ChecklistTemplate> existentes, String checklistEditadoId) throws Exception;
     List<ChecklistEquipmentModel> modelosDoChecklist(String checklistId) throws Exception;
-    List<ChecklistEquipment> equipamentosDoModelo(String checklistId, long modeloEquipamentoId) throws Exception;
     ChecklistTemplate cadastrar(ChecklistTemplate checklist) throws Exception;
     ChecklistTemplate atualizar(ChecklistTemplate checklist) throws Exception;
     void excluir(String checklistId) throws Exception;

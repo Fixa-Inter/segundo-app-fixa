@@ -1,7 +1,6 @@
 package com.aula.fixa.application.checklist;
 
 import com.aula.fixa.domain.enums.TipoCampoChecklist;
-import com.aula.fixa.domain.model.checklist.ChecklistEquipment;
 import com.aula.fixa.domain.model.checklist.ChecklistEquipmentModel;
 import com.aula.fixa.domain.model.checklist.ChecklistField;
 import com.aula.fixa.domain.model.checklist.ChecklistOption;
@@ -21,10 +20,6 @@ public final class GerenciarChecklists {
         return repository.modelosDisponiveis(existentes, editadoId);
     }
     public List<ChecklistEquipmentModel> modelosDoChecklist(String checklistId) throws Exception { return repository.modelosDoChecklist(checklistId); }
-    public List<ChecklistEquipment> equipamentosDoModelo(String checklistId, long modeloEquipamentoId) throws Exception {
-        if (checklistId == null || checklistId.trim().isEmpty() || modeloEquipamentoId <= 0) throw new IllegalArgumentException("Selecione um modelo de equipamento.");
-        return repository.equipamentosDoModelo(checklistId, modeloEquipamentoId);
-    }
     public ChecklistTemplate cadastrar(ChecklistTemplate value) throws Exception { validarTemplate(value, false); return repository.cadastrar(value); }
     public ChecklistTemplate atualizar(ChecklistTemplate value) throws Exception { validarTemplate(value, true); return repository.atualizar(value); }
     public void excluir(String id) throws Exception {

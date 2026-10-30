@@ -3,6 +3,7 @@ package com.aula.fixa.domain.model.checklist;
 public final class ChecklistEquipment {
     public long id;
     public String codigo;
+    public String modeloNome;
     public String prazoInspecao;
     public Boolean status;
     public ChecklistEquipment() { }

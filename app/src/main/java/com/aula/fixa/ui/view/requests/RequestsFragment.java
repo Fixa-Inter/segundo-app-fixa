@@ -29,6 +29,8 @@ import com.aula.fixa.adapter.cadastro.CadastroViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.text.Normalizer;
+import java.util.Locale;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -38,10 +40,12 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
     private RequestAdapter adapter;
     private View emptyView;
     private RecyclerView list;
+    private RadioGroup statusChips;
     private SolicitacaoViewModel viewModel;
     private CadastroViewModel cadastroViewModel;
     private final List<ProblemaItem> apiItems = new ArrayList<>();
-    private String search = "", period = "", location = "", category = "", selectedStatus = "";
+    private String search = "", period = "", location = "", category = "";
+    private StatusProblema activeStatusFilter;
 
     public RequestsFragment() {
         super(R.layout.fragment_requests);
@@ -66,12 +70,12 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
 
         ((EditText) view.findViewById(R.id.etSearch)).addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            public void onTextChanged(CharSequence s, int start, int before, int count) { search = s.toString(); render(null); }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { search = s.toString(); render(); }
             public void afterTextChanged(Editable s) { }
         });
 
-        RadioGroup filters = view.findViewById(R.id.groupFilters);
-        filters.setOnCheckedChangeListener((group, checkedId) -> render(statusFor(checkedId)));
+        statusChips = view.findViewById(R.id.groupFilters);
+        bindStatusChips();
 
         view.findViewById(R.id.btnFilter).setOnClickListener(v -> {
             RequestFiltersSheet sheet = new RequestFiltersSheet();
@@ -104,7 +108,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
                     );
                 }
                 FragmentUi.runIfViewActive(RequestsFragment.this, requestView,
-                        () -> { apiItems.clear(); apiItems.addAll(items); render(null); });
+                        () -> { apiItems.clear(); apiItems.addAll(items); render(); });
             }
             @Override public void aoFalhar(Throwable error) {
                 FragmentUi.runIfViewActive(RequestsFragment.this, requestView,
@@ -123,21 +127,14 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
     }
 
     private StatusProblema status(String value) {
-        if ("APROVADO".equalsIgnoreCase(value)) {
-            return StatusProblema.APROVADO;
-        }
-        if ("REPROVADO".equalsIgnoreCase(value)) {
-            return StatusProblema.REPROVADO;
-        }
-        if ("CONCLUIDO".equalsIgnoreCase(value) || "CONCLUÍDO".equalsIgnoreCase(value)) {
-            return StatusProblema.CONCLUIDO;
-        }
-        if ("OS_CRIADA".equalsIgnoreCase(value)) {
-            return StatusProblema.OS_CRIADA;
-        }
-        if ("PENDENTE".equalsIgnoreCase(value)) {
-            return StatusProblema.PENDENTE;
-        }
+        String normalized = value == null ? "" : Normalizer.normalize(value, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "")
+                .toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9]", "");
+        if (normalized.equals("aprovado") || normalized.equals("aprovada")) return StatusProblema.APROVADO;
+        if (normalized.equals("reprovado") || normalized.equals("reprovada")) return StatusProblema.REPROVADO;
+        if (normalized.equals("concluido") || normalized.equals("concluida")) return StatusProblema.CONCLUIDO;
+        if (normalized.equals("oscriada")) return StatusProblema.OS_CRIADA;
         return StatusProblema.PENDENTE;
     }
 
@@ -159,15 +156,15 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         return null;
     }
 
-    private void render(@Nullable StatusProblema filter) {
+    private void render() {
         List<ProblemaItem> items = new ArrayList<>();
 
         for (ProblemaItem item : apiItems) {
             boolean matchesSearch = search.trim().isEmpty() || item.title.toLowerCase().contains(search.toLowerCase());
             boolean matchesLocation = location.trim().isEmpty() || location.startsWith("Todos") || item.location.equalsIgnoreCase(location);
             boolean matchesCategory = category.trim().isEmpty() || category.startsWith("Todos") || item.device.equalsIgnoreCase(category);
-            boolean matchesStatus = selectedStatus.trim().isEmpty() || selectedStatus.startsWith("Todas") || item.status == status(selectedStatus);
-            if ((filter == null || item.status == filter) && matchesSearch && matchesLocation && matchesCategory && matchesStatus && matchesPeriod(item.date)) {
+            boolean matchesStatus = matchesStatusFilter(item.status, activeStatusFilter);
+            if (matchesSearch && matchesLocation && matchesCategory && matchesStatus && matchesPeriod(item.date)) {
                 items.add(item);
             }
         }
@@ -175,6 +172,15 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         boolean empty = items.isEmpty();
         emptyView.setVisibility(empty ? View.VISIBLE : View.GONE);
         list.setVisibility(empty ? View.GONE : View.VISIBLE);
+    }
+
+    private boolean matchesStatusFilter(StatusProblema itemStatus, @Nullable StatusProblema filter) {
+        if (filter == null) return true;
+        if (filter == StatusProblema.APROVADO) {
+            // O chip “Aprovadas” representa o grupo aprovado, inclusive OSs já criadas.
+            return itemStatus == StatusProblema.APROVADO || itemStatus == StatusProblema.OS_CRIADA;
+        }
+        return itemStatus == filter;
     }
 
     private boolean matchesPeriod(String value) {
@@ -193,8 +199,31 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         this.period = period;
         this.location = location;
         this.category = category;
-        this.selectedStatus = status;
-        render(null);
+        if (status != null && !status.trim().isEmpty()) {
+            activeStatusFilter = status.trim().startsWith("Todas") ? null : status(status);
+            syncStatusChip(activeStatusFilter);
+        }
+        render();
+    }
+
+    private void bindStatusChips() {
+        if (statusChips == null) return;
+        statusChips.setOnCheckedChangeListener((group, checkedId) -> {
+            activeStatusFilter = statusFor(checkedId);
+            render();
+        });
+    }
+
+    private void syncStatusChip(@Nullable StatusProblema status) {
+        if (statusChips == null) return;
+        int checkedId = R.id.chipAll;
+        if (status == StatusProblema.PENDENTE) checkedId = R.id.chipAnalysis;
+        else if (status == StatusProblema.APROVADO || status == StatusProblema.OS_CRIADA) checkedId = R.id.chipApproved;
+        else if (status == StatusProblema.CONCLUIDO) checkedId = R.id.chipDone;
+        else if (status == StatusProblema.REPROVADO) checkedId = R.id.chipRefused;
+        statusChips.setOnCheckedChangeListener(null);
+        statusChips.check(checkedId);
+        bindStatusChips();
     }
 
     @Override

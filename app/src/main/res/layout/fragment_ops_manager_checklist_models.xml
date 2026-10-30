@@ -78,8 +78,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_e0dbb"
+                android:tint="@color/ops_color_ff0b013c"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
+                android:visibility="visible"
                 android:tag="image:search"
                 android:translationZ="@dimen/ops_dp_3" />
         </androidx.constraintlayout.widget.ConstraintLayout>

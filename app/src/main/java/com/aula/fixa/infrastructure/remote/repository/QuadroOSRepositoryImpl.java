@@ -13,14 +13,18 @@ import retrofit2.Response;
 
 public final class QuadroOSRepositoryImpl implements QuadroOSRepository {
     private final com.aula.fixa.infrastructure.remote.api.OrdemServicoApi api;
-    public QuadroOSRepositoryImpl(SessionStorage session){api=ApiClient.ordensServico(session);}
+    private final boolean minhas;
+    public QuadroOSRepositoryImpl(SessionStorage session){this(session, false);}
+    public QuadroOSRepositoryImpl(SessionStorage session, boolean minhas){api=ApiClient.ordensServico(session);this.minhas=minhas;}
     @Override public List<OrdemServicoQuadro> listar()throws Exception{
-        Response<List<OrdemServicoResponse>> response=api.listar(null,null,null,null,null,null,null,null,null,null,null).execute();
+        Response<List<OrdemServicoResponse>> response=minhas
+                ? api.minhas(null,null,null,null).execute()
+                : api.listar(null,null,null,null,null,null,null,null,null,null,null).execute();
         if(response.code()==404)return Collections.emptyList();
         if(!response.isSuccessful())throw new ApiException(response.code(),response.errorBody()==null?"":response.errorBody().string());
         if(response.body()==null)return Collections.emptyList();
         List<OrdemServicoQuadro> result=new ArrayList<>();
-        for(OrdemServicoResponse dto:response.body())if(dto.id!=null)result.add(new OrdemServicoQuadro(dto.id,dto.titulo,dto.descricao,dto.categoriaProblema,dto.categoriaEquipamento,dto.prioridade,dto.dataPrevista,dto.status,dto.nomeUsuario));
+        for(OrdemServicoResponse dto:response.body())if(dto.id!=null)result.add(new OrdemServicoQuadro(dto.id,dto.titulo,dto.descricao,dto.categoriaProblema,dto.categoriaEquipamento,dto.prioridade,dto.dataPrevista,dto.status,dto.nomeUsuario,dto.dataCriacao,dto.localUnidade,dto.descricaoLocal,dto.solicitante));
         return result;
     }
 }

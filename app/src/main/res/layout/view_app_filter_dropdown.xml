@@ -18,6 +18,7 @@
         android:maxLines="1"
         android:paddingStart="@dimen/app_filter_field_padding_start"
         android:paddingEnd="@dimen/app_filter_field_padding_end"
+        android:popupBackground="@drawable/bg_app_popup_menu"
         android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Field"
         tools:text="Últimos 30 dias" />
 

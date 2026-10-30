@@ -9,16 +9,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.StringRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
 import com.aula.fixa.adapter.operations.OperationsViewModel;
 import com.aula.fixa.domain.model.home.ManagerHomeData;
 import com.bumptech.glide.Glide;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.Arrays;
@@ -83,17 +81,15 @@ public final class OperationsData {
         if ("manager_home".equals(key)) bindEmptyManagerHome(activity, root);
     }
 
-    private static void bindEmptyManagerHome(OperationsActivity activity, View root) {
+    public static void bindEmptyManagerHome(OperationsActivity activity, View root) {
         TextView greeting = root.findViewById(R.id.ops_5717_7299);
         if (greeting != null) greeting.setText("");
-        for (int id : new int[]{7312, 7315, 7327, 7319, 7323}) setOrderCount(root, id, 0);
         for (int id : new int[]{7266, 7283}) {
             View mock = root.findViewById(activity.getResources().getIdentifier(
                     "ops_5717_" + id, "id", activity.getPackageName()));
             if (mock != null) mock.setVisibility(View.GONE);
         }
-        View chart = root.findViewById(R.id.ops_5717_7330);
-        if (chart instanceof PieChart) bindOrderChart(activity, (PieChart) chart, 0, 0, 0, 0, 0);
+        bindOrderBigNumbers(activity, root, R.id.ops_5717_7307, R.id.ops_5717_7309, 0, 0, 0, 0);
     }
 
     public static void bindManagerHome(OperationsActivity activity, View root, ManagerHomeData data) {
@@ -102,23 +98,79 @@ public final class OperationsData {
                 data.nomeGestor.trim().isEmpty() ? activity.getString(R.string.ops_home_unknown_manager) : data.nomeGestor.trim()));
         loadAvatar(activity, root.findViewById(R.id.ops_5717_7336), data.fotoGestor);
 
-        int completed = 0, active = 0, notStarted = 0, overdue = 0, paused = 0;
+        int completed = 0, active = 0, notStarted = 0, overdue = 0;
         for (ManagerHomeData.OrdemServicoHomeItem order : data.ordens) {
             String status = normalizeStatus(order.status);
             if (status.contains("CONCLUID")) completed++;
             else if (status.contains("ANDAMENTO")) active++;
             else if (status.contains("NAO_INICIADA") || status.equals("NAOINICIADA")) notStarted++;
             else if (status.contains("ATRASAD")) overdue++;
-            else if (status.contains("PAUSAD")) paused++;
         }
-        setOrderCount(root, 7312, completed);
-        setOrderCount(root, 7315, active);
-        setOrderCount(root, 7327, notStarted);
-        setOrderCount(root, 7319, overdue);
-        setOrderCount(root, 7323, paused);
-        View chart = root.findViewById(R.id.ops_5717_7330);
-        if (chart instanceof PieChart) bindOrderChart(activity, (PieChart) chart, completed, active, notStarted, overdue, paused);
+        bindOrderBigNumbers(activity, root, R.id.ops_5717_7307, R.id.ops_5717_7309,
+                notStarted, completed, active, overdue);
         bindRecentRequests(activity, root, data.solicitacoes);
+    }
+
+    public static void bindTechnicianHome(OperationsActivity activity, View root, com.aula.fixa.domain.model.Perfil profile,
+                                          List<com.aula.fixa.domain.model.os.OrdemServicoQuadro> orders) {
+        TextView greeting = root.findViewById(R.id.ops_5717_9921);
+        String name = profile == null ? "" : profile.nomeCompleto;
+        if (greeting != null) greeting.setText(profile == null ? "" : activity.getString(R.string.ops_home_greeting,
+                name.trim().isEmpty() ? "usuário" : name.trim()));
+        if (greeting != null) greeting.setOnClickListener(v -> activity.openName("profile"));
+        ImageView avatar = loadAvatar(activity, root.findViewById(R.id.ops_5717_9958), profile == null ? null : profile.urlFotoPerfil);
+        if (avatar != null) avatar.setOnClickListener(v -> activity.openName("profile"));
+        View notifications = root.findViewById(R.id.ops_5717_9922);
+        if (notifications != null) notifications.setOnClickListener(v -> activity.openName("notifications"));
+        int completed = 0, active = 0, notStarted = 0, overdue = 0;
+        List<com.aula.fixa.domain.model.os.OrdemServicoQuadro> recent = new ArrayList<>();
+        List<com.aula.fixa.domain.model.os.OrdemServicoQuadro> sorted = orders == null
+                ? new ArrayList<>() : new ArrayList<>(orders);
+        sorted.sort((a, b) -> Long.compare(orderTimestamp(b.dataCriacao), orderTimestamp(a.dataCriacao)));
+        for (com.aula.fixa.domain.model.os.OrdemServicoQuadro order : sorted) {
+            String status = normalizeStatus(order.status);
+            if (status.contains("CONCLUID")) completed++;
+            else if (status.contains("ANDAMENTO")) active++;
+            else if (status.contains("NAO_INICIADA") || status.equals("NAOINICIADA")) notStarted++;
+            else if (status.contains("ATRASAD")) overdue++;
+            if (!status.contains("CONCLUID") && recent.size() < 5) recent.add(order);
+        }
+        bindOrderBigNumbers(activity, root, R.id.ops_5717_9929, R.id.ops_5717_9931,
+                notStarted, completed, active, overdue);
+        for (int id : new int[]{R.id.ops_5717_9888, R.id.ops_5717_9905}) {
+            View mock = root.findViewById(id);
+            if (mock != null) mock.setVisibility(View.GONE);
+        }
+        if (root.findViewById(R.id.ops_5717_9920).getParent() instanceof ConstraintLayout) {
+            ConstraintLayout parent = (ConstraintLayout) root.findViewById(R.id.ops_5717_9920).getParent();
+            View old = parent.findViewWithTag("technician_home_recent_orders");
+            if (old != null) parent.removeView(old);
+            RecyclerView list = new RecyclerView(activity);
+            list.setTag("technician_home_recent_orders");
+            list.setNestedScrollingEnabled(false);
+            list.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(activity));
+            list.setAdapter(new com.aula.fixa.ui.adapter.os.QuadroOSAdapter(new com.aula.fixa.ui.adapter.os.QuadroOSAdapter.Listener() {
+                @Override public void onClick(com.aula.fixa.domain.model.os.OrdemServicoQuadro order) { activity.openOrderDetails(order.id, order.titulo); }
+                @Override public void onMenuClick(View anchor, com.aula.fixa.domain.model.os.OrdemServicoQuadro order) { }
+            }, false));
+            ((com.aula.fixa.ui.adapter.os.QuadroOSAdapter) list.getAdapter()).submit(recent);
+            ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.topToBottom = R.id.ops_5717_9920;
+            lp.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+            lp.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+            lp.topMargin = Math.round(12 * scale(activity));
+            parent.addView(list, lp);
+        }
+    }
+
+    private static long orderTimestamp(String value) {
+        if (value == null || value.trim().isEmpty()) return Long.MIN_VALUE;
+        try { return java.time.OffsetDateTime.parse(value).toInstant().toEpochMilli(); }
+        catch (Exception ignored) { }
+        try { return java.time.LocalDateTime.parse(value).atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli(); }
+        catch (Exception ignored) { }
+        try { return java.time.LocalDate.parse(value).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli(); }
+        catch (Exception ignored) { return Long.MIN_VALUE; }
     }
 
     private static String normalizeStatus(String value) {
@@ -126,42 +178,93 @@ public final class OperationsData {
                 .replaceAll("\\p{M}+", "").trim().toUpperCase(Locale.ROOT).replace(' ', '_');
     }
 
-    private static void setOrderCount(View root, int suffix, int count) {
-        int id = root.getResources().getIdentifier("ops_5717_" + suffix, "id", root.getContext().getPackageName());
-        TextView value = root.findViewById(id);
-        if (value != null) value.setText(root.getContext().getString(R.string.ops_home_order_count, count));
+    private static void bindOrderBigNumbers(OperationsActivity activity, View root, int cardId, int titleId,
+                                             int notStarted, int completed, int active, int overdue) {
+        View cardView = root.findViewById(cardId);
+        if (!(cardView instanceof ConstraintLayout)) return;
+        ConstraintLayout card = (ConstraintLayout) cardView;
+        TextView title = card.findViewById(titleId);
+        if (title != null) title.setVisibility(View.GONE);
+
+        View previous = card.findViewWithTag("ops_home_order_big_numbers");
+        if (previous != null) card.removeView(previous);
+        for (int i = 0; i < card.getChildCount(); i++) {
+            View child = card.getChildAt(i);
+            if (child != title) child.setVisibility(View.GONE);
+        }
+
+        card.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        card.setElevation(0f);
+        ViewGroup.LayoutParams cardParams = card.getLayoutParams();
+        if (cardParams != null) {
+            cardParams.height = dp(activity, 318);
+            card.setLayoutParams(cardParams);
+        }
+
+        LinearLayout grid = new LinearLayout(activity);
+        grid.setTag("ops_home_order_big_numbers");
+        grid.setOrientation(LinearLayout.VERTICAL);
+        grid.setClipChildren(false);
+        grid.setClipToPadding(false);
+        grid.setPadding(0, dp(activity, 4), 0, dp(activity, 4));
+        ConstraintLayout.LayoutParams gridParams = new ConstraintLayout.LayoutParams(
+                0, ViewGroup.LayoutParams.MATCH_PARENT);
+        gridParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+        gridParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+        gridParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+        gridParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+        gridParams.setMarginStart(dp(activity, 6));
+        gridParams.setMarginEnd(dp(activity, 6));
+        card.addView(grid, gridParams);
+
+        addOrderStatusRow(activity, grid,
+                new OrderStatus(R.string.ops_home_order_not_started_short, R.drawable.lupa_analise, notStarted),
+                new OrderStatus(R.string.ops_home_order_completed, R.drawable.check_concluido, completed), false);
+        addOrderStatusRow(activity, grid,
+                new OrderStatus(R.string.ops_home_order_in_progress_short, R.drawable.joia_aprovado, active),
+                new OrderStatus(R.string.ops_home_order_overdue, R.drawable.x_reprovado, overdue), true);
     }
 
-    private static void bindOrderChart(OperationsActivity activity, PieChart chart,
-                                       int completed, int active, int notStarted, int overdue, int paused) {
-        boolean hasData = completed + active + notStarted + overdue + paused > 0;
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(hasData ? completed : 1));
-        entries.add(new PieEntry(active));
-        entries.add(new PieEntry(notStarted));
-        entries.add(new PieEntry(overdue));
-        entries.add(new PieEntry(paused));
-        PieDataSet set = new PieDataSet(entries, "");
-        set.setDrawValues(false);
-        set.setSliceSpace(1f);
-        set.setColors(hasData ? Arrays.asList(
-                ContextCompat.getColor(activity, R.color.app_status_done_chart),
-                ContextCompat.getColor(activity, R.color.app_status_approved),
-                ContextCompat.getColor(activity, R.color.app_status_analysis),
-                ContextCompat.getColor(activity, R.color.app_status_refused_chart),
-                ContextCompat.getColor(activity, R.color.app_status_pending))
-                : java.util.Collections.singletonList(ContextCompat.getColor(activity, R.color.app_chart_empty)));
-        chart.setData(new PieData(set));
-        chart.setDrawEntryLabels(false);
-        chart.setDrawHoleEnabled(true);
-        chart.setHoleColor(android.graphics.Color.TRANSPARENT);
-        chart.setHoleRadius(66f);
-        chart.setTransparentCircleRadius(68f);
-        chart.getDescription().setEnabled(false);
-        chart.getLegend().setEnabled(false);
-        chart.setRotationEnabled(false);
-        chart.setHighlightPerTapEnabled(false);
-        chart.invalidate();
+    private static void addOrderStatusRow(OperationsActivity activity, LinearLayout grid,
+                                           OrderStatus first, OrderStatus second, boolean secondRow) {
+        LinearLayout row = new LinearLayout(activity);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, dp(activity, 148));
+        if (secondRow) rowParams.topMargin = dp(activity, 14);
+        grid.addView(row, rowParams);
+        addOrderStatusCard(activity, row, first, true);
+        addOrderStatusCard(activity, row, second, false);
+    }
+
+    private static void addOrderStatusCard(OperationsActivity activity, LinearLayout row,
+                                            OrderStatus status, boolean firstColumn) {
+        View card = activity.getLayoutInflater().inflate(R.layout.item_app_home_order_status, row, false);
+        ((ImageView) card.findViewById(R.id.ivOrderStatusIcon)).setImageResource(status.icon);
+        ((TextView) card.findViewById(R.id.tvOrderStatusLabel)).setText(status.label);
+        ((TextView) card.findViewById(R.id.tvOrderStatusValue)).setText(String.valueOf(status.count));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                0, dp(activity, 140), 1f);
+        params.setMargins(dp(activity, firstColumn ? 0 : 12), 0,
+                dp(activity, firstColumn ? 12 : 0), 0);
+        row.addView(card, params);
+    }
+
+    private static int dp(OperationsActivity activity, int value) {
+        return Math.round(value * activity.getResources().getDisplayMetrics().density);
+    }
+
+    private static final class OrderStatus {
+        @StringRes final int label;
+        final int icon;
+        final int count;
+
+        OrderStatus(@StringRes int label, int icon, int count) {
+            this.label = label;
+            this.icon = icon;
+            this.count = count;
+        }
     }
 
     private static void bindRecentRequests(OperationsActivity activity, View root,

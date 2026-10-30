@@ -6,6 +6,11 @@
     <string name="ops_home_unknown_location">Local não informado</string>
     <string name="ops_home_unknown_requester">Solicitante não informado</string>
     <string name="ops_home_order_count">%1$d OSs</string>
+    <string name="ops_home_order_not_started_short">Não Inici...</string>
+    <string name="ops_home_order_completed">Concluídas</string>
+    <string name="ops_home_order_in_progress_short">Em Andam...</string>
+    <string name="ops_home_order_overdue">Atrasadas</string>
+    <string name="ops_technician_home_status_title">Status das OSs</string>
     <string name="ops_home_request_owner">Registrado por %1$s (Solicitante)</string>
     <string name="ops_home_unknown_date">Data não informada</string>
     <string name="ops_manager_no_pending_requests">Não existem solicitações pendentes</string>

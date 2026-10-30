@@ -103,7 +103,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             String screen = requireArguments().getString("screen", "manager_home");
             boolean profile = screen.equals(((OperationsActivity) requireActivity()).role() + "_profile")
                     || screen.equals(((OperationsActivity) requireActivity()).role() + "_my_profile");
-            if (ignored != null && getView() == view && ("manager_home".equals(screen) || profile)) {
+            if (ignored != null && getView() == view && ("manager_home".equals(screen)
+                    || "technician_home".equals(screen) || profile)) {
                 render();
             }
         });
@@ -114,7 +115,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             return;
         }
         android.widget.FrameLayout host = (android.widget.FrameLayout) getView();
-        String screen = requireArguments().getString("screen", "manager_home");
+        String requestedScreen = requireArguments().getString("screen", "manager_home");
+        String screen = sharedManagerScreen(requestedScreen);
         if ("manager_board".equals(screen)) {
             ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId", "");
         }
@@ -131,7 +133,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 : ScreenCatalog.get(requireContext()).layout(requireContext(), screen);
         View content = getLayoutInflater().inflate(screenLayout, host, false);
         host.addView(content);
-        if ("manager_home".equals(screen)) {
+        if ("manager_home".equals(screen) || "technician_home".equals(requestedScreen)) {
             content.setVisibility(View.INVISIBLE);
             if (homeLoading != null) {
                 AppLoading.hide(homeLoading);
@@ -144,6 +146,12 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if (!managerOccurrenceCreate && !managerCategories && !managerMemberDetails) {
             OperationsBinder binder = new OperationsBinder((OperationsActivity) requireActivity(), content, screen, null);
             binder.bind();
+        }
+        if ("technician_management".equals(screen)) {
+            View boardCard = content.findViewById(R.id.ops_5717_9720);
+            View occurrencesCard = content.findViewById(R.id.ops_5717_9727);
+            if (boardCard != null) boardCard.setOnClickListener(v -> ((OperationsActivity) requireActivity()).openName("board"));
+            if (occurrencesCard != null) occurrencesCard.setOnClickListener(v -> ((OperationsActivity) requireActivity()).openName("occurrences"));
         }
         if (screen.contains("checklist") || screen.contains("inspection")) {
             checklistFlow = new com.aula.fixa.ui.view.checklist.ChecklistFlow(
@@ -232,6 +240,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         if ("manager_home".equals(screen)) {
             loadManagerHome(host, content);
+        } else if ("technician_home".equals(requestedScreen)) {
+            loadTechnicianHome(host, content);
         }
         if ("manager_execution_pending".equals(screen)) {
             long orderId = getArguments() == null ? 0 : getArguments().getLong("orderId", 0);
@@ -248,7 +258,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         } else {
             conclusaoOSFluxo = null;
         }
-        if ("manager_board".equals(screen)) {
+        if ("manager_board".equals(screen) || "technician_board".equals(screen)) {
             quadroOSFluxo = new com.aula.fixa.ui.view.os.QuadroOSFluxo(this, (OperationsActivity) requireActivity());
             quadroOSFluxo.bind(content);
         } else {
@@ -263,7 +273,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         if (managerOccurrenceCreate) {
             ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
-            ocorrenciaGestorFluxo.bindCreateStep(content, screen);
+            ocorrenciaGestorFluxo.bindCreateStep(content, requestedScreen);
         } else if ("manager_occurrences".equals(screen)) {
             ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
             ocorrenciaGestorFluxo.bindList(content);
@@ -288,6 +298,17 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 || "manager_occurrence_location".equals(screen)
                 || ("manager_occurrence_result".equals(screen)
                 && (getArguments() == null || getArguments().getLong("orderId", 0) == 0));
+    }
+
+    private String sharedManagerScreen(String screen) {
+        if (!"technician".equals(((OperationsActivity) requireActivity()).role())) return screen;
+        if ("technician_occurrences".equals(screen)) return "manager_occurrences";
+        if (screen.startsWith("technician_occurrence_")) {
+            String suffix = screen.substring("technician_occurrence_".length());
+            return "success".equals(suffix) ? screen : "manager_occurrence_" + suffix;
+        }
+        if ("technician_execution_pending".equals(screen)) return "manager_execution_pending";
+        return screen;
     }
 
     private int managerOccurrenceLayout(String screen) {
@@ -1187,6 +1208,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 if (!isAdded() || getView() != host || host.indexOfChild(content) < 0) {
                     return;
                 }
+                OperationsData.bindEmptyManagerHome((OperationsActivity) requireActivity(), content);
                 AppLoading.hide(homeLoading);
                 homeLoading = null;
                 content.setVisibility(View.VISIBLE);
@@ -1194,6 +1216,36 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                         android.widget.Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void loadTechnicianHome(android.widget.FrameLayout host, View content) {
+        final com.aula.fixa.domain.model.Perfil[] profile = new com.aula.fixa.domain.model.Perfil[1];
+        final java.util.List<com.aula.fixa.domain.model.os.OrdemServicoQuadro>[] orders = new java.util.List[]{null};
+        final boolean[] failed = {false};
+        final int[] pending = {2};
+        Runnable complete = () -> {
+            if (!isAdded() || getView() != host || host.indexOfChild(content) < 0) return;
+            if (pending[0] != 0) return;
+            try {
+                OperationsData.bindTechnicianHome((OperationsActivity) requireActivity(), content,
+                        failed[0] ? null : profile[0], failed[0] ? java.util.Collections.emptyList() : orders[0]);
+                content.setVisibility(View.VISIBLE);
+            } finally {
+                AppLoading.hide(homeLoading);
+                homeLoading = null;
+            }
+            if (failed[0]) android.widget.Toast.makeText(requireContext(), R.string.ops_home_load_error, android.widget.Toast.LENGTH_LONG).show();
+        };
+        new ViewModelProvider(this, new com.aula.fixa.adapter.perfil.PerfilViewModelFactory(requireContext()))
+                .get(com.aula.fixa.adapter.perfil.PerfilViewModel.class).obter(new com.aula.fixa.adapter.perfil.PerfilViewModel.Callback<com.aula.fixa.domain.model.Perfil>() {
+                    @Override public void aoConcluir(com.aula.fixa.domain.model.Perfil result) { profile[0] = result; pending[0]--; complete.run(); }
+                    @Override public void aoFalhar(Throwable error) { failed[0] = true; pending[0]--; complete.run(); }
+                });
+        new ViewModelProvider(this, new com.aula.fixa.adapter.os.QuadroOSViewModelFactory(requireContext(), true))
+                .get(com.aula.fixa.adapter.os.QuadroOSViewModel.class).carregar(new com.aula.fixa.adapter.os.QuadroOSViewModel.Callback() {
+                    @Override public void success(java.util.List<com.aula.fixa.domain.model.os.OrdemServicoQuadro> result) { orders[0] = result; pending[0]--; complete.run(); }
+                    @Override public void failure(Throwable error) { failed[0] = true; pending[0]--; complete.run(); }
+                });
     }
 
     @Override
@@ -1244,13 +1296,14 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 solicitacaoGestorFluxo.refreshList(host.getChildAt(0));
             }
         }
-        if ("manager_board".equals(screen) && !initialResume && quadroOSFluxo != null) {
+        if (("manager_board".equals(screen) || "technician_board".equals(screen)) && !initialResume && quadroOSFluxo != null) {
             quadroOSFluxo.refresh();
         }
-        if ("manager_occurrences".equals(screen) && !initialResume && ocorrenciaGestorFluxo != null) {
+        if (("manager_occurrences".equals(screen) || "technician_occurrences".equals(screen)) && !initialResume && ocorrenciaGestorFluxo != null) {
             ocorrenciaGestorFluxo.refresh();
         }
-        if (!"manager_home".equals(requireArguments().getString("screen", "manager_home")) || getView() == null) {
+        String currentScreen = requireArguments().getString("screen", "manager_home");
+        if ((!"manager_home".equals(currentScreen) && !"technician_home".equals(currentScreen)) || getView() == null) {
             return;
         }
         android.widget.FrameLayout host = (android.widget.FrameLayout) getView();
@@ -1261,7 +1314,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 AppLoading.hide(homeLoading);
             }
             homeLoading = AppLoading.show(requireContext());
-            loadManagerHome(host, content);
+            if ("technician_home".equals(currentScreen)) loadTechnicianHome(host, content);
+            else loadManagerHome(host, content);
         }
     }
 

@@ -54,6 +54,20 @@ public final class ChecklistRepositoryImpl implements ChecklistRepository {
         if (!response.isSuccessful()) throw apiError(response);
         List<ChecklistTemplate> result = new ArrayList<>();
         if (response.body() != null) for (ModeloChecklistResponse item : response.body()) if (item != null) result.add(map(item));
+        try {
+            Response<List<ModeloEquipamentoResponse>> modelResponse = modelosEquipamento.listar().execute();
+            if (modelResponse.isSuccessful() && modelResponse.body() != null) {
+                java.util.Map<Long, String> categories = new java.util.HashMap<>();
+                for (ModeloEquipamentoResponse model : modelResponse.body()) {
+                    if (model != null && model.id != null && model.categoria != null) categories.put(model.id, model.categoria);
+                }
+                for (ChecklistTemplate template : result) if (template.modelos != null) {
+                    for (ChecklistEquipmentModel model : template.modelos) model.categoria = categories.get(model.modeloEquipamentoId);
+                }
+            }
+        } catch (Exception ignored) {
+            // A listagem de checklists continua disponível se a API SQL de modelos estiver temporariamente indisponível.
+        }
         return result;
     }
 
@@ -88,16 +102,6 @@ public final class ChecklistRepositoryImpl implements ChecklistRepository {
         if (!response.isSuccessful()) throw apiError(response);
         List<ChecklistEquipmentModel> result = new ArrayList<>();
         if (response.body() != null) for (ModeloEquipamentoChecklistResponse item : response.body()) if (item != null) result.add(map(item));
-        return result;
-    }
-
-    @Override public List<ChecklistEquipment> equipamentosDoModelo(String checklistId, long modeloEquipamentoId) throws Exception {
-        Response<List<EquipamentoChecklistResponse>> response = inspecoes.listarEquipamentos(checklistId, modeloEquipamentoId).execute();
-        if (response.code() == 404) return new ArrayList<>();
-        if (!response.isSuccessful()) throw apiError(response);
-        List<ChecklistEquipment> result = new ArrayList<>();
-        if (response.body() != null) for (EquipamentoChecklistResponse item : response.body()) if (item != null && item.equipamentoId != null)
-            result.add(new ChecklistEquipment(item.equipamentoId, item.codigo, item.prazoInspecao, item.status));
         return result;
     }
 

@@ -16,6 +16,10 @@ public final class OcorrenciaViewModel extends ViewModel {
     private final Handler main=new Handler(Looper.getMainLooper());
     public OcorrenciaViewModel(GerenciarOcorrencias useCase){this.useCase=useCase;}
     public void listar(Callback<List<OcorrenciaItem>> cb){run(useCase::listar,cb);}
+    public void listarMinhas(Callback<List<OcorrenciaItem>> cb){run(useCase::listarMinhas,cb);}
+    public void cadastrar(Long localId,Long equipmentId,com.aula.fixa.domain.enums.CategoriaProblema category,
+            com.aula.fixa.domain.enums.Prioridade priority,String title,String description,String locationDescription,
+            List<String> photos,Callback<Void> cb){run(()->{useCase.cadastrar(localId,equipmentId,category,priority,title,description,locationDescription,photos);return null;},cb);}
     public void detalhar(long id,Callback<OcorrenciaItem> cb){run(()->useCase.detalhar(id),cb);}
     public void atualizar(long id,Long localId,Long equipmentId,com.aula.fixa.domain.enums.CategoriaProblema category,
             com.aula.fixa.domain.enums.Prioridade priority,List<Long> photosToDelete,List<String> photosToAdd,Callback<Void> cb){

@@ -21,10 +21,22 @@ public final class OcorrenciaRepositoryImpl implements OcorrenciaRepository {
     public OcorrenciaRepositoryImpl(SessionStorage session){api=ApiClient.ocorrencias(session);}
     @Override public List<OcorrenciaItem> listar()throws Exception{
         Response<List<OcorrenciaResponse>> response=api.listar().execute();check(response);
-        if(response.body()==null)return Collections.emptyList();
+        return mapList(response.body());
+    }
+    @Override public List<OcorrenciaItem> listarMinhas()throws Exception{
+        Response<List<OcorrenciaResponse>> response=api.listarMinhas().execute();check(response);
+        return mapList(response.body());
+    }
+    private List<OcorrenciaItem> mapList(List<OcorrenciaResponse> body){
+        if(body==null)return Collections.emptyList();
         List<OcorrenciaItem> result=new ArrayList<>();
-        for(OcorrenciaResponse dto:response.body())if(dto!=null&&dto.id!=null)result.add(map(dto));
+        for(OcorrenciaResponse dto:body)if(dto!=null&&dto.id!=null)result.add(map(dto));
         return result;
+    }
+    @Override public void cadastrar(Long localId, Long equipmentId, com.aula.fixa.domain.enums.CategoriaProblema category,
+            com.aula.fixa.domain.enums.Prioridade priority, String title, String description,
+            String locationDescription, List<String> photoUrls)throws Exception{
+        check(api.cadastrar(new com.aula.fixa.infrastructure.remote.dto.OcorrenciaCriarRequest(localId,equipmentId,category,title,description,locationDescription,priority,photoUrls)).execute());
     }
     @Override public OcorrenciaItem detalhar(long id)throws Exception{
         Response<OcorrenciaResponse> response=api.detalhar(id).execute();check(response);
