@@ -10,6 +10,8 @@ import com.aula.fixa.infrastructure.remote.repository.QuadroOSRepositoryImpl;
 
 public final class QuadroOSViewModelFactory implements ViewModelProvider.Factory {
     private final Context context;
-    public QuadroOSViewModelFactory(Context context){this.context=context.getApplicationContext();}
-    @NonNull @Override public <T extends ViewModel>T create(@NonNull Class<T> c){return (T)new QuadroOSViewModel(new ListarOrdensDoQuadro(new QuadroOSRepositoryImpl(new SessionStorage(context))));}
+    private final boolean minhas;
+    public QuadroOSViewModelFactory(Context context){this(context, false);}
+    public QuadroOSViewModelFactory(Context context, boolean minhas){this.context=context.getApplicationContext();this.minhas=minhas;}
+    @NonNull @Override public <T extends ViewModel>T create(@NonNull Class<T> c){return (T)new QuadroOSViewModel(new ListarOrdensDoQuadro(new QuadroOSRepositoryImpl(new SessionStorage(context), minhas)));}
 }

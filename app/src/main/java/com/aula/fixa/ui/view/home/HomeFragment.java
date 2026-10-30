@@ -9,11 +9,8 @@ import android.widget.ImageView;
 import android.app.Dialog;
 import android.content.Intent;
 
-import androidx.annotation.ColorRes;
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -38,15 +35,11 @@ import com.aula.fixa.ui.adapter.solicitacao.RequestAdapter;
 import com.aula.fixa.ui.view.requests.RequestMenuPopup;
 import com.aula.fixa.ui.view.auth.LoginActivity;
 import com.bumptech.glide.Glide;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.text.Normalizer;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment implements RequestAdapter.Listener {
     private SolicitacaoViewModel solicitacaoViewModel;
@@ -82,11 +75,9 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
         list.setAdapter(adapter);
 
         TouchTargets.expand(view.findViewById(R.id.btnNotifications));
-        TouchTargets.expand(view.findViewById(R.id.btnProfile));
+        TouchTargets.expand(view.findViewById(R.id.ivAvatar));
         view.findViewById(R.id.btnNotifications).setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_home_to_notifications));
-        view.findViewById(R.id.btnProfile).setOnClickListener(v ->
-                Navigation.findNavController(v).navigate(R.id.action_home_to_profile));
         view.findViewById(R.id.ivAvatar).setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_home_to_profile));
         view.findViewById(R.id.btnOpenRequest).setOnClickListener(v ->
@@ -119,10 +110,11 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
             List<ProblemaItem> items = new ArrayList<>();
             int done = 0, approved = 0, pending = 0, refused = 0;
             for (Problema problem : requests[0]) {
-                if (problem.status.equalsIgnoreCase("APROVADO")) approved++;
-                else if (problem.status.equalsIgnoreCase("REPROVADO")) refused++;
-                else if (problem.status.equalsIgnoreCase("CONCLUIDO") || problem.status.equalsIgnoreCase("CONCLUÍDO")) done++;
-                else if (problem.status.equalsIgnoreCase("PENDENTE")) pending++;
+                String status = normalizedStatus(problem.status);
+                if (status.equals("aprovado") || status.equals("oscriada")) approved++;
+                else if (status.equals("reprovado")) refused++;
+                else if (status.equals("concluido")) done++;
+                else if (status.equals("pendente") || status.equals("emanalise")) pending++;
                 items.add(new ProblemaItem(problem.id, problem.titulo, problem.local, problem.dataCriacao,
                         statusOf(problem.status), problem.descricao, problem.categoria, 0));
             }
@@ -136,11 +128,7 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                 view.findViewById(R.id.tvHomeMessage).setVisibility(View.GONE);
                 AppText.setHtml(greeting, R.string.app_home_greeting, profile[0].nomeCompleto);
                 loadProfilePhoto(view.findViewById(R.id.ivAvatar), profile[0].urlFotoPerfil);
-                bindLegend(view, R.id.legendDone, R.string.app_home_status_done, d, R.color.app_status_done_chart);
-                bindLegend(view, R.id.legendApproved, R.string.app_home_status_approved, ap, R.color.app_status_approved);
-                bindLegend(view, R.id.legendAnalysis, R.string.app_home_status_analysis, p, R.color.app_status_analysis);
-                bindLegend(view, R.id.legendRefused, R.string.app_home_status_refused, r, R.color.app_status_refused_chart);
-                bindChart(view.findViewById(R.id.ivChart), d, ap, p, r);
+                bindBigNumbers(view, p, d, ap, r);
                 view.findViewById(R.id.layoutHomeRequestsEmpty).setVisibility(finalItems.isEmpty() ? View.VISIBLE : View.GONE);
                 view.findViewById(R.id.rvHomeRequests).setVisibility(finalItems.isEmpty() ? View.GONE : View.VISIBLE);
                 ((RequestAdapter) ((RecyclerView) view.findViewById(R.id.rvHomeRequests)).getAdapter()).submitList(finalItems);
@@ -181,55 +169,39 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                 .into(imageView);
     }
 
-    private void bindChart(PieChart chart, int done, int approved, int analysis, int refused) {
-        boolean hasRequests = done + approved + analysis + refused > 0;
-        PieDataSet dataSet = new PieDataSet(Arrays.asList(
-                new PieEntry(hasRequests ? done : 1), new PieEntry(approved),
-                new PieEntry(analysis), new PieEntry(refused)), "");
-        dataSet.setColors(hasRequests ? Arrays.asList(
-                ContextCompat.getColor(requireContext(), R.color.app_status_done_chart),
-                ContextCompat.getColor(requireContext(), R.color.app_status_approved),
-                ContextCompat.getColor(requireContext(), R.color.app_status_analysis),
-                ContextCompat.getColor(requireContext(), R.color.app_status_refused_chart))
-                : java.util.Collections.singletonList(ContextCompat.getColor(requireContext(), R.color.app_chart_empty)));
-        dataSet.setDrawValues(false);
-        chart.setData(new PieData(dataSet));
-        chart.setUsePercentValues(false);
-        chart.setDrawEntryLabels(false);
-        chart.setDrawHoleEnabled(true);
-        chart.setHoleColor(android.graphics.Color.TRANSPARENT);
-        chart.setHoleRadius(66f);
-        chart.setTransparentCircleRadius(68f);
-        chart.getDescription().setEnabled(false);
-        chart.getLegend().setEnabled(false);
-        chart.setRotationEnabled(false);
-        chart.setHighlightPerTapEnabled(false);
-        chart.invalidate();
+    private void bindBigNumbers(View root, int analysis, int done, int approved, int refused) {
+        root.findViewById(R.id.tvStatusTitle).setVisibility(View.GONE);
+        root.findViewById(R.id.layoutLegend).setVisibility(View.GONE);
+        root.findViewById(R.id.ivChart).setVisibility(View.GONE);
+        root.findViewById(R.id.layoutBigNumbers).setVisibility(View.VISIBLE);
+        ((TextView) root.findViewById(R.id.bigNumberAnalysis)).setText(String.valueOf(analysis));
+        ((TextView) root.findViewById(R.id.bigNumberDone)).setText(String.valueOf(done));
+        ((TextView) root.findViewById(R.id.bigNumberApproved)).setText(String.valueOf(approved));
+        ((TextView) root.findViewById(R.id.bigNumberRefused)).setText(String.valueOf(refused));
     }
 
     private StatusProblema statusOf(String value) {
-        if (value.equalsIgnoreCase("APROVADO")) {
+        String status = normalizedStatus(value);
+        if (status.equals("aprovado")) {
             return StatusProblema.APROVADO;
         }
-        if (value.equalsIgnoreCase("REPROVADO")) {
+        if (status.equals("reprovado")) {
             return StatusProblema.REPROVADO;
         }
-        if (value.equalsIgnoreCase("CONCLUIDO") || value.equalsIgnoreCase("CONCLUÍDO")) {
+        if (status.equals("concluido")) {
             return StatusProblema.CONCLUIDO;
         }
-        if (value.equalsIgnoreCase("OS_CRIADA")) {
+        if (status.equals("oscriada")) {
             return StatusProblema.OS_CRIADA;
         }
         return StatusProblema.PENDENTE;
     }
 
-    private void bindLegend(View root, @IdRes int rowId, int labelRes, int count, @ColorRes int color) {
-        View row = root.findViewById(rowId);
-        ((TextView) row.findViewById(R.id.tvLegendLabel)).setText(labelRes);
-        ((TextView) row.findViewById(R.id.tvLegendValue))
-                .setText(getResources().getQuantityString(R.plurals.app_home_requests_count, count, count));
-        row.findViewById(R.id.viewLegendDot)
-                .setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), color));
+    private String normalizedStatus(String value) {
+        if (value == null) return "";
+        String decomposed = Normalizer.normalize(value, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "");
+        return decomposed.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]", "");
     }
 
     @Override

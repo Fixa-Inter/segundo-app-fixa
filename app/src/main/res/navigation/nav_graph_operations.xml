@@ -203,11 +203,13 @@
     <fragment android:id="@+id/ops_technician_occurrence_review" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_review_002604">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_occurrence_review" />
     </fragment>
-    <fragment android:id="@+id/ops_technician_event_details" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_event_details_a1955d">
+    <fragment android:id="@+id/ops_technician_event_details" android:name="com.aula.fixa.ui.view.events.EventInfoFragment" android:label="@string/app_event_info_title">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_event_details" />
+        <argument android:name="eventId" app:argType="long" android:defaultValue="0L" />
     </fragment>
-    <fragment android:id="@+id/ops_technician_events" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_events_862417">
+    <fragment android:id="@+id/ops_technician_events" android:name="com.aula.fixa.ui.view.events.EventsFragment" android:label="@string/app_nav_events" tools:layout="@layout/fragment_events">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_events" />
+        <action android:id="@+id/action_ops_technician_events_to_event_details" app:destination="@id/ops_technician_event_details" />
     </fragment>
     <fragment android:id="@+id/ops_technician_management" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_management_288965">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_management" />
@@ -215,14 +217,20 @@
     <fragment android:id="@+id/ops_technician_home" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_home_4ea140">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_home" />
     </fragment>
-    <fragment android:id="@+id/ops_technician_edit_profile" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_edit_profile_6ee2e4">
+    <fragment android:id="@+id/ops_technician_edit_profile" android:name="com.aula.fixa.ui.view.profile.EditProfileFragment" android:label="@string/ops_text_edit_profile_6ee2e4">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_edit_profile" />
     </fragment>
-    <fragment android:id="@+id/ops_technician_my_profile" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_my_profile_d83acc">
+    <fragment android:id="@+id/ops_technician_my_profile" android:name="com.aula.fixa.ui.view.profile.MyProfileFragment" android:label="@string/ops_text_my_profile_d83acc">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_my_profile" />
+        <action android:id="@+id/action_my_profile_to_edit" app:destination="@id/ops_technician_edit_profile" />
     </fragment>
-    <fragment android:id="@+id/ops_technician_profile" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_profile_1900ea">
+    <fragment android:id="@+id/ops_technician_profile" android:name="com.aula.fixa.ui.view.profile.ProfileFragment" android:label="@string/ops_text_profile_1900ea">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_profile" />
+        <action android:id="@+id/action_profile_to_my_profile" app:destination="@id/ops_technician_my_profile" />
+        <action android:id="@+id/action_profile_to_edit" app:destination="@id/ops_technician_edit_profile" />
+        <action android:id="@+id/action_profile_to_settings" app:destination="@id/ops_technician_settings" />
+        <action android:id="@+id/action_profile_to_faq" app:destination="@id/ops_technician_faq" />
+        <action android:id="@+id/action_profile_to_about" app:destination="@id/ops_technician_about" />
     </fragment>
     <fragment android:id="@+id/ops_technician_settings" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_settings_cde0fb">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_settings" />

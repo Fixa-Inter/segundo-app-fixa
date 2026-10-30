@@ -81,6 +81,8 @@
             android:minHeight="0dp"
             android:text="@string/app_profile_edit"
             android:textAppearance="@style/TextAppearance.FIXA.App.Regular"
+            android:fontFamily="@font/poppins_bold"
+            android:textFontWeight="700"
             android:textColor="@color/app_on_primary"
             android:textSize="@dimen/app_profile_edit_text_size"
             app:backgroundTint="@color/app_primary_dark"

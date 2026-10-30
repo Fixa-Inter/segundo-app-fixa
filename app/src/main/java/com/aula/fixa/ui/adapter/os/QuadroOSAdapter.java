@@ -16,8 +16,9 @@ import java.util.List;
 
 public final class QuadroOSAdapter extends RecyclerView.Adapter<QuadroOSAdapter.Holder> {
     public interface Listener { void onClick(OrdemServicoQuadro os); void onMenuClick(View anchor, OrdemServicoQuadro os); }
-    private final List<OrdemServicoQuadro> items=new ArrayList<>(); private final Listener listener;
-    public QuadroOSAdapter(Listener listener){this.listener=listener;}
+    private final List<OrdemServicoQuadro> items=new ArrayList<>(); private final Listener listener; private final boolean canManage;
+    public QuadroOSAdapter(Listener listener){this(listener,true);}
+    public QuadroOSAdapter(Listener listener,boolean canManage){this.listener=listener;this.canManage=canManage;}
     public void submit(List<OrdemServicoQuadro> data){items.clear();if(data!=null)items.addAll(data);notifyDataSetChanged();}
     @NonNull @Override public Holder onCreateViewHolder(@NonNull ViewGroup p,int t){return new Holder(LayoutInflater.from(p.getContext()).inflate(R.layout.item_ops_manager_board_order,p,false));}
     @Override public void onBindViewHolder(@NonNull Holder h,int position){
@@ -27,13 +28,16 @@ public final class QuadroOSAdapter extends RecyclerView.Adapter<QuadroOSAdapter.
         int color=priority.equals("P0")?ContextCompat.getColor(h.itemView.getContext(),R.color.ops_color_ff96031a):priority.equals("P1")?Color.rgb(243,190,47):Color.rgb(54,119,214);
         GradientDrawable bg=(GradientDrawable)ContextCompat.getDrawable(h.itemView.getContext(),R.drawable.bg_ops_39dc043443).mutate();
         bg.setColor(color);h.priority.setBackground(bg);h.priority.setTextColor(Color.WHITE);
+        GradientDrawable stripeBg=(GradientDrawable)ContextCompat.getDrawable(h.itemView.getContext(),R.drawable.bg_ops_9a48e661a7).mutate();
+        stripeBg.setColor(color);h.priorityStripe.setBackground(stripeBg);
         String name=os.nomeUsuario==null||os.nomeUsuario.trim().isEmpty()?"Técnico não atribuído":"Atribuído para "+os.nomeUsuario+" (Técnico)";
         h.technician.setText(name); h.itemView.setOnClickListener(v->{if(listener!=null)listener.onClick(os);});
-        h.menu.setOnClickListener(v->{if(listener!=null)listener.onMenuClick(v,os);});
+        h.menu.setVisibility(canManage?View.VISIBLE:View.GONE);
+        if(canManage)h.menu.setOnClickListener(v->{if(listener!=null)listener.onMenuClick(v,os);});
     }
     private String join(String a,String b){if(a==null||a.isEmpty())return b==null?"":b;if(b==null||b.isEmpty())return a;return a+" • "+b;}
     private String priorityCode(String p){if(p==null)return "P2";String s=p.toUpperCase(java.util.Locale.ROOT);if(s.contains("ALTA")||s.equals("P0"))return "P0";if(s.contains("MEDIA")||s.contains("MÉDIA")||s.equals("P1"))return "P1";return "P2";}
     private String formatDate(String value){if(value==null||value.isEmpty())return "";try{return java.time.LocalDate.parse(value).format(java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy",java.util.Locale.ENGLISH));}catch(Exception ignored){return value;}}
     @Override public int getItemCount(){return items.size();}
-    static final class Holder extends RecyclerView.ViewHolder{final TextView title,category,date,priority,technician;final View menu;Holder(View v){super(v);title=v.findViewById(R.id.orderTitle);category=v.findViewById(R.id.orderCategory);date=v.findViewById(R.id.orderDueDate);priority=v.findViewById(R.id.orderPriority);technician=v.findViewById(R.id.orderTechnician);menu=v.findViewById(R.id.orderMenu);}}
+    static final class Holder extends RecyclerView.ViewHolder{final TextView title,category,date,priority,technician;final View menu,priorityStripe;Holder(View v){super(v);title=v.findViewById(R.id.orderTitle);category=v.findViewById(R.id.orderCategory);date=v.findViewById(R.id.orderDueDate);priority=v.findViewById(R.id.orderPriority);technician=v.findViewById(R.id.orderTechnician);menu=v.findViewById(R.id.orderMenu);priorityStripe=v.findViewById(R.id.orderPriorityStripe);}}
 }

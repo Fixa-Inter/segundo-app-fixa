@@ -44,6 +44,7 @@ public final class OcorrenciaGestorFluxo {
     private final List<OcorrenciaFoto> editPhotos=new ArrayList<>();
     private final List<Long> deletedPhotoIds=new ArrayList<>();
     private final List<String> addedPhotoUrls=new ArrayList<>();
+    private final List<String> creationPhotoUrls=new ArrayList<>();
     private List<com.aula.fixa.domain.model.OpcaoCadastro> localOptions=new ArrayList<>(),equipmentOptions=new ArrayList<>();
     private int pendingPhotoUploads;
     public OcorrenciaGestorFluxo(OperationsScreenFragment host,OperationsActivity activity){this.host=host;this.activity=activity;}
@@ -54,7 +55,7 @@ public final class OcorrenciaGestorFluxo {
         list=root.findViewById(R.id.managerOccurrencesList);list.setLayoutManager(new LinearLayoutManager(host.requireContext()));
         adapter=new OcorrenciaListAdapter(new OcorrenciaListAdapter.Listener(){public void onClick(OcorrenciaItem item){activity.openOccurrenceDetails(item.id,item.titulo);}public void onMenuClick(View anchor,OcorrenciaItem item){showMenu(anchor,item);}});list.setAdapter(adapter);
         View filter=root.findViewById(R.id.managerOccurrencesFilter);if(filter!=null)filter.setOnClickListener(v->showFilters());
-        View fab=root.findViewById(R.id.managerOccurrencesFab);if(fab!=null)fab.setOnClickListener(v->{activity.model.clearDraft("manager_new_occurrence_form");activity.openName("occurrence_intro");});
+        View fab=root.findViewById(R.id.managerOccurrencesFab);if(fab!=null)fab.setOnClickListener(v->{activity.model.clearDraft(activity.role()+"_new_occurrence_form");activity.openName("occurrence_intro");});
         load();
     }
     public void refresh(){load();}
@@ -62,7 +63,8 @@ public final class OcorrenciaGestorFluxo {
     /** Bind the manager's four-step occurrence creation form. */
     public void bindCreateStep(View root, String screen) {
         content = root;
-        String scope = "manager_new_occurrence_form";
+        String scope = activity.role()+"_new_occurrence_form";
+        screen = screen.replaceFirst("^technician_", "manager_");
         if ("manager_occurrence_intro".equals(screen)) {
             EditText title = root.findViewById(R.id.occurrenceCreateTitle);
             EditText description = root.findViewById(R.id.occurrenceCreateDescription);
@@ -154,7 +156,8 @@ public final class OcorrenciaGestorFluxo {
         photosCount.setText(selectedPhotos.isEmpty() ? "Nenhuma foto adicionada" : host.getString(R.string.ops_photos_added, selectedPhotos.size()));
         root.findViewById(R.id.occurrenceCreateBack).setOnClickListener(v -> activity.back());
         root.findViewById(R.id.occurrenceCreateAddPhotos).setOnClickListener(v -> activity.photos());
-        root.findViewById(R.id.occurrenceCreateFinish).setOnClickListener(v -> activity.openName("occurrence_success"));
+        fotoModel=new ViewModelProvider(host,new com.aula.fixa.adapter.foto.FotoViewModelFactory(host.requireContext())).get(com.aula.fixa.adapter.foto.FotoViewModel.class);
+        root.findViewById(R.id.occurrenceCreateFinish).setOnClickListener(v -> submitCreation(scope, selectedPhotos, photosCount));
     }
 
     private String value(String scope, String field) {
@@ -183,10 +186,42 @@ public final class OcorrenciaGestorFluxo {
         } catch (Exception ignored) { }
         return photos;
     }
-    private void load(){if(model==null||content==null)return;content.setVisibility(View.INVISIBLE);AppLoading.hide(loading);loading=AppLoading.show(host.requireContext());model.listar(new OcorrenciaViewModel.Callback<List<OcorrenciaItem>>(){
+    private void submitCreation(String scope,List<OcorrenciaFoto> selected,android.widget.TextView countLabel){
+        if(selected==null||selected.isEmpty()){Toast.makeText(host.requireContext(),"Adicione ao menos uma foto.",Toast.LENGTH_SHORT).show();return;}
+        if(pendingPhotoUploads>0)return;
+        String title=value(scope,"title"),description=value(scope,"description"),locationDescription=value(scope,"locationDescription");
+        try{
+            Long localId=Long.valueOf(value(scope,"localId")),equipmentId=Long.valueOf(value(scope,"equipmentId"));
+            com.aula.fixa.domain.enums.CategoriaProblema category=com.aula.fixa.domain.enums.CategoriaProblema.valueOf(value(scope,"category"));
+            com.aula.fixa.domain.enums.Prioridade priority=com.aula.fixa.domain.enums.Prioridade.valueOf(value(scope,"priority"));
+            if(title.trim().isEmpty()||description.trim().isEmpty()||locationDescription.trim().isEmpty())throw new IllegalArgumentException();
+            creationPhotoUrls.clear();pendingPhotoUploads=selected.size();
+            if(countLabel!=null)countLabel.setText("Enviando fotos… 0/"+selected.size());
+            uploadCreationPhoto(scope,selected,0,localId,equipmentId,category,priority,title,description,locationDescription,countLabel);
+        }catch(Exception error){Toast.makeText(host.requireContext(),R.string.ops_occurrence_select_all_fields,Toast.LENGTH_SHORT).show();}
+    }
+    private void uploadCreationPhoto(String scope,List<OcorrenciaFoto> photos,int index,Long localId,Long equipmentId,
+            com.aula.fixa.domain.enums.CategoriaProblema category,com.aula.fixa.domain.enums.Prioridade priority,
+            String title,String description,String locationDescription,android.widget.TextView countLabel){
+        if(index>=photos.size()){
+            Dialog wait=AppLoading.show(host.requireContext());
+            model.cadastrar(localId,equipmentId,category,priority,title,description,locationDescription,new ArrayList<>(creationPhotoUrls),new OcorrenciaViewModel.Callback<Void>(){
+                public void success(Void ignored){AppLoading.hide(wait);activity.model.clearDraft(scope);android.widget.Toast.makeText(host.requireContext(),"Ocorrência registrada.",Toast.LENGTH_SHORT).show();activity.openName("occurrence_success");}
+                public void failure(Throwable error){AppLoading.hide(wait);showError(error);}
+            });
+            return;
+        }
+        if(fotoModel==null)fotoModel=new ViewModelProvider(host,new com.aula.fixa.adapter.foto.FotoViewModelFactory(host.requireContext())).get(com.aula.fixa.adapter.foto.FotoViewModel.class);
+        fotoModel.enviarSolicitacao(android.net.Uri.parse(photos.get(index).url),new com.aula.fixa.adapter.foto.FotoViewModel.Callback(){
+            public void aoSucesso(String url,String publicId){if(!host.isAdded())return;creationPhotoUrls.add(url);pendingPhotoUploads--;if(countLabel!=null)countLabel.setText("Enviando fotos… "+creationPhotoUrls.size()+"/"+photos.size());uploadCreationPhoto(scope,photos,index+1,localId,equipmentId,category,priority,title,description,locationDescription,countLabel);}
+            public void aoReceberTokenExclusao(String token){}
+            public void aoFalhar(String message){if(!host.isAdded())return;pendingPhotoUploads=0;Toast.makeText(host.requireContext(),message,Toast.LENGTH_LONG).show();if(countLabel!=null)countLabel.setText("Falha no envio. Tente novamente.");}
+        });
+    }
+    private void load(){if(model==null||content==null)return;content.setVisibility(View.INVISIBLE);AppLoading.hide(loading);loading=AppLoading.show(host.requireContext());OcorrenciaViewModel.Callback<List<OcorrenciaItem>> callback=new OcorrenciaViewModel.Callback<List<OcorrenciaItem>>(){
         @Override public void success(List<OcorrenciaItem> values){if(!current())return;all.clear();if(values!=null)all.addAll(values);renderList();finish();}
         @Override public void failure(Throwable error){if(!current())return;all.clear();renderList();finish();Toast.makeText(host.requireContext(),AutenticacaoViewModel.messageFrom(error),Toast.LENGTH_LONG).show();}
-    });}
+    };if("technician".equals(activity.role()))model.listarMinhas(callback);else model.listar(callback);}
     private void renderList(){if(adapter==null)return;String q=norm(query);List<OcorrenciaItem> visible=new ArrayList<>();for(OcorrenciaItem item:all){if(!matchesQuery(item,q)||!matches(item.autor,author)||!matches(item.localUnidade,location)||!matches(item.categoriaEquipamento,equipment)||!matches(item.categoriaProblema,category)||!matches(item.prioridade,priority)||!matchesPeriod(item.dataCriacao,period))continue;visible.add(item);}adapter.submit(visible);}
     private boolean matchesQuery(OcorrenciaItem i,String q){return q.isEmpty()||norm(i.titulo).contains(q);}
     private boolean matches(String value,String selected){return selected==null||selected.trim().isEmpty()||norm(value).equals(norm(selected));}

@@ -24,22 +24,31 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.aula.fixa.adapter.operations.OperationsViewModel;
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.operations.ScreenCatalog;
+import com.aula.fixa.infrastructure.auth.session.SessionStorage;
+import com.aula.fixa.infrastructure.remote.repository.ExportacaoRepository;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Host de Gestor/Técnico; usa a mesma arquitetura de Fragments do Solicitante.
  */
 public class OperationsActivity extends AppCompatActivity {
     public static final String EXTRA_ROLE = "operations_role";
-    private final int[] tabs = {R.id.opsNavHome, R.id.opsNavManagement, R.id.opsNavTeam, R.id.opsNavEquipment, R.id.opsNavEvents};
-    private final int[] icons = {R.id.opsNavHomeIcon, R.id.opsNavManagementIcon, R.id.opsNavTeamIcon, R.id.opsNavEquipmentIcon, R.id.opsNavEventsIcon};
-    private final int[] circles = {R.id.opsNavHomeCircle, R.id.opsNavManagementCircle, R.id.opsNavTeamCircle, R.id.opsNavEquipmentCircle, R.id.opsNavEventsCircle};
-    private final int[] indicators = {R.id.opsNavHomeIndicator, R.id.opsNavManagementIndicator, R.id.opsNavTeamIndicator, R.id.opsNavEquipmentIndicator, R.id.opsNavEventsIndicator};
+    private int[] tabs;
+    private int[] icons;
+    private int[] circles;
+    private int[] indicators;
     private NavController navigation;
     private View bar;
     private String role;
+    private String exportType;
+    private List<Map<String, String>> exportRows;
+    private final ExecutorService exportExecutor = Executors.newSingleThreadExecutor();
     public OperationsViewModel model;
     private final ActivityResultLauncher<String[]> photoPicker = registerForActivityResult(
             new ActivityResultContracts.OpenMultipleDocuments(), uris -> {
@@ -53,22 +62,24 @@ public class OperationsActivity extends AppCompatActivity {
                     selected.put(uri.toString());
                 }
 
-                boolean managerOccurrenceCreation = role.equals("manager") && navigation != null
+                boolean occurrenceCreation = navigation != null
                         && navigation.getCurrentDestination() != null
-                        && navigation.getCurrentDestination().getId() == R.id.ops_manager_occurrence_result
+                        && (navigation.getCurrentDestination().getId() == R.id.ops_manager_occurrence_result
+                        || navigation.getCurrentDestination().getId() == R.id.ops_technician_occurrence_result)
                         && navigation.getCurrentBackStackEntry() != null
                         && navigation.getCurrentBackStackEntry().getArguments() != null
                         && navigation.getCurrentBackStackEntry().getArguments().getLong("orderId", 0) == 0;
-                if (managerOccurrenceCreation) {
+                if (occurrenceCreation) {
                     org.json.JSONArray current;
-                    try { current = new org.json.JSONArray(model.field("manager_new_occurrence_form", "photos")); }
+                    String scope = role + "_new_occurrence_form";
+                    try { current = new org.json.JSONArray(model.field(scope, "photos")); }
                     catch (Exception ignored) { current = new org.json.JSONArray(); }
                     int added = 0;
                     for (android.net.Uri uri : uris) {
                         if (current.length() >= 3) break;
                         current.put(uri.toString()); added++;
                     }
-                    model.field("manager_new_occurrence_form", "photos", current.toString());
+                    model.field(scope, "photos", current.toString());
                     if (added < uris.size()) Toast.makeText(this, "É possível adicionar no máximo 3 fotos.", Toast.LENGTH_LONG).show();
                     else Toast.makeText(this, getString(R.string.ops_photos_added, added), Toast.LENGTH_SHORT).show();
                 } else {
@@ -88,7 +99,7 @@ public class OperationsActivity extends AppCompatActivity {
                         throw new java.io.IOException();
                     }
 
-                    OperationsExport.write(this, model, stream);
+                    OperationsExport.write(exportType, exportRows, stream);
                     Toast.makeText(this, R.string.ops_export_done, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(this, R.string.ops_export_error, Toast.LENGTH_LONG).show();
@@ -105,6 +116,7 @@ public class OperationsActivity extends AppCompatActivity {
         getLifecycle().addObserver(new com.aula.fixa.ui.config.ConnectivityWatcher(this));
 
         setContentView(R.layout.activity_operations);
+        configureNavigationItems();
         model = new ViewModelProvider(this).get(OperationsViewModel.class);
         bar = findViewById(R.id.operationsBar);
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.operationsHost);
@@ -125,10 +137,6 @@ public class OperationsActivity extends AppCompatActivity {
         for (int i = 0; i < tabs.length; i++) {
             final int index = i;
             findViewById(tabs[i]).setOnClickListener(v -> openTab(index));
-        }
-
-        if (role.equals("technician")) {
-            findViewById(tabs[2]).setContentDescription(getString(R.string.ops_nav_profile));
         }
 
         navigation.addOnDestinationChangedListener((nav, dest, args) -> {
@@ -167,8 +175,13 @@ public class OperationsActivity extends AppCompatActivity {
                 || id == R.id.ops_new_request_photo
                 || id == R.id.ops_new_request_confirm
                 || id == R.id.ops_new_request_success
+                || (role.equals("manager") && (id == R.id.ops_manager_checklist_intro
+                || id == R.id.ops_manager_checklist_information
+                || id == R.id.ops_manager_checklist_fields
+                || id == R.id.ops_manager_checklist_models))
                 || (role.equals("manager") && (id == R.id.ops_manager_request_details
-                || id == R.id.ops_manager_occurrence_result));
+                || id == R.id.ops_manager_occurrence_result))
+                || (role.equals("technician") && id == R.id.ops_technician_occurrence_result);
     }
 
     public void photos() {
@@ -176,7 +189,40 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void export() {
-        exportDocument.launch("FIXA_exportacao.xlsx");
+        String exportKey = role + "_export:export:";
+        String[] types = {ExportacaoRepository.SOLICITACOES, ExportacaoRepository.ORDENS_SERVICO,
+                ExportacaoRepository.OCORRENCIAS, "Checklists"};
+        exportType = null;
+        for (String type : types) {
+            if (model.selected(exportKey + type)) {
+                exportType = type;
+                break;
+            }
+        }
+        if (exportType == null) {
+            Toast.makeText(this, "Selecione o tipo de dados para exportar.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if ("Checklists".equals(exportType)) {
+            Toast.makeText(this, "A exportação de checklists ainda não está disponível.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        final String selectedType = exportType;
+        Toast.makeText(this, "Buscando dados para exportação…", Toast.LENGTH_SHORT).show();
+        exportExecutor.execute(() -> {
+            try {
+                exportRows = new ExportacaoRepository(new SessionStorage(this)).listar(selectedType);
+                runOnUiThread(() -> exportDocument.launch(fileName(selectedType)));
+            } catch (Exception exception) {
+                runOnUiThread(() -> Toast.makeText(this, R.string.ops_export_error, Toast.LENGTH_LONG).show());
+            }
+        });
+    }
+
+    private String fileName(String type) {
+        String base = type.equals(ExportacaoRepository.SOLICITACOES) ? "solicitacoes" :
+                type.equals(ExportacaoRepository.ORDENS_SERVICO) ? "ordens_de_servico" : "ocorrencias";
+        return "FIXA_" + base + ".xlsx";
     }
 
     public void refresh() {
@@ -185,6 +231,12 @@ public class OperationsActivity extends AppCompatActivity {
         if (fragment instanceof OperationsScreenFragment) {
             ((OperationsScreenFragment) fragment).render();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        exportExecutor.shutdownNow();
+        super.onDestroy();
     }
 
     private int destination(String key) {
@@ -237,14 +289,14 @@ public class OperationsActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putLong("orderId", id);
         args.putString("orderTitle", title == null ? "" : title);
-        navigation.navigate(R.id.ops_manager_execution_pending, args);
+        navigation.navigate(destination(role + "_execution_pending"), args);
     }
 
     public void openOccurrenceDetails(long id, String title) {
         Bundle args = new Bundle();
         args.putLong("occurrenceId", id);
         args.putString("occurrenceTitle", title == null ? "" : title);
-        navigation.navigate(R.id.ops_manager_occurrence_details, args);
+        navigation.navigate(destination(role + "_occurrence_details"), args);
     }
 
     public void openOccurrenceEdit(com.aula.fixa.domain.model.ocorrencia.OcorrenciaItem item) {
@@ -274,13 +326,13 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void finishOccurrenceEdit() {
-        if (!navigation.popBackStack(R.id.ops_manager_occurrences, false)) back();
+        if (!navigation.popBackStack(destination(role + "_occurrences"), false)) back();
     }
 
     public void openOrderCompletion(long id) {
         Bundle args = new Bundle();
         args.putLong("orderId", id);
-        navigation.navigate(R.id.ops_manager_occurrence_result, args);
+        navigation.navigate(destination(role + "_occurrence_result"), args);
     }
 
     public void openRequestCreation() {
@@ -333,7 +385,9 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     private void openTab(int index) {
-        String[] targets = {"home", "management", role.equals("manager") ? "team" : "profile", role.equals("manager") ? "equipment" : "checklists", "events"};
+        String[] targets = role.equals("manager")
+                ? new String[]{"home", "management", "team", "equipment", "events"}
+                : new String[]{"home", "management", "checklists", "events", "chatbot"};
         String target = role + "_" + targets[index];
         navigation.navigate(destination(target), null, new NavOptions.Builder().setLaunchSingleTop(true)
                 .setPopUpTo(destination(role + "_home"), false).build());
@@ -345,6 +399,23 @@ public class OperationsActivity extends AppCompatActivity {
         int active = spec.optInt("navActive");
         JSONArray assets = spec.optJSONArray("navAssets");
         JSONArray slots = spec.optJSONArray("navSlots");
+        if (role.equals("technician")) {
+            if (key.equals("technician_chatbot")) active = 4;
+            else if (active >= 3) active--;
+            JSONArray chatbotAssets = ScreenCatalog.get(this).screen("technician_chatbot").optJSONArray("navAssets");
+            JSONArray chatbotSlots = ScreenCatalog.get(this).screen("technician_chatbot").optJSONArray("navSlots");
+            JSONArray mappedAssets = new JSONArray();
+            JSONArray mappedSlots = new JSONArray();
+            int[] sourcePositions = {0, 1, 3, 4};
+            for (int source : sourcePositions) {
+                mappedAssets.put(assets == null ? "" : assets.optString(source));
+                mappedSlots.put(slots == null ? new JSONObject() : slots.optJSONObject(source));
+            }
+            mappedAssets.put(chatbotAssets == null ? "" : chatbotAssets.optString(2));
+            mappedSlots.put(chatbotSlots == null ? new JSONObject() : chatbotSlots.optJSONObject(2));
+            assets = mappedAssets;
+            slots = mappedSlots;
+        }
         for (int i = 0; i < tabs.length; i++) {
             findViewById(tabs[i]).setSelected(i == active);
             findViewById(circles[i]).setVisibility(i == active ? View.VISIBLE : View.INVISIBLE);
@@ -365,6 +436,27 @@ public class OperationsActivity extends AppCompatActivity {
                     }
                 }
             }
+        }
+    }
+
+    private void configureNavigationItems() {
+        View team = findViewById(R.id.opsNavTeam);
+        View chat = findViewById(R.id.opsNavChat);
+        if (role.equals("technician")) {
+            team.setVisibility(View.GONE);
+            chat.setVisibility(View.VISIBLE);
+            findViewById(R.id.opsNavEquipment).setContentDescription(getString(R.string.ops_nav_checklists));
+            tabs = new int[]{R.id.opsNavHome, R.id.opsNavManagement, R.id.opsNavEquipment, R.id.opsNavEvents, R.id.opsNavChat};
+            icons = new int[]{R.id.opsNavHomeIcon, R.id.opsNavManagementIcon, R.id.opsNavEquipmentIcon, R.id.opsNavEventsIcon, R.id.opsNavChatIcon};
+            circles = new int[]{R.id.opsNavHomeCircle, R.id.opsNavManagementCircle, R.id.opsNavEquipmentCircle, R.id.opsNavEventsCircle, R.id.opsNavChatCircle};
+            indicators = new int[]{R.id.opsNavHomeIndicator, R.id.opsNavManagementIndicator, R.id.opsNavEquipmentIndicator, R.id.opsNavEventsIndicator, R.id.opsNavChatIndicator};
+        } else {
+            chat.setVisibility(View.GONE);
+            team.setVisibility(View.VISIBLE);
+            tabs = new int[]{R.id.opsNavHome, R.id.opsNavManagement, R.id.opsNavTeam, R.id.opsNavEquipment, R.id.opsNavEvents};
+            icons = new int[]{R.id.opsNavHomeIcon, R.id.opsNavManagementIcon, R.id.opsNavTeamIcon, R.id.opsNavEquipmentIcon, R.id.opsNavEventsIcon};
+            circles = new int[]{R.id.opsNavHomeCircle, R.id.opsNavManagementCircle, R.id.opsNavTeamCircle, R.id.opsNavEquipmentCircle, R.id.opsNavEventsCircle};
+            indicators = new int[]{R.id.opsNavHomeIndicator, R.id.opsNavManagementIndicator, R.id.opsNavTeamIndicator, R.id.opsNavEquipmentIndicator, R.id.opsNavEventsIndicator};
         }
     }
 }

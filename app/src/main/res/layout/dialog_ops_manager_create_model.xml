@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:7835 • manager / create_model. Componentes nativos; dimensões em values e sw400dp. -->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_b18732bb6c" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_435" android:clipChildren="false" android:clipToPadding="false">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="500dp" android:clipChildren="false" android:clipToPadding="false">
         <TextView
             android:id="@+id/ops_5717_7836"
             android:layout_width="@dimen/ops_dp_165_03"
@@ -39,7 +39,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ops_5717_7841"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ops_dp_35_0"
+            android:layout_height="36dp"
             android:layout_marginStart="@dimen/ops_dp_35_0"
             android:layout_marginTop="@dimen/ops_dp_7_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +60,7 @@
             android:paddingTop="@dimen/ops_dp_0"
             android:paddingBottom="@dimen/ops_dp_0"
             android:hint="@string/ops_text_coloque_o_nome_do_modelo_950172"
+            android:textSize="13sp"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
             android:tag="field:Nome" />
@@ -80,7 +81,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7844" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_7_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7847" android:background="@drawable/bg_ops_70aaab1e67">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7844" android:layout_width="0dp" android:layout_height="36dp" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_7_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7847" android:background="@drawable/bg_ops_70aaab1e67">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ops_5717_7844_input"
                 android:background="@null"
@@ -102,6 +103,7 @@
                 android:tag="field:Categoria"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:textSize="13sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +139,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ops_5717_7848"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ops_dp_35_0"
+            android:layout_height="36dp"
             android:layout_marginStart="@dimen/ops_dp_35_0"
             android:layout_marginTop="@dimen/ops_dp_7_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -158,10 +160,40 @@
             android:paddingTop="@dimen/ops_dp_0"
             android:paddingBottom="@dimen/ops_dp_0"
             android:hint="@string/ops_text_coloque_a_marca_do_modelo_6ebaa4"
+            android:textSize="13sp"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
             android:tag="field:Marca" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7838" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_75_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7850" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
+        <TextView
+            android:id="@+id/manager_model_description_label_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_35"
+            android:layout_marginTop="14dp"
+            android:text="Descrição"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.a4a8627d1d"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_7848" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/manager_model_description_create"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/ops_dp_35"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="@dimen/ops_dp_35"
+            android:background="@drawable/bg_ops_70aaab1e67"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="top|start"
+            android:hint="Descrição do modelo"
+            android:inputType="textCapSentences|textMultiLine"
+            android:padding="10dp"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/manager_model_description_label_create" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7838" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="24dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/manager_model_description_create" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_7839"
                 android:layout_width="@dimen/ops_dp_62"
@@ -185,9 +217,9 @@
             android:layout_width="@dimen/ops_dp_140_0"
             android:layout_height="@dimen/ops_dp_40_0"
             android:layout_marginStart="@dimen/ops_dp_185_0"
-            android:layout_marginTop="@dimen/ops_dp_355_0"
+            android:layout_marginTop="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_7838"
             android:background="@drawable/bg_ops_eaf7bf3250"
             android:clipChildren="false"
             android:clipToPadding="false"

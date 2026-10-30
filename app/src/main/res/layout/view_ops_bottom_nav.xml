@@ -25,4 +25,9 @@
 <ImageView android:id="@+id/opsNavEventsCircle" android:layout_width="@dimen/ops_nav_circle" android:layout_height="@dimen/ops_nav_circle" android:layout_gravity="center" android:src="@drawable/figma_a3d27" android:importantForAccessibility="no" android:visibility="invisible"/>
 <ImageView android:id="@+id/opsNavEventsIcon" android:layout_width="@dimen/ops_nav_icon" android:layout_height="@dimen/ops_nav_icon" android:layout_gravity="center" android:importantForAccessibility="no"/>
 </FrameLayout>
+<FrameLayout android:id="@+id/opsNavChat" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:clickable="true" android:focusable="true" android:visibility="gone" android:contentDescription="@string/ops_nav_chatbot">
+<View android:id="@+id/opsNavChatIndicator" android:layout_width="@dimen/ops_nav_indicator_width" android:layout_height="@dimen/ops_nav_indicator_height" android:layout_gravity="top|center_horizontal" android:background="@color/app_primary" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavChatCircle" android:layout_width="@dimen/ops_nav_circle" android:layout_height="@dimen/ops_nav_circle" android:layout_gravity="center" android:src="@drawable/figma_a3d27" android:importantForAccessibility="no" android:visibility="invisible"/>
+<ImageView android:id="@+id/opsNavChatIcon" android:layout_width="@dimen/ops_nav_icon" android:layout_height="@dimen/ops_nav_icon" android:layout_gravity="center" android:importantForAccessibility="no"/>
+</FrameLayout>
 </LinearLayout>

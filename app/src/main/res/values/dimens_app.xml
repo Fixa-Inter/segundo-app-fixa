@@ -34,16 +34,16 @@
     <dimen name="app_fab_margin_bottom">32dp</dimen>
 
     <!-- Home -->
-    <dimen name="app_home_avatar_size">76dp</dimen>
-    <dimen name="app_home_avatar_margin_top">66dp</dimen>
+    <dimen name="app_home_avatar_size">30dp</dimen>
+    <dimen name="app_home_avatar_margin_top">64dp</dimen>
     <dimen name="app_home_header_icon_margin_top">29dp</dimen>
     <dimen name="app_home_header_icon_margin_end">29dp</dimen>
     <dimen name="app_home_header_icon_spacing">10dp</dimen>
     <dimen name="app_home_header_icon_size">16dp</dimen>
     <dimen name="app_home_header_margin_top">24dp</dimen>
-    <dimen name="app_home_greeting_margin_start">12dp</dimen>
+    <dimen name="app_home_greeting_margin_start">6dp</dimen>
     <dimen name="app_home_greeting_text_size">22sp</dimen>
-    <dimen name="app_home_card_margin_top">18dp</dimen>
+    <dimen name="app_home_card_margin_top">37dp</dimen>
     <dimen name="app_home_card_side_margin">24dp</dimen>
     <dimen name="app_home_card_height">232dp</dimen>
     <dimen name="app_manager_home_status_card_height">244dp</dimen>
@@ -61,7 +61,7 @@
     <dimen name="app_manager_home_legend_value_text_size">12sp</dimen>
     <dimen name="app_home_chart_size">160dp</dimen>
     <dimen name="app_home_chart_margin_top">27dp</dimen>
-    <dimen name="app_home_section_margin_top">31dp</dimen>
+    <dimen name="app_home_section_margin_top">40dp</dimen>
     <dimen name="app_home_section_title_text_size">17sp</dimen>
     <dimen name="app_home_open_button_width">108dp</dimen>
     <dimen name="app_home_open_button_height">44dp</dimen>
@@ -337,8 +337,8 @@
     <dimen name="app_profile_name_text_size">19sp</dimen>
     <dimen name="app_profile_email_text_size">12sp</dimen>
     <dimen name="app_profile_edit_margin_top">4dp</dimen>
-    <dimen name="app_profile_edit_width">131dp</dimen>
-    <dimen name="app_profile_edit_height">24dp</dimen>
+    <dimen name="app_profile_edit_width">140dp</dimen>
+    <dimen name="app_profile_edit_height">28dp</dimen>
     <dimen name="app_profile_edit_radius">13dp</dimen>
     <dimen name="app_profile_edit_text_size">12sp</dimen>
     <dimen name="app_profile_menu_margin_top">35dp</dimen>

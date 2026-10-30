@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ApiClient {
     private static final String API_BASE_URL = "https://mobile-api.fixa.solutions/";
+    private static final String NOSQL_API_BASE_URL = "https://nosql-api.fixa.solutions/";
     private static final Map<String, Retrofit> RETROFITS_BY_URL = new HashMap<>();
     private static volatile SessionStorage activeSession;
 
@@ -42,6 +43,11 @@ public final class ApiClient {
     private static Retrofit authenticatedRetrofit(SessionStorage session) {
         activeSession = session;
         return retrofit(API_BASE_URL);
+    }
+
+    private static Retrofit authenticatedNoSqlRetrofit(SessionStorage session) {
+        activeSession = session;
+        return retrofit(NOSQL_API_BASE_URL);
     }
 
     /** Reuses one Retrofit and its OkHttpClient for each API base URL in this app session. */
@@ -92,6 +98,26 @@ public final class ApiClient {
 
     public static CategoriaEquipamentoApi categorias(SessionStorage session) {
         return authenticatedRetrofit(session).create(CategoriaEquipamentoApi.class);
+    }
+
+    public static ModeloEquipamentoApi modelosEquipamento(SessionStorage session) {
+        return authenticatedRetrofit(session).create(ModeloEquipamentoApi.class);
+    }
+
+    public static MarcaEquipamentoApi marcasEquipamento(SessionStorage session) {
+        return authenticatedRetrofit(session).create(MarcaEquipamentoApi.class);
+    }
+
+    public static EquipamentoApi equipamentos(SessionStorage session) {
+        return authenticatedRetrofit(session).create(EquipamentoApi.class);
+    }
+
+    public static ModeloChecklistApi modelosChecklist(SessionStorage session) {
+        return authenticatedNoSqlRetrofit(session).create(ModeloChecklistApi.class);
+    }
+
+    public static InspecaoChecklistApi inspecoesChecklist(SessionStorage session) {
+        return authenticatedNoSqlRetrofit(session).create(InspecaoChecklistApi.class);
     }
 
     public static TecnicoApi tecnicos(SessionStorage session) {

@@ -139,6 +139,9 @@ public class EventsFragment extends Fragment {
             args.putLong("eventId", selected.id);
             androidx.navigation.NavController navigation = Navigation.findNavController(view);
             if (navigation.getCurrentDestination() != null
+                    && navigation.getCurrentDestination().getId() == R.id.ops_technician_events) {
+                navigation.navigate(R.id.ops_technician_event_details, args);
+            } else if (navigation.getCurrentDestination() != null
                     && navigation.getCurrentDestination().getId() == R.id.ops_manager_events) {
                 navigation.navigate(R.id.action_ops_manager_events_to_event_details, args);
             } else {
