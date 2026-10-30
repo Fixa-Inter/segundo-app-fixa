@@ -41,14 +41,12 @@
             android:id="@+id/ops_5717_6419"
             android:layout_width="@dimen/ops_dp_24_0"
             android:layout_height="@dimen/ops_dp_24_0"
-            android:layout_marginStart="@dimen/ops_dp_344_0"
             android:layout_marginTop="@dimen/ops_dp_171_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_c4d06"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:calendar" />
+            android:tag="image:calendar" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6401" android:layout_width="@dimen/ops_dp_60_0" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_41_0" android:layout_marginTop="@dimen/ops_dp_14_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6377" android:background="@drawable/bg_ops_e39e2bd459" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_6409"
@@ -280,7 +278,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_semibold"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6382" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_dp_41_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_45_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6378" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:10 Seg">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6382" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6378" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:10 Seg">
             <TextView
                 android:id="@+id/ops_5717_6384"
                 android:layout_width="@dimen/ops_dp_188_6"
@@ -318,15 +316,13 @@
                 android:id="@+id/ops_5717_6387"
                 android:layout_width="@dimen/ops_dp_22_07"
                 android:layout_height="@dimen/ops_dp_16_61"
-                android:layout_marginStart="@dimen/ops_dp_285_08"
                 android:layout_marginTop="@dimen/ops_dp_29_08"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_3856f"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                 android:id="@+id/ops_5717_6385"
                 android:layout_width="@dimen/ops_dp_67"
@@ -358,7 +354,7 @@
                 android:tag="image:"
                 android:translationZ="@dimen/ops_dp_3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6393" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_dp_41_0" android:layout_marginTop="@dimen/ops_dp_13_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_45_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6382" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:10 Seg">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6393" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_13_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6382" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:10 Seg">
             <TextView
                 android:id="@+id/ops_5717_6395"
                 android:layout_width="@dimen/ops_dp_132_22"
@@ -396,15 +392,13 @@
                 android:id="@+id/ops_5717_6398"
                 android:layout_width="@dimen/ops_dp_22_07"
                 android:layout_height="@dimen/ops_dp_16_51"
-                android:layout_marginStart="@dimen/ops_dp_285_08"
                 android:layout_marginTop="@dimen/ops_dp_29_12"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_3856f"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                 android:id="@+id/ops_5717_6396"
                 android:layout_width="@dimen/ops_dp_72"

@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_836_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_8511"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:tag="text:Crie todas as tarefas da OS"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8520" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:layout_marginStart="@dimen/ops_dp_36_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_36_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8499" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Verificar o funcionamento">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8520" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8499" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Verificar o funcionamento">
             <View
                 android:id="@+id/ops_5717_8521"
                 android:layout_width="@dimen/ops_dp_15_0"
@@ -66,17 +66,15 @@
                 android:maxLines="1" />
             <ImageView
                 android:id="@+id/ops_5717_8523"
-                android:layout_width="@dimen/ops_dp_14_0"
-                android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_306_0"
+                android:layout_width="@dimen/ops_action_icon_size"
+                android:layout_height="@dimen/ops_action_icon_size"
                 android:layout_marginTop="@dimen/ops_dp_28_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_499de"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:more-vertical"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
             <TextView
                 android:id="@+id/ops_5717_8527"
                 android:layout_width="0dp"
@@ -108,7 +106,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8499" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8530" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_36_0" android:layout_marginTop="@dimen/ops_dp_18_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_36_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_planning_tasks_list" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:+ Adicionar tarefa">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8530" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_18_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_planning_tasks_list" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:+ Adicionar tarefa">
             <TextView
                 android:id="@+id/ops_5717_8531"
                 android:layout_width="0dp"

@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/ops_5717_8740"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             android:importantForAccessibility="no"

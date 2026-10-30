@@ -21,7 +21,7 @@
         android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_left_22"
+        app:srcCompat="@drawable/ic_arrow_left_26"
         app:tint="@color/app_primary_deep" />
 
     <TextView

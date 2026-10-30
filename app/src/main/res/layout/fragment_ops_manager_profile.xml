@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_634_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_7514"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"

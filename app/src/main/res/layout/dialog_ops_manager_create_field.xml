@@ -110,14 +110,12 @@
                 android:id="@+id/ops_5717_8202"
                 android:layout_width="@dimen/ops_dp_11_51"
                 android:layout_height="@dimen/ops_dp_6_5"
-                android:layout_marginStart="@dimen/ops_dp_265_25"
                 android:layout_marginTop="@dimen/ops_dp_15_26"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_93bef"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:" />
+                android:tag="image:"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/ops_5717_8205"
@@ -157,14 +155,12 @@
             android:id="@+id/ops_5717_8207"
             android:layout_width="@dimen/ops_dp_30_01"
             android:layout_height="@dimen/ops_dp_16_41"
-            android:layout_marginStart="@dimen/ops_dp_296_0"
             android:layout_marginTop="@dimen/ops_dp_276_99"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_8f90d"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:" />
+            android:tag="image:"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8195" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_37_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8205" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8196"

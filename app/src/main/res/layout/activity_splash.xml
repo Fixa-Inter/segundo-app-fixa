@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/ivLogoFixa"
-        android:layout_width="235dp"
-        android:layout_height="255dp"
+        android:layout_width="@dimen/splash_logo_width"
+        android:layout_height="@dimen/splash_logo_height"
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"

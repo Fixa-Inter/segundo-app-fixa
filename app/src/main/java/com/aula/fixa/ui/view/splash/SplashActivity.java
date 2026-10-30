@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.aula.fixa.R;
+import com.bumptech.glide.Glide;
 import com.aula.fixa.adapter.auth.SessaoViewModel;
 import com.aula.fixa.adapter.auth.SessaoViewModelFactory;
 import com.aula.fixa.ui.config.NavegacaoAcesso;
@@ -27,6 +29,11 @@ public class SplashActivity extends ImmersiveActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
+        ImageView logo = findViewById(R.id.ivLogoFixa);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.logo_fixa_splash_animado)
+                .into(logo);
         SessaoViewModel sessaoViewModel = new ViewModelProvider(this,
                 new SessaoViewModelFactory(this)).get(SessaoViewModel.class);
 

@@ -82,7 +82,7 @@
                 android:importantForAccessibility="no"
                 android:tag="image:chevron-down" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8358" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_103_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8312" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:AP001">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8358" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_103_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8312" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:AP001">
             <View
                 android:id="@+id/ops_5717_8359"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -99,15 +99,13 @@
                 android:id="@+id/ops_5717_8362"
                 android:layout_width="@dimen/ops_dp_3_53"
                 android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_333_0"
                 android:layout_marginTop="@dimen/ops_dp_11_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d2a17"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:more"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
             <TextView
                 android:id="@+id/ops_5717_8361"
                 android:layout_width="@dimen/ops_dp_62"
@@ -143,7 +141,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8368" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8358" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:AP002">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8368" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8358" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:AP002">
             <View
                 android:id="@+id/ops_5717_8369"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -160,15 +158,13 @@
                 android:id="@+id/ops_5717_8372"
                 android:layout_width="@dimen/ops_dp_3_53"
                 android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_333_0"
                 android:layout_marginTop="@dimen/ops_dp_11_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d2a17"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:more"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
             <TextView
                 android:id="@+id/ops_5717_8371"
                 android:layout_width="@dimen/ops_dp_66"
@@ -204,7 +200,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8378" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8368" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:AP002">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8378" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8368" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:AP002">
             <View
                 android:id="@+id/ops_5717_8379"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -221,15 +217,13 @@
                 android:id="@+id/ops_5717_8382"
                 android:layout_width="@dimen/ops_dp_3_53"
                 android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_333_0"
                 android:layout_marginTop="@dimen/ops_dp_11_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d2a17"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:more"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
             <TextView
                 android:id="@+id/ops_5717_8381"
                 android:layout_width="@dimen/ops_dp_66"
@@ -265,7 +259,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8388" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8378" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:AP002">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8388" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8378" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:AP002">
             <View
                 android:id="@+id/ops_5717_8389"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -282,15 +276,13 @@
                 android:id="@+id/ops_5717_8392"
                 android:layout_width="@dimen/ops_dp_3_53"
                 android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_333_0"
                 android:layout_marginTop="@dimen/ops_dp_11_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d2a17"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:more"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
             <TextView
                 android:id="@+id/ops_5717_8391"
                 android:layout_width="@dimen/ops_dp_66"
@@ -330,14 +322,12 @@
             android:id="@+id/ops_5717_8314"
             android:layout_width="@dimen/ops_dp_60_0"
             android:layout_height="@dimen/ops_dp_60_0"
-            android:layout_marginStart="@dimen/ops_dp_314_0"
             android:layout_marginTop="@dimen/ops_dp_738_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_6b5b1"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:Ellipse" />
+            android:tag="image:Ellipse" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <TextView
             android:id="@+id/ops_5717_8315"
             android:layout_width="@dimen/ops_dp_62"

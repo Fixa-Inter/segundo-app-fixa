@@ -4,28 +4,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_743_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_9922"
-            android:layout_width="@dimen/ops_dp_13_98"
-            android:layout_height="@dimen/ops_dp_15_3"
-            android:layout_marginStart="@dimen/ops_dp_333_51"
+            android:layout_width="@dimen/ops_header_icon_size"
+            android:layout_height="@dimen/ops_header_icon_size"
             android:layout_marginTop="@dimen/ops_dp_32_51"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_76941"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:" />
+            android:tag="image:" android:layout_marginEnd="@dimen/ops_header_icon_spacing" app:layout_constraintEnd_toEndOf="@id/ops_5717_9925" />
         <ImageView
             android:id="@+id/ops_5717_9925"
-            android:layout_width="@dimen/ops_dp_13_03"
-            android:layout_height="@dimen/ops_dp_14_48"
-            android:layout_marginStart="@dimen/ops_dp_365_48"
+            android:layout_width="@dimen/ops_header_icon_size"
+            android:layout_height="@dimen/ops_header_icon_size"
             android:layout_marginTop="@dimen/ops_dp_32_51"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_97246"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:" />
+            android:tag="image:" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ops_5717_9958"
             android:layout_width="@dimen/ops_dp_85_0"
@@ -56,7 +52,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9929" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_266_0" android:layout_marginStart="@dimen/ops_dp_28_0" android:layout_marginTop="@dimen/ops_dp_21_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_34_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9958" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Estados das OS">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9929" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_266_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_21_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9958" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Estados das OS">
             <TextView
                 android:id="@+id/ops_5717_9931"
                 android:layout_width="0dp"
@@ -332,7 +328,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9888" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_15_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9920" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9888" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_15_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9920" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
             <View
                 android:id="@+id/ops_5717_9892"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -471,7 +467,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9905" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9888" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9905" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9888" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
             <View
                 android:id="@+id/ops_5717_9909"
                 android:layout_width="@dimen/ops_dp_13_0"

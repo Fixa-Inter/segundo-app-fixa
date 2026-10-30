@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.FragmentUi;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.aula.fixa.ui.view.FullWidthFilterSheet;
 import android.widget.ArrayAdapter;
 import com.aula.fixa.adapter.cadastro.CadastroViewModel;
 import com.aula.fixa.adapter.cadastro.CadastroViewModelFactory;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Arrays;
 
 /** Bottom sheet "Filtrar solicitações" (Figma "Filtros"). */
-public class RequestFiltersSheet extends BottomSheetDialogFragment {
+public class RequestFiltersSheet extends FullWidthFilterSheet {
     public interface Listener { void onFilters(String period, String location, String category, String status); }
 
     public static final String TAG = "RequestFiltersSheet";

@@ -112,14 +112,12 @@
                 android:id="@+id/ops_5717_8241"
                 android:layout_width="@dimen/ops_dp_11_51"
                 android:layout_height="@dimen/ops_dp_6_47"
-                android:layout_marginStart="@dimen/ops_dp_265_25"
                 android:layout_marginTop="@dimen/ops_dp_15_24"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_93bef"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:" />
+                android:tag="image:"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/ops_5717_8278"
@@ -158,16 +156,14 @@
                 android:maxLines="1" />
             <ImageView
                 android:id="@+id/ops_5717_8245"
-                android:layout_width="@dimen/ops_dp_14_0"
-                android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_264_0"
+                android:layout_width="@dimen/ops_action_icon_size"
+                android:layout_height="@dimen/ops_action_icon_size"
                 android:layout_marginTop="@dimen/ops_dp_10_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_499de"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:more-vertical" />
+                android:tag="image:more-vertical"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
             <ImageView
                 android:id="@+id/ops_5717_8249"
                 android:layout_width="@dimen/ops_dp_11_98"
@@ -201,16 +197,14 @@
                 android:maxLines="1" />
             <ImageView
                 android:id="@+id/ops_5717_8255"
-                android:layout_width="@dimen/ops_dp_14_0"
-                android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_265_0"
+                android:layout_width="@dimen/ops_action_icon_size"
+                android:layout_height="@dimen/ops_action_icon_size"
                 android:layout_marginTop="@dimen/ops_dp_10_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_499de"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:more-vertical" />
+                android:tag="image:more-vertical"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
             <ImageView
                 android:id="@+id/ops_5717_8259"
                 android:layout_width="@dimen/ops_dp_11_98"
@@ -244,16 +238,14 @@
                 android:maxLines="1" />
             <ImageView
                 android:id="@+id/ops_5717_8284"
-                android:layout_width="@dimen/ops_dp_14_0"
-                android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_265_0"
+                android:layout_width="@dimen/ops_action_icon_size"
+                android:layout_height="@dimen/ops_action_icon_size"
                 android:layout_marginTop="@dimen/ops_dp_10_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_499de"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:more-vertical" />
+                android:tag="image:more-vertical"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
             <ImageView
                 android:id="@+id/ops_5717_8265"
                 android:layout_width="@dimen/ops_dp_11_98"
@@ -287,16 +279,14 @@
                 android:maxLines="1" />
             <ImageView
                 android:id="@+id/ops_5717_8288"
-                android:layout_width="@dimen/ops_dp_14_0"
-                android:layout_height="@dimen/ops_dp_14_0"
-                android:layout_marginStart="@dimen/ops_dp_265_0"
+                android:layout_width="@dimen/ops_action_icon_size"
+                android:layout_height="@dimen/ops_action_icon_size"
                 android:layout_marginTop="@dimen/ops_dp_10_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_499de"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:more-vertical" />
+                android:tag="image:more-vertical"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
             <ImageView
                 android:id="@+id/ops_5717_8273"
                 android:layout_width="@dimen/ops_dp_11_98"
@@ -369,14 +359,12 @@
             android:id="@+id/ops_5717_8281"
             android:layout_width="@dimen/ops_dp_30_01"
             android:layout_height="@dimen/ops_dp_16_41"
-            android:layout_marginStart="@dimen/ops_dp_296_0"
             android:layout_marginTop="@dimen/ops_dp_500_98"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_8f90d"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:" />
+            android:tag="image:"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8234" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_36_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8279" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8235"

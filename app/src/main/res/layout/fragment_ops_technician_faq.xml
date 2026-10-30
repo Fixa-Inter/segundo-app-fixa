@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_496_5" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_10145"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,14 +52,12 @@
             android:id="@+id/ops_5717_10167"
             android:layout_width="@dimen/ops_dp_15_96"
             android:layout_height="@dimen/ops_dp_2_0"
-            android:layout_marginStart="@dimen/ops_dp_347_02"
             android:layout_marginTop="@dimen/ops_dp_162_04"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_5bcde"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:" />
+            android:tag="image:" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <TextView
             android:id="@+id/ops_5717_10168"
             android:layout_width="0dp"
@@ -111,16 +109,14 @@
             android:maxLines="1" />
         <ImageView
             android:id="@+id/ops_5717_10155"
-            android:layout_width="@dimen/ops_dp_24_0"
-            android:layout_height="@dimen/ops_dp_24_0"
-            android:layout_marginStart="@dimen/ops_dp_343_0"
+            android:layout_width="@dimen/ops_action_icon_size"
+            android:layout_height="@dimen/ops_action_icon_size"
             android:layout_marginTop="@dimen/ops_dp_126_96"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_10167"
             android:src="@drawable/figma_6470c"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:chevron-down" />
+            android:tag="image:chevron-down" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <ImageView
             android:id="@+id/ops_5717_10153"
             android:layout_width="0dp"
@@ -154,16 +150,14 @@
             android:maxLines="1" />
         <ImageView
             android:id="@+id/ops_5717_10160"
-            android:layout_width="@dimen/ops_dp_24_0"
-            android:layout_height="@dimen/ops_dp_24_0"
-            android:layout_marginStart="@dimen/ops_dp_343_0"
+            android:layout_width="@dimen/ops_action_icon_size"
+            android:layout_height="@dimen/ops_action_icon_size"
             android:layout_marginTop="@dimen/ops_dp_44_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_10155"
             android:src="@drawable/figma_6470c"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:chevron-down" />
+            android:tag="image:chevron-down" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <ImageView
             android:id="@+id/ops_5717_10159"
             android:layout_width="0dp"
@@ -197,16 +191,14 @@
             android:maxLines="1" />
         <ImageView
             android:id="@+id/ops_5717_10165"
-            android:layout_width="@dimen/ops_dp_24_0"
-            android:layout_height="@dimen/ops_dp_24_0"
-            android:layout_marginStart="@dimen/ops_dp_343_0"
+            android:layout_width="@dimen/ops_action_icon_size"
+            android:layout_height="@dimen/ops_action_icon_size"
             android:layout_marginTop="@dimen/ops_dp_44_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_10160"
             android:src="@drawable/figma_6470c"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:chevron-down" />
+            android:tag="image:chevron-down" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <ImageView
             android:id="@+id/ops_5717_10164"
             android:layout_width="0dp"

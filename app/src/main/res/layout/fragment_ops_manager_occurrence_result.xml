@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_836_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_6320"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,14 +81,12 @@
                 android:id="@+id/ops_5717_6330"
                 android:layout_width="@dimen/ops_dp_11_47"
                 android:layout_height="@dimen/ops_dp_6_48"
-                android:layout_marginStart="@dimen/ops_dp_307_27"
                 android:layout_marginTop="@dimen/ops_dp_14_26"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_ce4d4"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:" />
+                android:tag="image:" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/ops_5717_6331"

@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_941_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_6372"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:tag="text:Informações sobre o evento"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6358" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_695_0" android:layout_marginStart="@dimen/ops_dp_0" android:layout_marginTop="@dimen/ops_dp_178_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6372" android:background="@drawable/bg_ops_ef2a0a6d78" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Entrega das Medalhas">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6358" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_695_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_178_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6372" android:background="@drawable/bg_ops_ef2a0a6d78" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Entrega das Medalhas">
             <TextView
                 android:id="@+id/ops_5717_6361"
                 android:layout_width="0dp"

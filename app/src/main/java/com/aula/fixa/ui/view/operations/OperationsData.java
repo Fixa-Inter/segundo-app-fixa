@@ -178,8 +178,10 @@ public final class OperationsData {
         params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         params.topToBottom = R.id.ops_5717_7298;
         params.topMargin = Math.round(13 * scale(activity));
-        params.setMarginStart(activity.getResources().getDimensionPixelSize(R.dimen.app_home_card_side_margin));
-        params.setMarginEnd(activity.getResources().getDimensionPixelSize(R.dimen.app_home_card_side_margin));
+        int sideMargin = activity.getResources().getDimensionPixelSize(
+                R.dimen.ops_manager_home_card_side_margin);
+        params.setMarginStart(sideMargin);
+        params.setMarginEnd(sideMargin);
         content.addView(list, params);
         if (requests.isEmpty()) {
             list.setGravity(android.view.Gravity.CENTER);

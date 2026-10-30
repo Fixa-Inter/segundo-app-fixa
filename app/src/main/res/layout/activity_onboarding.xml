@@ -47,7 +47,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/img_onboarding_tracking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.393"
+        app:layout_constraintHeight_percent="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline_image_top"
         app:layout_constraintWidth_max="@dimen/onboarding_image_max_width" />

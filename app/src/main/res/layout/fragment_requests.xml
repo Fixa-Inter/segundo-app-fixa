@@ -105,7 +105,7 @@
             android:id="@+id/layoutSearch"
             android:layout_width="0dp"
             android:layout_height="@dimen/app_requests_search_height"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="@dimen/app_requests_search_margin_top"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_app_search"
@@ -114,7 +114,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toBottomOf="@id/scrollChips"
-            app:layout_constraintWidth_max="@dimen/app_requests_search_width">
+            >
 
             <EditText
                 android:id="@+id/etSearch"
@@ -143,7 +143,7 @@
             app:layout_constraintBottom_toBottomOf="@id/layoutSearch"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toTopOf="@id/layoutSearch"
-            app:srcCompat="@drawable/ic_search_18"
+            app:srcCompat="@drawable/ic_search_26"
             app:tint="@color/app_on_primary" />
 
         <ImageButton
@@ -156,7 +156,7 @@
             app:layout_constraintBottom_toBottomOf="@id/layoutSearch"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintTop_toTopOf="@id/layoutSearch"
-            app:srcCompat="@drawable/ic_filter_24"
+            app:srcCompat="@drawable/ic_filter_34"
             app:tint="@color/app_primary_deep" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -220,7 +220,7 @@
         app:backgroundTint="@color/app_primary"
         app:elevation="4dp"
         app:fabCustomSize="@dimen/app_fab_size"
-        app:maxImageSize="24dp"
+        app:maxImageSize="@dimen/app_fab_icon_size"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         app:srcCompat="@drawable/ic_plus_24"
         app:tint="@color/app_on_primary" />

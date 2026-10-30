@@ -5,8 +5,19 @@
     <dimen name="app_screen_side_margin_alt">72dp</dimen>
     <dimen name="app_content_max_width">560dp</dimen>
 
-    <dimen name="app_bottom_nav_height">88dp</dimen>
-    <dimen name="app_bottom_nav_active_top_margin">16dp</dimen>
+    <dimen name="app_bottom_nav_height">100dp</dimen>
+    <dimen name="app_back_icon_size">28dp</dimen>
+    <dimen name="app_fab_size">68dp</dimen>
+    <dimen name="app_fab_icon_size">32dp</dimen>
+    <dimen name="app_bottom_nav_active_top_margin">18dp</dimen>
+    <dimen name="app_bottom_nav_active_size">64dp</dimen>
+    <dimen name="app_bottom_nav_icon_size">32dp</dimen>
+    <dimen name="app_bottom_nav_home_icon_width">24dp</dimen>
+    <dimen name="app_bottom_nav_home_icon_height">26dp</dimen>
+    <dimen name="app_bottom_nav_chat_icon_size">48dp</dimen>
+    <dimen name="app_bottom_nav_chat_inactive_inset">6dp</dimen>
+    <dimen name="app_bottom_nav_icon_top_margin">36dp</dimen>
+    <dimen name="app_bottom_nav_indicator_width">70dp</dimen>
 
     <dimen name="app_home_card_side_margin">64dp</dimen>
     <dimen name="app_home_avatar_size">128dp</dimen>
@@ -24,10 +35,11 @@
     <dimen name="app_manager_home_legend_label_text_size">12sp</dimen>
     <dimen name="app_manager_home_legend_value_text_size">14sp</dimen>
 
-    <dimen name="app_request_card_height">140dp</dimen>
-    <dimen name="app_manager_home_request_card_height">148dp</dimen>
+    <dimen name="app_request_card_height">156dp</dimen>
+    <dimen name="app_manager_home_request_card_height">160dp</dimen>
     <dimen name="app_requests_title_margin_start">64dp</dimen>
     <dimen name="app_requests_search_text_size">15sp</dimen>
+    <dimen name="app_requests_search_height">56dp</dimen>
     <dimen name="app_requests_empty_image_size">420dp</dimen>
     <dimen name="app_fab_margin_end">48dp</dimen>
 
@@ -36,8 +48,11 @@
     <dimen name="app_details_timeline_card_width">420dp</dimen>
 
     <dimen name="app_events_title_margin_start">64dp</dimen>
-    <dimen name="app_events_day_width">72dp</dimen>
-    <dimen name="app_events_day_height">112dp</dimen>
+    <dimen name="app_events_day_width">80dp</dimen>
+    <dimen name="app_events_day_height">120dp</dimen>
+    <dimen name="app_events_title_text_size">38sp</dimen>
+    <dimen name="app_events_section_margin_top">32dp</dimen>
+    <dimen name="app_events_list_margin_top">14dp</dimen>
     <dimen name="app_event_card_height">84dp</dimen>
     <dimen name="app_event_info_panel_side_padding">64dp</dimen>
 
@@ -93,24 +108,28 @@
     <dimen name="app_home_legend_dot_size">22dp</dimen>
     <dimen name="app_home_legend_text_margin_start">16dp</dimen>
     <dimen name="app_home_section_title_text_size">20sp</dimen>
-    <dimen name="app_home_open_button_width">150dp</dimen>
-    <dimen name="app_home_open_button_height">40dp</dimen>
+    <dimen name="app_home_open_button_width">160dp</dimen>
+    <dimen name="app_home_open_button_height">48dp</dimen>
+    <dimen name="app_home_open_icon_size">20dp</dimen>
     <dimen name="app_home_open_button_text_size">13sp</dimen>
     <dimen name="app_request_card_accent_width">16dp</dimen>
     <dimen name="app_request_card_content_margin_start">34dp</dimen>
-    <dimen name="app_request_card_date_pill_width">110dp</dimen>
-    <dimen name="app_request_card_date_pill_height">26dp</dimen>
+    <dimen name="app_request_card_date_pill_width">124dp</dimen>
+    <dimen name="app_request_card_date_pill_height">28dp</dimen>
     <dimen name="app_request_card_date_pill_margin_top">14dp</dimen>
-    <dimen name="app_request_card_date_icon_size">14dp</dimen>
-    <dimen name="app_request_card_date_text_size">11sp</dimen>
+    <dimen name="app_request_card_date_icon_size">16dp</dimen>
+    <dimen name="app_request_card_date_text_size">13sp</dimen>
     <dimen name="app_request_card_title_margin_top">6dp</dimen>
-    <dimen name="app_request_card_title_text_size">20sp</dimen>
-    <dimen name="app_request_card_subtitle_text_size">14sp</dimen>
+    <dimen name="app_request_card_title_text_size">22sp</dimen>
+    <dimen name="app_request_card_subtitle_text_size">16sp</dimen>
     <dimen name="app_request_card_status_margin_top">10dp</dimen>
-    <dimen name="app_request_card_status_text_size">12sp</dimen>
-    <dimen name="app_request_card_menu_size">18dp</dimen>
+    <dimen name="app_request_card_status_text_size">14sp</dimen>
+    <dimen name="app_request_card_menu_size">20dp</dimen>
+    <dimen name="app_request_card_menu_margin">14dp</dimen>
     <dimen name="app_request_card_spacing">18dp</dimen>
     <dimen name="app_request_card_title_margin_start">38dp</dimen>
+    <dimen name="app_request_card_owner_avatar_size">18dp</dimen>
+    <dimen name="app_request_card_owner_text_size">14sp</dimen>
 
     <!-- Recuperação de senha (Figma 'Esqueceu a senha?' / 'Sucesso') -->
     <dimen name="recovery_side_margin">64dp</dimen>
@@ -158,4 +177,12 @@
     <dimen name="app_offline_text_side_margin">40dp</dimen>
     <dimen name="app_offline_text_margin_top">0dp</dimen>
     <dimen name="app_dropdown_item_text_size">16sp</dimen>
+
+    <!-- Tipografia mínima para metadados e rótulos em tablet -->
+    <dimen name="app_events_day_label_text_size">13sp</dimen>
+    <dimen name="app_event_card_day_label_text_size">12sp</dimen>
+    <dimen name="app_event_card_time_text_size">12sp</dimen>
+    <dimen name="app_profile_email_text_size">13sp</dimen>
+    <dimen name="app_profile_edit_text_size">12sp</dimen>
+    <dimen name="app_notification_time_text_size">12sp</dimen>
 </resources>

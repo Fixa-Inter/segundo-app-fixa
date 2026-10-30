@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_806_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_10507"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -154,15 +154,14 @@
             android:importantForAccessibility="no"
             android:tag="image:"
             android:translationZ="@dimen/ops_dp_3" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10529" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_45_0" android:layout_marginStart="@dimen/ops_dp_33_0" android:layout_marginTop="@dimen/ops_dp_26_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_29_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_status_row" android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10529" android:layout_width="0dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_26_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_status_row" android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ops_5717_10530"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_21"
                 android:layout_marginStart="@dimen/ops_dp_53_0"
-                android:layout_marginTop="@dimen/ops_dp_12_0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="@dimen/ops_dp_52_03"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.532bcc5bfe"
@@ -180,19 +179,19 @@
                 android:contentDescription="@string/ops_text_pesquisar_b89310" />
             <ImageView
                 android:id="@+id/ops_5717_10537"
-                android:layout_width="@dimen/ops_dp_18_0"
-                android:layout_height="@dimen/ops_dp_18_0"
+                android:layout_width="@dimen/ops_search_icon_size"
+                android:layout_height="@dimen/ops_search_icon_size"
                 android:layout_marginStart="@dimen/ops_dp_13_0"
-                android:layout_marginTop="@dimen/ops_dp_13_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/figma_a8f9e"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:search"
                 android:translationZ="@dimen/ops_dp_3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10541" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_17_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_32_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10532" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10541" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_17_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10532" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
             <View
                 android:id="@+id/ops_5717_10545"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -209,9 +208,9 @@
                 android:id="@+id/ops_5717_10547"
                 android:layout_width="@dimen/ops_dp_30_0"
                 android:layout_height="@dimen/ops_dp_20_0"
-                android:layout_marginStart="@dimen/ops_dp_311_0"
+                android:layout_marginEnd="9dp"
                 android:layout_marginTop="@dimen/ops_dp_8_0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/bg_ops_39dc043443"
                 android:clipChildren="false"
@@ -252,9 +251,9 @@
                 android:id="@+id/ops_5717_10548"
                 android:layout_width="@dimen/ops_dp_14"
                 android:layout_height="@dimen/ops_dp_14"
-                android:layout_marginStart="@dimen/ops_dp_320_0"
+                android:layout_marginEnd="17dp"
                 android:layout_marginTop="@dimen/ops_dp_11_0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_p0_2842de"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8f3a2d26dc"
@@ -331,7 +330,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10455" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_32_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10541" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10455" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10541" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
             <View
                 android:id="@+id/ops_5717_10462"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -348,9 +347,9 @@
                 android:id="@+id/ops_5717_10464"
                 android:layout_width="@dimen/ops_dp_30_0"
                 android:layout_height="@dimen/ops_dp_20_0"
-                android:layout_marginStart="@dimen/ops_dp_311_0"
+                android:layout_marginEnd="9dp"
                 android:layout_marginTop="@dimen/ops_dp_8_0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/bg_ops_39dc043443"
                 android:clipChildren="false"
@@ -391,9 +390,9 @@
                 android:id="@+id/ops_5717_10465"
                 android:layout_width="@dimen/ops_dp_14"
                 android:layout_height="@dimen/ops_dp_14"
-                android:layout_marginStart="@dimen/ops_dp_320_0"
+                android:layout_marginEnd="17dp"
                 android:layout_marginTop="@dimen/ops_dp_11_0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_p0_2842de"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8f3a2d26dc"
@@ -474,9 +473,9 @@
             android:id="@+id/ops_5717_10472"
             android:layout_width="@dimen/ops_dp_60_0"
             android:layout_height="@dimen/ops_dp_60_0"
-            android:layout_marginStart="@dimen/ops_dp_323_0"
+            android:layout_marginEnd="24dp"
             android:layout_marginTop="@dimen/ops_dp_722_0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_113c1"
             android:scaleType="fitXY"
@@ -486,9 +485,9 @@
             android:id="@+id/ops_5717_10474"
             android:layout_width="@dimen/ops_dp_25_0"
             android:layout_height="@dimen/ops_dp_25_01"
-            android:layout_marginStart="@dimen/ops_dp_340_5"
+            android:layout_marginEnd="41dp"
             android:layout_marginTop="@dimen/ops_dp_739_53"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_c3bd9"
             android:scaleType="fitXY"

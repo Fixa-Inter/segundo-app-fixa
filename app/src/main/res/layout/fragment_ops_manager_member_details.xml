@@ -5,8 +5,8 @@
         <View android:id="@+id/ops_member_details_header_background" android:layout_width="0dp" android:layout_height="0dp" android:background="@color/ops_color_ff130943" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@id/ops_5717_7669" />
         <ImageView
             android:id="@+id/ops_5717_7635"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7669" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="@dimen/ops_dp_2_0" android:layout_marginTop="@dimen/ops_dp_197_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7635" android:background="@drawable/bg_ops_c3ef6c9999" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Competências">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7669" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_197_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7635" android:background="@drawable/bg_ops_c3ef6c9999" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Competências">
             <TextView
                 android:id="@+id/ops_5717_7673"
                 android:layout_width="@dimen/ops_dp_158_88"
@@ -173,16 +173,14 @@
                 android:maxLines="1" />
             <ImageView
                 android:id="@+id/ops_5717_7682"
-                android:layout_width="@dimen/ops_dp_16_0"
-                android:layout_height="@dimen/ops_dp_16_0"
-                android:layout_marginStart="@dimen/ops_dp_363_0"
+                android:layout_width="@dimen/ops_action_icon_size"
+                android:layout_height="@dimen/ops_action_icon_size"
                 android:layout_marginTop="@dimen/ops_dp_23_0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_452e4"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:chevron-right" />
+                android:tag="image:chevron-right" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7693" android:layout_width="@dimen/ops_dp_100_0" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_28_0" android:layout_marginTop="@dimen/ops_dp_26_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7673" android:background="@drawable/bg_ops_de2070210e" android:clipChildren="false" android:clipToPadding="false">
                 <TextView
                     android:id="@+id/ops_5717_7694"

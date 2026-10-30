@@ -62,8 +62,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/opsHomeRequestAvatar"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
+            android:layout_width="@dimen/app_request_card_owner_avatar_size"
+            android:layout_height="@dimen/app_request_card_owner_avatar_size"
             android:layout_marginStart="@dimen/app_request_card_content_margin_start"
             android:layout_marginTop="2dp"
             android:scaleType="centerCrop"

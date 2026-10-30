@@ -107,17 +107,28 @@
             app:layout_constraintTop_toBottomOf="@id/tvRequestLocation"
             tools:text="Solicitação em análise" />
 
-        <ImageButton
+        <FrameLayout
             android:id="@+id/btnRequestMenu"
             android:layout_width="@dimen/app_touch_target"
             android:layout_height="@dimen/app_touch_target"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:contentDescription="@string/app_more_options"
-            android:scaleType="center"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_more_vertical_14"
-            app:tint="@color/app_text_black" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/app_request_card_menu_size"
+                android:layout_height="@dimen/app_request_card_menu_size"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="@dimen/app_request_card_menu_margin"
+                android:layout_marginEnd="@dimen/app_request_card_menu_margin"
+                android:importantForAccessibility="no"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_more_vertical_14"
+                app:tint="@color/app_text_black" />
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

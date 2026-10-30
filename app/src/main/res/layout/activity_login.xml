@@ -196,6 +196,7 @@
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="@dimen/login_button_height"
+        android:layout_marginTop="@dimen/login_button_top_margin"
         android:layout_marginStart="@dimen/login_content_side_margin"
         android:layout_marginEnd="@dimen/login_content_side_margin"
         android:backgroundTint="@color/login_button_background"

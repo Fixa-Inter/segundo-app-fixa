@@ -5,7 +5,7 @@
     <dimen name="ops_nav_circle">49dp</dimen>
     <dimen name="ops_nav_icon">23dp</dimen>
     <dimen name="ops_nav_indicator_width">57dp</dimen>
-    <dimen name="ops_nav_indicator_height">1dp</dimen>
+    <dimen name="ops_nav_indicator_height">2dp</dimen>
     <dimen name="ops_nav_side">5dp</dimen>
     <dimen name="ops_touch_target">48dp</dimen>
     <string name="ops_nav_home">Início</string>

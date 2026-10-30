@@ -1,7 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Telas de autenticação em tablets -->
+    <dimen name="splash_logo_width">375dp</dimen>
+    <dimen name="splash_logo_height">407dp</dimen>
+    <dimen name="login_content_side_margin">64dp</dimen>
+    <dimen name="login_content_max_width">560dp</dimen>
+    <dimen name="login_field_height">60dp</dimen>
+    <dimen name="login_button_height">56dp</dimen>
+    <dimen name="login_field_radius">30dp</dimen>
+    <dimen name="login_field_horizontal_padding">22dp</dimen>
+    <dimen name="login_panel_corner_radius">60dp</dimen>
+    <dimen name="login_watermark_width">500dp</dimen>
+    <dimen name="login_watermark_height">572dp</dimen>
+    <dimen name="login_watermark_top_margin">54dp</dimen>
+    <dimen name="login_watermark_translation_x">120dp</dimen>
+    <dimen name="login_title_text_size">54sp</dimen>
+    <dimen name="login_label_text_size">20sp</dimen>
+    <dimen name="login_field_text_size">18sp</dimen>
+    <dimen name="login_link_text_size">18sp</dimen>
+    <dimen name="login_button_text_size">24sp</dimen>
+    <dimen name="login_account_text_size">18sp</dimen>
+    <dimen name="login_social_text_size">18sp</dimen>
+    <dimen name="login_field_top_margin">8dp</dimen>
+    <dimen name="login_forgot_top_margin">16dp</dimen>
+    <dimen name="login_account_top_margin">28dp</dimen>
+    <dimen name="login_social_line_width">145dp</dimen>
+    <dimen name="login_social_line_height">1dp</dimen>
+    <dimen name="login_social_line_radius">0.5dp</dimen>
+    <dimen name="login_social_line_spacing">12dp</dimen>
+    <dimen name="login_social_icons_top_margin">22dp</dimen>
+    <dimen name="login_social_icon_width">78dp</dimen>
+    <dimen name="login_social_icon_height">64dp</dimen>
+    <dimen name="login_social_icon_spacing">32dp</dimen>
+    <dimen name="register_intro_text_size">20sp</dimen>
+    <dimen name="register_first_title_top_margin">140dp</dimen>
+    <dimen name="register_details_title_top_margin">96dp</dimen>
+    <dimen name="register_intro_top_margin">12dp</dimen>
+    <dimen name="register_first_section_top_margin">42dp</dimen>
+    <dimen name="register_first_group_spacing">32dp</dimen>
+    <dimen name="register_details_first_field_top_margin">18dp</dimen>
+    <dimen name="register_details_group_spacing">8dp</dimen>
+    <dimen name="register_button_top_margin">24dp</dimen>
+    <dimen name="register_first_button_top_margin">42dp</dimen>
+    <dimen name="register_account_top_margin">20dp</dimen>
+    <dimen name="register_watermark_top_margin">72dp</dimen>
+    <dimen name="register_content_bottom_spacing">16dp</dimen>
+
     <dimen name="onboarding_content_horizontal_margin">48dp</dimen>
     <dimen name="onboarding_image_top_margin">72dp</dimen>
     <dimen name="onboarding_actions_horizontal_margin">120dp</dimen>
     <dimen name="onboarding_actions_bottom_margin">64dp</dimen>
+    <dimen name="onboarding_image_max_width">480dp</dimen>
+    <dimen name="onboarding_button_width">180dp</dimen>
+    <dimen name="onboarding_button_height">64dp</dimen>
+    <dimen name="onboarding_button_radius">32dp</dimen>
+    <dimen name="onboarding_title_text_size">32sp</dimen>
+    <dimen name="onboarding_body_text_size">22sp</dimen>
+    <dimen name="onboarding_button_text_size">24sp</dimen>
+    <dimen name="onboarding_back_touch_size">68dp</dimen>
+    <dimen name="onboarding_back_padding">16dp</dimen>
+    <dimen name="onboarding_start_button_width">230dp</dimen>
+    <dimen name="login_button_top_margin">16dp</dimen>
 </resources>

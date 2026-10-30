@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_930_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_10614"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:tag="text:Realizar as tarefas da OS"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10624" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_39_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10613" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10624" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_39_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10613" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
             <View
                 android:id="@+id/ops_5717_10625"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -160,7 +160,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_semibold"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10642" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10617" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Verificar o funcionamento">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10642" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10617" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Verificar o funcionamento">
             <View
                 android:id="@+id/ops_5717_10643"
                 android:layout_width="@dimen/ops_dp_15_44"
@@ -196,15 +196,13 @@
                 android:id="@+id/ops_5717_10646"
                 android:layout_width="@dimen/ops_dp_9_28"
                 android:layout_height="@dimen/ops_dp_16_3"
-                android:layout_marginStart="@dimen/ops_dp_311_86"
                 android:layout_marginTop="@dimen/ops_dp_26_83"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_87c1d"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
             <TextView
                 android:id="@+id/ops_5717_10645"
                 android:layout_width="0dp"
@@ -225,7 +223,7 @@
                 android:fontFamily="@font/poppins_light"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10650" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10642" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Verificar o funcionamento">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10650" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10642" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Verificar o funcionamento">
             <View
                 android:id="@+id/ops_5717_10651"
                 android:layout_width="@dimen/ops_dp_15_44"
@@ -261,15 +259,13 @@
                 android:id="@+id/ops_5717_10654"
                 android:layout_width="@dimen/ops_dp_9_28"
                 android:layout_height="@dimen/ops_dp_16_3"
-                android:layout_marginStart="@dimen/ops_dp_311_86"
                 android:layout_marginTop="@dimen/ops_dp_26_83"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_87c1d"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
             <TextView
                 android:id="@+id/ops_5717_10653"
                 android:layout_width="0dp"

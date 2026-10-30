@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_192_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_10107"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
             android:tag="image:bell" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10114" android:layout_width="@dimen/ops_dp_44_0" android:layout_height="@dimen/ops_dp_22_0" android:layout_marginStart="@dimen/ops_dp_330_0" android:layout_marginTop="@dimen/ops_dp_143_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_1b6aca21a7" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10114" android:layout_width="@dimen/ops_dp_44_0" android:layout_height="@dimen/ops_dp_22_0" android:layout_marginTop="@dimen/ops_dp_143_0" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_1b6aca21a7" android:clipChildren="false" android:clipToPadding="false" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent">
             <ImageView
                 android:id="@+id/ops_5717_10115"
                 android:layout_width="@dimen/ops_dp_20_0"

@@ -38,8 +38,10 @@
     <dimen name="app_home_chart_size">340dp</dimen>
     <dimen name="app_manager_home_legend_label_text_size">14sp</dimen>
     <dimen name="app_manager_home_legend_value_text_size">16sp</dimen>
-    <dimen name="app_request_card_height">150dp</dimen>
-    <dimen name="app_manager_home_request_card_height">158dp</dimen>
+    <dimen name="app_request_card_height">168dp</dimen>
+    <dimen name="app_manager_home_request_card_height">170dp</dimen>
+    <dimen name="app_request_card_owner_avatar_size">20dp</dimen>
+    <dimen name="app_request_card_owner_text_size">16sp</dimen>
     <dimen name="app_home_avatar_size">144dp</dimen>
     <dimen name="app_home_greeting_text_size">38sp</dimen>
     <dimen name="app_home_header_icon_size">28dp</dimen>

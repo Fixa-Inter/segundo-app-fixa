@@ -45,6 +45,7 @@
                 android:layout_marginTop="@dimen/app_events_title_margin_top"
                 tools:text="Acompanhe os eventos"
                 android:textAppearance="@style/TextAppearance.FIXA.App.ScreenTitle"
+                android:textSize="@dimen/app_events_title_text_size"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -90,13 +91,14 @@
 
             <TextView
                 android:id="@+id/tvSection"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/app_events_section_margin_top"
                 android:text="@string/app_events_section"
                 android:textAppearance="@style/TextAppearance.FIXA.App.Events.Section"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
-                app:layout_constraintTop_toBottomOf="@id/rvDays" />
+                app:layout_constraintTop_toBottomOf="@id/rvDays"
+                app:layout_constraintWidth_max="@dimen/app_content_max_width" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvEvents"
@@ -109,6 +111,7 @@
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
                 app:layout_constraintTop_toBottomOf="@id/tvSection"
+                app:layout_constraintWidth_max="@dimen/app_content_max_width"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_app_event" />
 
@@ -116,19 +119,20 @@
                 android:id="@+id/tvEmptyEvents"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/app_events_list_margin_top"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
-                app:layout_constraintTop_toBottomOf="@id/tvSection">
+                app:layout_constraintTop_toBottomOf="@id/tvSection"
+                app:layout_constraintWidth_max="@dimen/app_content_max_width">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:maxHeight="220dp"
+                    android:maxHeight="@dimen/app_requests_empty_image_size"
                     android:importantForAccessibility="no"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/img_empty_results" />
