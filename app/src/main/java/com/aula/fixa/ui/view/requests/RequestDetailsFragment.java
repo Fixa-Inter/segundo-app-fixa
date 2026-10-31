@@ -2,12 +2,14 @@ package com.aula.fixa.ui.view.requests;
 
 import com.aula.fixa.domain.enums.StatusProblema;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +20,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
-import com.aula.fixa.ui.config.AppText;
 import com.aula.fixa.ui.config.FragmentUi;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.DashedLineDrawable;
@@ -51,11 +52,7 @@ public class RequestDetailsFragment extends Fragment {
 
         String title = getArguments() != null ? getArguments().getString("requestTitle", "") : "";
         long requestId = getArguments() != null ? getArguments().getLong("requestId", 0) : 0;
-        int space = title.indexOf(' ');
-        String html = space > 0
-                ? "<b><font color=\"#153D7D\">" + title.substring(0, space) + "</font></b>" + title.substring(space)
-                : title;
-        AppText.setHtml(view.findViewById(R.id.tvTitle), html);
+        setStyledTitle(view.findViewById(R.id.tvTitle), title);
 
         view.findViewById(R.id.btnBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v,
@@ -78,7 +75,7 @@ public class RequestDetailsFragment extends Fragment {
         solicitacoes.detalhar(id, new SolicitacaoViewModel.Callback<Problema>() {
             @Override public void aoConcluir(Problema item) {
                 FragmentUi.runIfViewActive(RequestDetailsFragment.this, view, () -> {
-                    ((TextView) view.findViewById(R.id.tvTitle)).setText(item.titulo);
+                    setStyledTitle(view.findViewById(R.id.tvTitle), item.titulo);
                     String status = item.status.isEmpty() ? "PENDENTE" : item.status;
                     boolean editable = status.equalsIgnoreCase("PENDENTE");
                     view.findViewById(R.id.btnMore).setVisibility(editable ? View.VISIBLE : View.GONE);
@@ -102,6 +99,18 @@ public class RequestDetailsFragment extends Fragment {
                         view.getContext(), error.getMessage(), android.widget.Toast.LENGTH_LONG).show());
             }
         });
+    }
+
+    private void setStyledTitle(TextView titleView, String value) {
+        String title = value == null ? "" : value;
+        SpannableString styled = new SpannableString(title);
+        int wordEnd = title.indexOf(' ');
+        if (wordEnd < 0) wordEnd = title.length();
+        if (wordEnd > 0) {
+            styled.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.app_primary)),
+                    0, wordEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        titleView.setText(styled);
     }
 
     private List<EtapaLinhaTempo> timeline(String status) {

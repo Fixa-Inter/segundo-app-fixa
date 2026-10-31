@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_654_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_5960"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -17,23 +17,22 @@
         <TextView
             android:id="@+id/ops_5717_5959"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ops_dp_58_8"
-            android:layout_marginStart="@dimen/ops_dp_33"
-            android:layout_marginTop="@dimen/ops_dp_62_6"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_43"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_competencias_1f8012"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
-            android:minHeight="@dimen/ops_dp_58_8"
             android:tag="text:Competências"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6041" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_34_6" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_42_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_5959" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Elétrica">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6041" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_34_6" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_5959" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Elétrica">
             <TextView
                 android:id="@+id/ops_5717_6046"
                 android:layout_width="@dimen/ops_dp_36"
@@ -53,11 +52,13 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6045"
-                android:layout_width="@dimen/ops_dp_59"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_40"
                 android:layout_marginStart="@dimen/ops_dp_54_0"
+                android:layout_marginEnd="@dimen/ops_dp_12_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ops_5717_6046"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_eletrica_52ed67"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.7d175543e7"
@@ -67,6 +68,11 @@
                 android:tag="text:Elétrica"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_medium"
+                android:ellipsize="end"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="@dimen/ops_sp_16_0"
+                android:autoSizeStepGranularity="1sp"
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6047"
@@ -78,6 +84,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_1o_7b8135"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.611c392c6a"
+                android:textColor="@color/ops_color_ff153d7d"
                 android:includeFontPadding="false"
                 android:gravity="start|center_vertical"
                 android:minHeight="@dimen/ops_dp_22_4"
@@ -89,17 +96,16 @@
                 android:id="@+id/ops_5717_6042"
                 android:layout_width="@dimen/ops_dp_18_0"
                 android:layout_height="@dimen/ops_dp_18_0"
-                android:layout_marginStart="@dimen/ops_dp_304_0"
                 android:layout_marginTop="@dimen/ops_dp_25_35"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d6fa8"
+                android:tint="@color/ops_color_ff153d7d"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:Icon/Ação editar"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6032" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_42_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6041" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Hidráulica">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6032" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6041" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Hidráulica">
             <TextView
                 android:id="@+id/ops_5717_6037"
                 android:layout_width="@dimen/ops_dp_36"
@@ -119,11 +125,13 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6036"
-                android:layout_width="@dimen/ops_dp_82"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_40"
                 android:layout_marginStart="@dimen/ops_dp_54_0"
+                android:layout_marginEnd="@dimen/ops_dp_12_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ops_5717_6037"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_hidraulica_fd5e95"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.7d175543e7"
@@ -133,6 +141,11 @@
                 android:tag="text:Hidráulica"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_medium"
+                android:ellipsize="end"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="@dimen/ops_sp_16_0"
+                android:autoSizeStepGranularity="1sp"
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6038"
@@ -144,6 +157,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_2o_267c1e"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.775d5142e8"
+                android:textColor="@color/ops_color_ff153d7d"
                 android:includeFontPadding="false"
                 android:gravity="start|center_vertical"
                 android:minHeight="@dimen/ops_dp_22_4"
@@ -155,17 +169,16 @@
                 android:id="@+id/ops_5717_6033"
                 android:layout_width="@dimen/ops_dp_18_0"
                 android:layout_height="@dimen/ops_dp_18_0"
-                android:layout_marginStart="@dimen/ops_dp_304_0"
                 android:layout_marginTop="@dimen/ops_dp_25_35"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d6fa8"
+                android:tint="@color/ops_color_ff153d7d"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:Icon/Ação editar"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_5996" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_42_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6032" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Limpeza">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_5996" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6032" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Limpeza">
             <TextView
                 android:id="@+id/ops_5717_6001"
                 android:layout_width="@dimen/ops_dp_35"
@@ -185,11 +198,13 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6000"
-                android:layout_width="@dimen/ops_dp_68"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_40"
                 android:layout_marginStart="@dimen/ops_dp_54_0"
+                android:layout_marginEnd="@dimen/ops_dp_12_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ops_5717_6001"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_limpeza_b072e0"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.7d175543e7"
@@ -199,6 +214,11 @@
                 android:tag="text:Limpeza"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_medium"
+                android:ellipsize="end"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="@dimen/ops_sp_16_0"
+                android:autoSizeStepGranularity="1sp"
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6002"
@@ -210,6 +230,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_3o_9065d3"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.184d41d4f9"
+                android:textColor="@color/ops_color_ff153d7d"
                 android:includeFontPadding="false"
                 android:gravity="start|center_vertical"
                 android:minHeight="@dimen/ops_dp_22_4"
@@ -221,17 +242,16 @@
                 android:id="@+id/ops_5717_5997"
                 android:layout_width="@dimen/ops_dp_18_0"
                 android:layout_height="@dimen/ops_dp_18_0"
-                android:layout_marginStart="@dimen/ops_dp_304_0"
                 android:layout_marginTop="@dimen/ops_dp_25_35"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d6fa8"
+                android:tint="@color/ops_color_ff153d7d"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:Icon/Ação editar"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6005" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_42_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_5996" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Hidráulica">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6005" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_5996" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Hidráulica">
             <TextView
                 android:id="@+id/ops_5717_6010"
                 android:layout_width="@dimen/ops_dp_36"
@@ -251,11 +271,13 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6009"
-                android:layout_width="@dimen/ops_dp_82"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_40"
                 android:layout_marginStart="@dimen/ops_dp_54_0"
+                android:layout_marginEnd="@dimen/ops_dp_12_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ops_5717_6010"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_hidraulica_fd5e95"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.7d175543e7"
@@ -265,6 +287,11 @@
                 android:tag="text:Hidráulica"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_medium"
+                android:ellipsize="end"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="@dimen/ops_sp_16_0"
+                android:autoSizeStepGranularity="1sp"
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6011"
@@ -287,17 +314,16 @@
                 android:id="@+id/ops_5717_6006"
                 android:layout_width="@dimen/ops_dp_18_0"
                 android:layout_height="@dimen/ops_dp_18_0"
-                android:layout_marginStart="@dimen/ops_dp_304_0"
                 android:layout_marginTop="@dimen/ops_dp_25_35"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d6fa8"
+                android:tint="@color/ops_color_ff153d7d"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:Icon/Ação editar"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6014" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_42_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6005" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Limpeza">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6014" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6005" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Limpeza">
             <TextView
                 android:id="@+id/ops_5717_6019"
                 android:layout_width="@dimen/ops_dp_35"
@@ -317,11 +343,13 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6018"
-                android:layout_width="@dimen/ops_dp_68"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_40"
                 android:layout_marginStart="@dimen/ops_dp_54_0"
+                android:layout_marginEnd="@dimen/ops_dp_12_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ops_5717_6019"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_limpeza_b072e0"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.7d175543e7"
@@ -331,6 +359,11 @@
                 android:tag="text:Limpeza"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_medium"
+                android:ellipsize="end"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="@dimen/ops_sp_16_0"
+                android:autoSizeStepGranularity="1sp"
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6020"
@@ -353,17 +386,16 @@
                 android:id="@+id/ops_5717_6015"
                 android:layout_width="@dimen/ops_dp_18_0"
                 android:layout_height="@dimen/ops_dp_18_0"
-                android:layout_marginStart="@dimen/ops_dp_304_0"
                 android:layout_marginTop="@dimen/ops_dp_25_35"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d6fa8"
+                android:tint="@color/ops_color_ff153d7d"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:Icon/Ação editar"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6023" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_42_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6014" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Elétrica">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6023" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6014" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Elétrica">
             <TextView
                 android:id="@+id/ops_5717_6028"
                 android:layout_width="@dimen/ops_dp_38"
@@ -383,11 +415,13 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6027"
-                android:layout_width="@dimen/ops_dp_59"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_40"
                 android:layout_marginStart="@dimen/ops_dp_54_0"
+                android:layout_marginEnd="@dimen/ops_dp_12_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ops_5717_6028"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_eletrica_52ed67"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.7d175543e7"
@@ -397,6 +431,11 @@
                 android:tag="text:Elétrica"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_medium"
+                android:ellipsize="end"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="@dimen/ops_sp_16_0"
+                android:autoSizeStepGranularity="1sp"
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6029"
@@ -419,15 +458,14 @@
                 android:id="@+id/ops_5717_6024"
                 android:layout_width="@dimen/ops_dp_18_0"
                 android:layout_height="@dimen/ops_dp_18_0"
-                android:layout_marginStart="@dimen/ops_dp_304_0"
                 android:layout_marginTop="@dimen/ops_dp_25_35"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_d6fa8"
+                android:tint="@color/ops_color_ff153d7d"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:tag="image:Icon/Ação editar"
-                android:translationZ="@dimen/ops_dp_3" />
+                android:translationZ="@dimen/ops_dp_3" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

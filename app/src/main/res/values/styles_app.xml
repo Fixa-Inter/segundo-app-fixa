@@ -118,13 +118,13 @@
     </style>
 
     <!-- Minhas solicitações -->
-    <style name="TextAppearance.FIXA.App.Chip" parent="TextAppearance.FIXA.App.Regular">
+    <style name="TextAppearance.FIXA.App.Chip" parent="TextAppearance.FIXA.App.Medium">
         <item name="android:textSize">@dimen/app_requests_chip_text_size</item>
         <item name="android:letterSpacing">-0.0267</item>
     </style>
     <style name="TextAppearance.FIXA.App.Search" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_text_black</item>
-        <item name="android:textColorHint">@color/app_text_hint_60</item>
+        <item name="android:textColorHint">@color/app_text_placeholder_dark</item>
         <item name="android:textSize">@dimen/app_requests_search_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.EmptyTitle" parent="TextAppearance.FIXA.App.Regular">
@@ -224,7 +224,7 @@
         <item name="android:textSize">@dimen/app_chat_drawer_recent_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Chat.DrawerItem" parent="TextAppearance.FIXA.App.Regular">
-        <item name="android:textColor">@color/app_text_muted</item>
+        <item name="android:textColor">@color/app_chat_drawer_item_text</item>
         <item name="android:textSize">@dimen/app_chat_drawer_item_text_size</item>
     </style>
 
@@ -257,7 +257,7 @@
     </style>
     <style name="TextAppearance.FIXA.App.Step.Field" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_text_dark</item>
-        <item name="android:textColorHint">@color/app_text_hint</item>
+        <item name="android:textColorHint">@color/app_text_placeholder_dark</item>
         <item name="android:textSize">@dimen/app_step_field_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Step.IndicatorNumber" parent="TextAppearance.FIXA.App.Medium">
@@ -310,6 +310,10 @@
         <item name="android:textColor">@color/app_text_dark</item>
         <item name="android:textSize">@dimen/app_profile_menu_text_size</item>
     </style>
+    <style name="TextAppearance.FIXA.App.Settings.Row" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_settings_row_text_size</item>
+    </style>
     <style name="TextAppearance.FIXA.App.MyProfile.Section" parent="TextAppearance.FIXA.App.Medium">
         <item name="android:textColor">@color/app_primary_dark</item>
         <item name="android:textSize">@dimen/app_my_profile_section_text_size</item>
@@ -323,8 +327,8 @@
         <item name="android:textSize">@dimen/app_edit_label_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Edit.Field" parent="TextAppearance.FIXA.App.Light">
-        <item name="android:textColor">@color/app_text_secondary</item>
-        <item name="android:textColorHint">@color/app_text_secondary</item>
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textColorHint">@color/app_text_placeholder_dark</item>
         <item name="android:textSize">@dimen/app_edit_field_text_size</item>
     </style>
 
@@ -365,7 +369,7 @@
         <item name="android:letterSpacing">-0.0213</item>
     </style>
     <style name="TextAppearance.FIXA.App.Notification.Time" parent="TextAppearance.FIXA.App.Light">
-        <item name="android:textColor">@color/app_divider</item>
+        <item name="android:textColor">@color/app_text_secondary</item>
         <item name="android:textSize">@dimen/app_notification_time_text_size</item>
         <item name="android:letterSpacing">-0.0267</item>
     </style>
@@ -380,7 +384,7 @@
         <item name="android:textSize">@dimen/app_filter_label_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Filter.Field" parent="TextAppearance.FIXA.App.Regular">
-        <item name="android:textColor">@color/app_text_secondary</item>
+        <item name="android:textColor">@color/app_text_black</item>
         <item name="android:textColorHint">@color/app_text_muted</item>
         <item name="android:textSize">@dimen/app_filter_field_text_size</item>
     </style>
@@ -404,7 +408,7 @@
         <item name="android:textSize">@dimen/app_dialog_edit_label_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Dialog.EditField" parent="TextAppearance.FIXA.App.Regular">
-        <item name="android:textColor">@color/app_primary_dark</item>
+        <item name="android:textColor">@color/app_text_black</item>
         <item name="android:textColorHint">@color/app_text_muted</item>
         <item name="android:textSize">@dimen/app_dialog_edit_field_text_size</item>
     </style>
@@ -444,7 +448,7 @@
         <item name="android:textSize">@dimen/app_dialog_button_text_size</item>
         <item name="cornerRadius">@dimen/app_dialog_button_radius</item>
     </style>
-    <style name="Widget.FIXA.App.Button.Dialog.Secondary">
+    <style name="Widget.FIXA.App.Button.Dialog.Secondary" parent="Widget.FIXA.App.Button.Dialog">
         <item name="android:textColor">@color/app_primary_dark</item>
         <item name="backgroundTint">@color/app_button_secondary</item>
     </style>
@@ -537,12 +541,39 @@
         <item name="android:textCursorDrawable">@null</item>
     </style>
     <style name="TextAppearance.FIXA.App.Recovery.Field" parent="TextAppearance.FIXA.App.Regular">
-        <item name="android:textColor">@color/app_primary_dark</item>
-        <item name="android:textColorHint">@color/app_text_secondary</item>
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textColorHint">@color/app_text_placeholder_dark</item>
         <item name="android:textSize">@dimen/recovery_field_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Recovery.Link" parent="TextAppearance.FIXA.App.Medium">
         <item name="android:textColor">@color/app_primary_dark</item>
         <item name="android:textSize">@dimen/recovery_link_text_size</item>
+    </style>
+    <style name="TextAppearance.FIXA.App.Events.CalendarDay" parent="@android:style/TextAppearance.Material.Body1">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/app_primary_deep</item>
+    </style>
+    <style name="Widget.FIXA.App.Events.CalendarView" parent="@android:style/Widget.Material.CalendarView">
+        <item name="android:dateTextAppearance">@style/TextAppearance.FIXA.App.Events.CalendarDay</item>
+        <item name="android:focusedMonthDateColor">@color/app_primary_deep</item>
+        <item name="android:unfocusedMonthDateColor">@color/app_text_muted</item>
+    </style>
+    <style name="Widget.FIXA.App.Events.DatePicker" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:calendarViewStyle">@style/Widget.FIXA.App.Events.CalendarView</item>
+        <item name="android:headerBackground">@color/app_surface</item>
+        <item name="android:calendarTextColor">@color/app_primary_deep</item>
+    </style>
+    <style name="ThemeOverlay.FIXA.App.Events.DatePicker" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="android:datePickerStyle">@style/Widget.FIXA.App.Events.DatePicker</item>
+        <item name="colorPrimary">@color/app_primary</item>
+        <item name="colorOnPrimary">@color/app_on_primary</item>
+        <item name="android:colorAccent">@color/app_primary</item>
+        <item name="android:windowBackground">@drawable/bg_app_events_date_picker</item>
+        <item name="android:textColorPrimary">@color/app_primary_deep</item>
+        <item name="android:textColorSecondary">@color/app_text_secondary</item>
+        <item name="colorSurface">@color/app_surface</item>
+        <item name="colorOnSurface">@color/app_primary_deep</item>
+        <item name="colorAccent">@color/app_primary</item>
     </style>
 </resources>

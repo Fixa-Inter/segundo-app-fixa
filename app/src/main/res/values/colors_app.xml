@@ -43,7 +43,11 @@
     <!-- Campos / superfícies -->
     <color name="app_field_background">#4DDBE0EB</color>
     <color name="app_field_background_strong">#80C4CFE0</color>
+    <color name="app_step_field_background">#33C4CFE0</color>
     <color name="app_field_stroke">#33130943</color>
+    <color name="app_timeline_approved_soft">#40184384</color>
+    <color name="app_timeline_done_soft">#4039A910</color>
+    <color name="app_timeline_refused_soft">#40FF383C</color>
     <color name="app_date_pill">#66DBDCDD</color>
     <color name="app_summary_card">#33CDD8EA</color>
     <color name="app_notification_unread">#33578BD6</color>
@@ -54,6 +58,7 @@
     <color name="app_sheet_background">#FFF4F2FF</color>
     <color name="app_dialog_background">#FFF6F9FC</color>
     <color name="app_chat_recent_selected">#FFEAEDF1</color>
+    <color name="app_chat_input_hint">#E6202020</color>
     <color name="app_event_info_panel">#FF0B013C</color>
 
     <!-- Sombras -->
@@ -68,4 +73,5 @@
     <color name="app_code_digit_stroke">#CC130943</color>
     <!-- Marcador sobre a foto no pop-up de editar (Figma: #54555A 90%) -->
     <color name="app_photo_badge">#E654555A</color>
+    <color name="app_text_placeholder_dark">#FF202020</color>
 </resources>

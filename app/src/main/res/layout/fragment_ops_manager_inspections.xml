@@ -4,16 +4,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_825_8" android:clipChildren="false" android:clipToPadding="false">
         <ImageButton
             android:id="@+id/inspectionBack"
-            android:layout_width="@dimen/app_touch_target"
-            android:layout_height="@dimen/app_touch_target"
-            android:layout_marginStart="-2dp"
-            android:layout_marginTop="9dp"
+            android:layout_width="@dimen/app_back_button_size"
+            android:layout_height="@dimen/app_back_button_size"
+            android:layout_marginStart="@dimen/app_back_button_margin_start"
+            android:layout_marginTop="@dimen/app_back_button_margin_top"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/app_back"
             android:scaleType="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_left_22"
+            app:srcCompat="@drawable/ic_arrow_left_26"
             app:tint="@color/app_primary_deep" />
         <TextView
             android:id="@+id/ops_5717_8312"
@@ -48,7 +48,7 @@
                 android:paddingEnd="@dimen/ops_dp_35_0"
                 android:popupBackground="@drawable/bg_app_popup_menu"
                 android:text="Status"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.776f506c8d" />
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.776f506c8d" android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_8354"
                 android:layout_width="@dimen/ops_dp_20_0"
@@ -105,7 +105,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/inspectionSearchIcon"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" android:textColor="@color/app_text_black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/inspectionEquipmentList"

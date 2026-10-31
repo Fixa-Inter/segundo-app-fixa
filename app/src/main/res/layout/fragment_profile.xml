@@ -19,16 +19,16 @@
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="@dimen/app_touch_target"
-            android:layout_height="@dimen/app_touch_target"
-            android:layout_marginStart="-2dp"
-            android:layout_marginTop="9dp"
+            android:layout_width="@dimen/app_back_button_size"
+            android:layout_height="@dimen/app_back_button_size"
+            android:layout_marginStart="@dimen/app_back_button_margin_start"
+            android:layout_marginTop="@dimen/app_back_button_margin_top"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/app_back"
             android:scaleType="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_left_22"
+            app:srcCompat="@drawable/ic_arrow_left_26"
             app:tint="@color/app_primary_deep" />
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/app_profile_name_margin_start"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="-1dp"
             android:layout_marginEnd="@dimen/app_screen_side_margin"
             android:ellipsize="end"
             android:maxLines="1"
@@ -81,8 +81,8 @@
             android:minHeight="0dp"
             android:text="@string/app_profile_edit"
             android:textAppearance="@style/TextAppearance.FIXA.App.Regular"
-            android:fontFamily="@font/poppins_bold"
-            android:textFontWeight="700"
+            android:fontFamily="@font/poppins_medium"
+            android:textFontWeight="500"
             android:textColor="@color/app_on_primary"
             android:textSize="@dimen/app_profile_edit_text_size"
             app:backgroundTint="@color/app_primary_dark"

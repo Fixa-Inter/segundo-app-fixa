@@ -44,7 +44,7 @@
         android:id="@+id/btnNewChat"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/app_touch_target"
-        android:layout_marginTop="-2dp"
+        android:layout_marginTop="@dimen/app_chat_drawer_new_margin_top"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -76,6 +76,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnNewChat" />
 
+    <EditText
+        android:id="@+id/etRecentSearch"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/app_requests_search_height"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_app_search"
+        android:hint="@string/app_requests_search_hint"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:singleLine="true"
+        android:textColor="@color/app_text_black"
+        android:textColorHint="@color/app_text_secondary"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Search"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRecent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecentChats"
         android:layout_width="0dp"
@@ -85,7 +105,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRecent"
+        app:layout_constraintTop_toBottomOf="@id/etRecentSearch"
         tools:itemCount="3"
         tools:listitem="@layout/item_app_chat_recent" />
 

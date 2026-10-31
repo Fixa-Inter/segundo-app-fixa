@@ -9,7 +9,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:minHeight="@dimen/ops_dp_658_0" android:clipChildren="false" android:clipToPadding="false">
-            <ImageView android:id="@+id/managerOccurrencesBack" android:layout_width="@dimen/ops_dp_22_0" android:layout_height="@dimen/ops_dp_22_0"
+            <ImageView android:id="@+id/managerOccurrencesBack" android:layout_width="@dimen/app_back_icon_size" android:layout_height="@dimen/app_back_icon_size"
                 android:layout_marginStart="@dimen/ops_dp_11_0" android:layout_marginTop="@dimen/ops_dp_22_0"
                 android:src="@drawable/figma_eee40" android:tag="image:arrow-left"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +20,7 @@
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/managerOccurrencesSearchContainer"
-                android:layout_width="0dp" android:layout_height="@dimen/ops_dp_45_0" android:layout_marginStart="@dimen/ops_dp_30_0"
+                android:layout_width="0dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin"
                 android:layout_marginTop="@dimen/ops_dp_14_0" android:layout_marginEnd="@dimen/ops_dp_16_0"
                 android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/managerOccurrencesFilter"
@@ -28,7 +28,7 @@
                 <ImageButton android:id="@+id/managerOccurrencesSearchButton" android:layout_width="@dimen/app_requests_search_height"
                     android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="1dp"
                     android:background="@drawable/bg_app_circle_primary" android:contentDescription="@string/app_requests_search"
-                    android:elevation="3dp" android:scaleType="center" app:srcCompat="@drawable/ic_search_18"
+                    android:elevation="3dp" android:scaleType="center" app:srcCompat="@drawable/ic_search_26"
                     app:tint="@color/app_on_primary" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
                 <androidx.appcompat.widget.AppCompatEditText android:id="@+id/managerOccurrencesSearch"
@@ -37,12 +37,12 @@
                     android:hint="@string/ops_text_pesquisar_d0839a" android:inputType="text" android:imeOptions="actionSearch"
                     android:textAppearance="@style/TextAppearance.FIXA.Operations.532bcc5bfe" android:fontFamily="@font/poppins_regular"
                     android:tag="field:Pesquisar" app:layout_constraintStart_toEndOf="@id/managerOccurrencesSearchButton"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:textColor="@color/app_text_black" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageButton android:id="@+id/managerOccurrencesFilter" android:layout_width="@dimen/app_touch_target"
                 android:layout_height="@dimen/app_touch_target" android:layout_marginEnd="@dimen/app_screen_side_margin"
                 android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/app_requests_filters"
-                android:scaleType="center" app:srcCompat="@drawable/ic_filter_24" app:tint="@color/app_primary_deep"
+                android:scaleType="center" app:srcCompat="@drawable/ic_filter_34" app:tint="@color/app_primary_deep"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/managerOccurrencesSearchContainer"
                 app:layout_constraintBottom_toBottomOf="@id/managerOccurrencesSearchContainer" />
             <androidx.recyclerview.widget.RecyclerView android:id="@+id/managerOccurrencesList"

@@ -46,7 +46,7 @@ public final class AppDialogs {
      * Figma "pop-up 6997": deletar registro (usado para itens sem motivo obrigatório).
      */
     public static void showDeleteConfirm(Context context, @Nullable Runnable onConfirm) {
-        showConfirm(context, R.drawable.img_dialog_illustration, R.string.app_dialog_delete_title,
+        showConfirm(context, R.drawable.img_dialog_illustration_hires, R.string.app_dialog_delete_title,
                 R.string.app_dialog_delete_body, R.string.app_delete, onConfirm);
     }
 
@@ -54,7 +54,7 @@ public final class AppDialogs {
      * Figma "pop-up 7041": salvar alterações.
      */
     public static void showSaveConfirm(Context context, @Nullable Runnable onConfirm) {
-        showConfirm(context, R.drawable.img_dialog_save, R.string.app_dialog_save_title,
+        showConfirm(context, R.drawable.img_dialog_save_hires, R.string.app_dialog_save_title,
                 R.string.app_dialog_save_body, R.string.app_save, onConfirm);
     }
 
@@ -63,7 +63,7 @@ public final class AppDialogs {
      */
     public static void showDiscardConfirm(Context context, Runnable onSave, Runnable onDiscard) {
         View content = LayoutInflater.from(context).inflate(R.layout.dialog_app_confirm, null, false);
-        ((ImageView) content.findViewById(R.id.ivDialogImage)).setImageResource(R.drawable.img_dialog_save);
+        ((ImageView) content.findViewById(R.id.ivDialogImage)).setImageResource(R.drawable.img_dialog_save_hires);
         ((TextView) content.findViewById(R.id.tvDialogTitle)).setText(R.string.app_dialog_save_title);
         ((TextView) content.findViewById(R.id.tvDialogBody)).setText(R.string.app_dialog_discard_body);
         MaterialButton secondary = content.findViewById(R.id.btnDialogSecondary);
@@ -87,7 +87,7 @@ public final class AppDialogs {
      * Figma "pop-up 7049": sair da conta.
      */
     public static void showLogoutConfirm(Context context, Runnable onConfirm) {
-        showConfirm(context, R.drawable.img_dialog_logout, R.string.app_dialog_logout_title,
+        showConfirm(context, R.drawable.img_dialog_logout_hires, R.string.app_dialog_logout_title,
                 R.string.app_dialog_logout_body, R.string.app_dialog_logout_confirm, onConfirm);
     }
 

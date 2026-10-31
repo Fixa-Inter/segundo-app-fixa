@@ -9,23 +9,28 @@
     android:background="@drawable/bg_app_event_day"
     android:clickable="true"
     android:focusable="true"
-    android:gravity="center_horizontal"
+    android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical"
-    android:paddingTop="@dimen/app_events_day_number_margin_top">
+>
 
     <TextView
         android:id="@+id/tvDayNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:includeFontPadding="false"
         android:textAppearance="@style/TextAppearance.FIXA.App.Events.DayNumber"
         android:textColor="@color/app_text_secondary"
         tools:text="11" />
 
     <TextView
         android:id="@+id/tvDayLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/app_events_day_label_margin_top"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
         android:textAppearance="@style/TextAppearance.FIXA.App.Events.DayLabel"
         android:textColor="@color/app_text_muted"
         tools:text="Ter" />

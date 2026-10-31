@@ -52,7 +52,7 @@
             android:singleLine="true"
             android:tag="input:Valor antigo"
             android:text="_"
-            android:textColor="@color/ops_color_ff0b013c"
+            android:textColor="@color/app_text_black"
             app:layout_constraintBottom_toBottomOf="@id/ops_5717_6055"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ops_5717_6055" />
@@ -80,7 +80,7 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:tag="input:Novo valor"
-            android:textColor="@color/ops_color_ff0b013c"
+            android:textColor="@color/app_text_black"
             android:textColorHint="@color/ops_color_ff8a93a2"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/ops_5717_6059"

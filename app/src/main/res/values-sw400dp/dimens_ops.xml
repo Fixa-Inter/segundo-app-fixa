@@ -1044,4 +1044,26 @@
     <dimen name="ops_sp_8_0">8.00sp</dimen>
     <dimen name="ops_sp_9_0">9.00sp</dimen>
     <dimen name="ops_content_width">412.00dp</dimen>
+    <dimen name="ops_team_card_height">128dp</dimen>
+    <dimen name="ops_team_card_spacing">14dp</dimen>
+    <dimen name="ops_team_avatar_size">52dp</dimen>
+    <dimen name="ops_team_name_text_size">18sp</dimen>
+    <dimen name="ops_team_access_text_size">13sp</dimen>
+    <dimen name="ops_team_meta_text_size">13sp</dimen>
+    <dimen name="ops_team_meta_label_text_size">12sp</dimen>
+    <dimen name="ops_team_shift_width">64dp</dimen>
+    <dimen name="ops_team_specialty_width">82dp</dimen>
+    <dimen name="ops_team_meta_gap">8dp</dimen>
+    <dimen name="ops_team_meta_top">41dp</dimen>
+    <dimen name="ops_search_icon_size">24dp</dimen>
+    <dimen name="ops_action_end_margin">22dp</dimen>
+    <dimen name="ops_action_icon_size">26dp</dimen>
+    <dimen name="ops_header_icon_size">22dp</dimen>
+    <dimen name="ops_header_icon_spacing">14dp</dimen>
+    <dimen name="ops_form_action_bottom_margin">44dp</dimen>
+    <dimen name="ops_team_avatar_start">12dp</dimen>
+    <dimen name="ops_team_meta_end">12dp</dimen>
+    <dimen name="ops_team_icon_size">18dp</dimen>
+    <dimen name="ops_team_shift_competence_gap">12dp</dimen>
+    <dimen name="ops_member_details_content_inset">7dp</dimen>
 </resources>

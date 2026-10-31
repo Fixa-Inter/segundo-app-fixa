@@ -70,7 +70,7 @@ public final class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.
                 check.setVisibility(View.GONE);
                 refused.setVisibility(View.GONE);
                 card.setVisibility(View.VISIBLE);
-                card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_approved_soft));
+                card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_timeline_approved_soft));
                 title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_approved_text));
                 return;
             }
@@ -87,7 +87,7 @@ public final class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.
                     check.setVisibility(View.GONE);
                     refused.setVisibility(View.VISIBLE);
                     card.setVisibility(View.VISIBLE);
-                    card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_refused_soft));
+                    card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_timeline_refused_soft));
                     title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_refused_text));
                     break;
                 default:
@@ -107,7 +107,7 @@ public final class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.
             check.setVisibility(View.VISIBLE);
             refused.setVisibility(View.GONE);
             card.setVisibility(View.VISIBLE);
-            card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_done_soft));
+            card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_timeline_done_soft));
             title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_done_text));
         }
 
@@ -118,7 +118,7 @@ public final class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.
             check.setVisibility(View.VISIBLE);
             refused.setVisibility(View.GONE);
             card.setVisibility(View.VISIBLE);
-            card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_status_done_soft));
+            card.setBackgroundTintList(ContextCompat.getColorStateList(itemView.getContext(), R.color.app_timeline_done_soft));
             title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_done_text));
         }
 

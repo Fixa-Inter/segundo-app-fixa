@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_824_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_9601"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:tag="text:Confirme as informações"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9609" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_477_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_215_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="@dimen/ops_dp_31_0" app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/bg_ops_ac14c6a492" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ar-condicionado quebrado">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9609" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_477_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_215_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/bg_ops_ac14c6a492" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ar-condicionado quebrado">
             <TextView
                 android:id="@+id/ops_5717_9610"
                 android:layout_width="0dp"

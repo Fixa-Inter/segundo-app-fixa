@@ -20,7 +20,7 @@
         android:paddingEnd="@dimen/app_filter_field_padding_end"
         android:popupBackground="@drawable/bg_app_popup_menu"
         android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Field"
-        tools:text="Últimos 30 dias" />
+        tools:text="Últimos 30 dias" android:textColor="@color/app_text_black" />
 
     <ImageView
         android:id="@+id/ivFilterIcon"

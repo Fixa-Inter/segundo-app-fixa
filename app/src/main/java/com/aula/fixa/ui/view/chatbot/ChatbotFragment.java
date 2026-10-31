@@ -5,6 +5,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
 
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.List;
 
 public class ChatbotFragment extends Fragment {
@@ -33,16 +40,48 @@ public class ChatbotFragment extends Fragment {
         view.findViewById(R.id.btnMenu).setOnClickListener(v -> drawer.openDrawer(Gravity.START));
 
         RecyclerView recent = view.findViewById(R.id.rvRecentChats);
-        recent.setAdapter(new RecentAdapter(Arrays.asList(getResources().getStringArray(R.array.app_chat_recent_items))));
+        RecentAdapter recentAdapter = new RecentAdapter(Arrays.asList(getResources().getStringArray(R.array.app_chat_recent_items)));
+        recent.setAdapter(recentAdapter);
+        EditText recentSearch = view.findViewById(R.id.etRecentSearch);
+        view.findViewById(R.id.btnDrawerSearch).setOnClickListener(v -> {
+            if (recentSearch.getVisibility() != View.VISIBLE) {
+                recentSearch.setVisibility(View.VISIBLE);
+                recentSearch.requestFocus();
+                recentSearch.post(() -> ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .showSoftInput(recentSearch, InputMethodManager.SHOW_IMPLICIT));
+            } else {
+                ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(recentSearch.getWindowToken(), 0);
+                recentSearch.setText("");
+                recentSearch.setVisibility(View.GONE);
+            }
+        });
+        recentSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { recentAdapter.filter(s.toString()); }
+            @Override public void afterTextChanged(Editable s) { }
+        });
         view.findViewById(R.id.btnNewChat).setOnClickListener(v -> drawer.closeDrawers());
     }
 
     static class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.ViewHolder> {
         private final List<String> items;
+        private final List<String> allItems;
         private int selected = 0;
 
         RecentAdapter(List<String> items) {
-            this.items = items;
+            this.allItems = new ArrayList<>(items);
+            this.items = new ArrayList<>(items);
+        }
+
+        void filter(String query) {
+            items.clear();
+            String normalized = query == null ? "" : query.trim().toLowerCase(Locale.ROOT);
+            for (String item : allItems) {
+                if (normalized.isEmpty() || item.toLowerCase(Locale.ROOT).contains(normalized)) items.add(item);
+            }
+            selected = 0;
+            notifyDataSetChanged();
         }
 
         @NonNull
@@ -56,6 +95,7 @@ public class ChatbotFragment extends Fragment {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             TextView text = (TextView) holder.itemView;
             text.setText(items.get(position));
+            text.setSelected(position == selected);
             text.setBackgroundResource(position == selected ? R.drawable.bg_app_chat_recent_selected : 0);
             text.setOnClickListener(v -> {
                 int old = selected;

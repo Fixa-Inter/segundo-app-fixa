@@ -10,7 +10,6 @@
         android:id="@+id/operationsHost"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintWidth_max="@dimen/ops_content_width"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

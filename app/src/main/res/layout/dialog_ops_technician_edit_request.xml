@@ -63,7 +63,7 @@
             android:contentDescription="@string/ops_text_titulo_4c08a5"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Título" />
+            android:tag="field:Título" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_9239"
             android:layout_width="@dimen/ops_dp_73"
@@ -108,7 +108,7 @@
             android:contentDescription="@string/ops_text_descricao_46332f"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Descrição" />
+            android:tag="field:Descrição" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_9242"
             android:layout_width="@dimen/ops_dp_39"
@@ -153,7 +153,7 @@
             android:contentDescription="@string/ops_text_local_8c31e6"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Local" />
+            android:tag="field:Local" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_9251"
             android:layout_width="@dimen/ops_dp_98_4"

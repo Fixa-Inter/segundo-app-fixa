@@ -63,7 +63,7 @@
             android:contentDescription="@string/ops_text_identificador_697131"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Identificador" />
+            android:tag="field:Identificador" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_7896"
             android:layout_width="@dimen/ops_dp_39"
@@ -107,19 +107,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_7897"
                 android:layout_width="@dimen/ops_dp_11_51"
                 android:layout_height="@dimen/ops_dp_6_48"
-                android:layout_marginEnd="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/figma_93bef"
-                android:scaleType="fitXY"
+                android:layout_marginEnd="@dimen/ops_action_end_margin"
                 android:importantForAccessibility="no"
-                android:tag="image:" />
+                android:scaleType="fitXY"
+                android:src="@drawable/figma_93bef"
+                android:tag="image:"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7888" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="18dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7894" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView

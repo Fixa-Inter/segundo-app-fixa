@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_637_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_7380"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,14 +35,12 @@
             android:id="@+id/ops_5717_7384"
             android:layout_width="@dimen/ops_dp_24_0"
             android:layout_height="@dimen/ops_dp_24_0"
-            android:layout_marginStart="@dimen/ops_dp_352_0"
             android:layout_marginTop="@dimen/ops_dp_78_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_b3541"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:bell" />
+            android:tag="image:bell" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <TextView
             android:id="@+id/ops_5717_7387"
             android:layout_width="@dimen/ops_dp_47"
@@ -60,7 +58,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7375" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_dp_26_0" android:layout_marginTop="@dimen/ops_dp_15_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_26_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7387" android:background="@drawable/bg_ops_f8c01b4af5" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Nova solicitação recebida">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7375" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_15_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7387" android:background="@drawable/bg_ops_f8c01b4af5" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Nova solicitação recebida">
             <TextView
                 android:id="@+id/ops_5717_7378"
                 android:layout_width="@dimen/ops_dp_193_72"
@@ -95,9 +93,7 @@
             android:id="@+id/ops_5717_7377"
             android:layout_width="@dimen/ops_dp_78"
             android:layout_height="@dimen/ops_dp_40"
-            android:layout_marginStart="@dimen/ops_dp_295"
             android:layout_marginTop="@dimen/ops_dp_251_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@string/ops_text_11_40_b91dfd"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.b8a367f2e5"
@@ -107,7 +103,7 @@
             android:tag="text:11:40"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_light"
-            android:maxLines="1" />
+            android:maxLines="1"  android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent"/>
         <TextView
             android:id="@+id/ops_5717_7388"
             android:layout_width="@dimen/ops_dp_159_9"
@@ -125,7 +121,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7391" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_dp_26_0" android:layout_marginTop="@dimen/ops_dp_15_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_26_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7388" android:background="@drawable/bg_ops_73ddf1ca62" android:clipChildren="false" android:clipToPadding="false" android:tag="card:OS “Torneira quebrada” concluída">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7391" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_15_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7388" android:background="@drawable/bg_ops_73ddf1ca62" android:clipChildren="false" android:clipToPadding="false" android:tag="card:OS “Torneira quebrada” concluída">
             <TextView
                 android:id="@+id/ops_5717_7394"
                 android:layout_width="0dp"
@@ -150,9 +146,7 @@
             android:id="@+id/ops_5717_7393"
             android:layout_width="@dimen/ops_dp_78"
             android:layout_height="@dimen/ops_dp_40"
-            android:layout_marginStart="@dimen/ops_dp_295"
             android:layout_marginTop="@dimen/ops_dp_112_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_7377"
             android:text="@string/ops_text_11_40_b91dfd"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.b8a367f2e5"
@@ -162,8 +156,8 @@
             android:tag="text:11:40"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_light"
-            android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7397" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_dp_26_0" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_26_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7391" android:background="@drawable/bg_ops_73ddf1ca62" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Nova solicitação recebida">
+            android:maxLines="1"  android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7397" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7391" android:background="@drawable/bg_ops_73ddf1ca62" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Nova solicitação recebida">
             <TextView
                 android:id="@+id/ops_5717_7400"
                 android:layout_width="@dimen/ops_dp_193_72"
@@ -186,9 +180,7 @@
             android:id="@+id/ops_5717_7399"
             android:layout_width="@dimen/ops_dp_78"
             android:layout_height="@dimen/ops_dp_40"
-            android:layout_marginStart="@dimen/ops_dp_295"
             android:layout_marginTop="@dimen/ops_dp_45_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_7393"
             android:text="@string/ops_text_11_40_b91dfd"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.b8a367f2e5"
@@ -198,8 +190,8 @@
             android:tag="text:11:40"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_light"
-            android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7403" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_dp_26_0" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_26_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7397" android:background="@drawable/bg_ops_73ddf1ca62" android:clipChildren="false" android:clipToPadding="false" android:tag="card:OS “Privada Quebrada” iniciada">
+            android:maxLines="1"  android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7403" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_75_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7397" android:background="@drawable/bg_ops_73ddf1ca62" android:clipChildren="false" android:clipToPadding="false" android:tag="card:OS “Privada Quebrada” iniciada">
             <TextView
                 android:id="@+id/ops_5717_7406"
                 android:layout_width="0dp"
@@ -224,9 +216,7 @@
             android:id="@+id/ops_5717_7405"
             android:layout_width="@dimen/ops_dp_78"
             android:layout_height="@dimen/ops_dp_40"
-            android:layout_marginStart="@dimen/ops_dp_295"
             android:layout_marginTop="@dimen/ops_dp_45_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_7399"
             android:text="@string/ops_text_11_40_b91dfd"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.b8a367f2e5"
@@ -236,6 +226,6 @@
             android:tag="text:11:40"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_light"
-            android:maxLines="1" />
+            android:maxLines="1"  android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

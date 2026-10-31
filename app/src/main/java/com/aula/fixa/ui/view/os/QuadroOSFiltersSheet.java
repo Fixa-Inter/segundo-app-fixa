@@ -17,12 +17,12 @@ import com.aula.fixa.adapter.cadastro.CadastroViewModelFactory;
 import com.aula.fixa.domain.enums.CategoriaProblema;
 import com.aula.fixa.domain.enums.Prioridade;
 import com.aula.fixa.domain.model.OpcaoCadastro;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.aula.fixa.ui.view.FullWidthFilterSheet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class QuadroOSFiltersSheet extends BottomSheetDialogFragment {
+public final class QuadroOSFiltersSheet extends FullWidthFilterSheet {
     public interface Listener { void onManagerOSFilters(String equipment,String problem,String priority,String period,String status); }
     public static final String TAG="ManagerOSFiltersSheet";
     @Override public int getTheme(){return R.style.ThemeOverlay_FIXA_App_BottomSheet;}

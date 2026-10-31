@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_730_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_7456"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +18,6 @@
             android:id="@+id/ops_5717_7442"
             android:layout_width="@dimen/ops_dp_246"
             android:layout_height="@dimen/ops_dp_40"
-            android:layout_marginStart="@dimen/ops_dp_86"
             android:layout_marginTop="@dimen/ops_dp_29_0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +29,7 @@
             android:tag="text:Meu Perfil"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
-            android:maxLines="1" />
+            android:maxLines="1"  app:layout_constraintEnd_toEndOf="parent"/>
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ops_5717_7443"
             android:layout_width="@dimen/ops_dp_130_0"
@@ -63,16 +62,14 @@
             android:maxLines="1" />
         <ImageView
             android:id="@+id/ops_5717_7480"
-            android:layout_width="@dimen/ops_dp_20_0"
-            android:layout_height="@dimen/ops_dp_20_0"
-            android:layout_marginStart="@dimen/ops_dp_356_0"
+            android:layout_width="@dimen/ops_action_icon_size"
+            android:layout_height="@dimen/ops_action_icon_size"
             android:layout_marginTop="@dimen/ops_dp_261_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_51c9d"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:edit" />
+            android:tag="image:edit" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <ImageView
             android:id="@+id/ops_5717_7470"
             android:layout_width="@dimen/ops_dp_24_0"

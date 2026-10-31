@@ -57,7 +57,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/app_edit"
                 android:scaleType="center"
-                app:srcCompat="@drawable/ic_edit_20"
+                app:srcCompat="@drawable/ic_edit_24"
                 app:tint="@color/app_primary" />
         </LinearLayout>
 

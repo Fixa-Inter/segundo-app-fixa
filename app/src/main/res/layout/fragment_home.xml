@@ -181,6 +181,7 @@
                     app:layout_constraintHeight_max="@dimen/app_home_chart_size"
                     app:layout_constraintStart_toEndOf="@id/layoutLegend"
                     app:layout_constraintTop_toTopOf="@id/layoutLegend"
+                    app:layout_constraintHorizontal_bias="1"
                     app:layout_constraintWidth_max="@dimen/app_home_chart_size"
                     />
 
@@ -463,12 +464,12 @@
             android:textAppearance="@style/TextAppearance.FIXA.App.Home.OpenButton"
             android:textColor="@color/app_text_navy"
             app:backgroundTint="@color/app_surface"
-            app:cornerRadius="15dp"
+            app:cornerRadius="@dimen/app_home_open_button_radius"
             app:elevation="2dp"
             app:icon="@drawable/ic_plus_24"
             app:iconGravity="textStart"
             app:iconPadding="4dp"
-            app:iconSize="12dp"
+            app:iconSize="@dimen/app_home_open_icon_size"
             app:iconTint="@color/app_text_navy"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintTop_toBottomOf="@id/cardStatus" />

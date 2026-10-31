@@ -68,7 +68,11 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
                     | WindowInsetsCompat.Type.displayCutout());
-            navHost.setPadding(bars.left, bars.top, bars.right, 0);
+            Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
+            boolean chatActive = navController != null
+                    && navController.getCurrentDestination() != null
+                    && navController.getCurrentDestination().getId() == R.id.chatbotFragment;
+            navHost.setPadding(bars.left, bars.top, bars.right, chatActive ? ime.bottom : 0);
             bottomInset = bars.bottom;
             applyBottomNavHeight();
             return WindowInsetsCompat.CONSUMED;

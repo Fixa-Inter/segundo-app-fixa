@@ -16,7 +16,7 @@ import com.aula.fixa.R;
 import com.aula.fixa.adapter.cadastro.CadastroViewModel;
 import com.aula.fixa.adapter.cadastro.CadastroViewModelFactory;
 import com.aula.fixa.domain.model.OpcaoCadastro;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.aula.fixa.ui.view.FullWidthFilterSheet;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /** Filtros de solicitações do gestor, com a mesma apresentação da tela de solicitante. */
-public final class ManagerRequestFiltersSheet extends BottomSheetDialogFragment {
+public final class ManagerRequestFiltersSheet extends FullWidthFilterSheet {
     public interface Listener {
         void onManagerRequestFilters(String period, String location, String category, String author);
     }

@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_930_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_8398"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:tag="text:Inspecionar AP-001"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8403" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_26_0" android:layout_marginTop="@dimen/ops_dp_29_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_26_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8397" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Modelo institucional A">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8403" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_29_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8397" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Modelo institucional A">
             <View
                 android:id="@+id/ops_5717_8404"
                 android:layout_width="@dimen/ops_dp_15_0"
@@ -125,7 +125,7 @@
             android:hint="@string/ops_text_escreva_aqui_suas_observacoes_b52ddc"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Observações (opcional)" />
+            android:tag="field:Observações (opcional)" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_8408"
             android:layout_width="@dimen/ops_dp_85_08"
@@ -183,26 +183,22 @@
             android:id="@+id/ops_5717_8416"
             android:layout_width="@dimen/ops_dp_42_0"
             android:layout_height="@dimen/ops_dp_42_0"
-            android:layout_marginStart="@dimen/ops_dp_263_0"
             android:layout_marginTop="@dimen/ops_dp_461_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_62ca8"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:star-fat" />
+            android:tag="image:star-fat"  android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent"/>
         <ImageView
             android:id="@+id/ops_5717_8419"
             android:layout_width="@dimen/ops_dp_42_0"
             android:layout_height="@dimen/ops_dp_42_0"
-            android:layout_marginStart="@dimen/ops_dp_341_0"
             android:layout_marginTop="@dimen/ops_dp_461_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_62ca8"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:star-fat" />
+            android:tag="image:star-fat" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
         <TextView
             android:id="@+id/ops_5717_8409"
             android:layout_width="@dimen/ops_dp_208_07"

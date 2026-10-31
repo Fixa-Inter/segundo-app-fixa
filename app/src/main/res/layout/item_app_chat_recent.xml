@@ -13,5 +13,6 @@
     android:maxLines="1"
     android:paddingStart="@dimen/app_chat_drawer_item_padding_start"
     android:paddingEnd="@dimen/app_chat_drawer_item_padding_start"
+    android:textColor="@color/app_chat_drawer_item_text"
     android:textAppearance="@style/TextAppearance.FIXA.App.Chat.DrawerItem"
     tools:text="Nova conversa" />

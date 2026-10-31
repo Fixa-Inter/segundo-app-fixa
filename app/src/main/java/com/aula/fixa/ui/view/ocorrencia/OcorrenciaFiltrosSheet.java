@@ -13,12 +13,12 @@ import androidx.fragment.app.Fragment;
 import com.aula.fixa.R;
 import com.aula.fixa.domain.enums.CategoriaProblema;
 import com.aula.fixa.domain.enums.Prioridade;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.aula.fixa.ui.view.FullWidthFilterSheet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class OcorrenciaFiltrosSheet extends BottomSheetDialogFragment {
+public final class OcorrenciaFiltrosSheet extends FullWidthFilterSheet {
     public interface Listener { void onOccurrenceFilters(String period,String author,String location,String equipment,String category,String priority); }
     public static final String TAG="OcorrenciaFiltrosSheet";
     @Override public int getTheme(){return R.style.ThemeOverlay_FIXA_App_BottomSheet;}

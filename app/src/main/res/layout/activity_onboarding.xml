@@ -10,17 +10,16 @@
 
     <ImageButton
         android:id="@+id/btn_back"
-        android:layout_width="@dimen/onboarding_back_touch_size"
-        android:layout_height="@dimen/onboarding_back_touch_size"
+        android:layout_width="@dimen/app_back_button_size"
+        android:layout_height="@dimen/app_back_button_size"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/onboarding_back"
-        android:padding="@dimen/onboarding_back_padding"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_arrow_back_design"
+        app:srcCompat="@drawable/ic_arrow_left_26"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        tools:visibility="visible" android:layout_marginStart="@dimen/app_back_button_margin_start" android:layout_marginTop="@dimen/app_back_button_margin_top" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_image_top"
@@ -47,7 +46,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/img_onboarding_tracking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.393"
+        app:layout_constraintHeight_percent="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline_image_top"
         app:layout_constraintWidth_max="@dimen/onboarding_image_max_width" />

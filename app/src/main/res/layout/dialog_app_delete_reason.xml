@@ -62,7 +62,7 @@
         android:textColorHint="@color/app_text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDeleteReasonLabel" />
+        app:layout_constraintTop_toBottomOf="@id/tvDeleteReasonLabel" android:textColor="@color/app_text_black" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDeleteCancel"

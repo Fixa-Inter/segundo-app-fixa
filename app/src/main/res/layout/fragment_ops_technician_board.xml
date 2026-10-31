@@ -4,8 +4,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_806_0" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_10507"
-            android:layout_width="@dimen/ops_dp_22_0"
-            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_width="@dimen/app_back_icon_size"
+            android:layout_height="@dimen/app_back_icon_size"
             android:layout_marginStart="@dimen/ops_dp_11_0"
             android:layout_marginTop="@dimen/ops_dp_22_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,13 +141,12 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </HorizontalScrollView>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10529" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_45_0" android:layout_marginStart="@dimen/ops_dp_30_0" android:layout_marginTop="14dp" android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/technician_board_filter_button" app:layout_constraintTop_toBottomOf="@id/ops_status_row" android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10529" android:layout_width="0dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_26_0" android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/technician_board_filter_button" app:layout_constraintTop_toBottomOf="@id/ops_status_row" android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ops_5717_10530"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_21"
                 android:layout_marginStart="@dimen/ops_dp_53_0"
-                android:layout_marginTop="@dimen/ops_dp_12_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="52dp"
@@ -164,7 +163,7 @@
                 android:background="@null"
                 android:singleLine="true"
                 android:inputType="text"
-                android:contentDescription="@string/ops_text_pesquisar_b89310" />
+                android:contentDescription="@string/ops_text_pesquisar_b89310" android:textColor="@color/app_text_black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <ImageButton
             android:id="@+id/technician_board_search_button"
@@ -197,9 +196,9 @@
             android:id="@+id/ops_5717_10474"
             android:layout_width="@dimen/ops_dp_25_0"
             android:layout_height="@dimen/ops_dp_25_01"
-            android:layout_marginStart="@dimen/ops_dp_340_5"
+            android:layout_marginEnd="41dp"
             android:layout_marginTop="@dimen/ops_dp_739_53"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/figma_c3bd9"
             android:scaleType="fitXY"

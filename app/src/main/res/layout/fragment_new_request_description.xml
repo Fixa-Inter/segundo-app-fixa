@@ -66,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/app_step_field_height"
                 android:layout_marginTop="@dimen/app_step_field_margin_top"
-                android:background="@drawable/bg_app_field"
+                android:background="@drawable/bg_app_step_field"
                 android:hint="@string/app_step_description_title_hint"
                 android:importantForAutofill="no"
                 android:inputType="textCapSentences"
@@ -76,7 +76,7 @@
                 android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
-                app:layout_constraintTop_toBottomOf="@id/tvFieldTitleLabel" />
+                app:layout_constraintTop_toBottomOf="@id/tvFieldTitleLabel" android:textColor="@color/app_text_black" android:textColorHint="@color/app_text_placeholder_dark" />
 
             <TextView
                 android:id="@+id/tvFieldDescriptionLabel"
@@ -93,7 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/app_step_textarea_height"
                 android:layout_marginTop="@dimen/app_step_field_margin_top"
-                android:background="@drawable/bg_app_field"
+                android:background="@drawable/bg_app_step_field"
                 android:gravity="top|start"
                 android:hint="@string/app_step_description_hint"
                 android:importantForAutofill="no"
@@ -105,7 +105,7 @@
                 android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
-                app:layout_constraintTop_toBottomOf="@id/tvFieldDescriptionLabel" />
+                app:layout_constraintTop_toBottomOf="@id/tvFieldDescriptionLabel" android:textColor="@color/app_text_black" android:textColorHint="@color/app_text_placeholder_dark" />
 
             <include
                 android:id="@+id/stepIndicator"
