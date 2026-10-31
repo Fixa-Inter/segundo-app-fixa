@@ -4,7 +4,9 @@
     android:layout_height="@dimen/ops_team_card_height"
     android:layout_marginBottom="@dimen/ops_team_card_spacing"
     android:background="@drawable/bg_ops_e04d888c51"
-    android:elevation="2dp">
+    android:elevation="1.5dp"
+    android:outlineSpotShadowColor="@color/app_shadow_soft"
+    android:outlineAmbientShadowColor="@color/app_shadow_soft">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/teamTechnicianAvatar"
@@ -16,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.Operations.d978b6fd23" />
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.Operations.TeamAvatar" />
 
     <TextView
         android:id="@+id/teamTechnicianName"
@@ -61,6 +63,7 @@
         android:layout_marginTop="@dimen/ops_team_meta_top"
         android:importantForAccessibility="no"
         android:src="@drawable/figma_7c18e"
+        app:layout_constraintStart_toStartOf="@id/teamTechnicianShiftHours"
         app:layout_constraintEnd_toEndOf="@id/teamTechnicianShiftHours"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,11 +71,15 @@
         android:id="@+id/teamTechnicianShiftHours"
         android:layout_width="@dimen/ops_team_shift_width"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/ops_team_meta_gap"
+        android:layout_marginEnd="@dimen/ops_team_shift_competence_gap"
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
         android:includeFontPadding="false"
         android:maxLines="1"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="9sp"
+        android:autoSizeMaxTextSize="@dimen/ops_team_meta_text_size"
+        android:autoSizeStepGranularity="1sp"
         android:textColor="@color/ops_color_ff000000"
         android:textSize="@dimen/ops_team_meta_text_size"
         app:layout_constraintEnd_toStartOf="@id/teamTechnicianCompetence"
@@ -82,7 +89,7 @@
         android:id="@+id/teamTechnicianShift"
         android:layout_width="@dimen/ops_team_shift_width"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/ops_team_meta_gap"
+        android:layout_marginEnd="@dimen/ops_team_shift_competence_gap"
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
         android:includeFontPadding="false"
@@ -97,10 +104,10 @@
         android:layout_width="@dimen/ops_team_icon_size"
         android:layout_height="@dimen/ops_team_icon_size"
         android:layout_marginTop="@dimen/ops_team_meta_top"
-        android:layout_marginEnd="@dimen/ops_team_meta_end"
         android:importantForAccessibility="no"
         android:src="@drawable/figma_57fba"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/teamTechnicianCompetence"
+        app:layout_constraintEnd_toEndOf="@id/teamTechnicianCompetence"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -113,7 +120,7 @@
         android:gravity="center"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:textColor="@color/ops_color_ff8a93a2"
+        android:textColor="@color/ops_color_ff000000"
         android:textSize="@dimen/ops_team_meta_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/teamTechnicianCompetenceIcon" />

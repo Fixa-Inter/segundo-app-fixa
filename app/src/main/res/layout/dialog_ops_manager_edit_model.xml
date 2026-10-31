@@ -64,7 +64,7 @@
             android:inputType="textCapSentences"
             android:textSize="13sp"
             android:importantForAutofill="no"
-            android:tag="field:Nome" />
+            android:tag="field:Nome" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_7831"
             android:layout_width="@dimen/ops_dp_74"
@@ -157,7 +157,7 @@
             android:inputType="textCapSentences"
             android:textSize="13sp"
             android:importantForAutofill="no"
-            android:tag="field:Marca" />
+            android:tag="field:Marca" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/manager_model_description_label_edit"
             android:layout_width="wrap_content"
@@ -186,7 +186,7 @@
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/manager_model_description_label_edit" />
+            app:layout_constraintTop_toBottomOf="@id/manager_model_description_label_edit" android:textColor="@color/app_text_black" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7822" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="24dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/manager_model_description_edit" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_7823"

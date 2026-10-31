@@ -76,7 +76,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_6237"
                 android:layout_width="@dimen/ops_dp_11_47"
@@ -131,7 +131,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_6228"
                 android:layout_width="@dimen/ops_dp_22_0"

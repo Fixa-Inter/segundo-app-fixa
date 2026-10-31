@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_dialog_illustration" />
+        app:srcCompat="@drawable/img_dialog_illustration_hires" />
 
     <TextView
         android:id="@+id/tvDialogTitle"

@@ -266,7 +266,7 @@
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.532bcc5bfe"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:textColor="@color/app_text_black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton

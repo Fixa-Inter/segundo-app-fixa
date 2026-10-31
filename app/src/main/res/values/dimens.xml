@@ -45,7 +45,7 @@
     <dimen name="login_social_text_size">14sp</dimen>
     <dimen name="login_field_top_margin">6dp</dimen>
     <dimen name="login_forgot_top_margin">12dp</dimen>
-    <dimen name="login_account_top_margin">22dp</dimen>
+    <dimen name="login_account_top_margin">28dp</dimen>
     <dimen name="login_social_line_width">110dp</dimen>
     <dimen name="login_social_line_height">1dp</dimen>
     <dimen name="login_social_line_radius">0.5dp</dimen>
@@ -61,10 +61,10 @@
     <dimen name="register_first_section_top_margin">36dp</dimen>
     <dimen name="register_first_group_spacing">28dp</dimen>
     <dimen name="register_details_first_field_top_margin">12dp</dimen>
-    <dimen name="register_details_group_spacing">2dp</dimen>
+    <dimen name="register_details_group_spacing">10dp</dimen>
     <dimen name="register_button_top_margin">18dp</dimen>
     <dimen name="register_first_button_top_margin">50dp</dimen>
-    <dimen name="register_account_top_margin">18dp</dimen>
+    <dimen name="register_account_top_margin">24dp</dimen>
     <dimen name="register_watermark_top_margin">60dp</dimen>
     <dimen name="register_content_bottom_spacing">8dp</dimen>
     <dimen name="login_button_top_margin">14dp</dimen>

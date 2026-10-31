@@ -82,7 +82,13 @@ public class EventsFragment extends Fragment {
                     bindCalendar(view, items, selectedDate == null ? LocalDate.now() : selectedDate);
                     view.findViewById(R.id.btnCalendar).setOnClickListener(v -> {
                         java.util.Calendar calendar = java.util.Calendar.getInstance();
-                        new android.app.DatePickerDialog(view.getContext(), (picker, year, month, day) -> bindCalendar(view, items, LocalDate.of(year, month + 1, day)), calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
+                        android.app.DatePickerDialog dialog = new android.app.DatePickerDialog(view.getContext(), R.style.ThemeOverlay_FIXA_App_Events_DatePicker, (picker, year, month, day) -> bindCalendar(view, items, LocalDate.of(year, month + 1, day)), calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH));
+                        dialog.setOnShowListener(ignored -> {
+                            int color = androidx.core.content.ContextCompat.getColor(view.getContext(), R.color.app_primary);
+                            dialog.getButton(android.app.DatePickerDialog.BUTTON_POSITIVE).setTextColor(color);
+                            dialog.getButton(android.app.DatePickerDialog.BUTTON_NEGATIVE).setTextColor(color);
+                        });
+                        dialog.show();
                     });
                 });
 

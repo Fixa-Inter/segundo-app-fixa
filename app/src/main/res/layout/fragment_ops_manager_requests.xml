@@ -56,7 +56,7 @@
                 android:background="@null"
                 android:singleLine="true"
                 android:inputType="text"
-                android:contentDescription="@string/ops_text_pesquisar_b89310" />
+                android:contentDescription="@string/ops_text_pesquisar_b89310" android:textColor="@color/app_text_black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <ImageButton
             android:id="@+id/ops_5717_6871"

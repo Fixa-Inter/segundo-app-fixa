@@ -46,6 +46,8 @@
                 tools:text="Acompanhe os eventos"
                 android:textAppearance="@style/TextAppearance.FIXA.App.ScreenTitle"
                 android:textSize="@dimen/app_events_title_text_size"
+                android:lineHeight="@dimen/app_requests_title_line_height"
+                android:maxLines="2"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -107,7 +109,6 @@
                 android:layout_marginTop="@dimen/app_events_list_margin_top"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
                 app:layout_constraintTop_toBottomOf="@id/tvSection"
@@ -132,10 +133,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/app_requests_empty_image_size"
+                    android:maxHeight="@dimen/app_events_empty_image_size"
                     android:importantForAccessibility="no"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/img_empty_results" />
+                    app:srcCompat="@drawable/img_empty_results_hires" />
 
                 <TextView
                     android:layout_width="wrap_content"

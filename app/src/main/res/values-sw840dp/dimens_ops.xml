@@ -1044,4 +1044,6 @@
     <dimen name="ops_sp_8_0">12.43sp</dimen>
     <dimen name="ops_sp_9_0">13.98sp</dimen>
     <dimen name="ops_content_width">640.00dp</dimen>
+    <dimen name="ops_team_shift_competence_gap">14dp</dimen>
+    <dimen name="ops_member_details_content_inset">60dp</dimen>
 </resources>

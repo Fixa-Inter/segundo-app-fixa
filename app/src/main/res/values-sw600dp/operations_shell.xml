@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ops_nav_height">100dp</dimen>
+    <dimen name="ops_nav_circle">60dp</dimen>
+    <dimen name="ops_nav_icon">28dp</dimen>
+    <dimen name="ops_nav_indicator_width">70dp</dimen>
+    <dimen name="ops_nav_indicator_height">2dp</dimen>
+    <dimen name="ops_nav_side">8dp</dimen>
+</resources>

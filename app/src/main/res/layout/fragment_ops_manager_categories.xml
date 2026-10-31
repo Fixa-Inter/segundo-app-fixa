@@ -68,7 +68,7 @@
                 android:background="@null"
                 android:singleLine="true"
                 android:inputType="text"
-                android:contentDescription="@string/ops_text_pesquisar_b89310" />
+                android:contentDescription="@string/ops_text_pesquisar_b89310" android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_6505"
                 android:layout_width="@dimen/ops_search_icon_size"

@@ -1055,7 +1055,7 @@
     <dimen name="ops_team_shift_width">72dp</dimen>
     <dimen name="ops_team_specialty_width">100dp</dimen>
     <dimen name="ops_team_meta_gap">10dp</dimen>
-    <dimen name="ops_team_meta_top">29dp</dimen>
+    <dimen name="ops_team_meta_top">42dp</dimen>
     <dimen name="ops_search_icon_size">26dp</dimen>
     <dimen name="ops_action_end_margin">24dp</dimen>
     <dimen name="ops_action_icon_size">28dp</dimen>
@@ -1065,4 +1065,6 @@
     <dimen name="ops_team_avatar_start">16dp</dimen>
     <dimen name="ops_team_meta_end">16dp</dimen>
     <dimen name="ops_team_icon_size">20dp</dimen>
+    <dimen name="ops_team_shift_competence_gap">14dp</dimen>
+    <dimen name="ops_member_details_content_inset">4dp</dimen>
 </resources>

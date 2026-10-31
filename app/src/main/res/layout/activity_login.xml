@@ -116,7 +116,7 @@
         android:paddingBottom="0dp"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.FIXA.Login.Field"
-        android:textColor="@color/login_input_text"
+        android:textColor="@color/app_text_black"
         android:textColorHint="@color/login_placeholder_text"
         android:textFontWeight="400"
         app:layout_constraintEnd_toEndOf="parent"
@@ -174,7 +174,7 @@
             android:paddingBottom="0dp"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.FIXA.Login.Field"
-            android:textColor="@color/login_input_text"
+            android:textColor="@color/app_text_black"
             android:textColorHint="@color/login_placeholder_text"
             android:textFontWeight="400" />
 

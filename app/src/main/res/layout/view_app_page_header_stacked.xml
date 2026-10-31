@@ -9,26 +9,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/app_page_header_padding_top">
+    android:paddingTop="0dp">
 
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="@dimen/app_touch_target"
-        android:layout_height="@dimen/app_touch_target"
-        android:layout_marginStart="@dimen/app_page_header_back_margin_start"
+        android:layout_width="@dimen/app_back_button_size"
+        android:layout_height="@dimen/app_back_button_size"
+        android:layout_marginStart="@dimen/app_back_button_margin_start"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/app_back"
         android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_left_26"
-        app:tint="@color/app_primary_deep" />
+        app:tint="@color/app_primary_deep" android:layout_marginTop="@dimen/app_back_button_margin_top" />
 
     <TextView
         android:id="@+id/tvPageTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/app_page_header_stacked_title_start"
+        android:layout_marginStart="@dimen/app_screen_side_margin"
         android:layout_marginTop="@dimen/app_page_header_stacked_title_offset"
         android:layout_marginEnd="@dimen/app_screen_side_margin"
         android:ellipsize="end"

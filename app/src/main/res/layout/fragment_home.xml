@@ -464,7 +464,7 @@
             android:textAppearance="@style/TextAppearance.FIXA.App.Home.OpenButton"
             android:textColor="@color/app_text_navy"
             app:backgroundTint="@color/app_surface"
-            app:cornerRadius="15dp"
+            app:cornerRadius="@dimen/app_home_open_button_radius"
             app:elevation="2dp"
             app:icon="@drawable/ic_plus_24"
             app:iconGravity="textStart"

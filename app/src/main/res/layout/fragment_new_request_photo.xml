@@ -67,7 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/app_step_field_height"
                 android:layout_marginTop="@dimen/app_step_field_margin_top"
-                android:background="@drawable/bg_app_field"
+                android:background="@drawable/bg_app_step_field"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
                 app:layout_constraintTop_toBottomOf="@id/tvDeviceLabel">
@@ -84,7 +84,7 @@
                     android:maxLines="1"
                     android:paddingStart="@dimen/app_step_field_padding_start"
                     android:paddingEnd="44dp"
-                    android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field" />
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Step.Field" android:textColor="@color/app_text_black" android:textColorHint="@color/app_text_placeholder_dark" />
 
                 <ImageView
                     android:layout_width="22dp"

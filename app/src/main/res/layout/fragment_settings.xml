@@ -41,7 +41,7 @@
             android:layout_marginStart="@dimen/app_settings_row_text_margin_start"
             android:layout_weight="1"
             android:text="@string/app_settings_notifications"
-            android:textAppearance="@style/TextAppearance.FIXA.App.Profile.MenuItem" />
+            android:textAppearance="@style/TextAppearance.FIXA.App.Settings.Row" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switchNotifications"

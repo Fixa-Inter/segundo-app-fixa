@@ -69,7 +69,7 @@
             android:hint="@string/ops_text_coloque_o_nome_cbd678"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Título da tarefa" />
+            android:tag="field:Título da tarefa" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_8662"
             android:layout_width="@dimen/ops_dp_73"
@@ -115,7 +115,7 @@
             android:hint="@string/ops_text_coloque_a_descricao_da_tarefa_c6d230"
             android:inputType="textCapSentences|textMultiLine"
             android:importantForAutofill="no"
-            android:tag="field:Descrição" />
+            android:tag="field:Descrição" android:textColor="@color/app_text_black" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8654" android:layout_width="@dimen/ops_dp_154_0" android:layout_height="@dimen/ops_dp_44_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_30_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8660" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8655"

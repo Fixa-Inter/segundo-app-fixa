@@ -46,7 +46,7 @@
     <string name="app_request_status_os_created">OS criada</string>
 
     <!-- Minhas solicitações -->
-    <string name="app_requests_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> suas solicitações]]></string>
+    <string name="app_requests_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b><br/>suas solicitações]]></string>
     <string name="app_requests_filter_all">Todas</string>
     <string name="app_requests_filter_analysis">Pendentes</string>
     <string name="app_requests_filter_approved">Aprovadas</string>
@@ -66,7 +66,7 @@
     <string name="app_details_step_done">Solicitação concluída</string>
 
     <!-- Eventos -->
-    <string name="app_events_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> os eventos]]></string>
+    <string name="app_events_title"><![CDATA[<b><font color="#153D7D">Acompanhe</font></b> os<br/>eventos]]></string>
     <string name="app_events_section">Eventos</string>
     <string name="app_events_empty">Sem eventos</string>
     <string name="app_events_pick_date">Escolher data</string>

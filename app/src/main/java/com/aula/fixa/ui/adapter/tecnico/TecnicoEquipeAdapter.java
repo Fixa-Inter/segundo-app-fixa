@@ -32,13 +32,13 @@ public final class TecnicoEquipeAdapter extends RecyclerView.Adapter<TecnicoEqui
         holder.name.setText(technician.nome);
         holder.access.setText(technician.tipoAcesso.isEmpty() ? technician.cargo : technician.tipoAcesso);
         holder.shift.setText(technician.turno);
-        holder.shiftHours.setText(technician.horarioTurno);
+        holder.shiftHours.setText(technician.horarioTurno.replace(" - ", "–").replace(" – ", "–"));
         holder.competence.setText(competenceName(technician.competencia));
         holder.avatar.setImageResource(R.drawable.img_avatar_115);
         if (!technician.urlFoto.isEmpty()) {
             Glide.with(holder.avatar).load(technician.urlFoto)
                     .placeholder(R.drawable.img_avatar_115).fallback(R.drawable.img_avatar_115)
-                    .error(R.drawable.img_avatar_115).circleCrop().into(holder.avatar);
+                    .error(R.drawable.img_avatar_115).centerCrop().into(holder.avatar);
         }
         holder.itemView.setOnClickListener(view -> {
             if (onClick != null) onClick.click(technician);

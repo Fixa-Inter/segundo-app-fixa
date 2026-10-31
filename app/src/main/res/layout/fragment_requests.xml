@@ -12,35 +12,44 @@
     android:background="@color/app_background"
     tools:context=".ui.view.requests.RequestsFragment">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingBottom="@dimen/app_bottom_nav_height">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/requestsRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/app_screen_side_margin" />
+            app:layout_constraintGuide_begin="@dimen/app_events_title_margin_start" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/app_screen_side_margin" />
+            app:layout_constraintGuide_end="@dimen/app_requests_title_margin_end" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="@dimen/app_requests_title_margin_top"
+            android:layout_marginStart="@dimen/app_requests_title_margin_start"
+            android:layout_marginEnd="@dimen/app_requests_title_margin_end"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             tools:text="Acompanhe suas solicitações"
             android:textAppearance="@style/TextAppearance.FIXA.App.ScreenTitle"
-            app:layout_constraintEnd_toEndOf="@id/guideEnd"
-            app:layout_constraintStart_toStartOf="@id/guideStart"
+            android:maxLines="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <HorizontalScrollView
@@ -128,6 +137,8 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/app_requests_search_text_margin_start"
                 android:paddingEnd="16dp"
+                android:textColor="@color/app_text_black"
+                android:textColorHint="@color/app_text_placeholder_dark"
                 android:textAppearance="@style/TextAppearance.FIXA.App.Search" />
         </FrameLayout>
 
@@ -162,12 +173,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRequests"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_requests_list_margin_top"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/app_bottom_nav_height"
+            android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toBottomOf="@id/layoutSearch"
@@ -197,7 +207,7 @@
                 android:maxHeight="@dimen/app_requests_empty_image_size"
                 android:importantForAccessibility="no"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/img_empty_results" />
+                app:srcCompat="@drawable/img_empty_results_hires" />
 
             <TextView
                 android:id="@+id/tvEmpty"
@@ -208,6 +218,7 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNewRequest"

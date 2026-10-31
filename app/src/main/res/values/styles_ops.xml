@@ -507,7 +507,7 @@
         <item name="android:letterSpacing">0.0</item>
     </style>
     <style name="TextAppearance.FIXA.Operations.103017a3bf" parent="TextAppearance.FIXA.App.Light">
-        <item name="android:textSize">@dimen/ops_sp_13_0</item>
+        <item name="android:textSize">@dimen/ops_sp_14_0</item>
         <item name="android:textColor">@color/ops_color_ff4c5461</item>
         <item name="android:letterSpacing">0.0</item>
     </style>
@@ -842,5 +842,9 @@
     <style name="ShapeAppearance.FIXA.Operations.d978b6fd23" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/ops_dp_27_5</item>
+    </style>
+    <style name="ShapeAppearance.FIXA.Operations.TeamAvatar" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

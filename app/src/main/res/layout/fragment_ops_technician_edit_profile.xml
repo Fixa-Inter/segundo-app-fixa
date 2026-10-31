@@ -110,7 +110,7 @@
             android:contentDescription="@string/ops_text_nome_508690"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Nome" />
+            android:tag="field:Nome" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_10008"
             android:layout_width="0dp"
@@ -157,7 +157,7 @@
             android:contentDescription="@string/ops_text_data_de_nascimento_1d08b0"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Data de nascimento" />
+            android:tag="field:Data de nascimento" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_10012"
             android:layout_width="0dp"
@@ -204,7 +204,7 @@
             android:contentDescription="@string/ops_text_email_969ccb"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Email" />
+            android:tag="field:Email" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_10016"
             android:layout_width="0dp"
@@ -251,7 +251,7 @@
             android:contentDescription="@string/ops_text_telefone_2f1517"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Telefone" />
+            android:tag="field:Telefone" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_10020"
             android:layout_width="0dp"
@@ -298,6 +298,6 @@
             android:contentDescription="@string/ops_text_senha_d482c1"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Senha" />
+            android:tag="field:Senha" android:textColor="@color/app_text_black" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

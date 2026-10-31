@@ -63,7 +63,7 @@
             android:contentDescription="@string/ops_text_identificador_697131"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Identificador" />
+            android:tag="field:Identificador" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_7896"
             android:layout_width="@dimen/ops_dp_39"
@@ -107,7 +107,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_7897"
                 android:layout_width="@dimen/ops_dp_11_51"

@@ -125,7 +125,7 @@
             android:hint="@string/ops_text_escreva_aqui_suas_observacoes_b52ddc"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Observações (opcional)" />
+            android:tag="field:Observações (opcional)" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_10387"
             android:layout_width="@dimen/ops_dp_85_08"

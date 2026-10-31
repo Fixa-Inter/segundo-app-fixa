@@ -78,7 +78,7 @@
             android:hint="@string/ops_text_escreva_aqui_seu_titulo_0e9e7c"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Nome" />
+            android:tag="field:Nome" android:textColor="@color/app_text_black" />
         <TextView
             android:id="@+id/ops_5717_8108"
             android:layout_width="@dimen/ops_dp_255"
@@ -124,7 +124,7 @@
             android:contentDescription="@string/ops_text_periodicidade_em_dias_a08067"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Periodicidade em dias" />
+            android:tag="field:Periodicidade em dias" android:textColor="@color/app_text_black" />
 
         <TextView
             android:id="@+id/ops_5717_8111"
@@ -170,7 +170,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_8115"
                 android:layout_width="@dimen/ops_dp_22_0"

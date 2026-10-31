@@ -40,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:importantForAccessibility="no"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/img_about_banner" />
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/img_about_banner_hires" />
 
             <ImageView
                 android:id="@+id/ivAbout"
@@ -60,7 +60,7 @@
             android:id="@+id/tvDocuments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_faq_side_margin"
+            android:layout_marginStart="@dimen/app_screen_side_margin"
             android:layout_marginTop="@dimen/app_about_section_margin_top"
             android:text="@string/app_about_documents"
             android:textAppearance="@style/TextAppearance.FIXA.App.About.Section" />

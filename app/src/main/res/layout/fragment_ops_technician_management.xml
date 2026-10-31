@@ -6,21 +6,23 @@
             android:id="@+id/ops_5717_9737"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_31"
-            android:layout_marginTop="@dimen/ops_dp_52_0"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_45"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_gerencie_todas_as_etapas_d44c27"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
+            android:textSize="@dimen/ops_sp_42_0"
+            android:lineHeight="@dimen/ops_sp_45_0"
+            android:maxLines="2"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
-            android:minHeight="@dimen/ops_dp_80"
             android:tag="text:Gerencie todas as etapas"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9720" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_120_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_39_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9737" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Quadro">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9720" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_120_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_39_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9737" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Quadro">
             <View
                 android:id="@+id/ops_5717_9721"
                 android:layout_width="@dimen/ops_dp_15_0"
@@ -79,7 +81,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9727" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_120_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_12_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9720" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ocorrências">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9727" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_120_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_12_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9720" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ocorrências">
             <View
                 android:id="@+id/ops_5717_9728"
                 android:layout_width="@dimen/ops_dp_15_0"
