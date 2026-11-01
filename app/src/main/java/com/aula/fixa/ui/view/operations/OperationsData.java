@@ -222,11 +222,11 @@ public final class OperationsData {
         card.addView(grid, gridParams);
 
         addOrderStatusRow(activity, grid,
-                new OrderStatus(R.string.ops_home_order_not_started_short, R.drawable.lupa_analise, notStarted),
-                new OrderStatus(R.string.ops_home_order_completed, R.drawable.check_concluido, completed), false);
+                new OrderStatus(R.string.ops_home_order_not_started_short, R.drawable.bignumber_4, notStarted),
+                new OrderStatus(R.string.ops_home_order_completed, R.drawable.bignumber_1, completed), false);
         addOrderStatusRow(activity, grid,
-                new OrderStatus(R.string.ops_home_order_in_progress_short, R.drawable.joia_aprovado, active),
-                new OrderStatus(R.string.ops_home_order_overdue, R.drawable.x_reprovado, overdue), true);
+                new OrderStatus(R.string.ops_home_order_in_progress_short, R.drawable.bignumber_2, active),
+                new OrderStatus(R.string.ops_home_order_overdue, R.drawable.bignumber_3, overdue), true);
     }
 
     private static void addOrderStatusRow(OperationsActivity activity, LinearLayout grid,

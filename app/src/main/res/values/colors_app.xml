@@ -39,6 +39,10 @@
     <color name="app_status_refused_text">#FF96031A</color>
     <color name="app_status_refused_chart">#FFFF383C</color>
     <color name="app_status_pending">#FF8A93A2</color>
+    <color name="app_home_big_done">#FF2E9E5B</color>
+    <color name="app_home_big_approved">#FF153D7D</color>
+    <color name="app_home_big_refused">#FFCE0A0A</color>
+    <color name="app_home_big_analysis">#FFDE951B</color>
 
     <!-- Campos / superfícies -->
     <color name="app_field_background">#4DDBE0EB</color>

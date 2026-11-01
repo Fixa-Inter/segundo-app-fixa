@@ -51,17 +51,17 @@
         <!-- Header: ícones no tamanho exato, alinhados à guideline dos cards; área de toque expandida no Fragment -->
         <ImageView
             android:id="@+id/btnNotifications"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/app_home_header_icon_size"
+            android:layout_height="@dimen/app_home_header_icon_size"
             android:layout_marginEnd="@dimen/app_home_header_icon_spacing"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@string/app_home_notifications"
             android:focusable="true"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
             app:layout_constraintEnd_toStartOf="@id/ivAvatar"
-            app:layout_constraintTop_toTopOf="@id/tvGreeting"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"
             app:srcCompat="@drawable/ic_home_bell_13"
             app:tint="@color/app_text_navy" />
 
@@ -81,7 +81,7 @@
             android:layout_width="@dimen/app_home_avatar_size"
             android:layout_height="@dimen/app_home_avatar_size"
             android:layout_marginEnd="6dp"
-            android:layout_marginTop="@dimen/app_home_avatar_margin_top"
+            android:layout_marginTop="@dimen/app_home_header_icon_margin_top"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@string/app_user_avatar"
@@ -95,16 +95,16 @@
         <TextView
             android:id="@+id/tvGreeting"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/app_home_greeting_margin_start"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="2"
             android:textAppearance="@style/TextAppearance.FIXA.App.Home.Greeting"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
-            app:layout_constraintEnd_toStartOf="@id/btnNotifications"
+            android:layout_marginTop="@dimen/app_home_greeting_margin_top"
+            app:layout_constraintEnd_toStartOf="@id/ivAvatar"
             app:layout_constraintStart_toStartOf="@id/guideStart"
-            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Olá, Ryan Cursino!" />
 
         <!-- Card estados -->
@@ -118,13 +118,13 @@
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintStart_toStartOf="@id/guideStart"
-            app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+            app:layout_constraintTop_toBottomOf="@id/tvGreeting"
             app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="318dp"
+                android:minHeight="262dp"
                 android:padding="0dp">
 
                 <TextView
@@ -213,232 +213,47 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="148dp"
-                        android:gravity="center_vertical"
+                        android:layout_height="120dp"
                         android:orientation="horizontal">
-
-                        <com.google.android.material.card.MaterialCardView
+                        <include
+                            android:id="@+id/cardBigNumberDone"
+                            layout="@layout/view_app_home_big_number_card"
                             android:layout_width="0dp"
-                            android:layout_height="140dp"
+                            android:layout_height="match_parent"
                             android:layout_marginStart="6dp"
                             android:layout_marginEnd="12dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="@color/app_surface"
-                            app:cardCornerRadius="22dp"
-                            app:cardElevation="2dp"
-                            app:strokeWidth="0dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="15dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="22dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-                                    <ImageView
-                                        android:layout_width="18dp"
-                                        android:layout_height="18dp"
-                                        android:contentDescription="@null"
-                                        android:src="@drawable/lupa_analise" />
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:text="Em Análise"
-                                        android:textColor="#333333"
-                                        android:textSize="14sp"
-                                        android:fontFamily="@font/poppins_regular" />
-                                </LinearLayout>
-                                <TextView
-                                    android:id="@+id/bigNumberAnalysis"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:text="0"
-                                    android:textColor="#050505"
-                                    android:textSize="38sp"
-                                    android:fontFamily="@font/poppins_bold" />
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Solicitações"
-                                    android:textColor="#969696"
-                                    android:textSize="10sp"
-                                    android:fontFamily="@font/poppins_regular" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <com.google.android.material.card.MaterialCardView
+                            android:layout_weight="1" />
+                        <include
+                            android:id="@+id/cardBigNumberApproved"
+                            layout="@layout/view_app_home_big_number_card"
                             android:layout_width="0dp"
-                            android:layout_height="140dp"
+                            android:layout_height="match_parent"
                             android:layout_marginStart="12dp"
                             android:layout_marginEnd="6dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="@color/app_surface"
-                            app:cardCornerRadius="22dp"
-                            app:cardElevation="2dp"
-                            app:strokeWidth="0dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="15dp">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="22dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-                                    <ImageView
-                                        android:layout_width="18dp"
-                                        android:layout_height="18dp"
-                                        android:contentDescription="@null"
-                                        android:src="@drawable/check_concluido" />
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:text="Concluídas"
-                                        android:textColor="#333333"
-                                        android:textSize="14sp"
-                                        android:fontFamily="@font/poppins_regular" />
-                                </LinearLayout>
-                                <TextView
-                                    android:id="@+id/bigNumberDone"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:text="0"
-                                    android:textColor="#050505"
-                                    android:textSize="38sp"
-                                    android:fontFamily="@font/poppins_bold" />
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Solicitações"
-                                    android:textColor="#969696"
-                                    android:textSize="10sp"
-                                    android:fontFamily="@font/poppins_regular" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
+                            android:layout_weight="1" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="148dp"
+                        android:layout_height="120dp"
                         android:layout_marginTop="14dp"
-                        android:gravity="center_vertical"
                         android:orientation="horizontal">
-
-                        <com.google.android.material.card.MaterialCardView
+                        <include
+                            android:id="@+id/cardBigNumberRefused"
+                            layout="@layout/view_app_home_big_number_card"
                             android:layout_width="0dp"
-                            android:layout_height="140dp"
+                            android:layout_height="match_parent"
                             android:layout_marginStart="6dp"
                             android:layout_marginEnd="12dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="@color/app_surface"
-                            app:cardCornerRadius="22dp"
-                            app:cardElevation="2dp"
-                            app:strokeWidth="0dp">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="15dp">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="22dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-                                    <ImageView
-                                        android:layout_width="18dp"
-                                        android:layout_height="18dp"
-                                        android:contentDescription="@null"
-                                        android:src="@drawable/joia_aprovado" />
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:text="Aprovadas"
-                                        android:textColor="#333333"
-                                        android:textSize="14sp"
-                                        android:fontFamily="@font/poppins_regular" />
-                                </LinearLayout>
-                                <TextView
-                                    android:id="@+id/bigNumberApproved"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:text="0"
-                                    android:textColor="#050505"
-                                    android:textSize="38sp"
-                                    android:fontFamily="@font/poppins_bold" />
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Solicitações"
-                                    android:textColor="#969696"
-                                    android:textSize="10sp"
-                                    android:fontFamily="@font/poppins_regular" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <com.google.android.material.card.MaterialCardView
+                            android:layout_weight="1" />
+                        <include
+                            android:id="@+id/cardBigNumberAnalysis"
+                            layout="@layout/view_app_home_big_number_card"
                             android:layout_width="0dp"
-                            android:layout_height="140dp"
+                            android:layout_height="match_parent"
                             android:layout_marginStart="12dp"
                             android:layout_marginEnd="6dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="@color/app_surface"
-                            app:cardCornerRadius="22dp"
-                            app:cardElevation="2dp"
-                            app:strokeWidth="0dp">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="15dp">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="22dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-                                    <ImageView
-                                        android:layout_width="18dp"
-                                        android:layout_height="18dp"
-                                        android:contentDescription="@null"
-                                        android:src="@drawable/x_reprovado" />
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:text="Reprovadas"
-                                        android:textColor="#333333"
-                                        android:textSize="14sp"
-                                        android:fontFamily="@font/poppins_regular" />
-                                </LinearLayout>
-                                <TextView
-                                    android:id="@+id/bigNumberRefused"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:text="0"
-                                    android:textColor="#050505"
-                                    android:textSize="38sp"
-                                    android:fontFamily="@font/poppins_bold" />
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Solicitações"
-                                    android:textColor="#969696"
-                                    android:textSize="10sp"
-                                    android:fontFamily="@font/poppins_regular" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
+                            android:layout_weight="1" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

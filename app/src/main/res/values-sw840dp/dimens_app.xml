@@ -93,9 +93,11 @@
     <dimen name="app_manager_home_request_card_height">170dp</dimen>
     <dimen name="app_request_card_owner_avatar_size">20dp</dimen>
     <dimen name="app_request_card_owner_text_size">16sp</dimen>
-    <dimen name="app_home_avatar_size">144dp</dimen>
-    <dimen name="app_home_greeting_text_size">38sp</dimen>
-    <dimen name="app_home_header_icon_size">28dp</dimen>
+    <dimen name="app_home_avatar_size">88dp</dimen>
+    <dimen name="app_home_greeting_margin_top">90dp</dimen>
+    <dimen name="app_home_greeting_text_size">40sp</dimen>
+    <dimen name="app_home_header_icon_size">34dp</dimen>
+    <dimen name="app_home_header_icon_margin_top">40dp</dimen>
     <dimen name="app_event_card_title_text_size">22sp</dimen>
     <dimen name="app_events_day_radius">34dp</dimen>
     <dimen name="app_events_empty_image_size">320dp</dimen>
