@@ -12,6 +12,16 @@
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
             android:tag="image:" android:layout_marginEnd="@dimen/ops_header_icon_spacing" app:layout_constraintEnd_toEndOf="@id/ops_5717_7303" />
+        <View
+            android:id="@+id/viewUnreadNotificationsBadge"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_app_notification_badge"
+            android:elevation="4dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/ops_5717_7300"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_7300"
+            tools:visibility="visible" />
         <ImageView
             android:id="@+id/ops_5717_7303"
             android:layout_width="@dimen/ops_header_icon_size"

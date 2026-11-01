@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.aula.fixa.domain.enums.TipoAcesso;
 import com.aula.fixa.infrastructure.auth.JwtAccessReader;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
+import com.aula.fixa.infrastructure.remote.notifications.FcmTokenRegistrar;
 import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 
@@ -27,5 +28,10 @@ public final class SessaoViewModel extends ViewModel {
             return new JSONObject(payload).optLong("exp", 0L) > System.currentTimeMillis() / 1000L;
         } catch (Exception ignored) { return false; }
     }
-    public void encerrar() { storage.clear(); }
+    public void encerrar() {
+        String tokenOnLogout = storage.getToken();
+        FcmTokenRegistrar.removerTokenAtual(storage, () -> {
+            if (tokenOnLogout != null && tokenOnLogout.equals(storage.getToken())) storage.clear();
+        });
+    }
 }

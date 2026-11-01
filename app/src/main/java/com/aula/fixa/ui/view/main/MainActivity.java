@@ -21,6 +21,8 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.ConnectivityWatcher;
+import com.aula.fixa.infrastructure.auth.session.SessionStorage;
+import com.aula.fixa.infrastructure.remote.api.ApiClient;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
                 .setAppearanceLightNavigationBars(true);
         setContentView(R.layout.activity_main);
+        com.aula.fixa.infrastructure.remote.notifications.FcmTokenRegistrar.inicializar(this);
 
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.navHostFragment);
@@ -89,6 +92,63 @@ public class MainActivity extends AppCompatActivity {
 
         navController.addOnDestinationChangedListener((controller, destination, args) ->
                 onDestinationChanged(destination));
+        handleNotificationIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(android.content.Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleNotificationIntent(intent);
+    }
+
+    private void handleNotificationIntent(android.content.Intent intent) {
+        if (intent == null || navController == null) return;
+        int type;
+        long referenceId;
+        try {
+            String typeValue = intent.getStringExtra("notification_type");
+            if (typeValue == null) typeValue = intent.getStringExtra("tipoNotificacao");
+            String referenceValue = intent.getStringExtra("notification_reference_id");
+            if (referenceValue == null) referenceValue = intent.getStringExtra("referenciaId");
+            type = Integer.parseInt(typeValue);
+            referenceId = Long.parseLong(referenceValue);
+        } catch (Exception ignored) {
+            clearNotificationIntent(intent);
+            return;
+        }
+
+        String notificationId = intent.getStringExtra("notification_id");
+        if (notificationId == null) notificationId = intent.getStringExtra("notificacaoId");
+        if (notificationId != null && !notificationId.isBlank()) {
+            ApiClient.notificacoes(new SessionStorage(this)).marcarVisualizada(notificationId).enqueue(
+                    new retrofit2.Callback<>() {
+                        @Override public void onResponse(retrofit2.Call<com.aula.fixa.infrastructure.remote.dto.NotificacaoResponse> call,
+                                                         retrofit2.Response<com.aula.fixa.infrastructure.remote.dto.NotificacaoResponse> response) { }
+                        @Override public void onFailure(retrofit2.Call<com.aula.fixa.infrastructure.remote.dto.NotificacaoResponse> call,
+                                                        Throwable error) { }
+                    });
+        }
+
+        android.os.Bundle args = new android.os.Bundle();
+        if (type == 1) {
+            args.putLong("eventId", referenceId);
+            navController.navigate(R.id.eventInfoFragment, args);
+        } else if (type == 2) {
+            args.putLong("requestId", referenceId);
+            args.putString("requestTitle", "");
+            navController.navigate(R.id.requestDetailsFragment, args);
+        }
+        clearNotificationIntent(intent);
+    }
+
+    private void clearNotificationIntent(android.content.Intent intent) {
+        intent.removeExtra("notification_type");
+        intent.removeExtra("notification_reference_id");
+        intent.removeExtra("notification_id");
+        intent.removeExtra("tipoNotificacao");
+        intent.removeExtra("referenciaId");
+        intent.removeExtra("notificacaoId");
     }
 
     /** Barra cresce para acomodar a barra de gestos, mantendo os ícones na posição do Figma. */

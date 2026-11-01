@@ -19,6 +19,16 @@
             android:importantForAccessibility="no"
             android:tag="image:"
             app:tint="@color/app_text_navy" />
+        <View
+            android:id="@+id/viewUnreadNotificationsBadge"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_app_notification_badge"
+            android:elevation="4dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/ops_5717_9922"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_9922"
+            tools:visibility="visible" />
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ops_5717_9958"
             android:layout_width="@dimen/app_home_avatar_size"

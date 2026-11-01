@@ -92,6 +92,10 @@ public final class ApiClient {
         return authenticatedRetrofit(session).create(EventoApi.class);
     }
 
+    public static NotificacaoApi notificacoes(SessionStorage session) {
+        return authenticatedRetrofit(session).create(NotificacaoApi.class);
+    }
+
     public static LocalUnidadeApi locais(SessionStorage session) {
         return authenticatedRetrofit(session).create(LocalUnidadeApi.class);
     }

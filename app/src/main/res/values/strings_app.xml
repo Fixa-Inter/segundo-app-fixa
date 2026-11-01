@@ -187,7 +187,9 @@
     <string name="app_notifications_title">Notificações</string>
     <string name="app_notifications_today">Hoje</string>
     <string name="app_notifications_last_week">Última semana</string>
-    <string name="app_notification_sample">Sua solicitação foi aprovada!</string>
+    <string name="app_notifications_older">Mais antigas</string>
+    <string name="app_notifications_empty">Você ainda não tem notificações.</string>
+    <string name="app_notifications_channel">Notificações do FIXA</string>
 
     <!-- Filtros -->
     <string name="app_filter_title">Filtrar solicitações</string>

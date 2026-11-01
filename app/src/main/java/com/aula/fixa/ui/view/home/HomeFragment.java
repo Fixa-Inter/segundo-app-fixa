@@ -35,6 +35,7 @@ import com.aula.fixa.adapter.solicitacao.SolicitacaoViewModelFactory;
 import com.aula.fixa.ui.adapter.solicitacao.RequestAdapter;
 import com.aula.fixa.ui.view.requests.RequestMenuPopup;
 import com.aula.fixa.ui.view.auth.LoginActivity;
+import com.aula.fixa.ui.view.notifications.NotificationBadge;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -84,6 +85,15 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                 Navigation.findNavController(v).navigate(R.id.action_home_to_profile));
         view.findViewById(R.id.btnOpenRequest).setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_home_to_new_request));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        View view = getView();
+        if (view != null) {
+            NotificationBadge.load(requireContext(), view.findViewById(R.id.viewUnreadNotificationsBadge));
+        }
     }
 
     private void loadHomeData(View view, TextView greeting) {

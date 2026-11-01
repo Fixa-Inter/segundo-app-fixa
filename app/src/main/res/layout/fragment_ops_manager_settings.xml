@@ -60,19 +60,19 @@
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
             android:tag="image:bell" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7532" android:layout_width="@dimen/ops_dp_44_0" android:layout_height="@dimen/ops_dp_22_0" android:layout_marginTop="@dimen/ops_dp_143_0" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_1b6aca21a7" android:clipChildren="false" android:clipToPadding="false" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent">
-            <ImageView
-                android:id="@+id/ops_5717_7533"
-                android:layout_width="@dimen/ops_dp_20_0"
-                android:layout_height="@dimen/ops_dp_20_0"
-                android:layout_marginStart="@dimen/ops_dp_23_0"
-                android:layout_marginTop="@dimen/ops_dp_1_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/figma_6c1f3"
-                android:scaleType="fitXY"
-                android:importantForAccessibility="no"
-                android:tag="image:" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/ops_5717_7532"
+            android:layout_width="@dimen/ops_dp_44_0"
+            android:layout_height="@dimen/ops_dp_22_0"
+            android:layout_marginTop="@dimen/ops_dp_143_0"
+            android:layout_marginEnd="@dimen/ops_action_end_margin"
+            android:checked="false"
+            android:minWidth="@dimen/ops_dp_44_0"
+            android:minHeight="@dimen/ops_dp_22_0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:thumbTint="@color/app_surface"
+            app:trackDecorationTint="@android:color/transparent"
+            app:trackTint="@color/selector_app_switch_track" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

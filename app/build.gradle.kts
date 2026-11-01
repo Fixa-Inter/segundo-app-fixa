@@ -53,6 +53,7 @@ android {
 dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.messaging)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
