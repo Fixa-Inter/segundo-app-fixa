@@ -228,7 +228,7 @@
     <dimen name="app_chat_input_side_margin">16dp</dimen>
     <dimen name="app_chat_input_height">120dp</dimen>
     <dimen name="app_chat_input_radius">26dp</dimen>
-    <dimen name="app_chat_input_margin_bottom">25dp</dimen>
+    <dimen name="app_chat_input_margin_bottom">8dp</dimen>
     <dimen name="app_chat_input_padding_start">24dp</dimen>
     <dimen name="app_chat_input_padding_top">29dp</dimen>
     <dimen name="app_chat_input_text_size">16sp</dimen>

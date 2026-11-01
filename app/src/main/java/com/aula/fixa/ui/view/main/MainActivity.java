@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout bottomNavRoot;
     private int bottomNavBaseHeight;
     private int bottomInset;
-    private boolean imeVisible;
-    private boolean bottomNavEnabled = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +71,18 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
                     | WindowInsetsCompat.Type.displayCutout());
-            Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
-            imeVisible = ime.bottom > 0;
             boolean chatActive = navController != null
                     && navController.getCurrentDestination() != null
                     && navController.getCurrentDestination().getId() == R.id.chatbotFragment;
-            navHost.setPadding(bars.left, bars.top, bars.right, chatActive ? ime.bottom : 0);
+            boolean keyboardVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
+            if (chatActive) {
+                // O chat usa edge-to-edge: o IME precisa reduzir o conteúdo e a bottom nav
+                // deve sair enquanto o teclado está visível para não criar uma faixa vazia.
+                bottomNav.setVisibility(keyboardVisible ? View.GONE : View.VISIBLE);
+            }
+            navHost.setPadding(bars.left, bars.top, bars.right,
+                    chatActive && keyboardVisible ? insets.getInsets(WindowInsetsCompat.Type.ime()).bottom : 0);
             bottomInset = bars.bottom;
-            updateBottomNavVisibility();
             applyBottomNavHeight();
             return WindowInsetsCompat.CONSUMED;
         });
@@ -172,8 +174,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onDestinationChanged(@NonNull NavDestination destination) {
-        View screenRoot = findViewById(R.id.main);
-        if (screenRoot != null) screenRoot.post(() -> com.aula.fixa.ui.config.TwoToneTitleStyler.apply(screenRoot));
         boolean requestCreation = destination.getId() == R.id.newRequestIntroFragment
                 || destination.getId() == R.id.newRequestDescriptionFragment
                 || destination.getId() == R.id.newRequestLocationFragment
@@ -193,8 +193,7 @@ public class MainActivity extends AppCompatActivity {
         // Figma "Detalhes": a barra continua visível com "Solicitações" ativa.
         boolean withNav = TOP_LEVEL.contains(destination.getId())
                 || destination.getId() == R.id.requestDetailsFragment;
-        bottomNavEnabled = withNav;
-        updateBottomNavVisibility();
+        bottomNav.setVisibility(withNav ? View.VISIBLE : View.GONE);
         if (!withNav) return;
 
         int activeItem = destination.getId() == R.id.requestsFragment
@@ -213,14 +212,6 @@ public class MainActivity extends AppCompatActivity {
         set.connect(R.id.navIndicator, ConstraintSet.START, activeItem, ConstraintSet.START);
         set.connect(R.id.navIndicator, ConstraintSet.END, activeItem, ConstraintSet.END);
         set.applyTo(bottomNavRoot);
-    }
-
-    private void updateBottomNavVisibility() {
-        boolean chatActive = navController != null
-                && navController.getCurrentDestination() != null
-                && navController.getCurrentDestination().getId() == R.id.chatbotFragment;
-        bottomNav.setVisibility(bottomNavEnabled && !(chatActive && imeVisible)
-                ? View.VISIBLE : View.GONE);
     }
 
     private void setSelected(@IdRes int circleId, @IdRes int iconId, boolean selected) {

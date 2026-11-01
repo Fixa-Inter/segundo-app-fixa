@@ -62,6 +62,11 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     private com.aula.fixa.ui.view.equipamento.EquipamentoGestorFluxo equipamentoGestorFluxo;
     private com.aula.fixa.ui.view.checklist.ChecklistFlow checklistFlow;
     private com.aula.fixa.ui.view.notifications.NotificationSettingsController notificationSettings;
+    private com.aula.fixa.ui.view.chatbot.ChatbotFlow chatbotFlow;
+    private final ActivityResultLauncher<String> chatbotPhotoPicker = registerForActivityResult(
+            new ActivityResultContracts.GetMultipleContents(), uris -> {
+                if (chatbotFlow != null && uris != null) chatbotFlow.onPhotoUris(uris);
+            });
     private final ActivityResultLauncher<String> occurrenceEditPhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(), uris -> {
                 if (ocorrenciaGestorFluxo != null && uris != null) {
@@ -118,6 +123,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         android.widget.FrameLayout host = (android.widget.FrameLayout) getView();
         String requestedScreen = requireArguments().getString("screen", "manager_home");
         String screen = sharedManagerScreen(requestedScreen);
+        if (chatbotFlow != null) { chatbotFlow.close(); chatbotFlow = null; }
         if ("manager_board".equals(screen)) {
             ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId", "");
         }
@@ -131,6 +137,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 ? com.aula.fixa.R.layout.fragment_new_request_confirm
                 : "manager_planning".equals(screen)
                 ? com.aula.fixa.R.layout.fragment_ops_manager_requests
+                : isChatbotScreen(screen) ? R.layout.fragment_chatbot
                 : ScreenCatalog.get(requireContext()).layout(requireContext(), screen);
         View content = getLayoutInflater().inflate(screenLayout, host, false);
         host.addView(content);
@@ -152,9 +159,13 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             AppLoading.hide(homeLoading);
             homeLoading = null;
         }
-        if (!managerOccurrenceCreate && !managerCategories && !managerMemberDetails) {
+        if (!managerOccurrenceCreate && !managerCategories && !managerMemberDetails && !isChatbotScreen(screen)) {
             OperationsBinder binder = new OperationsBinder((OperationsActivity) requireActivity(), content, screen, null);
             binder.bind();
+        }
+        if (isChatbotScreen(screen)) {
+            chatbotFlow = new com.aula.fixa.ui.view.chatbot.ChatbotFlow(this, content,
+                    () -> chatbotPhotoPicker.launch("image/*"));
         }
         if ("technician_management".equals(screen)) {
             View boardCard = content.findViewById(R.id.ops_5717_9720);
@@ -299,6 +310,10 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
             ocorrenciaGestorFluxo.bindEditPhotos(content);
         }
+    }
+
+    private boolean isChatbotScreen(String screen) {
+        return "manager_chatbot".equals(screen) || "technician_chatbot".equals(screen);
     }
 
     private boolean isManagerOccurrenceCreateScreen(String screen) {
@@ -1290,6 +1305,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     @Override
     public void onResume() {
         super.onResume();
+        if (chatbotFlow != null) chatbotFlow.onResume();
         if (notificationSettings != null) notificationSettings.onResume();
         boolean initialResume = firstResume;
         firstResume = false;
@@ -1340,6 +1356,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     public void onDestroyView() {
         AppLoading.hide(homeLoading);
         homeLoading = null;
+        if (chatbotFlow != null) { chatbotFlow.close(); chatbotFlow = null; }
         if (solicitacaoGestorFluxo != null) {
             solicitacaoGestorFluxo.onDestroyView();
             solicitacaoGestorFluxo = null;

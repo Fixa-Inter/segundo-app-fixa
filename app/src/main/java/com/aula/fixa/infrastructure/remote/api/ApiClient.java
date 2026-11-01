@@ -3,6 +3,7 @@ package com.aula.fixa.infrastructure.remote.api;
 import retrofit2.Retrofit;
 import okhttp3.OkHttpClient;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
+import com.aula.fixa.BuildConfig;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -16,23 +17,27 @@ public final class ApiClient {
 
     private ApiClient() {}
 
-    private static OkHttpClient.Builder clientBuilder() {
+    private static OkHttpClient.Builder clientBuilder(String baseUrl) {
         return new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(90, TimeUnit.SECONDS)
                 .writeTimeout(90, TimeUnit.SECONDS)
                 .callTimeout(120, TimeUnit.SECONDS)
+                // Chat POST pode criar registros operacionais; nunca repetir automaticamente.
+                .retryOnConnectionFailure(!baseUrl.equals(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)))
+                .followRedirects(!baseUrl.equals(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)))
+                .followSslRedirects(!baseUrl.equals(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)))
                 .addInterceptor(chain -> {
                     okhttp3.Request request = chain.request();
                     String path = request.url().encodedPath();
                     SessionStorage session = activeSession;
                     String token = session == null || path.startsWith("/api/v1/auth/")
                             ? null : session.getToken();
-
-                    if (token == null || token.trim().isEmpty()) return chain.proceed(request);
-                    return chain.proceed(request.newBuilder()
-                            .header("Authorization", "Bearer " + token)
-                            .build());
+                    okhttp3.Request.Builder builder = request.newBuilder();
+                    if (baseUrl.equals(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL))
+                            && request.header("Accept") == null) builder.header("Accept", "application/json");
+                    if (token != null && !token.trim().isEmpty()) builder.header("Authorization", "Bearer " + token);
+                    return chain.proceed(builder.build());
                 });
     }
 
@@ -57,7 +62,7 @@ public final class ApiClient {
 
         Retrofit created = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(clientBuilder().build())
+                .client(clientBuilder(baseUrl).build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RETROFITS_BY_URL.put(baseUrl, created);
@@ -122,6 +127,17 @@ public final class ApiClient {
 
     public static InspecaoChecklistApi inspecoesChecklist(SessionStorage session) {
         return authenticatedNoSqlRetrofit(session).create(InspecaoChecklistApi.class);
+    }
+
+    public static ChatApi chat(SessionStorage session) {
+        activeSession = session;
+        return retrofit(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)).create(ChatApi.class);
+    }
+
+    private static String normalizeBaseUrl(String value) {
+        String normalized = value == null ? "" : value.trim();
+        if (normalized.isEmpty()) normalized = "https://ia-api.fixa.solutions/";
+        return normalized.endsWith("/") ? normalized : normalized + "/";
     }
 
     public static TecnicoApi tecnicos(SessionStorage session) {

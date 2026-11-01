@@ -7,6 +7,7 @@ fun localProperty(name: String, vararg aliases: String): String {
     val keys = listOf(name) + aliases
     return keys.firstNotNullOfOrNull { key -> localProperties.getProperty(key)?.trim() } ?: ""
 }
+val iaApiBaseUrl = localProperty("ia.api.base_url").ifEmpty { "https://ia-api.fixa.solutions/" }
 
 plugins {
     alias(libs.plugins.android.application)
@@ -31,6 +32,7 @@ android {
         buildConfigField("String", "CLOUDINARY_API_KEY", "\"${localProperty("cloudinary.api_key")}\"")
         buildConfigField("String", "CLOUDINARY_UPLOAD_PRESET", "\"${localProperty("cloudinary.upload_preset", "cloudinary.upload-preset", "cloudinary.uploadPreset")}\"")
         buildConfigField("String", "CLOUDINARY_SOLICITACOES_FOLDER", "\"${localProperty("cloudinary.solicitacoes_folder")}\"")
+        buildConfigField("String", "IA_API_BASE_URL", "\"$iaApiBaseUrl\"")
     }
 
     buildFeatures { buildConfig = true }
