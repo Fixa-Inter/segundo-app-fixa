@@ -1,6 +1,7 @@
 package com.aula.fixa.ui.view.notifications;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NotificationsFragment extends Fragment {
+    private static final String TAG = "NotificationsFragment";
     private final List<NotificacaoResponse> notifications = new ArrayList<>();
     private NotificationAdapter adapter;
     private RecyclerView list;
@@ -79,6 +81,13 @@ public class NotificationsFragment extends Fragment {
                                              @NonNull Response<List<NotificacaoResponse>> response) {
                 if (!isAdded()) return;
                 if (!response.isSuccessful()) {
+                    String body = "";
+                    try {
+                        if (response.errorBody() != null) body = response.errorBody().string();
+                    } catch (Exception error) {
+                        Log.e(TAG, "Falha lendo o corpo de erro do GET /api/v1/notificacao", error);
+                    }
+                    Log.e(TAG, "GET /api/v1/notificacao falhou: HTTP " + response.code() + " - " + body);
                     Toast.makeText(requireContext(), "Não foi possível carregar as notificações.", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -88,6 +97,7 @@ public class NotificationsFragment extends Fragment {
                 render();
             }
             @Override public void onFailure(@NonNull Call<List<NotificacaoResponse>> call, @NonNull Throwable error) {
+                Log.e(TAG, "Erro de rede ou conversão no GET /api/v1/notificacao", error);
                 if (isAdded()) Toast.makeText(requireContext(), "Não foi possível conectar ao serviço de notificações.", Toast.LENGTH_LONG).show();
             }
         });
@@ -147,9 +157,15 @@ public class NotificationsFragment extends Fragment {
             item.visualizada = true;
             render();
         }
-        if (item.referenciaId == null || item.referenciaId <= 0) return;
-
-        long referenceId = item.referenciaId;
+        if (item.referenciaId == null || item.referenciaId.isBlank()) return;
+        long referenceId;
+        try {
+            referenceId = Long.parseLong(item.referenciaId);
+        } catch (NumberFormatException ignored) {
+            // Checklist references are Mongo IDs; their detail navigation is handled by its own flow.
+            return;
+        }
+        if (referenceId <= 0) return;
         if (requireActivity() instanceof OperationsActivity) {
             OperationsActivity activity = (OperationsActivity) requireActivity();
             if (item.tipoNotificacao == 1) activity.openEventDetails(referenceId);

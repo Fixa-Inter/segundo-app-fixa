@@ -4,6 +4,7 @@ import retrofit2.Retrofit;
 import okhttp3.OkHttpClient;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
 import com.aula.fixa.BuildConfig;
+import com.aula.fixa.infrastructure.remote.auth.SessionTokenAuthenticator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +28,7 @@ public final class ApiClient {
                 .retryOnConnectionFailure(!baseUrl.equals(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)))
                 .followRedirects(!baseUrl.equals(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)))
                 .followSslRedirects(!baseUrl.equals(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)))
+                .authenticator(new SessionTokenAuthenticator())
                 .addInterceptor(chain -> {
                     okhttp3.Request request = chain.request();
                     String path = request.url().encodedPath();
@@ -43,6 +45,12 @@ public final class ApiClient {
 
     public static AuthApi auth() {
         return retrofit(API_BASE_URL).create(AuthApi.class);
+    }
+
+    public static SessionStorage activeSession() { return activeSession; }
+
+    public static synchronized void clearActiveSession(SessionStorage session) {
+        if (activeSession == session) activeSession = null;
     }
 
     private static Retrofit authenticatedRetrofit(SessionStorage session) {

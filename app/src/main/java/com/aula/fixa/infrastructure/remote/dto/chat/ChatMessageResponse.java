@@ -8,4 +8,6 @@ public final class ChatMessageResponse {
     public String resposta;
     public String emocao;
     public String confirmacao;
+    /** Pode vir na resposta imediata; o histórico continua sendo a fonte autoritativa. */
+    public String timestamp;
 }

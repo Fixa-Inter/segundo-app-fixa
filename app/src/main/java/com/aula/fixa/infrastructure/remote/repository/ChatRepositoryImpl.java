@@ -11,6 +11,10 @@ import com.aula.fixa.infrastructure.remote.api.ChatApi;
 import com.aula.fixa.infrastructure.remote.dto.chat.*;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,7 +58,8 @@ public final class ChatRepositoryImpl implements ChatRepository {
         ChatEntry entry = new ChatEntry();
         entry.role = "assistant"; entry.text = response.resposta;
         entry.emotion = response.emocao; entry.confirmation = response.confirmacao;
-        entry.localTimestamp = System.currentTimeMillis();
+        entry.localTimestamp = parseTimestamp(response.timestamp);
+        if (entry.localTimestamp == 0) entry.localTimestamp = System.currentTimeMillis();
         ChatTurn turn = new ChatTurn(); turn.threadId = response.threadId; turn.assistantMessage = entry;
         return turn;
     }
@@ -75,10 +80,23 @@ public final class ChatRepositoryImpl implements ChatRepository {
         for (ChatMessage source : c.mensagens) {
             ChatEntry m = new ChatEntry(); m.role = source.role; m.text = source.mensagem;
             m.emotion = source.emocao; m.confirmation = source.confirmacao;
+            m.localTimestamp = parseTimestamp(source.timestamp);
             if (source.imagens != null) m.images.addAll(source.imagens);
             history.messages.add(m);
         }
         return history;
+    }
+
+    private static long parseTimestamp(String value) {
+        if (value == null || value.trim().isEmpty()) return 0;
+        try { return Instant.parse(value).toEpochMilli(); }
+        catch (Exception ignored) {
+            try { return OffsetDateTime.parse(value).toInstant().toEpochMilli(); }
+            catch (Exception ignoredAgain) {
+                try { return LocalDateTime.parse(value).toInstant(ZoneOffset.UTC).toEpochMilli(); }
+                catch (Exception ignoredWithoutOffset) { return 0; }
+            }
+        }
     }
 
     private static String validateId(String id) {

@@ -16,6 +16,8 @@ import com.aula.fixa.infrastructure.remote.dto.LoginResponse;
 import com.aula.fixa.infrastructure.remote.dto.RedefinirSenhaRequest;
 import com.aula.fixa.infrastructure.remote.dto.RedefinirSenhaResponse;
 import com.aula.fixa.infrastructure.remote.dto.ValidarCodigoRequest;
+import com.aula.fixa.infrastructure.remote.dto.RefreshTokenRequest;
+import com.aula.fixa.infrastructure.remote.dto.RefreshTokenResponse;
 
 public interface AuthApi {
 
@@ -24,6 +26,12 @@ public interface AuthApi {
 
     @POST("api/v1/auth/login/google")
     Call<LoginGoogleResponse> loginGoogle(@Body LoginGoogleRequest body);
+
+    @POST("api/v1/auth/refresh")
+    Call<RefreshTokenResponse> refresh(@Body RefreshTokenRequest body);
+
+    @POST("api/v1/auth/logout")
+    Call<Void> logout(@Body RefreshTokenRequest body);
 
     @POST("api/v1/auth/cadastro")
     Call<LoginResponse> register(@Body CadastroUsuarioRequest body);

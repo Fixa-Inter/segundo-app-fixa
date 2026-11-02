@@ -7,6 +7,8 @@ import com.aula.fixa.domain.enums.TipoAcesso;
 import com.aula.fixa.infrastructure.auth.JwtAccessReader;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
 import com.aula.fixa.infrastructure.remote.notifications.FcmTokenRegistrar;
+import com.aula.fixa.infrastructure.remote.api.ApiClient;
+import com.aula.fixa.infrastructure.remote.dto.RefreshTokenRequest;
 import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 
@@ -25,13 +27,32 @@ public final class SessaoViewModel extends ViewModel {
             String[] parts = token.split("\\.");
             if (parts.length != 3) return false;
             String payload = new String(Base64.decode(parts[1], Base64.URL_SAFE | Base64.NO_WRAP), StandardCharsets.UTF_8);
-            return new JSONObject(payload).optLong("exp", 0L) > System.currentTimeMillis() / 1000L;
-        } catch (Exception ignored) { return false; }
+            if (new JSONObject(payload).optLong("exp", 0L) > System.currentTimeMillis() / 1000L) return true;
+        } catch (Exception ignored) { }
+        String refreshToken = storage.getRefreshToken();
+        return refreshToken != null && !refreshToken.isBlank();
     }
     public void encerrar() {
-        String tokenOnLogout = storage.getToken();
+        long generation = storage.sessionGeneration();
         FcmTokenRegistrar.removerTokenAtual(storage, () -> {
-            if (tokenOnLogout != null && tokenOnLogout.equals(storage.getToken())) storage.clear();
+            if (generation != storage.sessionGeneration()) return;
+            String refreshToken = storage.getRefreshToken();
+            if (refreshToken == null || refreshToken.isBlank()) {
+                storage.clear();
+                return;
+            }
+            ApiClient.auth().logout(new RefreshTokenRequest(refreshToken)).enqueue(new retrofit2.Callback<>() {
+                private void clearCurrentSession() {
+                    if (generation == storage.sessionGeneration()) storage.clear();
+                }
+                @Override public void onResponse(retrofit2.Call<Void> call,
+                                                 retrofit2.Response<Void> response) {
+                    clearCurrentSession();
+                }
+                @Override public void onFailure(retrofit2.Call<Void> call, Throwable error) {
+                    clearCurrentSession();
+                }
+            });
         });
     }
 }

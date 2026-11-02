@@ -26,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import com.aula.fixa.infrastructure.remote.dto.LoginGoogleResponse;
 import com.aula.fixa.infrastructure.remote.dto.LoginResponse;
+import com.aula.fixa.infrastructure.remote.auth.SessionTokenAuthenticator;
 import com.aula.fixa.infrastructure.remote.dto.RedefinirSenhaResponse;
 
 public final class AuthRepository implements AutenticacaoRepository {
@@ -147,17 +148,25 @@ public final class AuthRepository implements AutenticacaoRepository {
 
         T result = response.body();
         if (result == null) throw new IOException("A API retornou uma resposta vazia.");
-        String token = tokenFrom(result);
-        if (!token.trim().isEmpty()) {
-            session.saveToken(token);
-        }
+        saveSessionTokens(result);
         return result;
     }
 
-    private static String tokenFrom(Object response) {
-        if (response instanceof LoginResponse) return ((LoginResponse) response).token;
-        if (response instanceof LoginGoogleResponse) return ((LoginGoogleResponse) response).token;
-        return "";
+    private void saveSessionTokens(Object response) {
+        String accessToken = null;
+        String refreshToken = null;
+        if (response instanceof LoginResponse) {
+            accessToken = ((LoginResponse) response).token;
+            refreshToken = ((LoginResponse) response).refreshToken;
+        } else if (response instanceof LoginGoogleResponse) {
+            accessToken = ((LoginGoogleResponse) response).token;
+            refreshToken = ((LoginGoogleResponse) response).refreshToken;
+        }
+
+        if (accessToken == null || accessToken.isBlank()) return;
+        if (refreshToken == null || refreshToken.isBlank()) session.saveToken(accessToken);
+        else session.saveTokens(accessToken, refreshToken);
+        SessionTokenAuthenticator.resetLoginRedirect();
     }
 
     public static String messageFrom(Throwable throwable) {

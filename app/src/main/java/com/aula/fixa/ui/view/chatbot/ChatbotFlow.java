@@ -172,10 +172,9 @@ public final class ChatbotFlow {
             try {
                 ChatHistory fresh = viewModel.recuperar(sessionId);
                 post(() -> {
-                    selectedThreadId = fresh.sessionId; messages.clear(); messages.addAll(fresh.messages);
+                    selectedThreadId = fresh.sessionId; setHistoryMessages(fresh.messages);
                     headerTitle.setText(displayTitle(fresh));
                     recentAdapter.notifySelectionChanged();
-                    lastLiveDayKey = null;
                     if (unresolvedDraft != null && sessionId.equals(unresolvedDraft.threadId) && unresolvedEntry != null)
                         appendLive(unresolvedEntry);
                     messageAdapter.notifyDataSetChanged(); showConversation(!messages.isEmpty()); scrollToBottom(); setLoading(false);
@@ -241,7 +240,7 @@ public final class ChatbotFlow {
                 ChatHistory fresh = viewModel.recuperar(threadId);
                 post(() -> {
                     if (generation != sendGeneration || !sameOrigin(expectedOrigin) || !threadId.equals(selectedThreadId)) return;
-                    messages.clear(); messages.addAll(fresh.messages); lastLiveDayKey = null;
+                    setHistoryMessages(fresh.messages);
                     if (uncertainDraft != null) appendLive(uncertainDraft);
                     messageAdapter.notifyDataSetChanged();
                     showConversation(!messages.isEmpty()); scrollToBottom();
@@ -379,13 +378,31 @@ public final class ChatbotFlow {
         messageList.setVisibility(hasMessages ? View.VISIBLE : View.GONE);
     }
     private void appendLive(ChatEntry entry) {
-        String dayKey = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(entry.localTimestamp));
-        if (!dayKey.equals(lastLiveDayKey)) {
-            ChatEntry divider = new ChatEntry(); divider.role="system"; divider.localStatus="date-divider";
-            divider.text = "────────  " + new SimpleDateFormat("dd MMMM 'de' yyyy", new Locale("pt", "BR")).format(new Date(entry.localTimestamp)) + "  ────────";
-            messages.add(divider); messageAdapter.notifyItemInserted(messages.size()-1); lastLiveDayKey=dayKey;
-        }
+        appendDateDivider(entry.localTimestamp, true);
         messages.add(entry); messageAdapter.notifyItemInserted(messages.size()-1);
+    }
+
+    private void setHistoryMessages(List<ChatEntry> history) {
+        messages.clear();
+        lastLiveDayKey = null;
+        if (history == null) return;
+        for (ChatEntry entry : history) {
+            if (entry.localTimestamp > 0) appendDateDivider(entry.localTimestamp, false);
+            else lastLiveDayKey = null;
+            messages.add(entry);
+        }
+    }
+
+    private void appendDateDivider(long timestamp, boolean notify) {
+        if (timestamp <= 0) return;
+        Date date = new Date(timestamp);
+        String dayKey = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
+        if (dayKey.equals(lastLiveDayKey)) return;
+        ChatEntry divider = new ChatEntry(); divider.role="system"; divider.localStatus="date-divider";
+        divider.text = "────────  " + new SimpleDateFormat("dd MMMM 'de' yyyy", new Locale("pt", "BR")).format(date) + "  ────────";
+        messages.add(divider);
+        if (notify) messageAdapter.notifyItemInserted(messages.size()-1);
+        lastLiveDayKey = dayKey;
     }
     private void scrollToBottom() { if (!messages.isEmpty()) messageList.post(() -> messageList.scrollToPosition(messages.size()-1)); }
     private void updateAttachmentsLabel() {

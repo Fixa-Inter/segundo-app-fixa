@@ -9,4 +9,6 @@ public final class ChatMessage {
     public String emocao;
     public String confirmacao;
     public List<String> imagens;
+    /** Instante de persistência em UTC; nulo para mensagens antigas sem horário. */
+    public String timestamp;
 }

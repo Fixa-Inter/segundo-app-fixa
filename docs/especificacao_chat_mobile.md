@@ -208,9 +208,10 @@ Valores de `emocao`: `NEUTRO`, `CURIOSO`, `PENSATIVO`, `CONFIRMACAO`, `SUCESSO`,
 | `confirmacao` | `sim` ou `nao` | Presente; padrão `nao`; humano sempre formatado como `nao` |
 | `emocao` | enum ou null no schema | Opcional; omitida quando nula. Assistente é normalizado para emoção conhecida, padrão `NEUTRO` |
 | `imagens` | array de strings ou null no schema | Opcional; omitida quando nula; sem imagens pode estar ausente, não exigir `[]` |
+| `timestamp` | string date-time UTC ou null | Opcional; instante de persistência da mensagem; pode ser nulo em mensagens antigas sem horário registrado |
 | `visualizacao` | objeto ou null no schema | Opcional e somente de assistente; a IA pode incluir por perfil. Remover no adaptador |
 
-Não há ID público, timestamp por mensagem, intenção por mensagem nem estado atual da proposta nesse objeto. Não fabricar esses campos como se viessem da IA. O adaptador não precisa validar/interpretar o contrato de gráfico: deve descartá-lo antes de construir a saída mobile.
+Não há ID público, intenção por mensagem nem estado atual da proposta nesse objeto. Não fabricar esses campos como se viessem da IA. O adaptador não precisa validar/interpretar o contrato de gráfico: deve descartá-lo antes de construir a saída mobile.
 
 #### Objeto `ConversaHistorico`
 
@@ -528,7 +529,7 @@ Fontes: `app/api/routes/sessoes.py::excluir_conversa_historico`, `app/services/s
 
 Uma chave temporária local pode identificar o rascunho antes de receber a sessão. Ela não deve ser enviada como `thread_id`. Mensagens locais pendentes podem ter IDs locais para renderização, sem fingir que a IA reconhece esses IDs.
 
-O histórico da IA não fornece ID/timestamp por mensagem. Portanto, igualdade de texto ou contagem de mensagens não é prova de deduplicação: duas mensagens iguais podem ser legítimas. Em reconciliação, usar a lista recuperada como histórico confirmado, conservar separadamente o rascunho incerto e pedir decisão explícita quando houver ambiguidade.
+O histórico da IA fornece timestamp UTC por mensagem quando disponível; mensagens antigas podem não ter horário. Portanto, igualdade de texto ou contagem de mensagens não é prova de deduplicação: duas mensagens iguais podem ser legítimas. Em reconciliação, usar a lista recuperada como histórico confirmado, conservar separadamente o rascunho incerto e pedir decisão explícita quando houver ambiguidade.
 
 O checkpointer da IA é `MemorySaver`, no processo. Em ausência de estado em memória, o executor recupera mensagens/propostas do MongoDB. Isso permite retomada, mas não garante continuidade idêntica de checkpoint entre réplicas/reinícios. O adaptador não deve depender de afinidade de processo como solução de integridade.
 
@@ -546,7 +547,7 @@ O histórico público contém apenas papéis `human`/`assistant` e a ordem do ar
 
 Datas de sessão são geradas em UTC. O cliente MongoDB atual não declara `tz_aware`; a serialização pode retornar ISO 8601 sem offset. O consumidor deve aceitar timestamps com offset e, **somente nos campos de sessão `iniciada_em`/`atualizada_em` desta origem**, interpretar ausência de offset como UTC. Exibir no fuso do aplicativo/usuário. Não anexar UTC por suposição a datas de negócio de outros domínios. Confirmar esses formatos em homologação com uma leitura real.
 
-Referências temporais conversacionais de negócio usam `America/Sao_Paulo`; isso não muda a base UTC dos timestamps da sessão. Não há timestamp por mensagem ou indicador persistente de sessão encerrada no histórico.
+Referências temporais conversacionais de negócio usam `America/Sao_Paulo`; timestamps das mensagens e da sessão são retornados em UTC e exibidos no fuso local do dispositivo. Mensagens históricas antigas podem não ter timestamp. Não há indicador persistente de sessão encerrada no histórico.
 
 Fontes: `app/memory/persistencia/sessoes/inicio.py`, `encerramento.py`, `app/memory/persistencia/gerar_resumo.py`, `utilitarios.py::agora`, `app/core/clients/mongo.py`, `app/core/tempo.py`, `app/services/sessoes/historico.py`.
 
