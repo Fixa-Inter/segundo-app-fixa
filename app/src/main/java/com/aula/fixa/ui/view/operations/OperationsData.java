@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.adapter.operations.OperationsViewModel;
 import com.aula.fixa.domain.model.home.ManagerHomeData;
 import com.bumptech.glide.Glide;
@@ -152,13 +153,16 @@ public final class OperationsData {
             list.setAdapter(new com.aula.fixa.ui.adapter.os.QuadroOSAdapter(new com.aula.fixa.ui.adapter.os.QuadroOSAdapter.Listener() {
                 @Override public void onClick(com.aula.fixa.domain.model.os.OrdemServicoQuadro order) { activity.openOrderDetails(order.id, order.titulo); }
                 @Override public void onMenuClick(View anchor, com.aula.fixa.domain.model.os.OrdemServicoQuadro order) { }
-            }, false));
+            }, false, R.layout.item_ops_technician_home_order));
             ((com.aula.fixa.ui.adapter.os.QuadroOSAdapter) list.getAdapter()).submit(recent);
             ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.topToBottom = R.id.ops_5717_9920;
             lp.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
             lp.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
             lp.topMargin = Math.round(12 * scale(activity));
+            int cardSideMargin = activity.getResources().getDimensionPixelSize(R.dimen.app_home_card_side_margin);
+            lp.setMarginStart(cardSideMargin);
+            lp.setMarginEnd(cardSideMargin);
             parent.addView(list, lp);
         }
     }
@@ -288,24 +292,9 @@ public final class OperationsData {
         content.addView(list, params);
         if (requests.isEmpty()) {
             list.setGravity(android.view.Gravity.CENTER);
-            ImageView image = new ImageView(activity);
-            image.setImageResource(R.drawable.img_empty_results);
-            image.setAdjustViewBounds(true);
-            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            image.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            int imageSize = Math.round(92 * scale(activity));
-            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(imageSize, imageSize);
-            imageParams.bottomMargin = Math.round(4 * scale(activity));
-            list.addView(image, imageParams);
-
-            TextView empty = new TextView(activity);
-            empty.setText(R.string.app_home_requests_empty);
-            empty.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_BodyLarge);
-            empty.setTextColor(ContextCompat.getColor(activity, R.color.app_text_navy));
-            empty.setGravity(android.view.Gravity.CENTER);
-            empty.setIncludeFontPadding(false);
+            TextView empty = EmptyStateStyler.create(activity, activity.getString(R.string.app_home_requests_empty));
             list.addView(empty, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             return;
         }
         for (ManagerHomeData.SolicitacaoHomeItem request : requests) {
@@ -344,6 +333,10 @@ public final class OperationsData {
     }
 
     private static void review(OperationsActivity activity,View root,JSONObject screen) {
+        TextView reviewTitle = root.findViewWithTag("text:Confirme as informações");
+        if (reviewTitle != null) com.aula.fixa.ui.config.AppText.setHtml(reviewTitle,
+                "<b><font color=\"#153D7D\">Confirme</font></b> " +
+                "<b><font color=\"#0B013C\">as informações</font></b>");
         String role=activity.role(), title=activity.model.field(role+"_occurrence_service","Título"), description=activity.model.field(role+"_occurrence_service","Problema encontrado");
         String place=activity.model.field(role+"_occurrence_location","Local"),date=activity.model.field(role+"_occurrence_location","Data"),solution=activity.model.field(role+"_occurrence_result","Solução aplicada"),difficulty=activity.model.field(role+"_occurrence_result","Grau de dificuldade");
         JSONArray bindings=screen.optJSONArray("bindings");

@@ -19,11 +19,11 @@
             android:id="@+id/ops_5717_10291"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_31"
-            android:layout_marginTop="@dimen/ops_dp_67_0"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_45"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_inspecione_os_aparelhos_a4db1f"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
@@ -32,9 +32,9 @@
             android:minHeight="@dimen/ops_dp_81"
             android:tag="text:Inspecione os aparelhos"
             android:padding="@dimen/ops_dp_0"
-            android:fontFamily="@font/poppins_bold" />
+            android:fontFamily="@font/poppins_bold"  android:maxLines="2" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10328" android:layout_width="110dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginEnd="@dimen/ops_dp_30_0" android:layout_marginTop="@dimen/ops_dp_28_0" app:layout_constraintStart_toEndOf="@id/inspectionSearchContainer" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10291" android:background="@drawable/bg_ops_e7ed2e1d5e" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10328" android:layout_width="144dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginEnd="@dimen/app_events_title_margin_start" android:layout_marginTop="0dp" app:layout_constraintStart_toEndOf="@id/inspectionSearchContainer" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/inspectionSearchContainer" app:layout_constraintBottom_toBottomOf="@id/inspectionSearchContainer" android:background="@drawable/bg_ops_e7ed2e1d5e" android:clipChildren="false" android:clipToPadding="false">
             <AutoCompleteTextView
                 android:id="@+id/inspectionStatusDropdown"
                 android:layout_width="match_parent"
@@ -44,15 +44,22 @@
                 android:focusable="false"
                 android:inputType="none"
                 android:maxLines="1"
-                android:paddingStart="@dimen/ops_dp_17_0"
-                android:paddingEnd="@dimen/ops_dp_35_0"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingStart="12dp"
+                android:paddingEnd="26dp"
                 android:popupBackground="@drawable/bg_app_popup_menu"
+                android:dropDownWidth="176dp"
+                android:dropDownHorizontalOffset="-32dp"
                 android:text="Status"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.776f506c8d" android:textColor="@color/app_text_black" />
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.776f506c8d"
+                android:textSize="18sp"
+                android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_10333"
-                android:layout_width="@dimen/ops_dp_20_0"
-                android:layout_height="@dimen/ops_dp_20_0"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,8 +72,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/inspectionSearchContainer"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ops_dp_45_0"
-            android:layout_marginStart="@dimen/ops_dp_30_0"
+            android:layout_height="@dimen/app_requests_search_height"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
             android:layout_marginTop="@dimen/ops_dp_28_0"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_ops_c5ebb731c9"
@@ -86,7 +93,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_search_18"
+                app:srcCompat="@drawable/ic_search_26"
                 app:tint="@color/app_on_primary" />
             <EditText
                 android:id="@+id/inspectionSearch"
@@ -98,6 +105,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center_vertical"
                 android:hint="Pesquisar código"
+                android:textColorHint="@color/app_text_secondary"
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -111,9 +119,9 @@
             android:id="@+id/inspectionEquipmentList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_30_0"
-            android:layout_marginTop="@dimen/ops_dp_12_0"
-            android:layout_marginEnd="@dimen/ops_dp_30_0"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             android:nestedScrollingEnabled="false"
             android:paddingBottom="@dimen/ops_dp_100_0"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +131,10 @@
         <TextView
             android:id="@+id/inspectionEquipmentEmpty"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             android:gravity="center"
             android:text="Não existem equipamentos neste status."
             android:textAppearance="@style/TextAppearance.FIXA.Operations.4880bc1e34"

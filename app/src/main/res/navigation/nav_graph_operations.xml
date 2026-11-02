@@ -13,6 +13,9 @@
     <fragment android:id="@+id/ops_manager_occurrence_intro" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_intro_76caa7">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_intro" />
     </fragment>
+    <fragment android:id="@+id/ops_manager_occurrence_basic" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_occurrence_create_step_basic">
+        <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrence_basic" />
+    </fragment>
     <fragment android:id="@+id/ops_manager_occurrences" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrences_e65310">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_occurrences" />
     </fragment>
@@ -187,6 +190,9 @@
     </fragment>
     <fragment android:id="@+id/ops_technician_occurrence_intro" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_intro_76caa7">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_occurrence_intro" />
+    </fragment>
+    <fragment android:id="@+id/ops_technician_occurrence_basic" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_occurrence_create_step_basic">
+        <argument android:name="screen" app:argType="string" android:defaultValue="technician_occurrence_basic" />
     </fragment>
     <fragment android:id="@+id/ops_technician_occurrences" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrences_e65310">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_occurrences" />

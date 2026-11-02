@@ -35,14 +35,16 @@ public final class QuadroOSFiltersSheet extends FullWidthFilterSheet {
         setOptions(v,R.id.fieldProblem,problems);setOptions(v,R.id.fieldPriority,priorities);
         setOptions(v,R.id.fieldPeriod,Arrays.asList("Últimos 30 dias","Últimos 3 meses","Último ano","Todos"));
         setOptions(v,R.id.fieldStatus,Arrays.asList("Todos","Não Iniciada","Em andamento","Concluída","Atrasada"));
+        restore(v,R.id.fieldProblem,"problem");restore(v,R.id.fieldPriority,"priority");restore(v,R.id.fieldPeriod,"period");restore(v,R.id.fieldStatus,"status");
         CadastroViewModel vm=new ViewModelProvider(this,new CadastroViewModelFactory(requireContext())).get(CadastroViewModel.class);
-        vm.listarCategorias(new CadastroViewModel.Callback<List<OpcaoCadastro>>(){public void aoConcluir(List<OpcaoCadastro> xs){if(isAdded())setOptions(v,R.id.fieldEquipment,names(xs));}public void aoFalhar(Throwable e){if(isAdded())setOptions(v,R.id.fieldEquipment,new ArrayList<>());}});
-        v.findViewById(R.id.btnApply).setOnClickListener(x->{Fragment target=getTargetFragment();if(target instanceof Listener)((Listener)target).onManagerOSFilters(value(v,R.id.fieldEquipment),value(v,R.id.fieldProblem),value(v,R.id.fieldPriority),value(v,R.id.fieldPeriod),value(v,R.id.fieldStatus));dismiss();});
+        vm.listarCategorias(new CadastroViewModel.Callback<List<OpcaoCadastro>>(){public void aoConcluir(List<OpcaoCadastro> xs){if(isAdded()){setOptions(v,R.id.fieldEquipment,names(xs));restore(v,R.id.fieldEquipment,"equipment");}}public void aoFalhar(Throwable e){if(isAdded()){setOptions(v,R.id.fieldEquipment,new ArrayList<>());restore(v,R.id.fieldEquipment,"equipment");}}});
+        v.findViewById(R.id.btnApply).setOnClickListener(x->{Fragment target=getTargetFragment();String status=value(v,R.id.fieldStatus);if(status.trim().isEmpty())status="Todos";if(target instanceof Listener)((Listener)target).onManagerOSFilters(value(v,R.id.fieldEquipment),value(v,R.id.fieldProblem),value(v,R.id.fieldPriority),value(v,R.id.fieldPeriod),status);dismiss();});
         v.findViewById(R.id.btnClear).setOnClickListener(x->{defaultValue(v,R.id.fieldEquipment,"Todos");defaultValue(v,R.id.fieldProblem,"Todas");defaultValue(v,R.id.fieldPriority,"Todas");defaultValue(v,R.id.fieldPeriod,"Todos");defaultValue(v,R.id.fieldStatus,"Todos");Fragment target=getTargetFragment();if(target instanceof Listener)((Listener)target).onManagerOSFilters("","","","","Todos");dismiss();});
     }
     private List<String> names(List<OpcaoCadastro> values){List<String> r=new ArrayList<>();if(values!=null)for(OpcaoCadastro x:values)r.add(x.getNome());return r;}
     private AutoCompleteTextView field(View root,int id){return root.findViewById(id).findViewById(R.id.actvFilterValue);}
     private void defaultValue(View root,int id,String hint){AutoCompleteTextView f=field(root,id);f.setText("");f.setHint(hint);}
+    private void restore(View root,int id,String key){String value=getArguments()==null?null:getArguments().getString(key);if(value==null||value.trim().isEmpty())return;field(root,id).setText(value,false);}
     private String value(View root,int id){return field(root,id).getText().toString();}
     private void setOptions(View root,int id,List<String> values){AutoCompleteTextView f=field(root,id);f.setAdapter(new ArrayAdapter<>(root.getContext(),R.layout.item_app_dropdown,values));f.setOnClickListener(x->f.showDropDown());f.setOnTouchListener((x,e)->{if(e.getAction()==android.view.MotionEvent.ACTION_UP)f.showDropDown();return false;});}
 }

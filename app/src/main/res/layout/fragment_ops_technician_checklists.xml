@@ -2,30 +2,18 @@
 <!-- Figma 5717:10206 • technician / checklists. Componentes nativos; dimensões em values e sw400dp. -->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff6f9fe" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_829_0" android:clipChildren="false" android:clipToPadding="false">
-        <ImageView
-            android:id="@+id/ops_5717_10218"
-            android:layout_width="@dimen/app_back_icon_size"
-            android:layout_height="@dimen/app_back_icon_size"
-            android:layout_marginStart="@dimen/ops_dp_11_0"
-            android:layout_marginTop="@dimen/ops_dp_22_0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/figma_eee40"
-            android:scaleType="fitXY"
-            android:importantForAccessibility="no"
-            android:tag="image:arrow-left" />
         <TextView
             android:id="@+id/ops_5717_10217"
             android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_58_8"
-            android:layout_marginStart="@dimen/ops_dp_31"
-            android:layout_marginTop="@dimen/ops_dp_62_6"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_45"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_checklists_4d03ed"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_58_8"
@@ -33,7 +21,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10260" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_32_6" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10217" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Climatização">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10260" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_32_6" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10217" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Climatização">
             <View
                 android:id="@+id/ops_5717_10261"
                 android:layout_width="@dimen/ops_dp_20_0"
@@ -154,6 +142,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_10268"
                 android:text="@string/ops_text_15_dias_2dd688"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -171,6 +160,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_em_andamento_d6f779"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -188,6 +178,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_10269"
                 android:text="@string/ops_text_3_4e0740"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -196,7 +187,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10275" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_16_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10260" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Qualidade">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10275" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_16_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10260" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Qualidade">
             <View
                 android:id="@+id/ops_5717_10276"
                 android:layout_width="@dimen/ops_dp_20_0"
@@ -317,6 +308,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_10283"
                 android:text="@string/ops_text_30_dias_59c86f"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -334,6 +326,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_em_andamento_d6f779"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -351,6 +344,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_10284"
                 android:text="@string/ops_text_8_2c6242"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"

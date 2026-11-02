@@ -19,20 +19,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/ops_dp_44"
-            android:layout_marginTop="@dimen/ops_dp_71_0"
+            android:layout_marginTop="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="@dimen/ops_dp_41"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_detalhes_da_solicitacao_19e72a"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.32afd0b1db"
+            android:textColor="@color/ops_color_ff0b013c"
+            android:textSize="36sp"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_106"
             android:tag="text:Detalhes da solicitação"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9116" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_520_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_212_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/bg_ops_ac14c6a492" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ar-condicionado quebrado">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9116" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_520_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_212_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/bg_ops_892fe1afbe" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ar-condicionado quebrado">
             <TextView
                 android:id="@+id/ops_5717_9117"
                 android:layout_width="0dp"
@@ -45,6 +47,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/ops_text_ar_condicionado_quebrado_d6029a"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.360d59c4e1"
+                android:textColor="@color/ops_color_ff0b013c"
                 android:includeFontPadding="false"
                 android:gravity="start|center_vertical"
                 android:minHeight="@dimen/ops_dp_76"

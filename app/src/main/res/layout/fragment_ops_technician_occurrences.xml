@@ -6,20 +6,20 @@
             android:id="@+id/ops_5717_9404"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_31"
-            android:layout_marginTop="@dimen/ops_dp_67_0"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_45"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_organize_as_ocorrencias_1f38f7"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_81"
             android:tag="text:Organize as ocorrências"
             android:padding="@dimen/ops_dp_0"
-            android:fontFamily="@font/poppins_bold" />
+            android:fontFamily="@font/poppins_bold"  android:maxLines="2" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9440" android:layout_width="@dimen/ops_dp_125_0" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_31_0" android:layout_marginTop="@dimen/ops_dp_28_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9404" android:background="@drawable/bg_ops_e7ed2e1d5e" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_9441"
@@ -51,7 +51,7 @@
                 android:importantForAccessibility="no"
                 android:tag="image:calendar" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9449" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_103_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9404" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ajuste realizado na biblioteca">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9449" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_103_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9404" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ajuste realizado na biblioteca">
             <View
                 android:id="@+id/ops_5717_9450"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -158,7 +158,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9469" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9449" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ajuste realizado na biblioteca">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9469" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_10_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9449" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ajuste realizado na biblioteca">
             <View
                 android:id="@+id/ops_5717_9470"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -274,7 +274,7 @@
             android:src="@drawable/figma_6b5b1"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:Ellipse" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
+            android:tag="image:Ellipse" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" />
         <TextView
             android:id="@+id/ops_5717_9407"
             android:layout_width="@dimen/ops_dp_62"

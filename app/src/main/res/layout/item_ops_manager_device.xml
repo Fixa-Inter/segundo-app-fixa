@@ -63,14 +63,15 @@
 
     <ImageView
         android:id="@+id/deviceMenu"
-        android:layout_width="24dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
         android:contentDescription="Mais opções"
-        android:padding="5dp"
-        android:src="@drawable/ic_more_vertical_14"
+        android:src="@drawable/ic_more_vertical_18"
         android:scaleType="fitCenter"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

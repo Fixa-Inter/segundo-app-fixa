@@ -45,6 +45,7 @@ public class OperationsActivity extends AppCompatActivity {
     private int[] indicators;
     private NavController navigation;
     private View bar;
+    private boolean barEnabledForDestination = true;
     private String role;
     private String exportType;
     private List<Map<String, String>> exportRows;
@@ -140,21 +141,25 @@ public class OperationsActivity extends AppCompatActivity {
         }
 
         navigation.addOnDestinationChangedListener((nav, dest, args) -> {
+            View screenRoot = findViewById(R.id.operationsRoot);
+            if (screenRoot != null) screenRoot.post(() -> com.aula.fixa.ui.config.TwoToneTitleStyler.apply(screenRoot));
             boolean focusScreen = isFocusDestination(dest.getId());
-            bar.setVisibility(focusScreen ? View.GONE : View.VISIBLE);
+            barEnabledForDestination = !focusScreen;
+            bar.setVisibility(barEnabledForDestination ? View.VISIBLE : View.GONE);
             WindowInsetsControllerCompat systemBars = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
             systemBars.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
             if (focusScreen) {
                 systemBars.hide(WindowInsetsCompat.Type.navigationBars());
             } else {
                 systemBars.show(WindowInsetsCompat.Type.navigationBars());
-                updateBar(args == null ? role + "_home" : args.getString("screen", role + "_home"));
+                updateBar(resolveScreenKey(nav, dest, args));
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.operationsRoot), (view, insets) -> {
             Insets system = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
             int keyboard = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
             view.setPadding(system.left, system.top, system.right, keyboard);
+            bar.setVisibility(keyboard > 0 || !barEnabledForDestination ? View.GONE : View.VISIBLE);
             bar.setPadding(0, 0, 0, keyboard > 0 ? 0 : system.bottom);
             ViewGroup.LayoutParams params = bar.getLayoutParams();
             params.height = getResources().getDimensionPixelSize(R.dimen.ops_nav_height) + (keyboard > 0 ? 0 : system.bottom);
@@ -182,6 +187,24 @@ public class OperationsActivity extends AppCompatActivity {
                 || (role.equals("manager") && (id == R.id.ops_manager_request_details
                 || id == R.id.ops_manager_occurrence_result))
                 || (role.equals("technician") && id == R.id.ops_technician_occurrence_result);
+    }
+
+    /** Resolve the active screen from the destination itself when an action only passes entity IDs. */
+    private String resolveScreenKey(androidx.navigation.NavController nav,
+                                    androidx.navigation.NavDestination destination, Bundle args) {
+        String screen = args == null ? null : args.getString("screen");
+        if (screen == null || screen.trim().isEmpty()) {
+            androidx.navigation.NavBackStackEntry entry = nav.getCurrentBackStackEntry();
+            Bundle current = entry == null ? null : entry.getArguments();
+            screen = current == null ? null : current.getString("screen");
+        }
+        if (screen == null || screen.trim().isEmpty()) {
+            try {
+                String entryName = getResources().getResourceEntryName(destination.getId());
+                if (entryName.startsWith("ops_")) screen = entryName.substring("ops_".length());
+            } catch (android.content.res.Resources.NotFoundException ignored) { }
+        }
+        return screen == null || screen.trim().isEmpty() ? role + "_home" : screen;
     }
 
     public void photos() {
@@ -260,6 +283,10 @@ public class OperationsActivity extends AppCompatActivity {
 
     public void openName(String name) {
         open(role + "_" + name);
+    }
+
+    public void openOccurrenceBasic() {
+        navigation.navigate(destination(role + "_occurrence_basic"));
     }
 
     public void openCompetencies(long technicianId) {
@@ -394,7 +421,8 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     private void updateBar(String key) {
-        JSONObject spec = ScreenCatalog.get(this).screen(key);
+        String navigationKey = navigationParentKey(key);
+        JSONObject spec = ScreenCatalog.get(this).screen(navigationKey);
         bar.setVisibility(spec.optBoolean("navigation") ? View.VISIBLE : View.GONE);
         int active = spec.optInt("navActive");
         JSONArray assets = spec.optJSONArray("navAssets");
@@ -437,6 +465,33 @@ public class OperationsActivity extends AppCompatActivity {
                 }
             }
         }
+        if (role.equals("technician")) {
+            ImageView chatIcon = findViewById(R.id.opsNavChatIcon);
+            chatIcon.setImageResource(R.drawable.selector_app_nav_chat);
+            chatIcon.setSelected(active == 4);
+            if (key.equals("technician_chatbot")) {
+                View calendarTab = findViewById(R.id.opsNavEvents);
+                ImageView calendarIcon = findViewById(R.id.opsNavEventsIcon);
+                calendarTab.setVisibility(View.VISIBLE);
+                calendarIcon.setImageResource(R.drawable.figma_96466);
+                calendarIcon.setVisibility(View.VISIBLE);
+                calendarIcon.setAlpha(1f);
+            }
+        }
+    }
+
+    /** Keeps the active workflow on its owning tab as each step is opened. */
+    private String navigationParentKey(String key) {
+        String prefix = role + "_";
+        if (key.equals("manager_chatbot")) return prefix + "home";
+        if (key.equals(prefix + "event_details")) return prefix + "events";
+        if (key.endsWith("_execution_pending") || key.contains("_planning_")
+                || key.endsWith("_plan_information") || key.endsWith("_assign_member")
+                || key.endsWith("_planning_success")) return prefix + "board";
+        if (key.contains("_occurrence_")) return prefix + "occurrences";
+        if (key.contains("_checklist_") || key.endsWith("_inspection_form")) return prefix + "checklists";
+        if (key.endsWith("_member_details") || key.endsWith("_competencies")) return prefix + "team";
+        return key;
     }
 
     private void configureNavigationItems() {

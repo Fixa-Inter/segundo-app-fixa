@@ -71,6 +71,7 @@ public final class ConclusaoOSFluxo {
 
         TextView photoLabel = root.findViewById(R.id.ops_5717_6299);
         if (photoLabel != null) photoLabel.setText("Adicionar fotos (1 a 3 obrigatórias)");
+        centerPhotoAction(photoLabel);
 
         View cancel = root.findViewById(R.id.ops_5717_6323);
         View submit = root.findViewById(R.id.ops_5717_6325);
@@ -98,29 +99,54 @@ public final class ConclusaoOSFluxo {
 
     private void bindDifficultyDropdown(AutoCompleteTextView difficulty) {
         if (difficulty == null) return;
+        View container = root.findViewById(R.id.ops_5717_6328);
         String[] choices = {"Fácil", "Médio", "Difícil"};
         difficulty.setTextSize(15);
         difficulty.setKeyListener(null);
         difficulty.setFocusable(false);
         difficulty.setThreshold(0);
         difficulty.setAdapter(new ArrayAdapter<>(host.requireContext(), R.layout.item_app_dropdown, choices));
+        difficulty.setOnItemClickListener((parent, row, position, id) -> difficulty.setText(choices[position], false));
         difficulty.setOnClickListener(v -> difficulty.showDropDown());
         difficulty.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) difficulty.showDropDown();
-            return false;
+            return true;
         });
+        if (container != null) container.setOnClickListener(v -> difficulty.showDropDown());
+    }
+
+    private void centerPhotoAction(TextView label) {
+        View container = root.findViewById(R.id.ops_5717_6298);
+        View icon = root.findViewById(R.id.ops_5717_6301);
+        if (container == null || label == null || icon == null) return;
+        ConstraintLayout.LayoutParams iconParams = new ConstraintLayout.LayoutParams(dp(18), dp(18));
+        iconParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+        iconParams.endToStart = label.getId();
+        iconParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+        iconParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+        iconParams.setMarginEnd(dp(8));
+        icon.setLayoutParams(iconParams);
+        ConstraintLayout.LayoutParams labelParams = new ConstraintLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        labelParams.startToEnd = icon.getId();
+        labelParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+        labelParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+        labelParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+        labelParams.horizontalChainStyle = ConstraintLayout.LayoutParams.CHAIN_PACKED;
+        label.setLayoutParams(labelParams);
+        label.setGravity(android.view.Gravity.CENTER);
     }
 
     private void bindBottomButtons(View cancel, View submit) {
         if (cancel == null || submit == null || !(submit.getParent() instanceof ConstraintLayout)) return;
         ConstraintLayout parent = (ConstraintLayout) submit.getParent();
-        int buttonWidth = dp(140);
-        int buttonHeight = dp(50);
-        ConstraintLayout.LayoutParams cancelParams = new ConstraintLayout.LayoutParams(buttonWidth, buttonHeight);
+        int buttonHeight = dp(48);
+        ConstraintLayout.LayoutParams cancelParams = new ConstraintLayout.LayoutParams(0, buttonHeight);
         cancelParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         cancelParams.endToStart = submit.getId();
-        cancelParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
-        cancelParams.setMargins(dp(28), 0, dp(12), dp(26));
+        cancelParams.topToBottom = R.id.ops_5717_6298;
+        cancelParams.horizontalChainStyle = ConstraintLayout.LayoutParams.CHAIN_SPREAD;
+        cancelParams.setMargins(dp(36), dp(18), dp(8), 0);
         cancel.setLayoutParams(cancelParams);
         cancel.setBackgroundResource(R.drawable.bg_ops_6fc7f4db18);
         if (cancel instanceof TextView) {
@@ -130,11 +156,12 @@ public final class ConclusaoOSFluxo {
             text.setGravity(android.view.Gravity.CENTER);
         }
 
-        ConstraintLayout.LayoutParams submitParams = new ConstraintLayout.LayoutParams(buttonWidth, buttonHeight);
+        ConstraintLayout.LayoutParams submitParams = new ConstraintLayout.LayoutParams(0, buttonHeight);
         submitParams.startToEnd = cancel.getId();
         submitParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-        submitParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
-        submitParams.setMargins(dp(12), 0, dp(28), dp(26));
+        submitParams.topToTop = cancel.getId();
+        submitParams.bottomToBottom = cancel.getId();
+        submitParams.setMargins(dp(8), 0, dp(36), 0);
         submit.setLayoutParams(submitParams);
         if (submit instanceof TextView) {
             TextView text = (TextView) submit;

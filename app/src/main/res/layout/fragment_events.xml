@@ -16,8 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:fillViewport="true"
-        android:paddingBottom="@dimen/app_bottom_nav_height">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/eventsRoot"
@@ -129,20 +128,12 @@
                 app:layout_constraintTop_toBottomOf="@id/tvSection"
                 app:layout_constraintWidth_max="@dimen/app_content_max_width">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tvEmptyEventsMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/app_events_empty_image_size"
-                    android:importantForAccessibility="no"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/img_empty_results_hires" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/app_events_empty"
-                    android:textAppearance="@style/TextAppearance.FIXA.App.EmptyTitle" />
+                    android:gravity="center" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

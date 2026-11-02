@@ -14,6 +14,7 @@ import android.text.style.ForegroundColorSpan;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.FragmentUi;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.DashedLineDrawable;
 import com.aula.fixa.domain.model.solicitacao.ProblemaItem;
@@ -72,9 +74,12 @@ public class RequestDetailsFragment extends Fragment {
     }
 
     private void loadDetails(View view, RecyclerView list, long id) {
+        EmptyStateStyler.removeFromConstraint((ConstraintLayout) view.findViewById(R.id.detailsRoot));
+        list.setVisibility(View.VISIBLE);
         solicitacoes.detalhar(id, new SolicitacaoViewModel.Callback<Problema>() {
             @Override public void aoConcluir(Problema item) {
                 FragmentUi.runIfViewActive(RequestDetailsFragment.this, view, () -> {
+                    EmptyStateStyler.removeFromConstraint((ConstraintLayout) view.findViewById(R.id.detailsRoot));
                     setStyledTitle(view.findViewById(R.id.tvTitle), item.titulo);
                     String status = item.status.isEmpty() ? "PENDENTE" : item.status;
                     boolean editable = status.equalsIgnoreCase("PENDENTE");
@@ -95,8 +100,13 @@ public class RequestDetailsFragment extends Fragment {
                 });
             }
             @Override public void aoFalhar(Throwable error) {
-                FragmentUi.runIfViewActive(RequestDetailsFragment.this, view, () -> android.widget.Toast.makeText(
-                        view.getContext(), error.getMessage(), android.widget.Toast.LENGTH_LONG).show());
+                FragmentUi.runIfViewActive(RequestDetailsFragment.this, view, () -> {
+                    list.setVisibility(View.GONE);
+                    view.findViewById(R.id.btnMore).setVisibility(View.GONE);
+                    EmptyStateStyler.showInConstraint((ConstraintLayout) view.findViewById(R.id.detailsRoot),
+                            R.id.tvTitle, "Não foi possível carregar a solicitação. Toque para tentar novamente.",
+                            () -> loadDetails(view, list, id));
+                });
             }
         });
     }

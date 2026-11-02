@@ -39,6 +39,7 @@ import com.aula.fixa.domain.enums.TipoCampoChecklist;
 import com.aula.fixa.domain.model.checklist.*;
 import com.aula.fixa.ui.config.AppLoading;
 import com.aula.fixa.ui.config.AppDialogs;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
 import com.google.gson.Gson;
 
@@ -62,6 +63,7 @@ public final class ChecklistFlow {
     private LinearLayout answerContainer;
     private ChecklistTemplate activeTemplate;
     private ChecklistEquipment activeEquipment;
+    private boolean templatesLoadFailed;
 
     public ChecklistFlow(Fragment fragment, OperationsActivity activity) {
         this.fragment = fragment;
@@ -103,57 +105,182 @@ public final class ChecklistFlow {
     }
 
     private void bindTimeline(View content, String screen) {
-        int[][] circlesAndNumbers;
-        int[] labels = null;
         if (screen.endsWith("intro")) {
-            circlesAndNumbers = new int[][]{{R.id.ops_5717_8025, R.id.ops_5717_8030},
+            int[][] circlesAndNumbers = {{R.id.ops_5717_8025, R.id.ops_5717_8030},
                     {R.id.ops_5717_8026, R.id.ops_5717_8031}, {R.id.ops_5717_8027, R.id.ops_5717_8032}};
-        } else if (screen.endsWith("information")) {
-            circlesAndNumbers = new int[][]{{R.id.ops_5717_8089, R.id.ops_5717_8090},
+            for (int[] pair : circlesAndNumbers) centerNumberInCircle(content, pair[0], pair[1]);
+            hideViews(content, R.id.ops_5717_8034, R.id.ops_5717_8036);
+            return;
+        }
+
+        int[][] legacyCircles;
+        int[] legacyLabels;
+        int[] legacyLines;
+        int backId;
+        int nextId;
+        int step;
+        if (screen.endsWith("information")) {
+            legacyCircles = new int[][]{{R.id.ops_5717_8089, R.id.ops_5717_8090},
                     {R.id.ops_5717_8095, R.id.ops_5717_8096}, {R.id.ops_5717_8092, R.id.ops_5717_8093}};
-            labels = new int[]{R.id.ops_5717_8085, R.id.ops_5717_8086, R.id.ops_5717_8087};
+            legacyLabels = new int[]{R.id.ops_5717_8085, R.id.ops_5717_8086, R.id.ops_5717_8087};
+            legacyLines = new int[]{R.id.ops_shape_0, R.id.ops_shape_1, R.id.ops_shape_2};
+            backId = R.id.ops_5717_8104;
+            nextId = R.id.ops_5717_8106;
+            step = 1;
         } else if (screen.endsWith("fields")) {
-            circlesAndNumbers = new int[][]{{R.id.ops_5717_8050, R.id.ops_5717_8051},
+            legacyCircles = new int[][]{{R.id.ops_5717_8050, R.id.ops_5717_8051},
                     {R.id.ops_5717_8056, R.id.ops_5717_8057}, {R.id.ops_5717_8053, R.id.ops_5717_8054}};
-            labels = new int[]{R.id.ops_5717_8046, R.id.ops_5717_8047, R.id.ops_5717_8048};
+            legacyLabels = new int[]{R.id.ops_5717_8046, R.id.ops_5717_8047, R.id.ops_5717_8048};
+            legacyLines = new int[]{R.id.ops_shape_1, R.id.ops_shape_2, R.id.ops_shape_3, R.id.ops_shape_13};
+            backId = R.id.ops_5717_8062;
+            nextId = R.id.ops_5717_8064;
+            step = 2;
         } else if (screen.endsWith("models")) {
-            circlesAndNumbers = new int[][]{{R.id.ops_5717_8131, R.id.ops_5717_8132},
+            legacyCircles = new int[][]{{R.id.ops_5717_8131, R.id.ops_5717_8132},
                     {R.id.ops_5717_8137, R.id.ops_5717_8138}, {R.id.ops_5717_8134, R.id.ops_5717_8135}};
-            labels = new int[]{R.id.ops_5717_8127, R.id.ops_5717_8128, R.id.ops_5717_8129};
+            legacyLabels = new int[]{R.id.ops_5717_8127, R.id.ops_5717_8128, R.id.ops_5717_8129};
+            legacyLines = new int[]{R.id.ops_shape_1, R.id.ops_shape_2, R.id.ops_shape_3};
+            backId = R.id.ops_5717_8142;
+            nextId = R.id.ops_5717_8144;
+            step = 3;
         } else return;
 
-        for (int[] pair : circlesAndNumbers) {
-            View circle = content.findViewById(pair[0]);
-            View number = content.findViewById(pair[1]);
-            if (circle == null || number == null
-                    || !(number.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) continue;
-            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
-                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) number.getLayoutParams();
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.startToStart = circle.getId();
-            params.endToEnd = circle.getId();
-            params.topToTop = circle.getId();
-            params.bottomToBottom = circle.getId();
-            params.leftMargin = params.rightMargin = params.topMargin = params.bottomMargin = 0;
-            number.setLayoutParams(params);
-            if (number instanceof TextView) ((TextView) number).setGravity(Gravity.CENTER);
-        }
-        if (labels != null) {
-            for (int i = 0; i < labels.length; i++) {
-                View label = content.findViewById(labels[i]);
-                if (label == null || !(label.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) continue;
-                androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
-                        (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) label.getLayoutParams();
-                params.startToStart = circlesAndNumbers[i][0];
-                params.endToEnd = circlesAndNumbers[i][0];
-                params.setMarginStart(0);
-                params.setMarginEnd(0);
-                params.leftMargin = 0;
-                params.rightMargin = 0;
-                label.setLayoutParams(params);
-                if (label instanceof TextView) ((TextView) label).setGravity(Gravity.CENTER);
+        for (int[] pair : legacyCircles) hideViews(content, pair);
+        hideViews(content, legacyLabels);
+        hideViews(content, legacyLines);
+        hideViews(content, backId, nextId);
+        bindChecklistIndicator(content, step);
+        raiseChecklistActions(content);
+        if (step == 1) {
+            lowerChecklistIndicator(content, 82);
+            View indicator = content.findViewById(R.id.stepIndicator);
+            if (indicator != null) {
+                if (indicator.isLaidOut()) {
+                    indicator.post(() -> rememberChecklistIndicatorPosition(indicator));
+                } else {
+                    indicator.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                        @Override public void onLayoutChange(View view, int left, int top, int right, int bottom,
+                                                            int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                            view.removeOnLayoutChangeListener(this);
+                            view.post(() -> rememberChecklistIndicatorPosition(view));
+                        }
+                    });
+                }
             }
+        } else {
+            pinChecklistIndicator(content);
+        }
+    }
+
+    private void centerNumberInCircle(View content, int circleId, int numberId) {
+        View circle = content.findViewById(circleId);
+        View number = content.findViewById(numberId);
+        if (circle == null || number == null
+                || !(number.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) number.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.startToStart = circle.getId();
+        params.endToEnd = circle.getId();
+        params.topToTop = circle.getId();
+        params.bottomToBottom = circle.getId();
+        params.leftMargin = params.rightMargin = params.topMargin = params.bottomMargin = 0;
+        number.setLayoutParams(params);
+        if (number instanceof TextView) ((TextView) number).setGravity(Gravity.CENTER);
+    }
+
+    private void bindChecklistIndicator(View content, int currentStep) {
+        View indicator = content.findViewById(R.id.stepIndicator);
+        if (indicator == null) return;
+        int[] circles = {R.id.tvStep1, R.id.tvStep2, R.id.tvStep3};
+        int[] labels = {R.id.tvStep1Label, R.id.tvStep2Label, R.id.tvStep3Label};
+        String[] names = {"Informações", "Campos", "Modelos"};
+        for (int i = 0; i < circles.length; i++) {
+            int state = i + 1 < currentStep ? 0 : i + 1 == currentStep ? 1 : 2;
+            View circle = indicator.findViewById(circles[i]);
+            TextView label = indicator.findViewById(labels[i]);
+            if (circle != null) {
+                circle.setBackgroundResource(state == 0 ? R.drawable.bg_app_circle_done
+                        : state == 1 ? R.drawable.bg_app_circle_primary : R.drawable.bg_app_circle_muted);
+            }
+            if (label != null) {
+                label.setText(names[i]);
+                label.setSingleLine(true);
+                label.setMaxLines(1);
+                label.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                label.setGravity(Gravity.CENTER);
+                if (label.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+                    androidx.constraintlayout.widget.ConstraintLayout.LayoutParams labelParams =
+                            (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) label.getLayoutParams();
+                    labelParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    label.setLayoutParams(labelParams);
+                }
+                int color = state == 0 ? R.color.app_status_done
+                        : state == 1 ? R.color.app_primary : R.color.app_text_muted;
+                label.setTextColor(androidx.core.content.ContextCompat.getColor(activity, color));
+            }
+        }
+        int[] lineIds = {R.id.viewLine1, R.id.viewLine2};
+        for (int i = 0; i < lineIds.length; i++) {
+            View line = indicator.findViewById(lineIds[i]);
+            if (line == null) continue;
+            if (currentStep > i + 1) line.setBackgroundResource(R.drawable.bg_app_indicator_line_done);
+            else if (currentStep == i + 1) {
+                line.setBackgroundResource(R.drawable.bg_app_indicator_line_progress);
+                if (line.getBackground() != null) line.getBackground().setLevel(5000);
+            } else line.setBackgroundResource(R.drawable.bg_app_indicator_line_pending);
+        }
+    }
+
+    private void raiseChecklistActions(View content) {
+        View actions = content.findViewById(R.id.stepActions);
+        if (actions == null || !(actions.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) actions.getLayoutParams();
+        params.bottomMargin += dp(activity, 16);
+        actions.setLayoutParams(params);
+    }
+
+    private void lowerChecklistIndicator(View content, int marginDp) {
+        View indicator = content.findViewById(R.id.stepIndicator);
+        if (indicator == null || !(indicator.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
+        params.topMargin += dp(activity, marginDp);
+        indicator.setLayoutParams(params);
+    }
+
+    private void rememberChecklistIndicatorPosition(View indicator) {
+        if (indicator == null || indicator.getTop() <= 0) return;
+        float density = activity.getResources().getDisplayMetrics().density;
+        activity.model.field("checklist", "stepIndicatorTopDp",
+                String.valueOf(Math.round(indicator.getTop() / density)));
+    }
+
+    private void pinChecklistIndicator(View content) {
+        View indicator = content.findViewById(R.id.stepIndicator);
+        if (indicator == null || !(indicator.getParent() instanceof androidx.constraintlayout.widget.ConstraintLayout)
+                || !(indicator.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        int topDp = 480;
+        try {
+            String savedTop = activity.model.field("checklist", "stepIndicatorTopDp");
+            if (savedTop != null && !savedTop.isEmpty()) topDp = Math.max(0, Integer.parseInt(savedTop));
+        } catch (NumberFormatException ignored) { }
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
+        params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        params.topToBottom = -1;
+        params.bottomToTop = -1;
+        params.bottomToBottom = -1;
+        params.topMargin = dp(activity, topDp);
+        indicator.setLayoutParams(params);
+    }
+
+    private void hideViews(View root, int... ids) {
+        for (int id : ids) {
+            View view = root.findViewById(id);
+            if (view != null) view.setVisibility(View.GONE);
         }
     }
 
@@ -176,9 +303,13 @@ public final class ChecklistFlow {
         // Retain the existing card geometry/background while filling server data.
         LinearLayout list = new LinearLayout(activity);
         list.setOrientation(LinearLayout.VERTICAL);
+        list.setClipChildren(false);
+        list.setClipToPadding(false);
         list.setTag("checklist:cards");
         attachBelow(content, list, screen.startsWith("technician") ? R.id.ops_5717_10217 : R.id.ops_5717_7930, 18);
-        list.setPadding(dp(activity, 24), 0, dp(activity, 24), dp(activity, 100));
+        int horizontalInset = activity.getResources()
+                .getDimensionPixelSize(R.dimen.app_events_title_margin_start);
+        list.setPadding(horizontalInset, 0, horizontalInset, dp(activity, 100));
         content.setTag(R.id.ops_5717_7930, list);
     }
 
@@ -219,14 +350,16 @@ public final class ChecklistFlow {
                     return;
                 }
                 templates = data == null ? new ArrayList<>() : data;
+                templatesLoadFailed = false;
                 renderTemplates(content, screen);
             }
 
             public void failure(Throwable e) {
                 AppLoading.hide(loading);
                 if (fragment.isAdded()) {
-                    System.out.println(e);
-                    toast(AutenticacaoViewModel.messageFrom(e));
+                    templates.clear();
+                    templatesLoadFailed = true;
+                    renderTemplates(content, screen);
                 }
             }
         });
@@ -259,9 +392,12 @@ public final class ChecklistFlow {
             list.addView(card, cp);
         }
         if (templates.isEmpty()) {
-            TextView empty = text("Não existem checklists cadastrados.", 16, false);
-            empty.setGravity(Gravity.CENTER);
-            list.addView(empty, new LinearLayout.LayoutParams(-1, dp(activity, 120)));
+            String message = templatesLoadFailed
+                    ? "Não foi possível carregar os checklists. Toque para tentar novamente."
+                    : "Não existem checklists cadastrados.";
+            TextView empty = EmptyStateStyler.create(activity, message);
+            if (templatesLoadFailed) empty.setOnClickListener(v -> loadTemplates(content, screen));
+            list.addView(empty, new LinearLayout.LayoutParams(-1, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
     }
 
@@ -355,8 +491,16 @@ public final class ChecklistFlow {
     }
 
     private void bindIntro(View content) {
-        clickTag(content, "action:Continuar", v -> activity.open("manager_checklist_information"));
-        clickTag(content, "text:Cancelar", v -> activity.back());
+        TextView back = content.findViewById(R.id.btnStepBack);
+        TextView next = content.findViewById(R.id.btnStepNext);
+        if (back != null) {
+            back.setText("Cancelar");
+            back.setOnClickListener(v -> activity.back());
+        }
+        if (next != null) {
+            next.setText("Continuar");
+            next.setOnClickListener(v -> activity.open("manager_checklist_information"));
+        }
         clickTag(content, "image:arrow-left", v -> activity.back());
     }
 
@@ -394,6 +538,18 @@ public final class ChecklistFlow {
         EditText name = content.findViewWithTag("field:Nome");
         EditText periodic = content.findViewWithTag("field:Periodicidade em dias");
         TextView date = content.findViewWithTag("field:Data de primeira abertura");
+        styleChecklistInput(name);
+        styleChecklistInput(periodic);
+        increaseChecklistFieldHeight(name, 8);
+        increaseChecklistFieldHeight(periodic, 8);
+        increaseChecklistFieldHeight(content.findViewById(R.id.ops_5717_8112), 8);
+        if (date != null) {
+            date.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,
+                    activity.getResources().getDimension(R.dimen.app_step_field_text_size));
+            date.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
+            date.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_black));
+            date.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_placeholder_dark));
+        }
         if (name != null) {
             name.setText(t.nome);
         }
@@ -417,33 +573,56 @@ public final class ChecklistFlow {
         // Override that binding specifically on this checklist date field.
         clickTag(content, "image:calendar", openCalendar);
         clickTag(content, "image:arrow-left", v -> activity.back());
-        clickTag(content, "text:Voltar", v -> activity.back());
-        alignWizardFooter(content, content.findViewWithTag("text:Voltar"), content.findViewWithTag("action:Próximo"));
-        clickTag(content, "action:Próximo", v -> {
-            String n = name == null ? "" : name.getText().toString().trim(), p = periodic == null ? "" : periodic.getText().toString().trim(), d = date == null ? "" : date.getText().toString().trim();
-            if (n.isEmpty()) {
-                name.setError("Informe o nome.");
-                return;
-            }
-            try {
-                int days = Integer.parseInt(p);
-                if (days <= 0) {
-                    throw new Exception();
+        TextView back = content.findViewById(R.id.btnStepBack);
+        TextView next = content.findViewById(R.id.btnStepNext);
+        if (back != null) {
+            back.setText(R.string.app_back);
+            back.setOnClickListener(v -> activity.back());
+        }
+        if (next != null) {
+            next.setText(R.string.app_next);
+            next.setOnClickListener(v -> {
+                String n = name == null ? "" : name.getText().toString().trim();
+                String p = periodic == null ? "" : periodic.getText().toString().trim();
+                String d = date == null ? "" : date.getText().toString().trim();
+                if (n.isEmpty()) {
+                    if (name != null) name.setError("Informe o nome.");
+                    return;
                 }
-                t.periodicidade = days;
-            } catch (Exception e) {
-                periodic.setError("Informe a periodicidade em dias.");
-                return;
-            }
-            if (d.isEmpty()) {
-                toast("Informe a data de primeira abertura.");
-                return;
-            }
-            t.nome = n;
-            t.primeiraAbertura = d;
-            saveDraft(t);
-            activity.open("manager_checklist_fields");
-        });
+                try {
+                    int days = Integer.parseInt(p);
+                    if (days <= 0) throw new NumberFormatException();
+                    t.periodicidade = days;
+                } catch (NumberFormatException e) {
+                    if (periodic != null) periodic.setError("Informe a periodicidade em dias.");
+                    return;
+                }
+                if (d.isEmpty()) {
+                    toast("Informe a data de primeira abertura.");
+                    return;
+                }
+                t.nome = n;
+                t.primeiraAbertura = d;
+                saveDraft(t);
+                activity.open("manager_checklist_fields");
+            });
+        }
+    }
+
+    private void styleChecklistInput(EditText input) {
+        if (input == null) return;
+        input.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,
+                activity.getResources().getDimension(R.dimen.app_step_field_text_size));
+        input.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
+        input.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_black));
+        input.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_placeholder_dark));
+    }
+
+    private void increaseChecklistFieldHeight(View field, int extraDp) {
+        if (field == null) return;
+        ViewGroup.LayoutParams params = field.getLayoutParams();
+        params.height += dp(activity, extraDp);
+        field.setLayoutParams(params);
     }
 
     private void chooseDate(TextView target) {
@@ -468,6 +647,8 @@ public final class ChecklistFlow {
         ChecklistTemplate template = draft();
         View add = content.findViewById(R.id.ops_5717_8078);
         View addLabel = content.findViewById(R.id.ops_5717_8079);
+        if (add != null) add.setVisibility(View.GONE);
+        if (addLabel != null) addLabel.setVisibility(View.GONE);
         View sample = content.findViewById(R.id.ops_5717_8068);
         if (sample != null) {
             sample.setVisibility(View.GONE);
@@ -476,10 +657,12 @@ public final class ChecklistFlow {
         list.setTag("field:list");
         list.setId(View.generateViewId());
         list.setLayoutManager(new LinearLayoutManager(activity));
-        list.setNestedScrollingEnabled(false);
+        list.setNestedScrollingEnabled(true);
         attachBelow(content, list, R.id.ops_5717_8041, 12);
-        list.setPadding(dp(activity, 34), 0, dp(activity, 34), 0);
-        FieldListAdapter adapter = new FieldListAdapter(template, list);
+        int titleMargin = activity.getResources().getDimensionPixelSize(R.dimen.app_step_title_margin_start);
+        list.setPadding(titleMargin, 0, titleMargin, 0);
+        FieldListAdapter adapter = new FieldListAdapter(template, list,
+                () -> showFieldDialog(null, -1));
         list.setAdapter(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
@@ -487,7 +670,9 @@ public final class ChecklistFlow {
                                            RecyclerView.ViewHolder target) {
                 int from = source.getBindingAdapterPosition();
                 int to = target.getBindingAdapterPosition();
-                if (from == RecyclerView.NO_POSITION || to == RecyclerView.NO_POSITION || from == to) return false;
+                int fieldCount = template.campos == null ? 0 : template.campos.size();
+                if (from == RecyclerView.NO_POSITION || to == RecyclerView.NO_POSITION
+                        || from == to || from >= fieldCount || to >= fieldCount) return false;
                 Collections.swap(template.campos, from, to);
                 adapter.notifyItemMoved(from, to);
                 saveDraft(template);
@@ -497,105 +682,47 @@ public final class ChecklistFlow {
         });
         adapter.setTouchHelper(touchHelper);
         touchHelper.attachToRecyclerView(list);
-        placeBelow(add, list.getId(), 16);
-        View back = content.findViewWithTag("text:Voltar");
-        View next = content.findViewWithTag("action:Próximo");
-        Runnable moveTimelineAfterContent = () -> positionChecklistFieldsFlow(content, add, back, next);
-        list.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
-                list.post(moveTimelineAfterContent));
-        if (add != null) {
-            add.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
-                    list.post(moveTimelineAfterContent));
-        }
-        list.post(moveTimelineAfterContent);
-        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override public void onChanged() { list.post(moveTimelineAfterContent); }
-            @Override public void onItemRangeInserted(int positionStart, int itemCount) { list.post(moveTimelineAfterContent); }
-            @Override public void onItemRangeRemoved(int positionStart, int itemCount) { list.post(moveTimelineAfterContent); }
-        });
-        if (add != null) {
-            add.setOnClickListener(v -> showFieldDialog(null, -1));
-        }
-        if (addLabel != null) {
-            addLabel.setOnClickListener(v -> showFieldDialog(null, -1));
-        }
+        positionChecklistFieldsFlow(content, list);
+        TextView back = content.findViewById(R.id.btnStepBack);
+        TextView next = content.findViewById(R.id.btnStepNext);
         clickTag(content, "image:arrow-left", v -> activity.back());
-        clickTag(content, "text:Voltar", v -> activity.back());
-        clickTag(content, "action:Próximo", v -> {
-            if (template.campos == null || template.campos.isEmpty()) {
-                toast("Adicione ao menos um campo de inspeção.");
-                return;
-            }
-            saveDraft(template);
-            activity.open("manager_checklist_models");
-        });
-    }
-
-    private void positionChecklistFieldsFlow(View content, View add, View back, View next) {
-        if (add == null || add.getHeight() <= 0) return;
-        int[] circles = {R.id.ops_5717_8050, R.id.ops_5717_8056, R.id.ops_5717_8053};
-        int[] labels = {R.id.ops_5717_8046, R.id.ops_5717_8047, R.id.ops_5717_8048};
-        int baseTimelineTop = dp(activity, 430);
-        int gapAfterAdd = dp(activity, 40);
-        int timelineTopMargin = Math.max(gapAfterAdd, baseTimelineTop - add.getBottom());
-
-        for (int circleId : circles) setTopBelow(content, circleId, add.getId(), timelineTopMargin);
-        setCenteredVertically(content, R.id.ops_shape_1, circles[0]);
-        setCenteredVertically(content, R.id.ops_shape_2, circles[0]);
-        setCenteredVertically(content, R.id.ops_shape_3, circles[1]);
-        setCenteredVertically(content, R.id.ops_shape_13, circles[1]);
-        for (int i = 0; i < labels.length; i++) setTopBelow(content, labels[i], circles[i], 12);
-
-        if (next != null && next.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
-            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
-                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) next.getLayoutParams();
-            params.topToTop = -1;
-            params.topToBottom = labels[labels.length - 1];
-            params.bottomToBottom = -1;
-            params.topMargin = dp(activity, 60);
-            params.bottomMargin = 0;
-            params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
-            params.setMarginEnd(dp(activity, 36));
-            next.setLayoutParams(params);
+        if (back != null) {
+            back.setText(R.string.app_back);
+            back.setOnClickListener(v -> activity.back());
         }
-        if (back != null && next != null
-                && back.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
-            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
-                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) back.getLayoutParams();
-            params.topToTop = next.getId();
-            params.topToBottom = -1;
-            params.bottomToBottom = next.getId();
-            params.topMargin = params.bottomMargin = 0;
-            params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
-            params.setMarginStart(dp(activity, 36));
-            back.setLayoutParams(params);
+        if (next != null) {
+            next.setText(R.string.app_next);
+            next.setOnClickListener(v -> {
+                if (template.campos == null || template.campos.isEmpty()) {
+                    toast("Adicione ao menos um campo de inspeção.");
+                    return;
+                }
+                saveDraft(template);
+                activity.open("manager_checklist_models");
+            });
         }
     }
 
-    private void setTopBelow(View content, int childId, int anchorId, int marginDp) {
-        View child = content.findViewById(childId);
-        if (child == null || !(child.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
-        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
-                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) child.getLayoutParams();
-        params.topToTop = -1;
-        params.topToBottom = anchorId;
-        params.bottomToTop = -1;
-        params.bottomToBottom = -1;
-        params.topMargin = dp(activity, marginDp);
-        child.setLayoutParams(params);
-    }
+    private void positionChecklistFieldsFlow(View content, View list) {
+        View indicator = content.findViewById(R.id.stepIndicator);
+        if (list == null || indicator == null
+                || !(indicator.getParent() instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
+        pinChecklistIndicator(content);
+        androidx.constraintlayout.widget.ConstraintLayout parent =
+                (androidx.constraintlayout.widget.ConstraintLayout) indicator.getParent();
 
-    private void setCenteredVertically(View content, int childId, int anchorId) {
-        View child = content.findViewById(childId);
-        if (child == null || !(child.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
-        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
-                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) child.getLayoutParams();
-        params.topToTop = anchorId;
-        params.bottomToBottom = anchorId;
-        params.topToBottom = -1;
-        params.bottomToTop = -1;
-        params.topMargin = params.bottomMargin = 0;
-        child.setLayoutParams(params);
+        if (list.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams listParams =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) list.getLayoutParams();
+            listParams.height = 0;
+            listParams.topToTop = -1;
+            listParams.topToBottom = R.id.ops_5717_8041;
+            listParams.bottomToTop = indicator.getId();
+            listParams.bottomToBottom = -1;
+            listParams.topMargin = dp(activity, 18);
+            listParams.bottomMargin = dp(activity, 12);
+            parent.updateViewLayout(list, listParams);
+        }
     }
 
     private void placeBelow(View child, int anchorId, int marginDp) {
@@ -610,59 +737,46 @@ public final class ChecklistFlow {
         ((androidx.constraintlayout.widget.ConstraintLayout) child.getParent()).updateViewLayout(child, params);
     }
 
-    private void alignWizardFooter(View content, View back, View next) {
-        if (!(content instanceof ViewGroup) || back == null || next == null) return;
-        ViewGroup parent = (ViewGroup) back.getParent();
-        if (!(parent instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
-        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams backParams =
-                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) back.getLayoutParams();
-        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams nextParams =
-                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) next.getLayoutParams();
-        int footerTop = activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_762_0);
-        backParams.topToBottom = -1;
-        backParams.topToTop = next.getId();
-        backParams.bottomToBottom = next.getId();
-        backParams.topMargin = backParams.bottomMargin = 0;
-        nextParams.topToBottom = -1;
-        nextParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
-        nextParams.bottomToBottom = -1;
-        nextParams.topMargin = footerTop;
-        nextParams.bottomMargin = 0;
-        backParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
-        nextParams.startToStart = -1;
-        nextParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
-        backParams.setMarginStart(dp(activity, 36));
-        nextParams.setMarginEnd(dp(activity, 36));
-        back.setLayoutParams(backParams);
-        next.setLayoutParams(nextParams);
-    }
-
     private final class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.FieldHolder> {
+        private static final int TYPE_FIELD = 0;
+        private static final int TYPE_ADD = 1;
         private final ChecklistTemplate template;
         private final RecyclerView recycler;
+        private final Runnable onAddField;
         private ItemTouchHelper touchHelper;
 
-        FieldListAdapter(ChecklistTemplate template, RecyclerView recycler) {
+        FieldListAdapter(ChecklistTemplate template, RecyclerView recycler, Runnable onAddField) {
             this.template = template;
             this.recycler = recycler;
+            this.onAddField = onAddField;
         }
 
         void setTouchHelper(ItemTouchHelper helper) { touchHelper = helper; }
 
         @Override public FieldHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View card = activity.getLayoutInflater().inflate(R.layout.item_ops_checklist_field, parent, false);
+            int layout = viewType == TYPE_ADD
+                    ? R.layout.item_ops_checklist_add_field : R.layout.item_ops_checklist_field;
+            View card = activity.getLayoutInflater().inflate(layout, parent, false);
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, dp(activity, 100));
-            params.bottomMargin = dp(activity, 10);
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    dp(activity, viewType == TYPE_ADD ? 56 : 84));
+            params.bottomMargin = dp(activity, viewType == TYPE_ADD ? 12 : 10);
             card.setLayoutParams(params);
             return new FieldHolder(card);
         }
 
         @Override public void onBindViewHolder(FieldHolder holder, int position) {
+            int fieldCount = template.campos == null ? 0 : template.campos.size();
+            if (position >= fieldCount) {
+                holder.itemView.setOnClickListener(v -> onAddField.run());
+                return;
+            }
             ChecklistField field = template.campos.get(position);
             holder.title.setText(field.nome == null ? "" : field.nome);
+            holder.title.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 16);
             String type = field.tipoCampo == null ? "" : field.tipoCampo.nome;
             holder.meta.setText(type + (Boolean.TRUE.equals(field.obrigatorio) ? " · Obrigatório" : " · Opcional"));
+            holder.meta.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
             holder.drag.setOnTouchListener((view, event) -> {
                 if (event.getActionMasked() == android.view.MotionEvent.ACTION_DOWN && touchHelper != null) {
                     touchHelper.startDrag(holder);
@@ -673,11 +787,19 @@ public final class ChecklistFlow {
             holder.menu.setOnClickListener(view -> showFieldMenu(view, holder.getBindingAdapterPosition()));
         }
 
-        @Override public int getItemCount() { return template.campos == null ? 0 : template.campos.size(); }
+        @Override public int getItemCount() {
+            return (template.campos == null ? 0 : template.campos.size()) + 1;
+        }
+
+        @Override public int getItemViewType(int position) {
+            int fieldCount = template.campos == null ? 0 : template.campos.size();
+            return position >= fieldCount ? TYPE_ADD : TYPE_FIELD;
+        }
 
         private void showFieldMenu(View anchor, int position) {
             if (position < 0 || position >= template.campos.size()) return;
             ChecklistField field = template.campos.get(position);
+            if (field == null) return;
             View menu = activity.getLayoutInflater().inflate(R.layout.popup_app_request_menu, null, false);
             android.widget.PopupWindow popup = new android.widget.PopupWindow(menu,
                     activity.getResources().getDimensionPixelSize(R.dimen.app_popup_menu_width),
@@ -770,8 +892,15 @@ public final class ChecklistFlow {
 
         EditText name = content.findViewById(nameId);
         if (name != null) {
-            resizeView(name, dp(activity, 42));
-            name.setTextSize(14);
+            resizeView(name, dp(activity, 56));
+            name.setBackgroundResource(R.drawable.bg_ops_category_input);
+            name.setBackgroundTintList(null);
+            name.setPadding(dp(activity, 15), 0, dp(activity, 12), 0);
+            name.setGravity(Gravity.CENTER_VERTICAL);
+            name.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_black));
+            name.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff637087));
+            name.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_medium));
+            name.setTextSize(16);
             name.setIncludeFontPadding(true);
             if (editing != null) name.setText(editing.nome);
             else if (args != null && args.getString("fieldName") != null) name.setText(args.getString("fieldName"));
@@ -877,6 +1006,15 @@ public final class ChecklistFlow {
             if (editing == null) template.campos.add(field);
             else {
                 int index = args == null ? -1 : args.getInt("index", -1);
+                if ((index < 0 || index >= template.campos.size()) && editing.id != null) {
+                    for (int i = 0; i < template.campos.size(); i++) {
+                        ChecklistField candidate = template.campos.get(i);
+                        if (candidate != null && editing.id.equals(candidate.id)) {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
                 if (index < 0 || index >= template.campos.size()) {
                     Toast.makeText(activity, "Campo não encontrado.", Toast.LENGTH_SHORT).show();
                     return;
@@ -896,19 +1034,22 @@ public final class ChecklistFlow {
         ViewGroup parent = (ViewGroup) existing.getParent();
         ViewGroup.LayoutParams oldParams = existing.getLayoutParams();
         String value = existing instanceof TextView ? ((TextView) existing).getText().toString() : "";
-        String hint = existing instanceof TextView ? ((TextView) existing).getHint().toString() : "Selecione um tipo de campo";
+        CharSequence existingHint = existing instanceof TextView ? ((TextView) existing).getHint() : null;
+        String hint = existingHint == null || existingHint.length() == 0
+                ? "Selecione um tipo de campo" : existingHint.toString();
         androidx.appcompat.widget.AppCompatAutoCompleteTextView dropdown = new androidx.appcompat.widget.AppCompatAutoCompleteTextView(activity);
         dropdown.setId(inputId);
         dropdown.setTag("field:Tipo");
         dropdown.setText(value, false);
         dropdown.setHint(hint);
-        dropdown.setTextSize(14);
+        dropdown.setTextSize(16);
         dropdown.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff202020));
         dropdown.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff637087));
         dropdown.setSingleLine(true);
         dropdown.setKeyListener(null);
         dropdown.setThreshold(0);
         dropdown.setBackgroundColor(Color.TRANSPARENT);
+        dropdown.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_medium));
         dropdown.setPadding(dp(activity, 15), 0, dp(activity, 36), 0);
         dropdown.setGravity(Gravity.CENTER_VERTICAL);
         dropdown.setDropDownBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(activity, R.drawable.bg_app_popup_menu));
@@ -923,7 +1064,13 @@ public final class ChecklistFlow {
         int index = parent.indexOfChild(existing);
         parent.removeView(existing);
         parent.addView(dropdown, Math.max(0, index));
-        resizeView(container, dp(activity, 42));
+        if (container != null) {
+            resizeView(container, dp(activity, 56));
+            container.setBackgroundResource(R.drawable.bg_ops_category_input);
+            container.setBackgroundTintList(null);
+            container.getViewTreeObserver().addOnGlobalLayoutListener(() ->
+                    dropdown.setDropDownWidth(container.getWidth()));
+        }
 
         View arrow = content.findViewById(arrowId);
         if (arrow != null && arrow.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
@@ -1025,6 +1172,11 @@ public final class ChecklistFlow {
             value.setLayoutParams(params);
             value.setGravity(Gravity.CENTER_VERTICAL);
         }
+        if (label != null) {
+            label.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff0b013c));
+            label.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_medium));
+            label.setTextSize(16);
+        }
     }
 
     private void positionFieldDialogFooter(View content, View cancelButton, View cancelLabel,
@@ -1045,20 +1197,22 @@ public final class ChecklistFlow {
             footer.setOrientation(LinearLayout.HORIZONTAL);
             footer.setGravity(Gravity.CENTER_VERTICAL);
 
-            LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, dp(activity, 44), 1f);
+            LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, dp(activity, 48), 1f);
             footer.addView(cancelButton, buttonParams);
             View gap = new View(activity);
             footer.addView(gap, new LinearLayout.LayoutParams(dp(activity, 12), 1));
-            footer.addView(saveButton, new LinearLayout.LayoutParams(0, dp(activity, 44), 1f));
+            footer.addView(saveButton, new LinearLayout.LayoutParams(0, dp(activity, 48), 1f));
 
             androidx.constraintlayout.widget.ConstraintLayout.LayoutParams footerParams =
-                    new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(0, dp(activity, 44));
+                    new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(0, dp(activity, 48));
             footerParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
             footerParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
             footerParams.topToBottom = anchorId;
             footerParams.setMarginStart(dp(activity, 35));
             footerParams.setMarginEnd(dp(activity, 35));
             parent.addView(footer, footerParams);
+            styleFieldDialogButton(cancelButton, R.drawable.bg_ops_53caa68a0a);
+            styleFieldDialogButton(saveButton, R.drawable.bg_ops_eaf7bf3250);
 
             if (cancelLabel != null && cancelLabel.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
                 androidx.constraintlayout.widget.ConstraintLayout.LayoutParams labelParams =
@@ -1071,7 +1225,12 @@ public final class ChecklistFlow {
                 labelParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
                 labelParams.leftMargin = labelParams.rightMargin = labelParams.topMargin = labelParams.bottomMargin = 0;
                 cancelLabel.setLayoutParams(labelParams);
-                if (cancelLabel instanceof TextView) ((TextView) cancelLabel).setGravity(Gravity.CENTER);
+                if (cancelLabel instanceof TextView) {
+                    TextView cancelText = (TextView) cancelLabel;
+                    cancelText.setGravity(Gravity.CENTER);
+                    cancelText.setTextSize(16);
+                    cancelText.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_medium));
+                }
             }
         }
 
@@ -1099,6 +1258,19 @@ public final class ChecklistFlow {
         bottomSpacer.setVisibility(View.VISIBLE);
     }
 
+    private void styleFieldDialogButton(View button, int backgroundId) {
+        if (button == null) return;
+        button.setBackgroundResource(backgroundId);
+        button.setBackgroundTintList(null);
+        button.setMinimumHeight(dp(activity, 48));
+        if (button instanceof TextView) {
+            TextView text = (TextView) button;
+            text.setGravity(Gravity.CENTER);
+            text.setTextSize(16);
+            text.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_medium));
+        }
+    }
+
     private boolean isOptionType(String typeName) {
         try {
             TipoCampoChecklist type = TipoCampoChecklist.fromApi(typeName);
@@ -1121,7 +1293,7 @@ public final class ChecklistFlow {
             LinearLayout row = new LinearLayout(activity);
             row.setGravity(Gravity.CENTER_VERTICAL);
             row.setPadding(dp(activity, 8), 0, dp(activity, 8), 0);
-            row.setBackgroundResource(R.drawable.bg_ops_70aaab1e67);
+            row.setBackgroundResource(R.drawable.bg_ops_category_input);
             TextView handle = new TextView(activity);
             handle.setText("≡");
             handle.setTextSize(21);
@@ -1131,7 +1303,10 @@ public final class ChecklistFlow {
             EditText input = new EditText(activity);
             input.setSingleLine(true);
             input.setHint("Título da opção");
-            input.setTextSize(14);
+            input.setTextSize(16);
+            input.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
+            input.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_black));
+            input.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff637087));
             input.setIncludeFontPadding(true);
             input.setPadding(dp(activity, 8), 0, dp(activity, 8), 0);
             input.setBackgroundColor(Color.TRANSPARENT);
@@ -1142,7 +1317,7 @@ public final class ChecklistFlow {
             remove.setGravity(Gravity.CENTER);
             remove.setContentDescription("Remover opção");
             row.addView(remove, new LinearLayout.LayoutParams(dp(activity, 34), -1));
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(-1, dp(activity, 48));
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(-1, dp(activity, 56));
             params.bottomMargin = dp(activity, 8);
             row.setLayoutParams(params);
             return new OptionHolder(row, handle, input, remove);
@@ -1203,6 +1378,7 @@ public final class ChecklistFlow {
         if (original instanceof SwitchCompat) {
             SwitchCompat existing = (SwitchCompat) original;
             existing.setChecked(checked);
+            tintRequiredSwitch(existing);
             return existing;
         }
         if (original == null || !(original.getParent() instanceof ViewGroup)) return null;
@@ -1214,6 +1390,7 @@ public final class ChecklistFlow {
         toggle.setTextOn("");
         toggle.setTextOff("");
         toggle.setChecked(checked);
+        tintRequiredSwitch(toggle);
         toggle.setContentDescription("Campo obrigatório");
         toggle.setMinWidth(dp(activity, 42));
         toggle.setMinimumHeight(dp(activity, 28));
@@ -1230,19 +1407,67 @@ public final class ChecklistFlow {
         return toggle;
     }
 
+    private void tintRequiredSwitch(SwitchCompat toggle) {
+        int blue = androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d);
+        int gray = androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff637087);
+        android.content.res.ColorStateList trackTint = new android.content.res.ColorStateList(
+                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                new int[]{blue, gray});
+        toggle.setThumbTintList(android.content.res.ColorStateList.valueOf(Color.WHITE));
+        toggle.setTrackTintList(trackTint);
+    }
+
     private void bindModels(View content) {
         ChecklistTemplate template = draft();
         EditText search = content.findViewWithTag("field:Pesquisar");
+        int titleMargin = activity.getResources().getDimensionPixelSize(R.dimen.app_step_title_margin_start);
+        int searchSize = Math.max(dp(activity, 44), activity.getResources().getDimensionPixelSize(R.dimen.app_requests_search_height) - dp(activity, 4));
+        View searchContainer = content.findViewById(R.id.ops_5717_8149);
+        if (searchContainer != null && searchContainer.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams searchParams =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) searchContainer.getLayoutParams();
+            searchParams.setMarginStart(titleMargin);
+            searchParams.setMarginEnd(titleMargin + dp(activity, 12));
+            searchParams.height = searchSize;
+            searchContainer.setLayoutParams(searchParams);
+        }
         android.widget.ImageView searchIcon = content.findViewById(R.id.ops_5717_8157);
         if (searchIcon != null) {
-            searchIcon.setImageResource(R.drawable.ic_search_18);
-            searchIcon.setColorFilter(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff0b013c));
+            searchIcon.setImageResource(R.drawable.ic_search_26);
+            searchIcon.setColorFilter(androidx.core.content.ContextCompat.getColor(activity, android.R.color.white));
+            android.graphics.drawable.GradientDrawable circle = new android.graphics.drawable.GradientDrawable();
+            circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+            circle.setColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d));
+            searchIcon.setBackground(circle);
+            ViewGroup.LayoutParams iconParams = searchIcon.getLayoutParams();
+            iconParams.width = searchSize;
+            iconParams.height = searchSize;
+            if (iconParams instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+                ((androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) iconParams).setMarginStart(0);
+            }
+            searchIcon.setLayoutParams(iconParams);
+            searchIcon.setScaleType(android.widget.ImageView.ScaleType.CENTER);
+            searchIcon.setTranslationX(0);
             searchIcon.setVisibility(View.VISIBLE);
+            searchIcon.setElevation(dp(activity, 8));
             searchIcon.bringToFront();
         }
-        View back = content.findViewWithTag("text:Voltar"), next = content.findViewWithTag("action:Próximo");
+        android.widget.ImageView searchCircle = content.findViewById(R.id.ops_5717_8152);
+        if (searchCircle != null) {
+            searchCircle.setVisibility(View.GONE);
+        }
+        View indicator = content.findViewById(R.id.stepIndicator);
+        if (indicator != null) indicator.setVisibility(View.VISIBLE);
+        if (search != null) {
+            search.setTextSize(16);
+            search.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_black));
+            search.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff637087));
+            search.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
+        }
+        TextView back = content.findViewById(R.id.btnStepBack), next = content.findViewById(R.id.btnStepNext);
         clickTag(content, "image:arrow-left", v -> activity.back());
         if (back != null) {
+            back.setText(R.string.app_back);
             back.setOnClickListener(v -> activity.back());
         }
         int[] mockIds = {R.id.ops_5717_8160, R.id.ops_5717_8173, R.id.ops_5717_8172, R.id.ops_5717_8161, R.id.ops_5717_8162, R.id.ops_5717_8163, R.id.ops_5717_8164, R.id.ops_5717_8165, R.id.ops_5717_8166, R.id.ops_5717_8167, R.id.ops_5717_8168, R.id.ops_5717_8169, R.id.ops_5717_8170, R.id.ops_5717_8171};
@@ -1255,9 +1480,16 @@ public final class ChecklistFlow {
         LinearLayout list = vertical();
         list.setTag("model:list");
         list.setId(View.generateViewId());
-        attachBelow(content, list, R.id.ops_5717_8149, 22);
-        list.setPadding(dp(activity, 30), 0, dp(activity, 30), dp(activity, 100));
-        alignWizardFooter(content, back, next);
+        androidx.core.widget.NestedScrollView modelListScroll = new androidx.core.widget.NestedScrollView(activity);
+        modelListScroll.setTag("model:list:scroll");
+        modelListScroll.setFillViewport(false);
+        modelListScroll.setNestedScrollingEnabled(true);
+        modelListScroll.setVerticalScrollBarEnabled(false);
+        modelListScroll.addView(list, new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        attachBelow(content, modelListScroll, R.id.ops_5717_8149, 18);
+        list.setPadding(titleMargin, 0, titleMargin, dp(activity, 24));
+        positionChecklistModelsFlow(content, modelListScroll);
         Dialog loading = AppLoading.show(activity);
         vm.listar(new ChecklistViewModel.Callback<List<ChecklistTemplate>>() {
             public void success(List<ChecklistTemplate> values) {
@@ -1293,17 +1525,18 @@ public final class ChecklistFlow {
 
                     public void failure(Throwable error) {
                         AppLoading.hide(loading);
-                        toast(AutenticacaoViewModel.messageFrom(error));
+                        showModelsLoadError(list);
                     }
                 });
             }
 
             public void failure(Throwable error) {
                 AppLoading.hide(loading);
-                toast(AutenticacaoViewModel.messageFrom(error));
+                showModelsLoadError(list);
             }
         });
         if (next != null) {
+            next.setText(R.string.app_save);
             next.setOnClickListener(v -> {
                 List<ChecklistEquipmentModel> selected = new ArrayList<>();
                 for (EquipmentModelOption model : availableModels) {
@@ -1328,6 +1561,36 @@ public final class ChecklistFlow {
                 finishTemplate(template);
             });
         }
+    }
+
+    private void positionChecklistModelsFlow(View content, View listScroll) {
+        View indicator = content.findViewById(R.id.stepIndicator);
+        View search = content.findViewById(R.id.ops_5717_8149);
+        if (indicator == null || listScroll == null || search == null
+                || !(indicator.getParent() instanceof androidx.constraintlayout.widget.ConstraintLayout)
+                || !(listScroll.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        pinChecklistIndicator(content);
+        androidx.constraintlayout.widget.ConstraintLayout parent =
+                (androidx.constraintlayout.widget.ConstraintLayout) indicator.getParent();
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) listScroll.getLayoutParams();
+        params.height = 0;
+        params.topToTop = -1;
+        params.topToBottom = search.getId();
+        params.bottomToTop = indicator.getId();
+        params.bottomToBottom = -1;
+        params.topMargin = dp(activity, 24);
+        params.bottomMargin = dp(activity, 16);
+        parent.updateViewLayout(listScroll, params);
+        indicator.setVisibility(View.VISIBLE);
+    }
+
+    private void showModelsLoadError(LinearLayout list) {
+        list.removeAllViews();
+        TextView message = EmptyStateStyler.create(activity,
+                "Não foi possível carregar os modelos. Tente novamente mais tarde.");
+        list.addView(message, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
     private boolean modelSelected(EquipmentModelOption value) {
@@ -1384,6 +1647,10 @@ public final class ChecklistFlow {
 
             LinearLayout modelGroup = new LinearLayout(activity);
             modelGroup.setOrientation(LinearLayout.VERTICAL);
+            modelGroup.setBackgroundResource(R.drawable.bg_ops_inspection_field);
+            int horizontalPadding = dp(activity, 14);
+            int verticalPadding = dp(activity, 8);
+            modelGroup.setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
             LinearLayout.LayoutParams groupParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             groupParams.bottomMargin = dp(activity, 12);
@@ -1391,7 +1658,10 @@ public final class ChecklistFlow {
 
             CheckBox modelBox = new CheckBox(activity);
             modelBox.setText(model.nome == null ? "" : model.nome);
-            modelBox.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 16);
+            modelBox.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 20);
+            modelBox.setTextColor(androidx.core.content.ContextCompat.getColor(activity, android.R.color.white));
+            modelBox.setButtonTintList(android.content.res.ColorStateList.valueOf(
+                    androidx.core.content.ContextCompat.getColor(activity, android.R.color.white)));
             modelBox.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_semibold));
             modelBox.setMaxLines(1);
             modelBox.setEllipsize(android.text.TextUtils.TruncateAt.END);
@@ -1414,7 +1684,10 @@ public final class ChecklistFlow {
                 }
                 CheckBox equipmentBox = new CheckBox(activity);
                 equipmentBox.setText(equipment.codigo == null ? "" : equipment.codigo);
-                equipmentBox.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14);
+                equipmentBox.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18);
+                equipmentBox.setTextColor(androidx.core.content.ContextCompat.getColor(activity, android.R.color.white));
+                equipmentBox.setButtonTintList(android.content.res.ColorStateList.valueOf(
+                        androidx.core.content.ContextCompat.getColor(activity, android.R.color.white)));
                 equipmentBox.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
                 equipmentBox.setMaxLines(1);
                 equipmentBox.setEllipsize(android.text.TextUtils.TruncateAt.END);
@@ -1429,8 +1702,13 @@ public final class ChecklistFlow {
             list.addView(modelGroup);
         }
         if (list.getChildCount() == 0) {
-            TextView empty = text("Não existem modelos disponíveis.", 15, false);
-            list.addView(empty);
+            View empty = activity.getLayoutInflater().inflate(R.layout.item_ops_manager_request_empty, list, false);
+            TextView message = empty.findViewById(R.id.opsManagerRequestEmptyText);
+            if (message != null) {
+                message.setText("Não existem modelos disponíveis.");
+                EmptyStateStyler.apply(message);
+            }
+            list.addView(empty, new LinearLayout.LayoutParams(-1, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
     }
 
@@ -1480,6 +1758,7 @@ public final class ChecklistFlow {
         statusDropdown.setKeyListener(null);
         statusDropdown.setOnClickListener(v -> statusDropdown.showDropDown());
         final TextView empty = content.findViewById(R.id.inspectionEquipmentEmpty);
+        EmptyStateStyler.apply(empty);
         final String[] statusFilter = {"Todos"};
         loadChecklistEquipment(checklistId, adapter, empty, statusFilter, search.getText().toString());
         statusDropdown.setOnItemClickListener((parent, view, position, id) -> {
@@ -1489,7 +1768,7 @@ public final class ChecklistFlow {
         search.addTextChangedListener(watcher(value -> loadChecklistEquipment(checklistId, adapter, empty, statusFilter, value)));
     }
 
-    private void loadChecklistEquipment(String checklistId, InspectionEquipmentAdapter adapter, View empty, String[] statusFilter, String query) {
+    private void loadChecklistEquipment(String checklistId, InspectionEquipmentAdapter adapter, TextView empty, String[] statusFilter, String query) {
         String cacheKey = checklistId;
         if (inspectionEquipmentCache.containsKey(cacheKey)) {
             renderEquipment(inspectionEquipmentCache.get(cacheKey), adapter, empty, statusFilter, query);
@@ -1518,12 +1797,16 @@ public final class ChecklistFlow {
 
             public void failure(Throwable error) {
                 AppLoading.hide(loading);
-                toast(AutenticacaoViewModel.messageFrom(error));
+                if (empty != null) {
+                    empty.setText("Não foi possível carregar os equipamentos. Toque para tentar novamente.");
+                    empty.setVisibility(View.VISIBLE);
+                    empty.setOnClickListener(v -> loadChecklistEquipment(checklistId, adapter, empty, statusFilter, query));
+                }
             }
         });
     }
 
-    private void renderEquipment(List<ChecklistEquipment> values, InspectionEquipmentAdapter adapter, View empty, String[] statusFilter, String query) {
+    private void renderEquipment(List<ChecklistEquipment> values, InspectionEquipmentAdapter adapter, TextView empty, String[] statusFilter, String query) {
         List<ChecklistEquipment> filtered = new ArrayList<>();
         if (values != null) {
             for (ChecklistEquipment equipment : values) {
@@ -1537,7 +1820,11 @@ public final class ChecklistFlow {
             }
         }
         adapter.submit(filtered);
-        if (empty != null) empty.setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
+        if (empty != null) {
+            ((TextView) empty).setText("Não existem equipamentos neste status.");
+            empty.setOnClickListener(null);
+            empty.setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
+        }
     }
 
     private void openInspection(ChecklistEquipment equipment) {
@@ -1566,7 +1853,19 @@ public final class ChecklistFlow {
         boolean tech = activity.role().equals("technician");
         TextView title = content.findViewWithTag("text:Inspecionar AP-001");
         if (title != null) {
-            title.setText("Inspecionar " + activeEquipment.codigo);
+            String equipmentCode = activeEquipment.codigo == null ? "" : activeEquipment.codigo;
+            String fullTitle = "Inspecionar " + equipmentCode;
+            android.text.SpannableString styledTitle = new android.text.SpannableString(fullTitle);
+            int split = "Inspecionar".length();
+            styledTitle.setSpan(new android.text.style.ForegroundColorSpan(
+                            androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d)),
+                    0, split, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            styledTitle.setSpan(new android.text.style.ForegroundColorSpan(
+                            androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff0b013c)),
+                    split, fullTitle.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            title.setText(styledTitle);
+            title.setLineSpacing(dp(activity, 12), 1f);
+            title.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_semibold));
         }
         TextView modelName = content.findViewById(tech ? R.id.ops_5717_10384 : R.id.ops_5717_8405);
         if (modelName != null) {
@@ -1585,7 +1884,8 @@ public final class ChecklistFlow {
         }
         answerContainer = vertical();
         answerContainer.setId(View.generateViewId());
-        answerContainer.setPadding(dp(activity, 26), 0, dp(activity, 26), dp(activity, 20));
+        int contentInset = activity.getResources().getDimensionPixelSize(R.dimen.app_events_title_margin_start);
+        answerContainer.setPadding(contentInset, 0, contentInset, dp(activity, 20));
         attachBelow(content, answerContainer, tech ? R.id.ops_5717_10382 : R.id.ops_5717_8403, 14);
         answers.clear();
         if (activeTemplate.campos != null) {
@@ -1603,21 +1903,94 @@ public final class ChecklistFlow {
     }
 
     private void positionInspectionActions(View cancel, View submit, int fieldsId) {
-        for (View action : new View[]{cancel, submit}) {
-            if (action == null || !(action.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) continue;
-            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
-                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) action.getLayoutParams();
-            params.topToTop = -1;
-            params.topToBottom = fieldsId;
-            params.bottomToTop = -1;
-            params.bottomToBottom = -1;
-            params.topMargin = dp(activity, 24);
-            action.setLayoutParams(params);
+        if (cancel == null || submit == null
+                || !(cancel.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)
+                || !(submit.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        int side = activity.getResources().getDimensionPixelSize(
+                activity.role().equals("manager")
+                        ? R.dimen.ops_manager_home_card_side_margin
+                        : R.dimen.app_events_title_margin_start);
+        int gap = activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_18_0);
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams cancelParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancel.getLayoutParams();
+        int buttonWidth = activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_160_0);
+        cancelParams.width = buttonWidth;
+        cancelParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        cancelParams.startToEnd = -1;
+        cancelParams.endToStart = submit.getId();
+        cancelParams.endToEnd = -1;
+        cancelParams.leftMargin = 0;
+        cancelParams.rightMargin = 0;
+        cancelParams.setMarginStart(side);
+        cancelParams.setMarginEnd(gap / 2);
+        cancelParams.horizontalChainStyle = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.CHAIN_PACKED;
+        cancelParams.horizontalBias = 0.5f;
+        cancelParams.horizontalWeight = 0f;
+        cancelParams.topToTop = -1;
+        cancelParams.topToBottom = fieldsId;
+        cancelParams.bottomToTop = -1;
+        cancelParams.bottomToBottom = -1;
+        cancelParams.topMargin = activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_40_0);
+        cancel.setLayoutParams(cancelParams);
+        android.graphics.drawable.GradientDrawable cancelBackground = new android.graphics.drawable.GradientDrawable();
+        cancelBackground.setColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_4cc4cfe0));
+        cancelBackground.setCornerRadius(dp(activity, 24));
+        cancel.setBackground(cancelBackground);
+
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams submitParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) submit.getLayoutParams();
+        submitParams.width = buttonWidth;
+        submitParams.startToStart = -1;
+        submitParams.startToEnd = cancel.getId();
+        submitParams.endToStart = -1;
+        submitParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        submitParams.leftMargin = 0;
+        submitParams.rightMargin = 0;
+        submitParams.setMarginStart(gap / 2);
+        submitParams.setMarginEnd(side);
+        submitParams.horizontalWeight = 0f;
+        submitParams.topToTop = -1;
+        submitParams.topToBottom = fieldsId;
+        submitParams.bottomToTop = -1;
+        submitParams.bottomToBottom = -1;
+        submitParams.topMargin = activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_40_0);
+        submit.setLayoutParams(submitParams);
+        android.graphics.drawable.GradientDrawable submitBackground = new android.graphics.drawable.GradientDrawable();
+        submitBackground.setColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d));
+        submitBackground.setCornerRadius(dp(activity, 24));
+        submit.setBackground(submitBackground);
+        if (submit instanceof TextView) {
+            ((TextView) submit).setGravity(Gravity.CENTER);
+        }
+
+        View cancelText = cancel.findViewWithTag("text:Cancelar");
+        if (cancelText instanceof TextView
+                && cancelText.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams textParams =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancelText.getLayoutParams();
+            textParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            textParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            textParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            textParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            textParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            textParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            textParams.leftMargin = 0;
+            textParams.rightMargin = 0;
+            textParams.topMargin = 0;
+            textParams.bottomMargin = 0;
+            textParams.setMarginStart(0);
+            textParams.setMarginEnd(0);
+            cancelText.setLayoutParams(textParams);
+            ((TextView) cancelText).setGravity(Gravity.CENTER);
         }
     }
 
     private void renderAnswer(ChecklistField field) {
-        TextView label = text(field.nome + (Boolean.TRUE.equals(field.obrigatorio) ? " *" : ""), 16, true);
+        TextView label = text(field.nome + (Boolean.TRUE.equals(field.obrigatorio) ? " *" : ""), 18, true);
+        label.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_semibold));
+        label.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,
+                activity.getResources().getDimension(R.dimen.ops_sp_20_0));
+        label.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         if (Boolean.TRUE.equals(field.obrigatorio)) {
             android.text.SpannableString styled = new android.text.SpannableString(field.nome + " *");
             styled.setSpan(new android.text.style.ForegroundColorSpan(Color.RED), styled.length() - 1, styled.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -1629,8 +2002,23 @@ public final class ChecklistFlow {
             case NUMERO: {
                 EditText input = new EditText(activity);
                 input.setSingleLine(false);
+                input.setTextColor(Color.WHITE);
+                input.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, android.R.color.white));
+                android.graphics.drawable.GradientDrawable fieldBackground = new android.graphics.drawable.GradientDrawable();
+                fieldBackground.setColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d));
+                fieldBackground.setCornerRadius(dp(activity, 20));
+                input.setBackground(fieldBackground);
+                input.setBackgroundTintList(null);
+                input.setAlpha(1f);
+                input.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_medium));
+                input.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 22);
+                input.setPadding(dp(activity, 16), dp(activity, 12), dp(activity, 16), dp(activity, 12));
                 input.setInputType(field.tipoCampo == TipoCampoChecklist.NUMERO ? InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                answerContainer.addView(input);
+                LinearLayout.LayoutParams inputParams = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_60_0));
+                inputParams.topMargin = activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_10_0);
+                inputParams.bottomMargin = activity.getResources().getDimensionPixelSize(R.dimen.ops_dp_18_0);
+                answerContainer.addView(input, inputParams);
                 input.addTextChangedListener(watcher(value -> {
                     if (value.trim().isEmpty()) {
                         answers.remove(field.id);
@@ -1643,6 +2031,16 @@ public final class ChecklistFlow {
             case BOOLEANO: {
                 Switch toggle = new Switch(activity);
                 toggle.setText("Sim");
+                toggle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18);
+                toggle.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
+                toggle.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d));
+                int blue = androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d);
+                int muted = androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff637087);
+                android.content.res.ColorStateList switchTint = new android.content.res.ColorStateList(
+                        new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                        new int[]{blue, muted});
+                toggle.setThumbTintList(switchTint);
+                toggle.setTrackTintList(switchTint);
                 answerContainer.addView(toggle);
                 answers.put(field.id, false);
                 toggle.setOnCheckedChangeListener((button, checked) -> answers.put(field.id, checked));
@@ -1653,6 +2051,11 @@ public final class ChecklistFlow {
                 for (ChecklistOption option : field.opcoes) {
                     RadioButton radio = new RadioButton(activity);
                     radio.setText(option.nome);
+                    radio.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18);
+                    radio.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
+                    radio.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d));
+                    radio.setButtonTintList(android.content.res.ColorStateList.valueOf(
+                            androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d)));
                     radio.setTag(option.id);
                     group.addView(radio);
                 }
@@ -1677,6 +2080,11 @@ public final class ChecklistFlow {
                 for (ChecklistOption option : field.opcoes) {
                     CheckBox check = new CheckBox(activity);
                     check.setText(option.nome);
+                    check.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18);
+                    check.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_regular));
+                    check.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d));
+                    check.setButtonTintList(android.content.res.ColorStateList.valueOf(
+                            androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d)));
                     selected.put(option.id, false);
                     check.setOnCheckedChangeListener((button, checked) -> {
                         selected.put(option.id, checked);
@@ -1693,6 +2101,12 @@ public final class ChecklistFlow {
                 rating.setNumStars(5);
                 rating.setMax(5);
                 rating.setStepSize(1);
+                rating.setProgressTintList(android.content.res.ColorStateList.valueOf(
+                        androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d)));
+                rating.setSecondaryProgressTintList(android.content.res.ColorStateList.valueOf(
+                        androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d)));
+                rating.setProgressBackgroundTintList(android.content.res.ColorStateList.valueOf(
+                        androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_muted)));
                 answerContainer.addView(rating);
                 answers.remove(field.id);
                 rating.setOnRatingBarChangeListener((bar, value, user) -> {
@@ -1811,6 +2225,11 @@ public final class ChecklistFlow {
 
     private ViewGroup layoutRoot(View content) {
         ViewGroup group = (ViewGroup) content;
+        View scroll = group.findViewById(R.id.checklistScroll);
+        if (scroll instanceof androidx.core.widget.NestedScrollView
+                && ((androidx.core.widget.NestedScrollView) scroll).getChildAt(0) instanceof ViewGroup) {
+            return (ViewGroup) ((androidx.core.widget.NestedScrollView) scroll).getChildAt(0);
+        }
         return group.getChildCount() == 1 && group.getChildAt(0) instanceof ViewGroup ? (ViewGroup) group.getChildAt(0) : group;
     }
 

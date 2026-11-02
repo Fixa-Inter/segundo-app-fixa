@@ -12,7 +12,7 @@
             android:gravity="start|center_vertical"
             android:includeFontPadding="false"
             android:text="@string/ops_text_gerencie_sua_equipe_86bfa4"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

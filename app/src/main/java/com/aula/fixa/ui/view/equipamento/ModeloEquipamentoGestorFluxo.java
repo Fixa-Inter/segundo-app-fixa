@@ -24,12 +24,15 @@ import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.aula.fixa.domain.model.equipamento.ModeloEquipamentoItem;
 import com.aula.fixa.ui.adapter.equipamento.ModeloEquipamentoAdapter;
 import com.aula.fixa.ui.config.AppLoading;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
 import com.aula.fixa.ui.view.operations.OperationsDialogFragment;
 import com.aula.fixa.ui.view.operations.OperationsScreenFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.text.Normalizer;
+import java.util.Locale;
 
 /**
  * Coordena listagem e dialogs de modelos de equipamento.
@@ -42,8 +45,11 @@ public final class ModeloEquipamentoGestorFluxo {
     private View root;
     private RecyclerView list;
     private TextView empty;
+    private EditText searchInput;
+    private final List<ModeloEquipamentoItem> allModels = new ArrayList<>();
     private android.widget.FrameLayout floatingButton;
     private Dialog loading;
+    private boolean loadFailed;
 
     public ModeloEquipamentoGestorFluxo(OperationsScreenFragment host, OperationsActivity activity) {
         this.host = host;
@@ -56,6 +62,7 @@ public final class ModeloEquipamentoGestorFluxo {
                 .get(ModeloEquipamentoViewModel.class);
         View title = content.findViewById(R.id.ops_5717_6723);
         View fab = content.findViewById(R.id.ops_5717_6728);
+        View searchContainer = content.findViewById(R.id.ops_models_search_container);
         ViewGroup container = (ViewGroup) title.getParent();
         for (int i = container.getChildCount() - 1; i >= 0; i--) {
             View child = container.getChildAt(i);
@@ -71,10 +78,12 @@ public final class ModeloEquipamentoGestorFluxo {
         ConstraintLayout.LayoutParams listParams = new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
         listParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         listParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-        listParams.topToBottom = title.getId();
-        listParams.setMarginStart(dp(host, 26));
-        listParams.setMarginEnd(dp(host, 26));
-        listParams.topMargin = dp(host, 22);
+        listParams.topToBottom = searchContainer == null ? title.getId() : searchContainer.getId();
+        int contentMargin = host.requireContext().getResources()
+                .getDimensionPixelSize(R.dimen.ops_manager_home_card_side_margin);
+        listParams.setMarginStart(contentMargin);
+        listParams.setMarginEnd(contentMargin);
+        listParams.topMargin = dp(host, 16);
         list.setNestedScrollingEnabled(false);
         list.setMinimumHeight(dp(host, 180));
         container.addView(list, listParams);
@@ -90,17 +99,35 @@ public final class ModeloEquipamentoGestorFluxo {
 
         empty = new TextView(host.requireContext());
         empty.setText("Nenhum modelo cadastrado.");
-        empty.setTextSize(15);
-        empty.setTextColor(androidx.core.content.ContextCompat.getColor(host.requireContext(), R.color.ops_color_ff637087));
-        empty.setGravity(android.view.Gravity.CENTER);
-        ConstraintLayout.LayoutParams emptyParams = new ConstraintLayout.LayoutParams(0, dp(host, 180));
+        EmptyStateStyler.apply(empty);
+        ConstraintLayout.LayoutParams emptyParams = new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
         emptyParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         emptyParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-        emptyParams.topToBottom = title.getId();
-        emptyParams.setMarginStart(dp(host, 26));
-        emptyParams.setMarginEnd(dp(host, 26));
-        emptyParams.topMargin = dp(host, 22);
+        emptyParams.topToBottom = searchContainer == null ? title.getId() : searchContainer.getId();
+        emptyParams.setMarginStart(contentMargin);
+        emptyParams.setMarginEnd(contentMargin);
+        emptyParams.topMargin = dp(host, 16);
         container.addView(empty, emptyParams);
+
+        searchInput = content.findViewById(R.id.ops_models_search_input);
+        View searchButton = content.findViewById(R.id.ops_models_search_button);
+        if (searchButton != null) searchButton.setOnClickListener(v -> {
+            if (searchInput != null) {
+                searchInput.requestFocus();
+                Object service = host.requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+                if (service instanceof android.view.inputmethod.InputMethodManager) {
+                    ((android.view.inputmethod.InputMethodManager) service).showSoftInput(searchInput,
+                            android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT);
+                }
+            }
+        });
+        if (searchInput != null) searchInput.addTextChangedListener(new android.text.TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                showFilteredModels(s == null ? "" : s.toString());
+            }
+            @Override public void afterTextChanged(android.text.Editable s) { }
+        });
 
         View back = content.findViewWithTag("image:arrow-left");
         if (back != null) {
@@ -115,19 +142,32 @@ public final class ModeloEquipamentoGestorFluxo {
         floatingButton.setFocusable(true);
         floatingButton.setContentDescription("Criar modelo");
         floatingButton.setElevation(dp(host, 8));
+        if (fab instanceof android.widget.ImageView) {
+            ((android.widget.ImageView) fab).setScaleType(android.widget.ImageView.ScaleType.FIT_XY);
+        }
         floatingButton.addView(fab, new android.widget.FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         fab.setOnClickListener(create);
         if (plus != null) {
+            if (plus instanceof android.widget.ImageView) {
+                android.widget.ImageView plusIcon = (android.widget.ImageView) plus;
+                plusIcon.setImageResource(R.drawable.ic_plus_24);
+                plusIcon.setColorFilter(androidx.core.content.ContextCompat.getColor(host.requireContext(), R.color.app_on_primary));
+                plusIcon.setScaleType(android.widget.ImageView.ScaleType.CENTER_INSIDE);
+            }
+            int iconSize = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_icon_size);
             android.widget.FrameLayout.LayoutParams plusParams = new android.widget.FrameLayout.LayoutParams(
-                    dp(host, 29), dp(host, 29), android.view.Gravity.CENTER);
+                    iconSize, iconSize, android.view.Gravity.CENTER);
             floatingButton.addView(plus, plusParams);
             plus.setOnClickListener(create);
         }
         floatingButton.setOnClickListener(create);
+        int fabSize = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_size);
+        int fabEnd = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_margin_end);
+        int fabBottom = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_margin_bottom);
         android.widget.FrameLayout.LayoutParams floatingParams = new android.widget.FrameLayout.LayoutParams(
-                dp(host, 70), dp(host, 70), android.view.Gravity.BOTTOM | android.view.Gravity.END);
-        floatingParams.setMargins(0, 0, dp(host, 24), dp(host, 24));
+                fabSize, fabSize, android.view.Gravity.BOTTOM | android.view.Gravity.END);
+        floatingParams.setMargins(0, 0, fabEnd, fabBottom);
         ViewGroup screenHost = (ViewGroup) content.getParent();
         screenHost.addView(floatingButton, floatingParams);
         floatingButton.setVisibility(View.INVISIBLE);
@@ -135,7 +175,7 @@ public final class ModeloEquipamentoGestorFluxo {
             ViewGroup scrollContent = (ViewGroup) content;
             scrollContent.setClipToPadding(false);
             scrollContent.setPadding(scrollContent.getPaddingLeft(), scrollContent.getPaddingTop(),
-                    scrollContent.getPaddingRight(), dp(host, 96));
+                    scrollContent.getPaddingRight(), fabSize + fabBottom + dp(host, 24));
         }
 
         content.setVisibility(View.INVISIBLE);
@@ -150,11 +190,10 @@ public final class ModeloEquipamentoGestorFluxo {
                 if (!host.isAdded() || root == null) {
                     return;
                 }
-                adapter.submit(values);
-                boolean hasItems = values != null && !values.isEmpty();
-                list.setVisibility(hasItems ? View.VISIBLE : View.GONE);
-                empty.setText("Nenhum modelo cadastrado.");
-                empty.setVisibility(hasItems ? View.GONE : View.VISIBLE);
+                allModels.clear();
+                if (values != null) allModels.addAll(values);
+                loadFailed = false;
+                showFilteredModels(searchInput == null ? "" : searchInput.getText().toString());
                 AppLoading.hide(loading);
                 loading = null;
                 root.setVisibility(View.VISIBLE);
@@ -166,8 +205,10 @@ public final class ModeloEquipamentoGestorFluxo {
                 if (!host.isAdded() || root == null) {
                     return;
                 }
+                allModels.clear();
                 adapter.submit(List.of());
                 list.setVisibility(View.GONE);
+                loadFailed = true;
                 empty.setText("Não foi possível carregar os modelos. Toque para tentar novamente.");
                 empty.setOnClickListener(v -> {
                     root.setVisibility(View.INVISIBLE);
@@ -179,9 +220,29 @@ public final class ModeloEquipamentoGestorFluxo {
                 loading = null;
                 root.setVisibility(View.VISIBLE);
                 if (floatingButton != null) floatingButton.setVisibility(View.VISIBLE);
-                Toast.makeText(host.requireContext(), AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void showFilteredModels(String query) {
+        if (adapter == null || list == null || empty == null) return;
+        String normalizedQuery = normalize(query);
+        List<ModeloEquipamentoItem> filtered = new ArrayList<>();
+        for (ModeloEquipamentoItem item : allModels) {
+            if (item != null && normalize(item.nome).contains(normalizedQuery)) filtered.add(item);
+        }
+        adapter.submit(filtered);
+        boolean hasItems = !filtered.isEmpty();
+        list.setVisibility(hasItems ? View.VISIBLE : View.GONE);
+        empty.setText(loadFailed ? "Não foi possível carregar os modelos. Toque para tentar novamente."
+                : normalizedQuery.isEmpty() ? "Nenhum modelo cadastrado." : "Nenhum modelo encontrado.");
+        if (!loadFailed) empty.setOnClickListener(null);
+        empty.setVisibility(hasItems ? View.GONE : View.VISIBLE);
+    }
+
+    private String normalize(String value) {
+        return Normalizer.normalize(value == null ? "" : value, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "").toLowerCase(Locale.ROOT).trim();
     }
 
     private void showMenu(View anchor, ModeloEquipamentoItem item) {
@@ -221,6 +282,8 @@ public final class ModeloEquipamentoGestorFluxo {
             View delete = content.findViewById(R.id.ops_5717_7880);
             TextView title = content.findViewById(R.id.ops_5717_7879);
             if (title != null) {
+                com.aula.fixa.ui.config.PopupFieldStyler.fitDeletePrompt(content, title,
+                        content.findViewById(R.id.ops_5717_7882), delete);
                 title.setText("Deseja excluir “" + activity.model.selectedTitle() + "”?");
             }
             if (cancel != null) {
@@ -379,6 +442,8 @@ public final class ModeloEquipamentoGestorFluxo {
         dropdown.setAnchorView(anchor);
         dropdown.setWidth(anchor.getWidth());
         dropdown.setModal(true);
+        dropdown.setBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(
+                dialog.requireContext(), R.drawable.bg_app_popup_menu));
         dropdown.setAdapter(new ArrayAdapter<>(dialog.requireContext(), R.layout.item_app_dropdown, names));
         dropdown.setOnItemClickListener((parent, row, position, id) -> {
             field.setText(names[position]);

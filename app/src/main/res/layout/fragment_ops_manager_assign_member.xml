@@ -81,10 +81,8 @@
             <TextView
                 android:id="@+id/ops_available_technicians_empty"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/ops_color_ff8a93a2"
-                android:textSize="13sp"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -94,6 +92,17 @@
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false" />
         </LinearLayout>
+
+        <include
+            android:id="@+id/ops_create_planning_step_indicator"
+            layout="@layout/view_app_step_indicator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_step_indicator_margin_top"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_available_technicians_container" />
 
         <ImageView
             android:id="@+id/ops_assign_step_1"
@@ -149,7 +158,7 @@
 
         <View
             android:id="@+id/ops_assign_step_line"
-            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_4_0"
             android:background="@drawable/bg_ops_56c27dd68d"
             app:layout_constraintBottom_toBottomOf="@id/ops_assign_step_1"
@@ -215,7 +224,7 @@
 
         <View
             android:id="@+id/ops_assign_step_line_2"
-            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_width="0dp"
             android:layout_height="4dp"
             android:background="@drawable/bg_ops_56c27dd68d"
             app:layout_constraintStart_toEndOf="@id/ops_assign_step_2"
@@ -225,7 +234,7 @@
 
         <View
             android:id="@+id/ops_assign_step_line_2_progress"
-            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_width="0dp"
             android:layout_height="4dp"
             android:background="@drawable/bg_ops_053a9b3e5e"
             app:layout_constraintStart_toEndOf="@id/ops_assign_step_2"
@@ -235,7 +244,7 @@
 
         <View
             android:id="@+id/ops_assign_step_line_1_progress"
-            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_4_0"
             android:background="@drawable/bg_ops_053a9b3e5e"
             app:layout_constraintStart_toEndOf="@id/ops_assign_step_1"
@@ -260,14 +269,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ops_5717_8745"
-            android:layout_width="@dimen/ops_dp_160_0"
-            android:layout_height="@dimen/ops_dp_45_0"
-            android:layout_marginStart="@dimen/ops_dp_36_0"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginTop="@dimen/ops_dp_20_0"
             android:background="@drawable/bg_ops_6fc7f4db18"
             android:clipChildren="false"
             android:clipToPadding="false"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ops_5717_8744"
             app:layout_constraintTop_toBottomOf="@id/ops_assign_step_label_3">
 
             <TextView
@@ -291,10 +302,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ops_5717_8744"
-            android:layout_width="@dimen/ops_dp_160_0"
-            android:layout_height="@dimen/ops_dp_45_0"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
             android:layout_marginTop="@dimen/ops_dp_20_0"
-            android:layout_marginEnd="@dimen/ops_dp_36_0"
+            android:layout_marginEnd="36dp"
             android:background="@drawable/bg_ops_ac8a55a5cb"
             android:clipChildren="false"
             android:clipToPadding="false"
@@ -308,6 +319,7 @@
             android:textAppearance="@style/TextAppearance.FIXA.Operations.755f0ac70d"
             app:backgroundTint="@null"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ops_5717_8745"
             app:layout_constraintTop_toBottomOf="@id/ops_assign_step_label_3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

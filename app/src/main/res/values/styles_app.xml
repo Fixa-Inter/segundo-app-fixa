@@ -131,6 +131,10 @@
         <item name="android:textColor">@color/app_primary_deep</item>
         <item name="android:textSize">@dimen/app_requests_empty_text_size</item>
     </style>
+    <style name="TextAppearance.FIXA.App.EmptyState" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_navy</item>
+        <item name="android:textSize">@dimen/app_empty_state_text_size</item>
+    </style>
 
     <!-- Detalhes / timeline -->
     <style name="TextAppearance.FIXA.App.Details.Title" parent="TextAppearance.FIXA.App.SemiBold">
@@ -207,8 +211,8 @@
         <item name="android:textSize">@dimen/app_chat_greeting_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Chat.Input" parent="TextAppearance.FIXA.App.Regular">
-        <item name="android:textColor">@color/app_text_dark</item>
-        <item name="android:textColorHint">@color/app_text_muted</item>
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textColorHint">@color/app_text_secondary</item>
         <item name="android:textSize">@dimen/app_chat_input_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Chat.DrawerTitle" parent="TextAppearance.FIXA.App.Medium">
@@ -275,7 +279,7 @@
         <item name="android:textSize">@dimen/app_step_upload_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Confirm.Title" parent="TextAppearance.FIXA.App.Bold">
-        <item name="android:textColor">@color/app_primary</item>
+        <item name="android:textColor">@color/app_primary_dark</item>
         <item name="android:textSize">@dimen/app_confirm_card_title_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Confirm.Body" parent="TextAppearance.FIXA.App.Regular">
@@ -385,7 +389,7 @@
     </style>
     <style name="TextAppearance.FIXA.App.Filter.Field" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_text_black</item>
-        <item name="android:textColorHint">@color/app_text_muted</item>
+        <item name="android:textColorHint">@color/app_text_secondary</item>
         <item name="android:textSize">@dimen/app_filter_field_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.Dialog.Title" parent="TextAppearance.FIXA.App.Medium">
@@ -409,7 +413,7 @@
     </style>
     <style name="TextAppearance.FIXA.App.Dialog.EditField" parent="TextAppearance.FIXA.App.Regular">
         <item name="android:textColor">@color/app_text_black</item>
-        <item name="android:textColorHint">@color/app_text_muted</item>
+        <item name="android:textColorHint">@color/app_text_secondary</item>
         <item name="android:textSize">@dimen/app_dialog_edit_field_text_size</item>
     </style>
     <style name="TextAppearance.FIXA.App.PopupMenu.Item" parent="TextAppearance.FIXA.App.Regular">

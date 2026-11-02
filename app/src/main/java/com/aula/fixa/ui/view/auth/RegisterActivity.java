@@ -39,8 +39,8 @@ public class RegisterActivity extends ImmersiveActivity {
     private void setupRemoteDropdowns() {
         AutoCompleteTextView institution = findViewById(R.id.actvInstitution);
         AutoCompleteTextView unit = findViewById(R.id.actvUnit);
-        institutionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line);
-        unitAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line);
+        institutionAdapter = new ArrayAdapter<>(this, R.layout.item_app_dropdown);
+        unitAdapter = new ArrayAdapter<>(this, R.layout.item_app_dropdown);
         institution.setAdapter(institutionAdapter);
         unit.setAdapter(unitAdapter);
         configureDropdown(institution);
@@ -77,6 +77,7 @@ public class RegisterActivity extends ImmersiveActivity {
     }
 
     private void configureDropdown(AutoCompleteTextView field) {
+        field.setDropDownBackgroundResource(R.drawable.bg_app_popup_menu);
         field.setThreshold(0);
         field.setKeyListener(null);
         field.setFocusable(false);

@@ -22,6 +22,7 @@ import com.aula.fixa.domain.model.AtualizacaoPerfil;
 import com.aula.fixa.domain.model.Perfil;
 import com.aula.fixa.ui.config.AppDialogs;
 import com.aula.fixa.ui.config.DataChangeNotifier;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.config.operations.ScreenCatalog;
 import com.aula.fixa.ui.view.auth.VerifyEmailActivity;
 import com.bumptech.glide.Glide;
@@ -68,7 +69,18 @@ final class OperationsProfileFlow {
     }
 
     private void bindProfile() {
-        setClick(boundText("Editar perfil"), () -> activity.openName("edit_profile"));
+        View editProfile = boundText("Editar perfil");
+        if (editProfile == null) {
+            editProfile = root.findViewById(viewId(activity.role().equals("manager") ? 7511 : 10093));
+        }
+        if (editProfile instanceof TextView) {
+            TextView button = (TextView) editProfile;
+            button.setText(R.string.ops_text_editar_perfil_c10011);
+            button.setTextColor(android.graphics.Color.WHITE);
+            button.setBackgroundResource(R.drawable.bg_ops_de2070210e);
+            button.setVisibility(View.VISIBLE);
+        }
+        setClick(editProfile, () -> activity.openName("edit_profile"));
         View myProfile = boundText("Meu perfil");
         setClick(myProfile, () -> activity.openName("my_profile"));
         setClick(imageNamed("user"), () -> activity.openName("my_profile"));
@@ -124,16 +136,22 @@ final class OperationsProfileFlow {
     }
 
     private void carregarPerfil() {
+        EmptyStateStyler.removeFromRoot(root);
         ImageView avatar = avatar();
         if (avatar != null) avatar.setImageResource(R.drawable.img_avatar_115);
         perfil.obter(new PerfilViewModel.Callback<Perfil>() {
             @Override public void aoConcluir(Perfil data) {
-                runIfActive(() -> renderProfile(data));
+                runIfActive(() -> {
+                    EmptyStateStyler.removeFromRoot(root);
+                    renderProfile(data);
+                });
             }
             @Override public void aoFalhar(Throwable error) {
                 runIfActive(() -> {
                     if (avatar != null) avatar.setImageResource(R.drawable.img_avatar_115);
-                    Toast.makeText(activity, error.getMessage(), Toast.LENGTH_LONG).show();
+                    EmptyStateStyler.showBelowBack(root,
+                            "Não foi possível carregar os dados do perfil. Toque para tentar novamente.",
+                            OperationsProfileFlow.this::carregarPerfil);
                 });
             }
         });

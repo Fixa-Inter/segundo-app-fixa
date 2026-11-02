@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/opsManagerRequestEmptyText"
     android:layout_width="match_parent"
-    android:layout_height="220dp"
+    android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical">
-
-    <ImageView
-        android:layout_width="116dp"
-        android:layout_height="116dp"
-        android:contentDescription="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/img_empty_results" />
-
-    <TextView
-        android:id="@+id/opsManagerRequestEmptyText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:paddingTop="10dp"
-        android:text="@string/ops_manager_no_pending_requests"
-        android:textColor="@color/app_text_navy"
-        android:textFontWeight="500"
-        android:textSize="15sp" />
-</LinearLayout>
+    android:text="@string/ops_manager_no_pending_requests"
+    tools:text="Não existem solicitações pendentes" />

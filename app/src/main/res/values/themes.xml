@@ -3,6 +3,13 @@
     <style name="Base.Theme.FIXA" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:editTextStyle">@style/Widget.FIXA.App.EditText</item>
+        <item name="editTextStyle">@style/Widget.FIXA.App.EditText</item>
+    </style>
+
+    <style name="Widget.FIXA.App.EditText" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">@color/app_text_black</item>
+        <item name="android:textColorHint">@color/app_text_secondary</item>
     </style>
 
     <style name="Theme.FIXA" parent="Base.Theme.FIXA" />

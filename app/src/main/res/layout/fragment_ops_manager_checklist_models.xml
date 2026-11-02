@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:8121 • manager / checklist_models. Componentes nativos; dimensões em values e sw400dp. -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_836_0" android:clipChildren="false" android:clipToPadding="false">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/app_background" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.core.widget.NestedScrollView android:id="@+id/checklistScroll" android:layout_width="0dp" android:layout_height="0dp" android:fillViewport="true" android:clipToPadding="false" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@id/stepActions" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_8139"
             android:layout_width="@dimen/app_back_icon_size"
@@ -18,17 +19,16 @@
             android:id="@+id/ops_5717_8122"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_31"
-            android:layout_marginTop="@dimen/ops_dp_65_0"
+            android:layout_marginStart="@dimen/app_step_title_margin_start"
+            android:layout_marginTop="@dimen/app_step_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_26"
+            android:layout_marginEnd="@dimen/app_step_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_escolha_os_modelos_2f1e53"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.32afd0b1db"
+            android:textAppearance="@style/TextAppearance.FIXA.App.StepTitle"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
-            android:minHeight="@dimen/ops_dp_129"
             android:tag="text:Escolha os modelos"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
@@ -40,7 +40,6 @@
             android:layout_marginTop="@dimen/ops_dp_20_0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8122"
-            android:src="@drawable/figma_58b2a"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
             android:tag="image:"
@@ -50,8 +49,8 @@
                 android:id="@+id/ops_5717_8150"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/ops_dp_21"
-                android:layout_marginStart="@dimen/ops_dp_53_0"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/ops_5717_8157"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="@dimen/ops_dp_52_03"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -70,28 +69,29 @@
                 android:contentDescription="@string/ops_text_pesquisar_b89310" android:textColor="@color/app_text_black" />
             <ImageView
                 android:id="@+id/ops_5717_8157"
-                android:layout_width="@dimen/ops_search_icon_size"
-                android:layout_height="@dimen/ops_search_icon_size"
-                android:layout_marginStart="@dimen/ops_dp_13_0"
+                android:layout_width="@dimen/app_requests_search_height"
+                android:layout_height="@dimen/app_requests_search_height"
+                android:layout_marginStart="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/figma_e0dbb"
-                android:tint="@color/ops_color_ff0b013c"
+                android:src="@drawable/ic_search_26"
+                android:background="@drawable/bg_app_circle_primary"
+                android:tint="@color/app_on_primary"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
                 android:visibility="visible"
                 android:tag="image:search"
+                android:elevation="4dp"
                 android:translationZ="@dimen/ops_dp_3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <View
             android:id="@+id/ops_5717_8160"
             android:layout_width="@dimen/ops_dp_34_0"
             android:layout_height="@dimen/ops_dp_34_0"
-            android:layout_marginStart="@dimen/ops_dp_33_0"
-            android:layout_marginTop="@dimen/ops_dp_107_0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ops_5717_8122"
+            app:layout_constraintStart_toStartOf="@id/ops_5717_8149"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_8149"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_8149"
             android:background="@drawable/bg_ops_6ea58ff845"
             android:clipChildren="false"
             android:clipToPadding="false" />
@@ -286,6 +286,15 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_semibold"
             android:maxLines="1" />
+        <include
+            android:id="@+id/stepIndicator"
+            layout="@layout/view_app_step_indicator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_step_indicator_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8149" />
         <ImageView
             android:id="@+id/ops_5717_8131"
             android:layout_width="@dimen/ops_dp_34_48"
@@ -466,7 +475,8 @@
             android:background="@drawable/bg_ops_e9ff3d87c6"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.5109b65e24"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Step.Action"
+            android:textColor="@color/app_on_primary"
             android:padding="@dimen/ops_dp_0"
             android:gravity="center"
             android:minHeight="@dimen/ops_dp_0"
@@ -484,7 +494,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8131"
             android:text="@string/ops_text_voltar_59dc92"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.8145b0a777"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Step.Action"
+            android:textColor="@color/app_text_black"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_30"
@@ -493,4 +504,6 @@
             android:fontFamily="@font/poppins_regular"
             android:maxLines="1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+    <include android:id="@+id/stepActions" layout="@layout/view_app_step_actions" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/app_step_actions_margin_bottom" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

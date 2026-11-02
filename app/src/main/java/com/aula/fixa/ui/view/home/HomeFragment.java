@@ -20,6 +20,7 @@ import com.aula.fixa.R;
 import com.aula.fixa.ui.config.AppText;
 import com.aula.fixa.ui.config.TouchTargets;
 import com.aula.fixa.ui.config.AppLoading;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.config.FragmentUi;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.domain.model.solicitacao.ProblemaItem;
@@ -61,6 +62,7 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                 new SessaoViewModelFactory(requireContext())).get(SessaoViewModel.class);
 
         TextView greeting = view.findViewById(R.id.tvGreeting);
+        EmptyStateStyler.apply(view.findViewById(R.id.tvHomeRequestsEmpty));
         view.findViewById(R.id.homeRoot).setVisibility(View.GONE);
         loadHomeData(view, greeting);
         DataChangeNotifier.observe(getViewLifecycleOwner(), ignored -> {
@@ -85,6 +87,7 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
     }
 
     private void loadHomeData(View view, TextView greeting) {
+        view.findViewById(R.id.homeRoot).setVisibility(View.GONE);
         Dialog loading = AppLoading.show(view.getContext());
         if (!sessaoViewModel.tokenValido()) {
             sessaoViewModel.encerrar();
@@ -149,13 +152,7 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
     private void showHomeError(View view, Dialog loading) {
         FragmentUi.runIfViewActive(this, view, () -> {
             AppLoading.hide(loading);
-            View root = view.findViewById(R.id.homeRoot);
-            for (int i = 0; i < ((android.view.ViewGroup) root).getChildCount(); i++) {
-                View child = ((android.view.ViewGroup) root).getChildAt(i);
-                child.setVisibility(child.getId() == R.id.tvHomeMessage ? View.VISIBLE : View.GONE);
-            }
-            ((TextView) view.findViewById(R.id.tvHomeMessage)).setText(R.string.app_home_load_error);
-            root.setVisibility(View.VISIBLE);
+            view.findViewById(R.id.homeRoot).setVisibility(View.GONE);
         });
     }
 

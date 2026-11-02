@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="app_empty_state_image_size">220dp</dimen>
+    <dimen name="app_empty_state_gap">12dp</dimen>
+    <dimen name="app_empty_state_text_min_height">52dp</dimen>
+    <dimen name="app_empty_state_text_size">17sp</dimen>
     <!--
       Telas com smallestWidth >= 400dp (Pixel, Galaxy S Ultra, etc.): valores originais do Figma (412dp).
       values/ padrão atende 360dp (Galaxy S25 e compactos); sw600dp/sw840dp escalam para tablets.
@@ -52,9 +56,11 @@
     <dimen name="app_step_actions_margin_bottom">105dp</dimen>
     <dimen name="app_step_upload_line_width">140dp</dimen>
     <dimen name="app_confirm_title_margin_start">44dp</dimen>
-    <dimen name="app_confirm_photo_size">110dp</dimen>
-    <dimen name="app_success_image_size">380dp</dimen>
+    <dimen name="app_confirm_photo_size">130dp</dimen>
+    <dimen name="app_success_image_size">420dp</dimen>
+    <dimen name="app_confirm_add_photo_icon_padding">46dp</dimen>
     <dimen name="app_success_image_margin_top">77dp</dimen>
+    <dimen name="app_request_success_image_margin_top">96dp</dimen>
     <dimen name="app_success_title_text_size">30sp</dimen>
     <dimen name="app_success_button_side_margin">33dp</dimen>
     <dimen name="app_profile_avatar_margin_start">36dp</dimen>
@@ -137,6 +143,7 @@
     <dimen name="app_bottom_nav_indicator_width">70dp</dimen>
     <dimen name="app_button_height">45dp</dimen>
     <dimen name="app_button_height_lg">50dp</dimen>
+    <dimen name="app_execution_footer_button_height">60dp</dimen>
     <dimen name="app_button_radius">25dp</dimen>
     <dimen name="app_button_step_width">140dp</dimen>
     <dimen name="app_fab_size">62dp</dimen>
@@ -227,6 +234,15 @@
     <dimen name="app_details_timeline_title_text_size">18sp</dimen>
     <dimen name="app_events_title_margin_top">57dp</dimen>
     <dimen name="app_events_title_text_size">36sp</dimen>
+    <dimen name="app_board_card_height">136dp</dimen>
+    <dimen name="app_board_card_date_width">118dp</dimen>
+    <dimen name="app_board_card_title_text_size">18sp</dimen>
+    <dimen name="app_board_card_content_text_size">15sp</dimen>
+    <dimen name="app_board_card_meta_text_size">13sp</dimen>
+    <dimen name="app_board_card_title_height">30dp</dimen>
+    <dimen name="app_board_card_content_height">22dp</dimen>
+    <dimen name="app_board_card_meta_height">20dp</dimen>
+    <dimen name="app_board_card_avatar_size">26dp</dimen>
     <dimen name="app_events_month_margin_top">27dp</dimen>
     <dimen name="app_events_month_text_size">25sp</dimen>
     <dimen name="app_events_days_margin_top">14dp</dimen>
@@ -243,7 +259,7 @@
     <dimen name="app_event_card_spacing">13dp</dimen>
     <dimen name="app_event_card_radius">18dp</dimen>
     <dimen name="app_event_card_padding_start">15dp</dimen>
-    <dimen name="app_event_card_day_width">23dp</dimen>
+    <dimen name="app_event_card_day_width">34dp</dimen>
     <dimen name="app_event_card_day_text_size">23sp</dimen>
     <dimen name="app_event_card_day_label_text_size">14sp</dimen>
     <dimen name="app_events_header_icon_size">24dp</dimen>
@@ -318,17 +334,20 @@
     <dimen name="app_new_request_cancel_height">48dp</dimen>
     <dimen name="app_new_request_cancel_margin_top">12dp</dimen>
     <dimen name="app_new_request_cancel_text_size">20sp</dimen>
+    <dimen name="app_occurrence_intro_connector_height">34dp</dimen>
+    <dimen name="app_occurrence_intro_step_gap">10dp</dimen>
     <dimen name="app_step_title_margin_top">68dp</dimen>
     <dimen name="app_step_label_margin_top">27dp</dimen>
     <dimen name="app_step_label_text_size">16sp</dimen>
     <dimen name="app_step_field_margin_top">14dp</dimen>
-    <dimen name="app_step_field_height">33dp</dimen>
+    <dimen name="app_step_field_height">48dp</dimen>
     <dimen name="app_step_field_radius">15dp</dimen>
     <dimen name="app_step_field_padding_start">19dp</dimen>
     <dimen name="app_step_field_text_size">12sp</dimen>
     <dimen name="app_step_textarea_padding_start">22dp</dimen>
     <dimen name="app_step_textarea_padding_top">18dp</dimen>
     <dimen name="app_step_section_margin_top">20dp</dimen>
+    <dimen name="app_occurrence_progress_footer_gap">30dp</dimen>
     <dimen name="app_step_indicator_margin_top">48dp</dimen>
     <dimen name="app_step_indicator_circle_size">34.48dp</dimen>
     <dimen name="app_step_indicator_number_text_size">14.19sp</dimen>
@@ -344,15 +363,15 @@
     <dimen name="app_step_upload_icon_padding">10dp</dimen>
     <dimen name="app_step_upload_or_margin_top">22dp</dimen>
     <dimen name="app_step_upload_camera_margin_top">20dp</dimen>
-    <dimen name="app_step_upload_camera_height">40dp</dimen>
-    <dimen name="app_step_upload_camera_text_size">14sp</dimen>
+    <dimen name="app_step_upload_camera_height">46dp</dimen>
+    <dimen name="app_step_upload_camera_text_size">16sp</dimen>
     <dimen name="app_confirm_title_margin_top">41dp</dimen>
     <dimen name="app_confirm_card_margin_top">35dp</dimen>
     <dimen name="app_confirm_card_radius">30dp</dimen>
-    <dimen name="app_confirm_card_padding">27dp</dimen>
-    <dimen name="app_confirm_card_title_text_size">25sp</dimen>
-    <dimen name="app_confirm_card_body_text_size">13sp</dimen>
-    <dimen name="app_confirm_card_meta_text_size">14sp</dimen>
+    <dimen name="app_confirm_card_padding">0dp</dimen>
+    <dimen name="app_confirm_card_title_text_size">28sp</dimen>
+    <dimen name="app_confirm_card_body_text_size">17sp</dimen>
+    <dimen name="app_confirm_card_meta_text_size">18sp</dimen>
     <dimen name="app_confirm_card_body_margin_top">9dp</dimen>
     <dimen name="app_confirm_card_meta_margin_top">17dp</dimen>
     <dimen name="app_confirm_meta_spacing">18dp</dimen>
@@ -445,7 +464,7 @@
     <dimen name="app_about_doc_chevron_size">22dp</dimen>
     <dimen name="app_about_doc_chevron_margin_end">15dp</dimen>
     <dimen name="app_notifications_title_margin_top">70dp</dimen>
-    <dimen name="app_notifications_section_margin_top">14dp</dimen>
+    <dimen name="app_notifications_section_margin_top">10dp</dimen>
     <dimen name="app_notifications_section_text_size">20sp</dimen>
     <dimen name="app_notifications_list_margin_top">15dp</dimen>
     <dimen name="app_notification_item_height">75dp</dimen>
@@ -458,15 +477,15 @@
     <dimen name="app_notification_text_margin_start_read">24dp</dimen>
     <dimen name="app_notification_text_size">15sp</dimen>
     <dimen name="app_notification_time_text_size">12sp</dimen>
-    <dimen name="app_notification_time_margin_end">15dp</dimen>
-    <dimen name="app_filter_sheet_radius">30dp</dimen>
+    <dimen name="app_notification_time_margin_end">22dp</dimen>
+    <dimen name="app_filter_sheet_radius">36dp</dimen>
     <dimen name="app_filter_title_margin_top">31dp</dimen>
     <dimen name="app_filter_title_text_size">25sp</dimen>
     <dimen name="app_filter_label_margin_top">34dp</dimen>
     <dimen name="app_filter_label_text_size">15sp</dimen>
     <dimen name="app_filter_field_margin_top">7dp</dimen>
     <dimen name="app_filter_field_height">40dp</dimen>
-    <dimen name="app_filter_field_radius">15dp</dimen>
+    <dimen name="app_filter_field_radius">19dp</dimen>
     <dimen name="app_filter_field_padding_start">17dp</dimen>
     <dimen name="app_filter_field_padding_end">48dp</dimen>
     <dimen name="app_filter_icon_size">24dp</dimen>
@@ -480,7 +499,7 @@
     <dimen name="app_filter_sheet_padding_bottom">77dp</dimen>
     <dimen name="app_dialog_radius">30dp</dimen>
     <dimen name="app_dialog_delete_title_text_size">22sp</dimen>
-    <dimen name="app_dialog_delete_reason_height">121dp</dimen>
+    <dimen name="app_dialog_delete_reason_height">112dp</dimen>
     <dimen name="app_dialog_delete_reason_margin_top">18dp</dimen>
     <dimen name="app_dialog_side_padding">22dp</dimen>
     <dimen name="app_dialog_image_margin_top">5dp</dimen>
@@ -501,8 +520,8 @@
     <dimen name="app_dialog_edit_label_margin_top">27dp</dimen>
     <dimen name="app_dialog_edit_label_text_size">16sp</dimen>
     <dimen name="app_dialog_edit_field_margin_top">7dp</dimen>
-    <dimen name="app_dialog_edit_field_height">35dp</dimen>
-    <dimen name="app_dialog_edit_textarea_height">65dp</dimen>
+    <dimen name="app_dialog_edit_field_height">56dp</dimen>
+    <dimen name="app_dialog_edit_textarea_height">112dp</dimen>
     <dimen name="app_dialog_edit_field_radius">10dp</dimen>
     <dimen name="app_dialog_edit_field_padding_start">15dp</dimen>
     <dimen name="app_dialog_edit_field_text_size">14sp</dimen>

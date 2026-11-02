@@ -18,14 +18,14 @@
             android:id="@+id/ops_5717_7930"
             android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_58_8"
-            android:layout_marginStart="@dimen/ops_dp_31"
-            android:layout_marginTop="@dimen/ops_dp_62_6"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_45"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_checklists_4d03ed"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_58_8"
@@ -33,7 +33,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7973" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_32_6" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7930" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Climatização">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7973" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_32_6" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7930" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Climatização">
             <View
                 android:id="@+id/ops_5717_7974"
                 android:layout_width="@dimen/ops_dp_20_0"
@@ -154,6 +154,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_7981"
                 android:text="@string/ops_text_15_dias_2dd688"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -171,6 +172,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_em_andamento_d6f779"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -188,6 +190,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_7982"
                 android:text="@string/ops_text_3_4e0740"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -196,7 +199,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7988" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_16_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7973" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Qualidade">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7988" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_16_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7973" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Qualidade">
             <View
                 android:id="@+id/ops_5717_7989"
                 android:layout_width="@dimen/ops_dp_20_0"
@@ -317,6 +320,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_7996"
                 android:text="@string/ops_text_30_dias_59c86f"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -334,6 +338,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_em_andamento_d6f779"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -351,6 +356,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_7997"
                 android:text="@string/ops_text_8_2c6242"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8aeedd4985"
+                android:textSize="@dimen/app_checklist_period_text_size"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_14_0"
@@ -368,7 +374,7 @@
             android:src="@drawable/figma_bd6ee"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
+            android:tag="image:" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" />
         <ImageView
             android:id="@+id/ops_5717_7937"
             android:layout_width="@dimen/ops_dp_28_96"
@@ -378,6 +384,6 @@
             android:src="@drawable/figma_c5cb2"
             android:scaleType="fitXY"
             android:importantForAccessibility="no"
-            android:tag="image:" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
+            android:tag="image:" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

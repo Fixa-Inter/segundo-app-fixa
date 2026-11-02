@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="app_empty_state_image_size">260dp</dimen>
+    <dimen name="app_empty_state_gap">14dp</dimen>
+    <dimen name="app_empty_state_text_min_height">56dp</dimen>
+    <dimen name="app_empty_state_text_size">18sp</dimen>
+    <dimen name="app_occurrence_intro_connector_height">40dp</dimen>
+    <dimen name="app_occurrence_intro_step_gap">12dp</dimen>
+    <dimen name="app_request_success_image_margin_top">100dp</dimen>
     <!-- Tablets 7": conteúdo respira mais e listas/cards crescem proporcionalmente -->
     <dimen name="app_screen_side_margin">64dp</dimen>
     <dimen name="app_screen_side_margin_alt">72dp</dimen>
@@ -48,24 +55,34 @@
     <dimen name="app_details_timeline_card_width">420dp</dimen>
 
     <dimen name="app_events_title_margin_start">64dp</dimen>
+    <dimen name="app_inspection_equipment_card_height">120dp</dimen>
     <dimen name="app_events_day_width">80dp</dimen>
     <dimen name="app_events_day_height">120dp</dimen>
     <dimen name="app_events_title_text_size">50sp</dimen>
+    <dimen name="app_board_card_height">148dp</dimen>
+    <dimen name="app_board_card_date_width">120dp</dimen>
+    <dimen name="app_board_card_title_text_size">20sp</dimen>
+    <dimen name="app_board_card_content_text_size">16sp</dimen>
+    <dimen name="app_board_card_meta_text_size">14sp</dimen>
+    <dimen name="app_board_card_title_height">34dp</dimen>
+    <dimen name="app_board_card_content_height">24dp</dimen>
+    <dimen name="app_board_card_meta_height">22dp</dimen>
+    <dimen name="app_board_card_avatar_size">28dp</dimen>
     <dimen name="app_events_section_margin_top">24dp</dimen>
     <dimen name="app_events_list_margin_top">8dp</dimen>
     <dimen name="app_event_card_height">112dp</dimen>
     <dimen name="app_event_info_panel_side_padding">64dp</dimen>
 
     <dimen name="app_chat_input_side_margin">64dp</dimen>
-    <dimen name="app_chat_avatar_size">150dp</dimen>
-    <dimen name="app_chat_greeting_max_width">320dp</dimen>
+    <dimen name="app_chat_avatar_size">130dp</dimen>
+    <dimen name="app_chat_greeting_max_width">224dp</dimen>
     <dimen name="app_chat_greeting_margin_start">13dp</dimen>
     <dimen name="app_chat_bubble_offset_top">23dp</dimen>
-    <dimen name="app_chat_bubble_width">258dp</dimen>
-    <dimen name="app_chat_bubble_height">101dp</dimen>
-    <dimen name="app_chat_bubble_overlap">-14dp</dimen>
-    <dimen name="app_chat_bubble_padding_start">18dp</dimen>
-    <dimen name="app_chat_bubble_padding_top">11dp</dimen>
+    <dimen name="app_chat_bubble_width">224dp</dimen>
+    <dimen name="app_chat_bubble_height">88dp</dimen>
+    <dimen name="app_chat_bubble_overlap">-12dp</dimen>
+    <dimen name="app_chat_bubble_padding_start">16dp</dimen>
+    <dimen name="app_chat_bubble_padding_top">10dp</dimen>
     <dimen name="app_chat_bubble_padding_end">3dp</dimen>
     <dimen name="app_chat_clip_margin_start">-12dp</dimen>
     <dimen name="app_chat_drawer_width">330dp</dimen>
@@ -87,7 +104,7 @@
     <dimen name="app_new_request_title_margin_start">72dp</dimen>
     <dimen name="app_step_title_margin_start">72dp</dimen>
     <dimen name="app_step_label_margin_start">80dp</dimen>
-    <dimen name="app_step_field_height">44dp</dimen>
+    <dimen name="app_step_field_height">48dp</dimen>
     <dimen name="app_step_field_text_size">14sp</dimen>
     <dimen name="app_step_textarea_height">220dp</dimen>
     <dimen name="app_step_indicator_side_margin">80dp</dimen>
@@ -95,7 +112,9 @@
     <dimen name="app_step_back_margin_start">96dp</dimen>
     <dimen name="app_step_actions_side_margin">80dp</dimen>
     <dimen name="app_step_actions_margin_bottom">64dp</dimen>
+    <dimen name="app_execution_footer_button_height">64dp</dimen>
     <dimen name="app_confirm_title_margin_start">80dp</dimen>
+    <dimen name="app_confirm_add_photo_icon_padding">46dp</dimen>
     <dimen name="app_success_button_side_margin">120dp</dimen>
 
     <dimen name="app_profile_avatar_size">115.53dp</dimen>
@@ -222,6 +241,6 @@
     <dimen name="app_requests_title_line_height">54sp</dimen>
     <dimen name="app_requests_title_margin_end">64dp</dimen>
     <dimen name="app_screen_title_line_height">46sp</dimen>
-    <dimen name="app_notifications_section_margin_top">16dp</dimen>
+    <dimen name="app_notifications_section_margin_top">12dp</dimen>
     <dimen name="app_home_open_button_radius">24dp</dimen>
 </resources>

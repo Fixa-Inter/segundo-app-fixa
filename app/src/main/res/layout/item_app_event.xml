@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/tvEventDay"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/app_event_card_day_width"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:minWidth="@dimen/app_event_card_day_width"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/tvEventDayLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/app_event_card_day_width"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.FIXA.App.Event.DayLabel"

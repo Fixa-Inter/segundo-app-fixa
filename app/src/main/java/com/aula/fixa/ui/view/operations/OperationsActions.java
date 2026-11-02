@@ -83,7 +83,7 @@ public final class OperationsActions {
             return this::create;
         }
         if (asset.equals("e9f2c.svg")) {
-            return () -> open("edit_profile");
+            return () -> open("chatbot");
         }
         if (icon.contains("menu")) {
             return () -> open("chat_drawer");

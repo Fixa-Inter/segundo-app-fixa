@@ -56,15 +56,15 @@
                 android:id="@+id/cardSummary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/app_screen_side_margin_alt"
+                android:layout_marginStart="@dimen/app_confirm_title_margin_start"
                 android:layout_marginTop="@dimen/app_confirm_card_margin_top"
-                android:layout_marginEnd="@dimen/app_screen_side_margin_alt"
-                android:background="@drawable/bg_app_summary_card"
+                android:layout_marginEnd="@dimen/app_confirm_title_margin_start"
+                android:background="@android:color/transparent"
                 android:padding="@dimen/app_confirm_card_padding"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                app:layout_constraintWidth_max="340dp">
+                app:layout_constraintWidth_max="@dimen/app_content_max_width">
 
                 <TextView
                     android:id="@+id/tvSummaryTitle"

@@ -23,6 +23,7 @@ import com.aula.fixa.adapter.auth.SessaoViewModelFactory;
 import com.aula.fixa.ui.config.AppDialogs;
 import com.aula.fixa.ui.config.FragmentUi;
 import com.aula.fixa.ui.config.DataChangeNotifier;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.adapter.perfil.PerfilViewModel;
 import com.aula.fixa.adapter.perfil.PerfilViewModelFactory;
 import com.aula.fixa.domain.model.Perfil;
@@ -71,9 +72,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loadProfile(View view) {
+        EmptyStateStyler.removeFromRoot(view);
         perfilViewModel.obter(new PerfilViewModel.Callback<Perfil>() {
             @Override public void aoConcluir(Perfil profile) {
                 FragmentUi.runIfViewActive(ProfileFragment.this, view, () -> {
+                    EmptyStateStyler.removeFromRoot(view);
                     ((TextView) view.findViewById(R.id.tvName)).setText(profile.nomeCompleto);
                     ((TextView) view.findViewById(R.id.tvEmail)).setText(profile.email);
                     String url = profile.urlFotoPerfil.trim();
@@ -85,7 +88,9 @@ public class ProfileFragment extends Fragment {
             @Override public void aoFalhar(Throwable erro) {
                 FragmentUi.runIfViewActive(ProfileFragment.this, view, () -> {
                     ((ImageView) view.findViewById(R.id.ivAvatar)).setImageResource(R.drawable.img_avatar_115);
-                    android.widget.Toast.makeText(view.getContext(), erro.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+                    EmptyStateStyler.showBelowBack(view,
+                            "Não foi possível carregar os dados do perfil. Toque para tentar novamente.",
+                            () -> loadProfile(view));
                 });
             }
         });

@@ -18,21 +18,21 @@
             android:id="@+id/ops_5717_10470"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_31"
-            android:layout_marginTop="@dimen/ops_dp_52_0"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_45"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_gerencie_os_estados_das_os_174311"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_80"
             android:tag="text:Gerencie os estados das OS"
             android:padding="@dimen/ops_dp_0"
-            android:fontFamily="@font/poppins_bold" />
-        <HorizontalScrollView android:id="@+id/ops_status_row" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="@dimen/app_requests_chips_margin_top" android:paddingStart="@dimen/app_screen_side_margin" android:paddingTop="8dp" android:paddingEnd="@dimen/app_screen_side_margin" android:paddingBottom="12dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10470" android:scrollbars="none" android:fillViewport="false" android:clipChildren="false" android:clipToPadding="false" android:overScrollMode="never">
+            android:fontFamily="@font/poppins_bold"  android:maxLines="2"  android:lineHeight="@dimen/ops_sp_45_0" />
+        <HorizontalScrollView android:id="@+id/ops_status_row" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="@dimen/app_requests_chips_margin_top" android:paddingStart="@dimen/app_events_title_margin_start" android:paddingTop="8dp" android:paddingEnd="@dimen/app_events_title_margin_start" android:paddingBottom="12dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_10470" android:scrollbars="none" android:fillViewport="false" android:clipChildren="false" android:clipToPadding="false" android:overScrollMode="never">
             <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="479dp" android:layout_height="@dimen/app_requests_chip_height" android:clipChildren="false" android:clipToPadding="false">
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/ops_5717_10521"
@@ -141,7 +141,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </HorizontalScrollView>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10529" android:layout_width="0dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_26_0" android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/technician_board_filter_button" app:layout_constraintTop_toBottomOf="@id/ops_status_row" android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_10529" android:layout_width="0dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_26_0" android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/technician_board_filter_button" app:layout_constraintTop_toBottomOf="@id/ops_status_row" android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ops_5717_10530"
                 android:layout_width="0dp"
@@ -183,7 +183,7 @@
             android:id="@+id/technician_board_filter_button"
             android:layout_width="@dimen/app_touch_target"
             android:layout_height="@dimen/app_touch_target"
-            android:layout_marginEnd="@dimen/app_screen_side_margin"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/app_requests_filters"
             android:scaleType="center"

@@ -188,7 +188,7 @@
                 app:icon="@drawable/ic_camera_20"
                 app:iconGravity="textStart"
                 app:iconPadding="10dp"
-                app:iconSize="20dp"
+                app:iconSize="23dp"
                 app:iconTint="@color/app_on_primary"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintStart_toStartOf="@id/guideStart"

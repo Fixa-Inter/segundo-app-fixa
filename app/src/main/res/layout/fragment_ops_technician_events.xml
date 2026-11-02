@@ -6,11 +6,11 @@
             android:id="@+id/ops_5717_9637"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_41"
-            android:layout_marginTop="@dimen/ops_dp_57_0"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
+            android:layout_marginTop="@dimen/app_events_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_36"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_acompanhe_os_eventos_7206c9"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
@@ -19,7 +19,7 @@
             android:minHeight="@dimen/ops_dp_80"
             android:tag="text:Acompanhe os eventos"
             android:padding="@dimen/ops_dp_0"
-            android:fontFamily="@font/poppins_bold" />
+            android:fontFamily="@font/poppins_bold"  android:maxLines="2"  android:textSize="@dimen/ops_sp_42_0"  android:lineHeight="@dimen/ops_sp_45_0" />
         <TextView
             android:id="@+id/ops_5717_9638"
             android:layout_width="@dimen/ops_dp_123_0"
@@ -82,23 +82,6 @@
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_light"
                 android:maxLines="1" />
-            <TextView
-                android:id="@+id/ops_5717_9664"
-                android:layout_width="@dimen/ops_dp_27"
-                android:layout_height="@dimen/ops_dp_20"
-                android:layout_marginStart="@dimen/ops_dp_17_0"
-                android:layout_marginTop="@dimen/ops_dp_54_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/ops_text_seg_317a55"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.ce27e4d108"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_20"
-                android:tag="text:Seg"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_light"
-                android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9666" android:layout_width="@dimen/ops_dp_60_0" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_109_0" android:layout_marginTop="@dimen/ops_dp_216_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_e1a13aceb8" android:clipChildren="false" android:clipToPadding="false">
             <TextView
@@ -120,23 +103,6 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_9675"
-                android:layout_width="@dimen/ops_dp_22"
-                android:layout_height="@dimen/ops_dp_20"
-                android:layout_marginStart="@dimen/ops_dp_20_0"
-                android:layout_marginTop="@dimen/ops_dp_55_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/ops_text_ter_74ae3f"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.5764966c48"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_20"
-                android:tag="text:Ter"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_light"
-                android:maxLines="1" />
-            <TextView
-                android:id="@+id/ops_5717_9676"
                 android:layout_width="@dimen/ops_dp_22"
                 android:layout_height="@dimen/ops_dp_20"
                 android:layout_marginStart="@dimen/ops_dp_20_0"
@@ -283,7 +249,7 @@
                 android:id="@+id/ops_5717_9645"
                 android:layout_width="@dimen/ops_dp_188_6"
                 android:layout_height="@dimen/ops_dp_24"
-                android:layout_marginStart="@dimen/ops_dp_50_0"
+                android:layout_marginStart="@dimen/ops_dp_63_0"
                 android:layout_marginTop="@dimen/ops_dp_12_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -298,9 +264,9 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_9644"
-                android:layout_width="@dimen/ops_dp_25"
+                android:layout_width="@dimen/ops_dp_40"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ops_dp_15_0"
+                android:layout_marginStart="@dimen/ops_dp_8_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -344,7 +310,7 @@
                 android:id="@+id/ops_5717_9647"
                 android:layout_width="@dimen/ops_dp_8_0"
                 android:layout_height="@dimen/ops_dp_8_0"
-                android:layout_marginStart="@dimen/ops_dp_50_0"
+                android:layout_marginStart="@dimen/ops_dp_63_0"
                 android:layout_marginTop="@dimen/ops_dp_8_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_9645"
@@ -359,7 +325,7 @@
                 android:id="@+id/ops_5717_9656"
                 android:layout_width="@dimen/ops_dp_132_22"
                 android:layout_height="@dimen/ops_dp_24"
-                android:layout_marginStart="@dimen/ops_dp_50_0"
+                android:layout_marginStart="@dimen/ops_dp_63_0"
                 android:layout_marginTop="@dimen/ops_dp_12_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -374,9 +340,9 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_9655"
-                android:layout_width="@dimen/ops_dp_25"
+                android:layout_width="@dimen/ops_dp_40"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ops_dp_15_0"
+                android:layout_marginStart="@dimen/ops_dp_8_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -420,7 +386,7 @@
                 android:id="@+id/ops_5717_9658"
                 android:layout_width="@dimen/ops_dp_8_0"
                 android:layout_height="@dimen/ops_dp_8_0"
-                android:layout_marginStart="@dimen/ops_dp_50_0"
+                android:layout_marginStart="@dimen/ops_dp_63_0"
                 android:layout_marginTop="@dimen/ops_dp_8_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_9656"

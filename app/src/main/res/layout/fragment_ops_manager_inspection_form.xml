@@ -18,11 +18,11 @@
             android:id="@+id/ops_5717_8397"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_26"
+            android:layout_marginStart="@dimen/ops_manager_home_card_side_margin"
             android:layout_marginTop="@dimen/ops_dp_67_0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_50"
+            android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_inspecionar_ap_001_ecbf9f"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
@@ -31,7 +31,9 @@
             android:minHeight="@dimen/ops_dp_81"
             android:tag="text:Inspecionar AP-001"
             android:padding="@dimen/ops_dp_0"
-            android:fontFamily="@font/poppins_bold" />
+            android:fontFamily="@font/poppins_bold"
+            android:lineSpacingExtra="6dp"
+            android:maxLines="2" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8403" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_29_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8397" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Modelo institucional A">
             <View
                 android:id="@+id/ops_5717_8404"
@@ -109,7 +111,7 @@
             android:layout_marginEnd="@dimen/ops_dp_26_0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8407"
-            android:background="@drawable/bg_ops_cdc02687ce"
+            android:background="@drawable/bg_ops_inspection_field"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.4880bc1e34"
@@ -125,7 +127,11 @@
             android:hint="@string/ops_text_escreva_aqui_suas_observacoes_b52ddc"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
-            android:tag="field:Observações (opcional)" android:textColor="@color/app_text_black" />
+            android:tag="field:Observações (opcional)"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/ops_color_ffdee3eb"
+            android:textSize="20sp"
+            android:backgroundTint="@null" />
         <TextView
             android:id="@+id/ops_5717_8408"
             android:layout_width="@dimen/ops_dp_85_08"

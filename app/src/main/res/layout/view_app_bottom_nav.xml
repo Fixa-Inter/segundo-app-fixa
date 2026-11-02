@@ -20,7 +20,7 @@
         android:layout_width="@dimen/app_bottom_nav_indicator_width"
         android:layout_height="@dimen/app_bottom_nav_indicator_height"
         android:layout_marginTop="@dimen/app_bottom_nav_indicator_top_margin"
-        android:background="@color/app_primary"
+        android:background="@drawable/bg_app_nav_indicator"
         app:layout_constraintEnd_toEndOf="@id/navHome"
         app:layout_constraintStart_toStartOf="@id/navHome"
         app:layout_constraintTop_toTopOf="parent" />

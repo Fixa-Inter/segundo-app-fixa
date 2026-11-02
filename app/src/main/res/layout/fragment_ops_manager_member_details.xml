@@ -175,11 +175,12 @@
                 android:layout_width="@dimen/ops_action_icon_size"
                 android:layout_height="@dimen/ops_action_icon_size"
                 android:layout_marginTop="@dimen/ops_dp_23_0"
+                android:layout_marginEnd="12dp"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/figma_452e4"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
-                android:tag="image:chevron-right" android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent" />
+                android:tag="image:chevron-right" app:layout_constraintEnd_toEndOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7693" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_4_0" android:layout_marginEnd="@dimen/ops_dp_4_0" android:layout_marginTop="@dimen/ops_dp_26_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/ops_5717_7685" app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintWidth_max="@dimen/ops_dp_110_0" app:layout_constraintTop_toBottomOf="@id/ops_5717_7673" android:background="@drawable/bg_ops_de2070210e" android:clipChildren="false" android:clipToPadding="false">
                 <TextView
                     android:id="@+id/ops_5717_7694"
