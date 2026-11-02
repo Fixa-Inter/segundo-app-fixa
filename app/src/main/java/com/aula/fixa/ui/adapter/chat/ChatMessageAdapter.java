@@ -12,9 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.HorizontalScrollView;
 import android.animation.ObjectAnimator;
+import android.text.method.LinkMovementMethod;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import io.noties.markwon.Markwon;
+import io.noties.markwon.ext.tables.TablePlugin;
 
 import com.aula.fixa.R;
 import com.aula.fixa.domain.model.chat.ChatEntry;
@@ -32,6 +36,7 @@ public final class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.
     private static final int TYPE_MESSAGE = 0;
     private static final int TYPE_TYPING = 1;
     private final List<ChatEntry> entries;
+    private Markwon markdown;
 
     public ChatMessageAdapter(List<ChatEntry> entries) {
         this.entries = entries;
@@ -45,6 +50,11 @@ public final class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
+        if (markdown == null) {
+            markdown = Markwon.builder(parent.getContext())
+                    .usePlugin(TablePlugin.create(parent.getContext()))
+                    .build();
+        }
         if (type == TYPE_TYPING) {
             return createTypingHolder(parent);
         }
@@ -66,7 +76,7 @@ public final class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.
         bubble.setMaxWidth((int) (parent.getResources().getDisplayMetrics().widthPixels * .78f));
         bubble.setTextSize(15);
         bubble.setTextColor(Color.rgb(24, 28, 40));
-        bubble.setPadding(dp(parent, 14), dp(parent, 11), dp(parent, 14), dp(parent, 6));
+        bubble.setPadding(dp(parent, 14), dp(parent, 8), dp(parent, 14), dp(parent, 8));
         TextView time = new TextView(parent.getContext());
         time.setTextSize(10);
         time.setTextColor(Color.rgb(105, 112, 126));
@@ -94,7 +104,7 @@ public final class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.
         bubble.setGravity(Gravity.CENTER);
         bubble.setOrientation(LinearLayout.HORIZONTAL);
         bubble.setPadding(dp(parent, 13), dp(parent, 8), dp(parent, 13), dp(parent, 8));
-        bubble.setBackground(background(Color.rgb(230, 239, 250), 18, 4, 18, 18));
+        bubble.setBackground(background(Color.rgb(230, 239, 250), 12, 4, 12, 12));
         LinearLayout.LayoutParams bubbleParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         bubbleParams.setMargins(dp(parent, 8), 0, dp(parent, 8), 0);
         bubble.setLayoutParams(bubbleParams);
@@ -139,6 +149,7 @@ public final class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.
             h.bubble.setGravity(Gravity.CENTER);
             h.bubble.setTextColor(Color.rgb(105, 112, 126));
             h.bubble.setTextSize(12);
+            h.bubble.setMovementMethod(null);
             h.bubble.setText(entry.text);
             h.time.setVisibility(View.GONE);
             return;
@@ -156,20 +167,27 @@ public final class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.
         if (assistant) {
             Glide.with(h.avatar).load(emotionAsset(entry.emotion)).circleCrop().into(h.avatar);
             h.column.setGravity(Gravity.START);
-            h.bubble.setBackground(background(Color.rgb(230, 239, 250), 18, 4, 18, 18));
+            h.bubble.setBackground(background(Color.rgb(230, 239, 250), 12, 4, 12, 12));
             h.bubble.setTextColor(Color.rgb(24, 28, 40));
             h.time.setGravity(Gravity.START);
             h.time.setPadding(dp(h.row, 12), dp(h.row, 3), 0, 0);
         } else {
             h.column.setGravity(Gravity.END);
-            h.bubble.setBackground(background(Color.rgb(21, 61, 125), 18, 4, 18, 18));
+            h.bubble.setBackground(background(Color.rgb(21, 61, 125), 12, 4, 12, 12));
             h.bubble.setTextColor(Color.WHITE);
             h.time.setGravity(Gravity.END);
             h.time.setPadding(0, dp(h.row, 3), dp(h.row, 12), 0);
         }
         h.bubble.setTypeface(null, Typeface.NORMAL);
-        h.bubble.setText(("Enviando".equalsIgnoreCase(entry.localStatus) || entry.localStatus == null
-                ? "" : entry.localStatus + "\n") + (entry.text == null ? "" : entry.text));
+        String content = ("Enviando".equalsIgnoreCase(entry.localStatus) || entry.localStatus == null
+                ? "" : entry.localStatus + "\n") + (entry.text == null ? "" : entry.text);
+        if (assistant) {
+            h.bubble.setText(markdown.toMarkdown(content));
+            h.bubble.setMovementMethod(LinkMovementMethod.getInstance());
+        } else {
+            h.bubble.setMovementMethod(null);
+            h.bubble.setText(content);
+        }
         for (int i = h.column.getChildCount() - 2; i >= 1; i--) {
             h.column.removeViewAt(i);
         }
@@ -290,8 +308,8 @@ public final class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.
             float lift = 5 * itemView.getResources().getDisplayMetrics().density;
             for (int i = 0; i < dots.size(); i++) {
                 ObjectAnimator animator = ObjectAnimator.ofFloat(dots.get(i), View.TRANSLATION_Y, 0f, -lift, 0f);
-                animator.setDuration(900);
-                animator.setStartDelay(i * 180L);
+                animator.setDuration(1400);
+                animator.setStartDelay(i * 220L);
                 animator.setRepeatCount(ObjectAnimator.INFINITE);
                 animator.start();
                 animators.add(animator);

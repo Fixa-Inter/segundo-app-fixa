@@ -33,6 +33,7 @@ import com.aula.fixa.ui.adapter.tecnico.TecnicoEquipeAdapter;
 import com.aula.fixa.ui.adapter.tecnico.ResponsabilidadesTecnicoAdapter;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.AppLoading;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.config.operations.ScreenCatalog;
 import com.aula.fixa.ui.view.solicitacao.ManagerRequestFiltersSheet;
 import com.aula.fixa.ui.view.solicitacao.SolicitacaoGestorFluxo;
@@ -61,7 +62,6 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     private com.aula.fixa.ui.view.equipamento.ModeloEquipamentoGestorFluxo modeloEquipamentoGestorFluxo;
     private com.aula.fixa.ui.view.equipamento.EquipamentoGestorFluxo equipamentoGestorFluxo;
     private com.aula.fixa.ui.view.checklist.ChecklistFlow checklistFlow;
-    private com.aula.fixa.ui.view.notifications.NotificationSettingsController notificationSettings;
     private com.aula.fixa.ui.view.chatbot.ChatbotFlow chatbotFlow;
     private final ActivityResultLauncher<String> chatbotPhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(), uris -> {
@@ -121,9 +121,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             return;
         }
         android.widget.FrameLayout host = (android.widget.FrameLayout) getView();
+        if (chatbotFlow != null) { chatbotFlow.close(); chatbotFlow = null; }
         String requestedScreen = requireArguments().getString("screen", "manager_home");
         String screen = sharedManagerScreen(requestedScreen);
-        if (chatbotFlow != null) { chatbotFlow.close(); chatbotFlow = null; }
         if ("manager_board".equals(screen)) {
             ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId", "");
         }
@@ -137,18 +137,12 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 ? com.aula.fixa.R.layout.fragment_new_request_confirm
                 : "manager_planning".equals(screen)
                 ? com.aula.fixa.R.layout.fragment_ops_manager_requests
-                : isChatbotScreen(screen) ? R.layout.fragment_chatbot
+                : screen.endsWith("_chatbot")
+                ? com.aula.fixa.R.layout.fragment_chatbot
                 : ScreenCatalog.get(requireContext()).layout(requireContext(), screen);
         View content = getLayoutInflater().inflate(screenLayout, host, false);
         host.addView(content);
-        if ("manager_settings".equals(screen) || "technician_settings".equals(screen)) {
-            int toggleId = "technician_settings".equals(screen)
-                    ? R.id.ops_5717_10114 : R.id.ops_5717_7532;
-            View toggle = content.findViewById(toggleId);
-            if (toggle != null && notificationSettings == null) {
-                notificationSettings = new com.aula.fixa.ui.view.notifications.NotificationSettingsController(this, toggle);
-            }
-        }
+         styleSharedFormFields(content);
         if ("manager_home".equals(screen) || "technician_home".equals(requestedScreen)) {
             content.setVisibility(View.INVISIBLE);
             if (homeLoading != null) {
@@ -159,13 +153,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             AppLoading.hide(homeLoading);
             homeLoading = null;
         }
-        if (!managerOccurrenceCreate && !managerCategories && !managerMemberDetails && !isChatbotScreen(screen)) {
+        if (!managerOccurrenceCreate && !managerCategories && !managerMemberDetails) {
             OperationsBinder binder = new OperationsBinder((OperationsActivity) requireActivity(), content, screen, null);
             binder.bind();
-        }
-        if (isChatbotScreen(screen)) {
-            chatbotFlow = new com.aula.fixa.ui.view.chatbot.ChatbotFlow(this, content,
-                    () -> chatbotPhotoPicker.launch("image/*"));
         }
         if ("technician_management".equals(screen)) {
             View boardCard = content.findViewById(R.id.ops_5717_9720);
@@ -185,6 +175,10 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         if ("manager_assign_member".equals(screen)) {
             bindAvailableTechnicians(content, (OperationsActivity) requireActivity());
+        }
+        if (screen.endsWith("_chatbot")) {
+            chatbotFlow = new com.aula.fixa.ui.view.chatbot.ChatbotFlow(
+                    this, content, () -> chatbotPhotoPicker.launch("image/*"));
         }
         if ("manager_team".equals(screen)) {
             bindTeamTechnicians(content);
@@ -218,11 +212,16 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         String editingOrder = ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId");
         if ("manager_plan_information".equals(screen) && editingOrder != null && !editingOrder.trim().isEmpty()) {
             bindOrderEditInformation(content, (OperationsActivity) requireActivity());
+        } else if ("manager_plan_information".equals(screen)) {
+            bindPlanningCreateStepIndicator(content, 1);
         }
         if ("manager_assign_member".equals(screen) && editingOrder != null && !editingOrder.trim().isEmpty()) {
             bindOrderEditTechnician(content);
+        } else if ("manager_assign_member".equals(screen)) {
+            bindPlanningCreateStepIndicator(content, 3);
         }
         if ("manager_planning_tasks".equals(screen)) {
+            bindPlanningCreateStepIndicator(content, 2);
             planejamentoTarefasFluxo = new PlanejamentoTarefasFluxo(this, (OperationsActivity) requireActivity(), content);
             planejamentoTarefasFluxo.bind();
         } else {
@@ -310,14 +309,46 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
             ocorrenciaGestorFluxo.bindEditPhotos(content);
         }
+        content.post(() -> com.aula.fixa.ui.config.TwoToneTitleStyler.apply(content));
     }
 
-    private boolean isChatbotScreen(String screen) {
-        return "manager_chatbot".equals(screen) || "technician_chatbot".equals(screen);
+    private void styleSharedFormFields(View view) {
+        if (view instanceof android.widget.EditText) {
+            android.widget.EditText field = (android.widget.EditText) view;
+            field.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.app_text_black));
+            field.setHintTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.ops_color_ff637087));
+            field.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(requireContext(), R.font.poppins_regular));
+            if ("field:Pesquisar".equals(field.getTag())) field.setHint("Pesquisar...");
+        }
+        if (!(view instanceof ViewGroup)) return;
+        ViewGroup group = (ViewGroup) view;
+        boolean hasSearchField = false;
+        for (int i = 0; i < group.getChildCount(); i++) {
+            View child = group.getChildAt(i);
+            if (child instanceof android.widget.EditText && "field:Pesquisar".equals(child.getTag())) hasSearchField = true;
+        }
+        if (hasSearchField) {
+            for (int i = 0; i < group.getChildCount(); i++) {
+                View child = group.getChildAt(i);
+                Object tag = child.getTag();
+                CharSequence description = child.getContentDescription();
+                boolean searchIcon = "image:search".equals(tag)
+                        || description != null && (description.toString().toLowerCase(java.util.Locale.ROOT).contains("pesquis")
+                        || description.toString().toLowerCase(java.util.Locale.ROOT).contains("search"));
+                if (searchIcon && child instanceof android.widget.ImageView) {
+                    android.widget.ImageView icon = (android.widget.ImageView) child;
+                    icon.setImageResource(R.drawable.ic_search_26);
+                    icon.setColorFilter(androidx.core.content.ContextCompat.getColor(requireContext(), android.R.color.white));
+                    if (!(icon instanceof android.widget.ImageButton)) icon.setTranslationX(-getResources().getDisplayMetrics().density * 10f);
+                }
+            }
+        }
+        for (int i = 0; i < group.getChildCount(); i++) styleSharedFormFields(group.getChildAt(i));
     }
 
     private boolean isManagerOccurrenceCreateScreen(String screen) {
         return "manager_occurrence_intro".equals(screen)
+                || "manager_occurrence_basic".equals(screen)
                 || "manager_occurrence_service".equals(screen)
                 || "manager_occurrence_location".equals(screen)
                 || ("manager_occurrence_result".equals(screen)
@@ -337,6 +368,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
 
     private int managerOccurrenceLayout(String screen) {
         if ("manager_occurrence_intro".equals(screen)) {
+            return R.layout.fragment_ops_manager_occurrence_intro;
+        }
+        if ("manager_occurrence_basic".equals(screen)) {
             return R.layout.fragment_ops_manager_occurrence_create_basic;
         }
         if ("manager_occurrence_service".equals(screen)) {
@@ -528,6 +562,20 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
 
     private void bindOrderEditInformation(View content, OperationsActivity activity) {
         hidePlanningTimeline(content);
+        hidePlanningCreateIndicator(content);
+        styleOrderEditTitle(content, R.id.ops_5717_6240);
+        styleOrderEditLabel(content, R.id.ops_5717_6259);
+        styleOrderEditLabel(content, R.id.ops_5717_6239);
+        styleOrderEditLabel(content, R.id.ops_plan_due_date_label);
+        setOrderEditTopMarginDp(content, R.id.ops_5717_6259, 12);
+        styleOrderEditField(content, R.id.ops_5717_6260);
+        styleOrderEditField(content, R.id.ops_5717_6263);
+        positionOrderEditPriority(content);
+        setOrderEditTopMarginDp(content, R.id.ops_plan_due_date_label, 18);
+        styleOrderEditMonthSelector(content);
+        styleOrderEditCalendar(content);
+        styleOrderEditActions(content, R.id.ops_5717_8889,
+                R.id.ops_5717_6255, R.id.ops_5717_6257, false, dp(42));
         View next = content.findViewWithTag("action:Próximo");
         if (next != null) {
             next.setOnClickListener(v -> {
@@ -549,6 +597,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     private void bindOrderEditTechnician(View content) {
+        hidePlanningCreateIndicator(content);
         for (int id : new int[]{com.aula.fixa.R.id.ops_assign_step_1, com.aula.fixa.R.id.ops_assign_step_2,
                 com.aula.fixa.R.id.ops_assign_step_number_1, com.aula.fixa.R.id.ops_assign_step_number_2,
                 com.aula.fixa.R.id.ops_assign_step_line, com.aula.fixa.R.id.ops_assign_step_label_1,
@@ -563,6 +612,11 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 v.setVisibility(View.GONE);
             }
         }
+        styleOrderEditTitle(content, R.id.ops_5717_8739);
+        styleOrderEditLabel(content, R.id.ops_5717_8743);
+        styleOrderEditTechnicianList(content);
+        styleOrderEditActions(content, R.id.ops_available_technicians_container,
+                R.id.ops_5717_8745, R.id.ops_5717_8744, true, dp(150));
         View finish = content.findViewWithTag("action:Finalizar");
         if (finish instanceof android.widget.TextView) {
             ((android.widget.TextView) finish).setText("Salvar");
@@ -575,6 +629,386 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if (backArrow != null) {
             backArrow.setOnClickListener(v -> ((OperationsActivity) requireActivity()).returnFromPlanningAssignment(true));
         }
+    }
+
+    private void styleOrderEditTitle(View content, int titleId) {
+        View view = content.findViewById(titleId);
+        if (!(view instanceof TextView)) return;
+        TextView title = (TextView) view;
+        androidx.core.widget.TextViewCompat.setTextAppearance(title, R.style.TextAppearance_FIXA_App_StepTitle);
+        title.setIncludeFontPadding(false);
+        title.setGravity(android.view.Gravity.START | android.view.Gravity.CENTER_VERTICAL);
+        title.setMinHeight(0);
+        title.setPadding(0, 0, 0, 0);
+        if (title.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) title.getLayoutParams();
+            int side = getResources().getDimensionPixelSize(R.dimen.app_step_title_margin_start);
+            params.width = params.width == 0
+                    ? androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                    : ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.setMarginStart(side);
+            params.setMarginEnd(side);
+            params.topMargin = getResources().getDimensionPixelSize(R.dimen.app_step_title_margin_top);
+            title.setLayoutParams(params);
+        }
+    }
+
+    private void styleOrderEditLabel(View content, int labelId) {
+        View view = content.findViewById(labelId);
+        if (!(view instanceof TextView)) return;
+        TextView label = (TextView) view;
+        androidx.core.widget.TextViewCompat.setTextAppearance(label, R.style.TextAppearance_FIXA_App_Step_Label);
+        label.setIncludeFontPadding(false);
+        label.setGravity(android.view.Gravity.START | android.view.Gravity.CENTER_VERTICAL);
+        label.setMinHeight(0);
+        label.setPadding(0, 0, 0, 0);
+        if (label.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) label.getLayoutParams();
+            params.width = params.width == 0
+                    ? androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                    : ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.setMarginStart(getResources().getDimensionPixelSize(R.dimen.app_step_label_margin_start));
+            params.topMargin = getResources().getDimensionPixelSize(R.dimen.app_step_label_margin_top);
+            label.setLayoutParams(params);
+        }
+    }
+
+    private void setOrderEditTopMarginDp(View content, int viewId, int marginDp) {
+        View view = content.findViewById(viewId);
+        if (view == null || !(view.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) view.getLayoutParams();
+        params.topMargin = dp(marginDp);
+        view.setLayoutParams(params);
+    }
+
+    private void styleOrderEditField(View content, int fieldId) {
+        View field = content.findViewById(fieldId);
+        if (!(field instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) field.getLayoutParams();
+        int side = getResources().getDimensionPixelSize(R.dimen.app_step_label_margin_start);
+        params.width = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
+        params.height = getResources().getDimensionPixelSize(R.dimen.app_step_field_height);
+        params.setMarginStart(side);
+        params.setMarginEnd(side);
+        params.topMargin = dp(4);
+        field.setLayoutParams(params);
+        field.setBackgroundResource(R.drawable.bg_app_step_field);
+
+        if (field instanceof ViewGroup) {
+            ViewGroup container = (ViewGroup) field;
+            for (int i = 0; i < container.getChildCount(); i++) {
+                View child = container.getChildAt(i);
+                if (child instanceof android.widget.EditText) {
+                    android.widget.EditText input = (android.widget.EditText) child;
+                    androidx.core.widget.TextViewCompat.setTextAppearance(input, R.style.TextAppearance_FIXA_App_Step_Field);
+                    input.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.app_text_black));
+                    input.setHintTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.app_text_placeholder_dark));
+                    input.setIncludeFontPadding(false);
+                    int padding = getResources().getDimensionPixelSize(R.dimen.app_step_field_padding_start);
+                    input.setPaddingRelative(padding, 0, padding, 0);
+                    input.setGravity(android.view.Gravity.START | android.view.Gravity.CENTER_VERTICAL);
+                } else if (child instanceof android.widget.ImageView
+                        && child.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+                    androidx.constraintlayout.widget.ConstraintLayout.LayoutParams iconParams =
+                            (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) child.getLayoutParams();
+                    iconParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+                    iconParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+                    iconParams.topMargin = 0;
+                    iconParams.bottomMargin = 0;
+                    iconParams.setMarginEnd(dp(8));
+                    child.setLayoutParams(iconParams);
+                }
+            }
+        }
+    }
+
+    private void positionOrderEditPriority(View content) {
+        View label = content.findViewById(R.id.ops_5717_6239);
+        if (label == null || !(label.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) label.getLayoutParams();
+        params.topToBottom = R.id.ops_5717_6260;
+        params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        params.topMargin = dp(4);
+        label.setLayoutParams(params);
+    }
+
+    private void styleOrderEditMonthSelector(View content) {
+        View selector = content.findViewById(R.id.ops_5717_8884);
+        if (selector == null || !(selector.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) selector.getLayoutParams();
+        params.height = dp(39);
+        params.topToTop = R.id.ops_plan_due_date_label;
+        params.bottomToBottom = R.id.ops_plan_due_date_label;
+        params.setMarginStart(dp(8));
+        params.setMarginEnd(getResources().getDimensionPixelSize(R.dimen.app_step_label_margin_start));
+        params.topMargin = 0;
+        params.bottomMargin = 0;
+        selector.setLayoutParams(params);
+        selector.setBackgroundResource(R.drawable.bg_ops_b3c2842933);
+        TextView month = content.findViewById(R.id.ops_5717_8885);
+        if (month != null) {
+            month.setTextSize(11);
+            month.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(requireContext(), R.font.poppins_medium));
+            month.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.app_on_primary));
+            month.setGravity(android.view.Gravity.CENTER_VERTICAL);
+            month.setIncludeFontPadding(false);
+        }
+        View arrow = content.findViewById(R.id.ops_5717_8886);
+        if (arrow instanceof android.widget.ImageView) {
+            ((android.widget.ImageView) arrow).setColorFilter(
+                    androidx.core.content.ContextCompat.getColor(requireContext(), R.color.app_on_primary));
+        }
+    }
+
+    private void styleOrderEditCalendar(View content) {
+        View calendar = content.findViewById(R.id.ops_5717_8889);
+        if (calendar == null || !(calendar.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) calendar.getLayoutParams();
+        int side = getResources().getDimensionPixelSize(R.dimen.app_step_label_margin_start);
+        params.setMarginStart(side);
+        params.setMarginEnd(side);
+        params.topMargin = dp(16);
+        calendar.setLayoutParams(params);
+    }
+
+    private void styleOrderEditTechnicianList(View content) {
+        if (content instanceof ViewGroup && ((ViewGroup) content).getChildCount() > 0) {
+            ((ViewGroup) content).getChildAt(0).setMinimumHeight(0);
+        }
+        View list = content.findViewById(R.id.ops_available_technicians_container);
+        if (list == null || !(list.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) list.getLayoutParams();
+        int side = getResources().getDimensionPixelSize(R.dimen.app_step_label_margin_start);
+        params.setMarginStart(side);
+        params.setMarginEnd(side);
+        params.topMargin = getResources().getDimensionPixelSize(R.dimen.app_step_field_margin_top);
+        list.setLayoutParams(params);
+    }
+
+    private void styleOrderEditActions(View content, int anchorId, int cancelId, int primaryId,
+                                       boolean cancelIsContainer, int extraTopMargin) {
+        int height = getResources().getDimensionPixelSize(R.dimen.app_button_height_lg);
+        int top = extraTopMargin > 0 ? extraTopMargin
+                : getResources().getDimensionPixelSize(R.dimen.app_step_section_margin_top);
+        int backStart = getResources().getDimensionPixelSize(R.dimen.app_step_back_margin_start);
+        int sideEnd = getResources().getDimensionPixelSize(R.dimen.app_step_actions_side_margin);
+        int buttonWidth = getResources().getDimensionPixelSize(R.dimen.app_button_step_width);
+        View cancel = content.findViewById(cancelId);
+        View primary = content.findViewById(primaryId);
+        if (cancel != null && cancel.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancel.getLayoutParams();
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.height = height;
+            params.setMarginStart(backStart);
+            params.setMarginEnd(0);
+            params.topMargin = top;
+            params.bottomMargin = 0;
+            params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.endToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.topToBottom = anchorId;
+            cancel.setLayoutParams(params);
+            cancel.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+            if (cancelIsContainer && cancel instanceof ViewGroup && ((ViewGroup) cancel).getChildCount() > 0) {
+                View child = ((ViewGroup) cancel).getChildAt(0);
+                if (child instanceof TextView) {
+                    TextView text = (TextView) child;
+                    androidx.core.widget.TextViewCompat.setTextAppearance(text, R.style.TextAppearance_FIXA_App_Step_Action);
+                    text.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.app_text_black));
+                    text.setGravity(android.view.Gravity.CENTER);
+                    text.setIncludeFontPadding(false);
+                    text.setMinWidth(0);
+                    text.setMinHeight(0);
+                    text.setPadding(0, 0, 0, 0);
+                    if (text.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+                        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams childParams =
+                                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) text.getLayoutParams();
+                        childParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                        childParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        childParams.setMarginStart(0);
+                        childParams.topMargin = 0;
+                        text.setLayoutParams(childParams);
+                    }
+                }
+            } else if (cancel instanceof TextView) {
+                TextView text = (TextView) cancel;
+                androidx.core.widget.TextViewCompat.setTextAppearance(text, R.style.TextAppearance_FIXA_App_Step_Action);
+                text.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.app_text_black));
+                text.setGravity(android.view.Gravity.CENTER);
+                text.setIncludeFontPadding(false);
+                text.setMinWidth(0);
+                text.setMinHeight(0);
+                text.setPadding(0, 0, 0, 0);
+            }
+        }
+        if (primary != null && primary.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) primary.getLayoutParams();
+            params.width = buttonWidth;
+            params.height = height;
+            params.setMarginStart(0);
+            params.setMarginEnd(sideEnd);
+            params.topMargin = 0;
+            params.bottomMargin = 0;
+            params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.startToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+            params.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.topToTop = cancelId;
+            params.bottomToBottom = cancelId;
+            primary.setLayoutParams(params);
+            primary.setBackgroundResource(R.drawable.bg_ops_e9ff3d87c6);
+            primary.setPadding(0, 0, 0, 0);
+            primary.setMinimumWidth(0);
+            primary.setMinimumHeight(0);
+            if (primary instanceof TextView) {
+                TextView text = (TextView) primary;
+                androidx.core.widget.TextViewCompat.setTextAppearance(text, R.style.TextAppearance_FIXA_App_Step_Action);
+                text.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.app_on_primary));
+                text.setIncludeFontPadding(false);
+                text.setAllCaps(false);
+                text.setGravity(android.view.Gravity.CENTER);
+                android.graphics.Typeface regular = androidx.core.content.res.ResourcesCompat.getFont(requireContext(), R.font.poppins_regular);
+                if (regular != null) text.setTypeface(regular);
+            }
+            if (primary instanceof androidx.appcompat.widget.AppCompatButton) {
+                ((androidx.appcompat.widget.AppCompatButton) primary).setSupportBackgroundTintList(null);
+            }
+        }
+    }
+
+    private void bindPlanningCreateStepIndicator(View content, int currentStep) {
+        View indicator = content.findViewById(R.id.ops_create_planning_step_indicator);
+        if (indicator == null) return;
+        indicator.setVisibility(View.VISIBLE);
+
+        String screen = requireArguments().getString("screen", "");
+        if ("manager_plan_information".equals(screen)) {
+            hidePlanningTimeline(content);
+        } else if ("manager_planning_tasks".equals(screen)) {
+            hidePlanningTasksTimeline(content);
+        } else if ("manager_assign_member".equals(screen)) {
+            hidePlanningAssignmentTimeline(content);
+        }
+
+        int[] circles = {R.id.tvStep1, R.id.tvStep2, R.id.tvStep3};
+        int[] labels = {R.id.tvStep1Label, R.id.tvStep2Label, R.id.tvStep3Label};
+        String[] names = {getString(R.string.ops_text_informacoes_07156d),
+                getString(R.string.ops_text_tarefas_4b2b8a),
+                getString(R.string.ops_planning_assign_technician)};
+        for (int i = 0; i < circles.length; i++) {
+            int state = i + 1 < currentStep ? 0 : i + 1 == currentStep ? 1 : 2;
+            View circle = indicator.findViewById(circles[i]);
+            TextView label = indicator.findViewById(labels[i]);
+            if (circle != null) {
+                circle.setBackgroundResource(state == 0 ? R.drawable.bg_app_circle_done
+                        : state == 1 ? R.drawable.bg_app_circle_primary : R.drawable.bg_app_circle_muted);
+            }
+            if (label != null) {
+                label.setText(names[i]);
+                label.setSingleLine(true);
+                label.setMaxLines(1);
+                label.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                label.setGravity(android.view.Gravity.CENTER);
+                if (label.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+                    androidx.constraintlayout.widget.ConstraintLayout.LayoutParams labelParams =
+                            (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) label.getLayoutParams();
+                    labelParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    label.setLayoutParams(labelParams);
+                }
+                int color = state == 0 ? R.color.app_status_done
+                        : state == 1 ? R.color.app_primary : R.color.app_text_muted;
+                label.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), color));
+            }
+        }
+
+        int[] lines = {R.id.viewLine1, R.id.viewLine2};
+        for (int i = 0; i < lines.length; i++) {
+            View line = indicator.findViewById(lines[i]);
+            if (line == null) continue;
+            if (currentStep > i + 1) {
+                line.setBackgroundResource(R.drawable.bg_app_indicator_line_done);
+            } else if (currentStep == i + 1) {
+                line.setBackgroundResource(R.drawable.bg_app_indicator_line_progress);
+                if (line.getBackground() != null) line.getBackground().setLevel(5000);
+            } else {
+                line.setBackgroundResource(R.drawable.bg_app_indicator_line_pending);
+            }
+        }
+
+        int[] actions;
+        if ("manager_plan_information".equals(screen)) {
+            actions = new int[]{R.id.ops_5717_6255, R.id.ops_5717_6257};
+        } else if ("manager_planning_tasks".equals(screen)) {
+            actions = new int[]{R.id.ops_5717_8514, R.id.ops_5717_8516};
+        } else {
+            actions = new int[]{R.id.ops_5717_8745, R.id.ops_5717_8744};
+        }
+        movePlanningActionsBelowIndicator(content, actions);
+    }
+
+    private void hidePlanningTasksTimeline(View content) {
+        for (int id : new int[]{R.id.ops_5717_8506, R.id.ops_5717_8509, R.id.ops_5717_8507,
+                R.id.ops_5717_8510, R.id.ops_shape_1, R.id.ops_shape_2, R.id.ops_5717_8503,
+                R.id.ops_5717_8504, R.id.ops_tasks_step_3_circle, R.id.ops_tasks_step_3_number,
+                R.id.ops_tasks_step_connector_2, R.id.ops_tasks_step_3_label}) {
+            View view = content.findViewById(id);
+            if (view != null) view.setVisibility(View.GONE);
+        }
+    }
+
+    private void hidePlanningAssignmentTimeline(View content) {
+        for (int id : new int[]{R.id.ops_assign_step_1, R.id.ops_assign_step_2,
+                R.id.ops_assign_step_number_1, R.id.ops_assign_step_number_2,
+                R.id.ops_assign_step_line, R.id.ops_assign_step_label_1,
+                R.id.ops_assign_step_line_1_progress, R.id.ops_assign_step_label_2,
+                R.id.ops_assign_step_3, R.id.ops_assign_step_number_3,
+                R.id.ops_assign_step_line_2, R.id.ops_assign_step_line_2_progress,
+                R.id.ops_assign_step_label_3}) {
+            View view = content.findViewById(id);
+            if (view != null) view.setVisibility(View.GONE);
+        }
+    }
+
+    private void movePlanningActionsBelow(View content, int anchorId, int... actionIds) {
+        for (int actionId : actionIds) {
+            View action = content.findViewById(actionId);
+            if (action == null || !(action.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) {
+                continue;
+            }
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) action.getLayoutParams();
+            params.topToBottom = anchorId;
+            params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            action.setLayoutParams(params);
+        }
+    }
+
+    private void movePlanningActionsBelowIndicator(View content, int... actionIds) {
+        movePlanningActionsBelow(content, R.id.ops_create_planning_step_indicator, actionIds);
+    }
+
+    private void hidePlanningCreateIndicator(View content) {
+        View indicator = content.findViewById(R.id.ops_create_planning_step_indicator);
+        if (indicator != null) indicator.setVisibility(View.GONE);
     }
 
     private void hidePlanningTimeline(View content) {
@@ -606,6 +1040,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if (list == null || empty == null) {
             return;
         }
+        EmptyStateStyler.apply(empty);
         list.setNestedScrollingEnabled(false);
         list.setClipToPadding(false);
         list.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -645,6 +1080,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                     empty.setVisibility(View.VISIBLE);
                     list.setVisibility(View.GONE);
                 } else {
+                    empty.setOnClickListener(null);
                     empty.setVisibility(View.GONE);
                 }
             }
@@ -661,9 +1097,6 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 empty.setOnClickListener(v -> {
                     activity.refresh();
                 });
-                android.widget.Toast.makeText(requireContext(),
-                        com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error),
-                        android.widget.Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -674,6 +1107,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if (list == null || empty == null) {
             return;
         }
+        EmptyStateStyler.apply(empty);
         list.setLayoutManager(new LinearLayoutManager(requireContext()));
         list.setNestedScrollingEnabled(false);
         list.setClipToPadding(false);
@@ -703,6 +1137,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 list.setVisibility(values.isEmpty() ? View.GONE : View.VISIBLE);
                 empty.setText(values.isEmpty() ? "Sem técnicos cadastrados." : "");
                 empty.setVisibility(values.isEmpty() ? View.VISIBLE : View.GONE);
+                empty.setOnClickListener(null);
             }
 
             @Override
@@ -715,9 +1150,6 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 empty.setText("Não foi possível carregar os técnicos. Toque para tentar novamente.");
                 empty.setVisibility(View.VISIBLE);
                 empty.setOnClickListener(v -> bindTeamTechnicians(content));
-                android.widget.Toast.makeText(requireContext(),
-                        com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error),
-                        android.widget.Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -788,6 +1220,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             id = 0;
         }
         if (id <= 0) {
+            EmptyStateStyler.showBelowBack(content, "Técnico não encontrado.", null);
             return;
         }
         Dialog loading = AppLoading.show(requireContext());
@@ -800,6 +1233,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 if (!isAdded() || getView() == null || !content.isAttachedToWindow()) {
                     return;
                 }
+                EmptyStateStyler.removeFromRoot(content);
                 if (activeCount != null) {
                     activeCount.setText(String.valueOf(data.ordensAtivas));
                 }
@@ -821,9 +1255,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 if (!isAdded() || getView() == null || !content.isAttachedToWindow()) {
                     return;
                 }
-                android.widget.Toast.makeText(requireContext(),
-                        com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error),
-                        android.widget.Toast.LENGTH_LONG).show();
+                EmptyStateStyler.showBelowBack(content,
+                        "Não foi possível carregar os dados do técnico. Toque para tentar novamente.",
+                        () -> bindMemberDetails(content));
             }
         });
     }
@@ -1155,9 +1589,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     private android.widget.GridLayout.LayoutParams calendarCell(int row, int column, int height) {
         android.widget.GridLayout.LayoutParams params = new android.widget.GridLayout.LayoutParams(
                 android.widget.GridLayout.spec(row), android.widget.GridLayout.spec(column, 1f));
-        params.width = 0;
+        params.width = height;
         params.height = height;
-        params.setGravity(android.view.Gravity.FILL_HORIZONTAL);
+        params.setGravity(android.view.Gravity.CENTER);
         return params;
     }
 
@@ -1232,12 +1666,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 if (!isAdded() || getView() != host || host.indexOfChild(content) < 0) {
                     return;
                 }
-                OperationsData.bindEmptyManagerHome((OperationsActivity) requireActivity(), content);
                 AppLoading.hide(homeLoading);
                 homeLoading = null;
-                content.setVisibility(View.VISIBLE);
-                android.widget.Toast.makeText(requireContext(), com.aula.fixa.R.string.ops_home_load_error,
-                        android.widget.Toast.LENGTH_LONG).show();
+                showHomeLoadError(host, content);
             }
         });
     }
@@ -1251,14 +1682,16 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             if (!isAdded() || getView() != host || host.indexOfChild(content) < 0) return;
             if (pending[0] != 0) return;
             try {
-                OperationsData.bindTechnicianHome((OperationsActivity) requireActivity(), content,
-                        failed[0] ? null : profile[0], failed[0] ? java.util.Collections.emptyList() : orders[0]);
-                content.setVisibility(View.VISIBLE);
+                if (failed[0]) {
+                    showHomeLoadError(host, content);
+                } else {
+                    OperationsData.bindTechnicianHome((OperationsActivity) requireActivity(), content, profile[0], orders[0]);
+                    content.setVisibility(View.VISIBLE);
+                }
             } finally {
                 AppLoading.hide(homeLoading);
                 homeLoading = null;
             }
-            if (failed[0]) android.widget.Toast.makeText(requireContext(), R.string.ops_home_load_error, android.widget.Toast.LENGTH_LONG).show();
         };
         new ViewModelProvider(this, new com.aula.fixa.adapter.perfil.PerfilViewModelFactory(requireContext()))
                 .get(com.aula.fixa.adapter.perfil.PerfilViewModel.class).obter(new com.aula.fixa.adapter.perfil.PerfilViewModel.Callback<com.aula.fixa.domain.model.Perfil>() {
@@ -1270,6 +1703,11 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                     @Override public void success(java.util.List<com.aula.fixa.domain.model.os.OrdemServicoQuadro> result) { orders[0] = result; pending[0]--; complete.run(); }
                     @Override public void failure(Throwable error) { failed[0] = true; pending[0]--; complete.run(); }
                 });
+    }
+
+    private void showHomeLoadError(android.widget.FrameLayout host, View content) {
+        if (!isAdded() || host == null || content == null || content.getParent() != host) return;
+        content.setVisibility(View.GONE);
     }
 
     @Override
@@ -1306,17 +1744,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     public void onResume() {
         super.onResume();
         if (chatbotFlow != null) chatbotFlow.onResume();
-        if (notificationSettings != null) notificationSettings.onResume();
         boolean initialResume = firstResume;
         firstResume = false;
         String screen = requireArguments().getString("screen", "");
-        if ("manager_home".equals(screen) || "technician_home".equals(screen)) {
-            View view = getView();
-            if (view instanceof android.view.ViewGroup) {
-                View badge = view.findViewById(R.id.viewUnreadNotificationsBadge);
-                com.aula.fixa.ui.view.notifications.NotificationBadge.load(requireContext(), badge);
-            }
-        }
         if ("manager_planning_tasks".equals(screen) && planejamentoTarefasFluxo != null) {
             planejamentoTarefasFluxo.maybeShowFirstTaskPrompt();
         }
