@@ -256,9 +256,15 @@ public final class SolicitacaoGestorFluxo {
         viewModel.updateStatus(id, status, reason, new SolicitacaoGestorViewModel.Callback<SolicitacaoGestor>() {
             @Override public void success(SolicitacaoGestor value) {
                 if (!host.isAdded()) return;
-                Toast.makeText(host.requireContext(), status == StatusProblema.APROVADO
-                        ? "Solicitação aprovada." : "Solicitação reprovada.", Toast.LENGTH_SHORT).show();
-                host.requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                if (status == StatusProblema.APROVADO) {
+                    android.os.Bundle args = new android.os.Bundle();
+                    args.putLong("requestId", id);
+                    OperationsDialogFragment.create("manager_request_approved", args)
+                            .show(activity.getSupportFragmentManager(), "ops_dialog");
+                } else {
+                    Toast.makeText(host.requireContext(), "Solicitação reprovada.", Toast.LENGTH_SHORT).show();
+                    host.requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                }
             }
             @Override public void failure(Throwable error) {
                 if (host.isAdded()) Toast.makeText(host.requireContext(),

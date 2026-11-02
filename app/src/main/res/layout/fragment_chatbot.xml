@@ -32,6 +32,21 @@
             app:srcCompat="@drawable/ic_menu_24"
             app:tint="@color/app_primary_dark" />
 
+        <ImageButton
+            android:id="@+id/btnOpenDrawer"
+            android:layout_width="@dimen/app_touch_target"
+            android:layout_height="@dimen/app_touch_target"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="27dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_chat_open_menu"
+            android:scaleType="center"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_menu_24"
+            app:tint="@color/app_primary_dark" />
+
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"

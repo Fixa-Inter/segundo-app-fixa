@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/planningTaskCard"
     android:layout_width="match_parent"
-    android:layout_height="104dp"
-    android:layout_marginBottom="14dp"
+    android:layout_height="92dp"
+    android:layout_marginBottom="12dp"
     android:background="@drawable/bg_ops_892fe1afbe"
     android:elevation="@dimen/ops_dp_2"
-    android:clipChildren="false"
+    android:clipToOutline="true"
+    android:clipChildren="true"
     android:clipToPadding="false">
 
     <View
@@ -16,14 +17,14 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/app_text_muted" />
+        android:background="@drawable/bg_app_planning_task_status" />
 
     <TextView
         android:id="@+id/planningTaskTitle"
         android:layout_width="0dp"
-        android:layout_height="26dp"
+        android:layout_height="24dp"
         android:layout_marginStart="@dimen/ops_dp_30_0"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="13dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/ops_dp_30_0"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +59,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="8dp"
         android:src="@drawable/figma_499de"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
         android:contentDescription="@string/ops_task_options" />
 </androidx.constraintlayout.widget.ConstraintLayout>

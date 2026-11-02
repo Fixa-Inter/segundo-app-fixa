@@ -273,6 +273,8 @@
     </fragment>
     <fragment android:id="@+id/ops_technician_occurrence_details" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_details_35f190">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_occurrence_details" />
+        <argument android:name="occurrenceId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="occurrenceTitle" app:argType="string" android:defaultValue="" />
     </fragment>
     <fragment android:id="@+id/ops_technician_chatbot" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_chatbot_386ebc">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_chatbot" />

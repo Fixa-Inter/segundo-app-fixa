@@ -10,6 +10,7 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,10 +39,38 @@ public class ChatbotFragment extends Fragment {
     }
 
     public static void bindUi(@NonNull View view) {
+        bindUi(view, false, null);
+    }
+
+    public static void bindUi(@NonNull View view, boolean manager, @Nullable Runnable onBack) {
         DrawerLayout drawer = view.findViewById(R.id.drawerChat);
         ((TextView) view.findViewById(R.id.tvGreeting)).setText(view.getContext().getString(R.string.app_chat_greeting, "Rapha"));
 
-        view.findViewById(R.id.btnMenu).setOnClickListener(v -> drawer.openDrawer(Gravity.START));
+        ImageButton backOrMenu = view.findViewById(R.id.btnMenu);
+        ImageButton openDrawer = view.findViewById(R.id.btnOpenDrawer);
+        View drawerView = view.findViewById(R.id.drawerMenu);
+        if (manager) {
+            backOrMenu.setImageResource(R.drawable.ic_arrow_left_26);
+            backOrMenu.setContentDescription(view.getContext().getString(R.string.app_chat_back));
+            backOrMenu.setOnClickListener(v -> { if (onBack != null) onBack.run(); });
+            openDrawer.setVisibility(View.VISIBLE);
+            openDrawer.setOnClickListener(v -> drawer.openDrawer(Gravity.END));
+            if (drawerView != null && drawerView.getLayoutParams() instanceof DrawerLayout.LayoutParams) {
+                DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) drawerView.getLayoutParams();
+                params.gravity = Gravity.END;
+                drawerView.setLayoutParams(params);
+            }
+        } else {
+            backOrMenu.setImageResource(R.drawable.ic_menu_24);
+            backOrMenu.setContentDescription(view.getContext().getString(R.string.app_chat_open_menu));
+            backOrMenu.setOnClickListener(v -> drawer.openDrawer(Gravity.START));
+            openDrawer.setVisibility(View.GONE);
+            if (drawerView != null && drawerView.getLayoutParams() instanceof DrawerLayout.LayoutParams) {
+                DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) drawerView.getLayoutParams();
+                params.gravity = Gravity.START;
+                drawerView.setLayoutParams(params);
+            }
+        }
 
         RecyclerView recent = view.findViewById(R.id.rvRecentChats);
         RecentAdapter recentAdapter = new RecentAdapter(Arrays.asList(view.getResources().getStringArray(R.array.app_chat_recent_items)));

@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:paddingBottom="24dp">
@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="40dp"
             android:importantForAccessibility="no"
             android:scaleType="fitCenter"
@@ -31,6 +31,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/ops_5717_8479"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_max="300dp" />
 
         <TextView
@@ -50,21 +53,25 @@
             android:tag="text:Planejamento da OS concluída com sucesso!"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ops_5717_8478" />
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8478"
+            app:layout_constraintBottom_toTopOf="@id/ops_5717_8475" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ops_5717_8475"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginStart="34dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="28dp"
-            android:layout_marginEnd="34dp"
+            android:layout_marginEnd="0dp"
             android:background="@drawable/bg_ops_e9ff3d87c6"
             android:clipChildren="false"
             android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ops_5717_8479">
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8479"
+            app:layout_constraintBottom_toTopOf="@id/ops_5717_8477"
+            app:layout_constraintWidth_percent="0.78"
+            app:layout_constraintWidth_max="320dp">
 
             <TextView
                 android:id="@+id/ops_5717_8476"
@@ -77,6 +84,7 @@
                 android:tag="text:Ir para o quadro"
                 android:text="@string/ops_text_ir_para_o_quadro_a49bb8"
                 android:textSize="15sp"
+                android:textColor="@color/app_on_primary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,9 +102,11 @@
             android:maxLines="1"
             android:tag="text:Voltar"
             android:text="@string/ops_text_voltar_59dc92"
+            android:textColor="@color/app_primary_deep"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ops_5717_8475" />
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8475"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

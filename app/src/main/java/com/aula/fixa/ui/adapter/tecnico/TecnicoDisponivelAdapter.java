@@ -58,7 +58,31 @@ public final class TecnicoDisponivelAdapter extends RecyclerView.Adapter<Tecnico
         }
         boolean selected = selectedId != null && selectedId == technician.id;
         holder.itemView.setBackgroundResource(selected
-                ? R.drawable.bg_ops_87bb22303a : R.drawable.bg_ops_e04d888c51);
+                ? R.drawable.bg_ops_available_technician_selected : R.drawable.bg_ops_e04d888c51);
+        int white = androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), R.color.app_on_primary);
+        holder.name.setTextColor(androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(),
+                selected ? R.color.app_on_primary : R.color.ops_color_ff0b013c));
+        holder.role.setTextColor(selected ? white : androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), R.color.ops_color_ff8a93a2));
+        holder.recommended.setTextColor(selected ? white : androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), R.color.ops_color_ff1d9954));
+        holder.tasks.setTextColor(selected ? white : androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), R.color.ops_color_ff000000));
+        holder.workLabel.setTextColor(selected ? white : androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), R.color.ops_color_ff8a93a2));
+        holder.competenceCategory.setTextColor(selected ? white : androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), R.color.ops_color_ff000000));
+        holder.competenceScore.setTextColor(selected ? white : androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), R.color.ops_color_ff8a93a2));
+        if (selected) {
+            holder.clock.setColorFilter(white);
+            holder.competenceIcon.setColorFilter(white);
+        } else {
+            holder.clock.clearColorFilter();
+            holder.competenceIcon.clearColorFilter();
+        }
+        float density = holder.itemView.getResources().getDisplayMetrics().density;
+        holder.itemView.setElevation((selected ? 4f : 1.5f) * density);
+        if (android.os.Build.VERSION.SDK_INT >= 28) {
+            int shadow = androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(),
+                    selected ? R.color.app_primary : R.color.app_shadow_soft);
+            holder.itemView.setOutlineAmbientShadowColor(shadow);
+            holder.itemView.setOutlineSpotShadowColor(shadow);
+        }
         holder.itemView.setContentDescription(technician.nome + ", Técnico"
                 + (position == 0 ? ", Recomendado" : "")
                 + (competence.isEmpty() ? "" : ", " + competence)
@@ -70,16 +94,19 @@ public final class TecnicoDisponivelAdapter extends RecyclerView.Adapter<Tecnico
     @Override public int getItemCount() { return items.size(); }
 
     static final class Holder extends RecyclerView.ViewHolder {
-        final ImageView avatar;
-        final TextView name, role, competenceCategory, competenceScore, tasks, recommended;
+        final ImageView avatar, clock, competenceIcon;
+        final TextView name, role, competenceCategory, competenceScore, tasks, workLabel, recommended;
         Holder(View item) {
             super(item);
             avatar = item.findViewById(R.id.technicianAvatar);
+            clock = item.findViewById(R.id.technicianClock);
+            competenceIcon = item.findViewById(R.id.technicianCompetenceIcon);
             name = item.findViewById(R.id.technicianName);
             role = item.findViewById(R.id.technicianRole);
             competenceCategory = item.findViewById(R.id.technicianCompetenceCategory);
             competenceScore = item.findViewById(R.id.technicianCompetenceScore);
             tasks = item.findViewById(R.id.technicianTasks);
+            workLabel = item.findViewById(R.id.technicianWorkLabel);
             recommended = item.findViewById(R.id.technicianRecommended);
         }
     }

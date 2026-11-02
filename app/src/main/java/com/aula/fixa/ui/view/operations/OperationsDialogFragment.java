@@ -42,7 +42,10 @@ public final class OperationsDialogFragment extends DialogFragment {
 
     @NonNull @Override public Dialog onCreateDialog(Bundle state) {
         String key = requireArguments().getString("screen");
-        View content = getLayoutInflater().inflate(ScreenCatalog.get(requireContext()).layout(requireContext(), key), null, false);
+        boolean creatingPlanningTask = key.equals("manager_create_task");
+        int layout = creatingPlanningTask ? R.layout.dialog_ops_manager_edit_task
+                : ScreenCatalog.get(requireContext()).layout(requireContext(), key);
+        View content = getLayoutInflater().inflate(layout, null, false);
         content.setLayoutParams(new android.view.ViewGroup.LayoutParams(-1, -2));
         if (key.equals("manager_create_category") || key.equals("manager_edit_category")
                 || key.equals("manager_delete_category")) {
@@ -57,6 +60,25 @@ public final class OperationsDialogFragment extends DialogFragment {
             bindEditCompetency(content);
         } else if (key.equals("manager_reject_request")) {
             bindRejectRequest(content);
+        } else if (creatingPlanningTask) {
+            TextView title = (TextView) content.findViewWithTag("text:Editar tarefa");
+            if (title != null) title.setText(R.string.ops_text_criar_tarefa_0a2e86);
+            EditText taskTitle = (EditText) content.findViewWithTag("field:Título da tarefa");
+            if (taskTitle != null) {
+                taskTitle.setText("");
+                taskTitle.setHint(R.string.ops_text_coloque_o_nome_cbd678);
+            }
+            EditText taskDescription = (EditText) content.findViewWithTag("field:Descrição");
+            if (taskDescription != null) {
+                taskDescription.setText("");
+                taskDescription.setHint(R.string.ops_text_coloque_a_descricao_da_tarefa_c6d230);
+            }
+            View cancelLabel = content.findViewWithTag("text:Cancelar");
+            if (cancelLabel != null && cancelLabel.getParent() instanceof View) {
+                ((View) cancelLabel.getParent()).setOnClickListener(v -> dismissNow());
+            }
+            com.aula.fixa.ui.view.task.PlanejamentoTarefasFluxo.bindDialog(
+                    (OperationsActivity) requireActivity(), content, key, this);
         } else if (key.equals("manager_create_field") || key.equals("manager_edit_field")
                 || key.equals("manager_create_choice_field") || key.equals("manager_edit_choice_field")
                 || key.equals("manager_delete_checklist")) {
@@ -67,6 +89,11 @@ public final class OperationsDialogFragment extends DialogFragment {
                     (OperationsActivity) requireActivity(), content, key, this);
         }
         com.aula.fixa.ui.config.PopupFieldStyler.apply(content);
+        if (key.equals("manager_request_approved")) {
+            View plan = content.findViewById(R.id.ops_5717_7116);
+            if (plan != null) plan.setOnClickListener(v -> redirectApprovedRequestToPlanning());
+        }
+        if (creatingPlanningTask || key.equals("manager_edit_task")) stylePlanningTaskPopup(content);
         if (key.equals("manager_create_field") || key.equals("manager_edit_field")
                 || key.equals("manager_create_choice_field") || key.equals("manager_edit_choice_field")) {
             styleChecklistFieldPopup(content, key.startsWith("manager_edit"));
@@ -118,6 +145,26 @@ public final class OperationsDialogFragment extends DialogFragment {
         }
         AlertDialog dialog = new AlertDialog.Builder(requireContext()).setView(content).create();
         return dialog;
+    }
+
+    private void redirectApprovedRequestToPlanning() {
+        long requestId = getArguments() == null ? 0 : getArguments().getLong("requestId", 0);
+        if (!isAdded() || requestId <= 0) return;
+        OperationsActivity activity = (OperationsActivity) requireActivity();
+        dismissAllowingStateLoss();
+        activity.openPlanningIntro(requestId);
+    }
+
+    private void stylePlanningTaskPopup(View content) {
+        for (int id : new int[]{R.id.ops_5717_8669, R.id.ops_5717_8672}) {
+            EditText field = content.findViewById(id);
+            if (field == null) continue;
+            field.setBackgroundResource(R.drawable.bg_app_planning_task_dialog_field);
+            field.setBackgroundTintList(null);
+        }
+        int bottom = Math.round(28 * getResources().getDisplayMetrics().density);
+        content.setPadding(content.getPaddingLeft(), content.getPaddingTop(),
+                content.getPaddingRight(), bottom);
     }
 
     private void styleChecklistFieldPopup(View content, boolean editing) {
