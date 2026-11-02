@@ -83,7 +83,7 @@ public final class ModeloEquipamentoGestorFluxo {
                 .getDimensionPixelSize(R.dimen.ops_manager_home_card_side_margin);
         listParams.setMarginStart(contentMargin);
         listParams.setMarginEnd(contentMargin);
-        listParams.topMargin = dp(host, 16);
+        listParams.topMargin = dp(host, 22);
         list.setNestedScrollingEnabled(false);
         list.setMinimumHeight(dp(host, 180));
         container.addView(list, listParams);
@@ -106,7 +106,7 @@ public final class ModeloEquipamentoGestorFluxo {
         emptyParams.topToBottom = searchContainer == null ? title.getId() : searchContainer.getId();
         emptyParams.setMarginStart(contentMargin);
         emptyParams.setMarginEnd(contentMargin);
-        emptyParams.topMargin = dp(host, 16);
+        emptyParams.topMargin = dp(host, 22);
         container.addView(empty, emptyParams);
 
         searchInput = content.findViewById(R.id.ops_models_search_input);
@@ -131,7 +131,7 @@ public final class ModeloEquipamentoGestorFluxo {
 
         View back = content.findViewWithTag("image:arrow-left");
         if (back != null) {
-            back.setOnClickListener(v -> activity.back());
+            back.setOnClickListener(v -> activity.backFromModels());
         }
         View.OnClickListener create = v -> activity.open("manager_create_model");
         View plus = content.findViewById(R.id.ops_5717_6730);

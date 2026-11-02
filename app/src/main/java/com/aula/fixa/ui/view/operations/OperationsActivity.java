@@ -388,6 +388,12 @@ public class OperationsActivity extends AppCompatActivity {
         navigation.navigate(destination(role + "_occurrence_details"), args);
     }
 
+    public void openOccurrenceDetails(com.aula.fixa.domain.model.ocorrencia.OcorrenciaItem item) {
+        if (item == null) return;
+        model.field("occurrence_details", "cached_item", new com.google.gson.Gson().toJson(item));
+        openOccurrenceDetails(item.id, item.titulo);
+    }
+
     public void openOccurrenceEdit(com.aula.fixa.domain.model.ocorrencia.OcorrenciaItem item) {
         Bundle args = new Bundle();
         args.putLong("occurrenceId", item.id);
@@ -434,6 +440,7 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void openPlanningIntro(long requestId) {
+        model.field("execution", "editOrderId", "");
         model.clearEntries("planning_tasks");
         model.field("planning_tasks", "ordemServicoId", "");
         for (String field : new String[]{"tecnicoId", "Competência", "CompetênciaId",
@@ -459,6 +466,21 @@ public class OperationsActivity extends AppCompatActivity {
     public void back() {
         if (!navigation.popBackStack()) {
             finish();
+        }
+    }
+
+    public void backFromModels() {
+        if (!navigation.popBackStack(R.id.ops_manager_categories, false)
+                && (navigation.getCurrentDestination() == null
+                || navigation.getCurrentDestination().getId() != R.id.ops_manager_categories)) {
+            navigation.navigate(R.id.ops_manager_categories);
+        }
+    }
+
+    public void backFromManagerChatbot() {
+        if (!navigation.popBackStack() && (navigation.getCurrentDestination() == null
+                || navigation.getCurrentDestination().getId() != R.id.ops_manager_home)) {
+            navigation.navigate(R.id.ops_manager_home);
         }
     }
 

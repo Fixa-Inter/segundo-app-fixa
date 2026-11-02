@@ -1,37 +1,152 @@
 package com.aula.fixa.ui.view.chatbot;
 
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.aula.fixa.R;
 
-/** Tela do chatbot do solicitante; o mesmo fluxo é compartilhado pelas telas de operações. */
-public final class ChatbotFragment extends Fragment {
-    private ChatbotFlow flow;
-    private final ActivityResultLauncher<String> photoPicker = registerForActivityResult(
-            new ActivityResultContracts.GetMultipleContents(), uris -> {
-                if (flow != null && uris != null) flow.onPhotoUris(uris);
-            });
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.List;
 
-    public ChatbotFragment() { super(R.layout.fragment_chatbot); }
+public class ChatbotFragment extends Fragment {
 
-    @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public ChatbotFragment() {
+        super(R.layout.fragment_chatbot);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        flow = new ChatbotFlow(this, view, () -> photoPicker.launch("image/*"));
+        bindUi(view);
     }
 
-    @Override public void onResume() {
-        super.onResume();
-        if (flow != null) flow.onResume();
+    public static void bindUi(@NonNull View view) {
+        bindUi(view, false, null);
     }
 
-    @Override public void onDestroyView() {
-        if (flow != null) { flow.close(); flow = null; }
-        super.onDestroyView();
+    public static void bindUi(@NonNull View view, boolean manager, @Nullable Runnable onBack) {
+        DrawerLayout drawer = view.findViewById(R.id.drawerChat);
+        ((TextView) view.findViewById(R.id.tvGreeting)).setText(view.getContext().getString(R.string.app_chat_greeting, "Rapha"));
+
+        ImageButton backOrMenu = view.findViewById(R.id.btnMenu);
+        ImageButton openDrawer = view.findViewById(R.id.btnOpenDrawer);
+        View drawerView = view.findViewById(R.id.drawerMenu);
+        if (manager) {
+            backOrMenu.setImageResource(R.drawable.ic_arrow_left_26);
+            backOrMenu.setContentDescription(view.getContext().getString(R.string.app_chat_back));
+            backOrMenu.setOnClickListener(v -> { if (onBack != null) onBack.run(); });
+            openDrawer.setVisibility(View.VISIBLE);
+            openDrawer.setOnClickListener(v -> drawer.openDrawer(Gravity.END));
+            if (drawerView != null && drawerView.getLayoutParams() instanceof DrawerLayout.LayoutParams) {
+                DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) drawerView.getLayoutParams();
+                params.gravity = Gravity.END;
+                drawerView.setLayoutParams(params);
+            }
+        } else {
+            backOrMenu.setImageResource(R.drawable.ic_menu_24);
+            backOrMenu.setContentDescription(view.getContext().getString(R.string.app_chat_open_menu));
+            backOrMenu.setOnClickListener(v -> drawer.openDrawer(Gravity.START));
+            openDrawer.setVisibility(View.GONE);
+            if (drawerView != null && drawerView.getLayoutParams() instanceof DrawerLayout.LayoutParams) {
+                DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) drawerView.getLayoutParams();
+                params.gravity = Gravity.START;
+                drawerView.setLayoutParams(params);
+            }
+        }
+
+        RecyclerView recent = view.findViewById(R.id.rvRecentChats);
+        RecentAdapter recentAdapter = new RecentAdapter(Arrays.asList(view.getResources().getStringArray(R.array.app_chat_recent_items)));
+        recent.setAdapter(recentAdapter);
+        EditText recentSearch = view.findViewById(R.id.etRecentSearch);
+        view.findViewById(R.id.btnDrawerSearch).setOnClickListener(v -> {
+            if (recentSearch.getVisibility() != View.VISIBLE) {
+                recentSearch.setVisibility(View.VISIBLE);
+                recentSearch.requestFocus();
+                recentSearch.post(() -> ((InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .showSoftInput(recentSearch, InputMethodManager.SHOW_IMPLICIT));
+            } else {
+                ((InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(recentSearch.getWindowToken(), 0);
+                recentSearch.setText("");
+                recentSearch.setVisibility(View.GONE);
+            }
+        });
+        recentSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { recentAdapter.filter(s.toString()); }
+            @Override public void afterTextChanged(Editable s) { }
+        });
+        view.findViewById(R.id.btnNewChat).setOnClickListener(v -> drawer.closeDrawers());
+    }
+
+    static class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.ViewHolder> {
+        private final List<String> items;
+        private final List<String> allItems;
+        private int selected = 0;
+
+        RecentAdapter(List<String> items) {
+            this.allItems = new ArrayList<>(items);
+            this.items = new ArrayList<>(items);
+        }
+
+        void filter(String query) {
+            items.clear();
+            String normalized = query == null ? "" : query.trim().toLowerCase(Locale.ROOT);
+            for (String item : allItems) {
+                if (normalized.isEmpty() || item.toLowerCase(Locale.ROOT).contains(normalized)) items.add(item);
+            }
+            selected = 0;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_app_chat_recent, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            TextView text = (TextView) holder.itemView;
+            text.setText(items.get(position));
+            text.setSelected(position == selected);
+            text.setBackgroundResource(position == selected ? R.drawable.bg_app_chat_recent_selected : 0);
+            text.setOnClickListener(v -> {
+                int old = selected;
+                selected = holder.getBindingAdapterPosition();
+                notifyItemChanged(old);
+                notifyItemChanged(selected);
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return items.size();
+        }
+
+        static class ViewHolder extends RecyclerView.ViewHolder {
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+            }
+        }
     }
 }

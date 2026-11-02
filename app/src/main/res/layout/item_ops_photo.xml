@@ -4,4 +4,5 @@
     android:layout_width="@dimen/ops_photo_size" android:layout_height="@dimen/ops_photo_size"
     android:layout_marginEnd="@dimen/ops_entry_gap" android:scaleType="centerCrop"
     android:contentDescription="@string/ops_add_photo"
+    android:tag="photo-preview"
     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
