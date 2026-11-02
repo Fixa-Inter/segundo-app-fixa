@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:8040 • manager / checklist_fields. Componentes nativos; dimensões em values e sw400dp. -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_836_0" android:clipChildren="false" android:clipToPadding="false">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/app_background" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.core.widget.NestedScrollView android:id="@+id/checklistScroll" android:layout_width="0dp" android:layout_height="0dp" android:fillViewport="true" android:clipToPadding="false" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@id/stepActions" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_8059"
             android:layout_width="@dimen/app_back_icon_size"
@@ -18,17 +19,16 @@
             android:id="@+id/ops_5717_8041"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_35"
-            android:layout_marginTop="@dimen/ops_dp_65_0"
+            android:layout_marginStart="@dimen/app_step_title_margin_start"
+            android:layout_marginTop="@dimen/app_step_title_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_50"
+            android:layout_marginEnd="@dimen/app_step_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_crie_os_campos_de_inspecao_8040b0"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.32afd0b1db"
+            android:textAppearance="@style/TextAppearance.FIXA.App.StepTitle"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
-            android:minHeight="@dimen/ops_dp_140"
             android:tag="text:Crie os campos de inspeção"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
@@ -94,26 +94,48 @@
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8078" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_70_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_18_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8068" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:+ Adicionar Campo">
-            <TextView
-                android:id="@+id/ops_5717_8079"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/ops_dp_25_2"
-                android:layout_marginStart="@dimen/ops_dp_38_0"
-                android:layout_marginTop="@dimen/ops_dp_22_9"
+            <LinearLayout
+                android:id="@+id/ops_add_field_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="@dimen/ops_dp_33_0"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/ops_text_adicionar_campo_44bda1"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.abfb3f0266"
-                android:includeFontPadding="false"
-                android:gravity="center|center_vertical"
-                android:minHeight="@dimen/ops_dp_25_2"
-                android:tag="text:+ Adicionar Campo"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_medium"
-                android:maxLines="1" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <ImageView
+                    android:id="@+id/ops_add_field_icon"
+                    android:layout_width="@dimen/ops_action_icon_size"
+                    android:layout_height="@dimen/ops_action_icon_size"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_plus_24"
+                    android:tint="@color/ops_color_ff153d7d"
+                    android:scaleType="fitCenter" />
+                <TextView
+                    android:id="@+id/ops_5717_8079"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ops_text_adicionar_campo_label"
+                    android:textAppearance="@style/TextAppearance.FIXA.Operations.abfb3f0266"
+                    android:includeFontPadding="false"
+                    android:gravity="center_vertical"
+                    android:tag="text:Adicionar Campo"
+                    android:padding="0dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:maxLines="1" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/stepIndicator"
+            layout="@layout/view_app_step_indicator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_step_indicator_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8078" />
         <ImageView
             android:id="@+id/ops_5717_8050"
             android:layout_width="@dimen/ops_dp_34_48"
@@ -305,7 +327,8 @@
             android:background="@drawable/bg_ops_e9ff3d87c6"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.5109b65e24"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Step.Action"
+            android:textColor="@color/app_on_primary"
             android:padding="@dimen/ops_dp_0"
             android:gravity="center"
             android:minHeight="@dimen/ops_dp_0"
@@ -323,7 +346,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8050"
             android:text="@string/ops_text_voltar_59dc92"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.8145b0a777"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Step.Action"
+            android:textColor="@color/app_text_black"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_30"
@@ -332,4 +356,6 @@
             android:fontFamily="@font/poppins_regular"
             android:maxLines="1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+    <include android:id="@+id/stepActions" layout="@layout/view_app_step_actions" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/app_step_actions_margin_bottom" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@
     <color name="login_field_background">#FFD2D9E4</color>
     <color name="login_field_text">#FF4C5461</color>
     <color name="login_input_text">#FF000000</color>
-    <color name="login_placeholder_text">#FF7D8795</color>
+    <color name="login_placeholder_text">#FF4C5461</color>
     <color name="login_button_background">#FF130653</color>
     <color name="login_primary_text">#FFFFFFFF</color>
     <color name="login_secondary_text">#80FFFFFF</color>

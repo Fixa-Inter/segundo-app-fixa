@@ -14,14 +14,14 @@
                 android:src="@drawable/figma_eee40" android:tag="image:arrow-left"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
             <TextView android:id="@+id/managerOccurrencesTitle" android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ops_dp_31" android:layout_marginTop="@dimen/ops_dp_52_0" android:layout_marginEnd="@dimen/ops_dp_45"
+                android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/app_events_title_margin_top" android:layout_marginEnd="@dimen/app_events_title_margin_start"
                 android:minHeight="@dimen/ops_dp_80" android:fontFamily="@font/poppins_bold" android:includeFontPadding="false"
                 android:lineSpacingExtra="4dp" android:text="@string/ops_manager_occurrences_title"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/managerOccurrencesSearchContainer"
-                android:layout_width="0dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin"
-                android:layout_marginTop="@dimen/ops_dp_14_0" android:layout_marginEnd="@dimen/ops_dp_16_0"
+                android:layout_width="0dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="@dimen/app_events_title_margin_start"
+                android:layout_marginTop="0dp" android:layout_marginEnd="@dimen/ops_dp_16_0"
                 android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/managerOccurrencesFilter"
                 app:layout_constraintTop_toBottomOf="@id/managerOccurrencesTitle">
@@ -46,15 +46,15 @@
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/managerOccurrencesSearchContainer"
                 app:layout_constraintBottom_toBottomOf="@id/managerOccurrencesSearchContainer" />
             <androidx.recyclerview.widget.RecyclerView android:id="@+id/managerOccurrencesList"
-                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="@dimen/app_home_card_side_margin"
-                android:layout_marginTop="@dimen/ops_dp_14_0" android:layout_marginEnd="@dimen/app_home_card_side_margin"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="@dimen/app_events_title_margin_start"
+                android:layout_marginTop="16dp" android:layout_marginEnd="@dimen/app_events_title_margin_start"
                 android:nestedScrollingEnabled="false" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/managerOccurrencesSearchContainer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
     <androidx.appcompat.widget.AppCompatImageButton android:id="@+id/managerOccurrencesFab"
-        android:layout_width="56dp" android:layout_height="56dp" android:layout_gravity="bottom|end"
-        android:layout_marginEnd="24dp" android:layout_marginBottom="24dp" android:background="@drawable/bg_app_circle_primary"
+        android:layout_width="@dimen/app_fab_size" android:layout_height="@dimen/app_fab_size" android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/app_fab_margin_end" android:layout_marginBottom="@dimen/app_fab_margin_bottom" android:background="@drawable/bg_app_circle_primary"
         android:contentDescription="@string/ops_occurrence_create" android:elevation="6dp"
         android:padding="16dp" android:scaleType="centerInside" android:src="@drawable/ic_plus_24"
         app:tint="@color/app_on_primary" />

@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.AppDialogs;
 import com.aula.fixa.ui.config.FragmentUi;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.adapter.auth.AutenticacaoViewModel;
 import com.aula.fixa.adapter.perfil.PerfilViewModel;
@@ -106,9 +107,11 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void loadProfile(View view) {
+        EmptyStateStyler.removeFromRoot(view);
         perfilViewModel.obter(new PerfilViewModel.Callback<Perfil>() {
             @Override public void aoConcluir(Perfil profile) {
                 FragmentUi.runIfViewActive(EditProfileFragment.this, view, () -> {
+                    EmptyStateStyler.removeFromRoot(view);
                     name.setText(profile.nomeCompleto);
                     birth.setText(profile.dataNascimento);
                     email.setText(profile.email);
@@ -123,6 +126,9 @@ public class EditProfileFragment extends Fragment {
             @Override public void aoFalhar(Throwable erro) {
                 FragmentUi.runIfViewActive(EditProfileFragment.this, view, () -> {
                     name.setText(""); birth.setText(""); email.setText(""); phone.setText(""); initial = snapshot();
+                    EmptyStateStyler.showBelowBack(view,
+                            "Não foi possível carregar os dados do perfil. Toque para tentar novamente.",
+                            () -> loadProfile(view));
                 });
             }
         });

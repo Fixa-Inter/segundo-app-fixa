@@ -276,6 +276,7 @@ public final class AppDialogs {
      * Largura do Figma limitada a 90% da tela para caber em qualquer aparelho.
      */
     private static AlertDialog build(Context context, View content, int widthRes) {
+        PopupFieldStyler.apply(content);
         AlertDialog dialog = new AlertDialog.Builder(context, R.style.ThemeOverlay_FIXA_App_Dialog)
                 .setView(content)
                 .create();

@@ -20,6 +20,7 @@ import com.aula.fixa.R;
 import com.aula.fixa.ui.config.FragmentUi;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.AppText;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.domain.model.solicitacao.ProblemaItem;
 import com.aula.fixa.domain.model.solicitacao.Problema;
 import com.aula.fixa.adapter.solicitacao.SolicitacaoViewModel;
@@ -39,6 +40,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
 
     private RequestAdapter adapter;
     private View emptyView;
+    private android.widget.TextView emptyMessage;
     private RecyclerView list;
     private RadioGroup statusChips;
     private SolicitacaoViewModel viewModel;
@@ -46,6 +48,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
     private final List<ProblemaItem> apiItems = new ArrayList<>();
     private String search = "", period = "", location = "", category = "";
     private StatusProblema activeStatusFilter;
+    private boolean loadFailed;
 
     public RequestsFragment() {
         super(R.layout.fragment_requests);
@@ -57,6 +60,8 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         AppText.setHtml(view.findViewById(R.id.tvTitle), R.string.app_requests_title);
         list = view.findViewById(R.id.rvRequests);
         emptyView = view.findViewById(R.id.layoutEmpty);
+        emptyMessage = view.findViewById(R.id.tvEmpty);
+        EmptyStateStyler.apply(emptyMessage);
         adapter = new RequestAdapter(this);
         list.setAdapter(adapter);
         viewModel = new androidx.lifecycle.ViewModelProvider(this,
@@ -94,6 +99,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
             @Override public void aoCarregar(boolean carregando) { }
             @Override public void aoCriar(Problema problema) { }
             @Override public void aoListar(List<Problema> values) {
+                loadFailed = false;
                 List<ProblemaItem> items = new ArrayList<>();
                 for (Problema item : values) {
                     items.add(new ProblemaItem(
@@ -112,9 +118,11 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
             }
             @Override public void aoFalhar(Throwable error) {
                 FragmentUi.runIfViewActive(RequestsFragment.this, requestView,
-                        () -> android.widget.Toast.makeText(requestView.getContext(),
-                                com.aula.fixa.adapter.auth.AutenticacaoViewModel.messageFrom(error),
-                                android.widget.Toast.LENGTH_LONG).show());
+                        () -> {
+                            loadFailed = true;
+                            apiItems.clear();
+                            render();
+                        });
             }
         });
     }
@@ -122,6 +130,13 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
     private void showItems(List<ProblemaItem> items) {
         adapter.submitList(items);
         boolean empty = items.isEmpty();
+        if (emptyMessage != null) {
+            emptyMessage.setText(loadFailed
+                    ? "Não foi possível carregar as solicitações. Toque para tentar novamente."
+                    : apiItems.isEmpty() ? getString(R.string.app_requests_empty) : "Nenhuma solicitação encontrada.");
+            if (loadFailed) emptyMessage.setOnClickListener(v -> loadRequests());
+            else emptyMessage.setOnClickListener(null);
+        }
         emptyView.setVisibility(empty ? View.VISIBLE : View.GONE);
         list.setVisibility(empty ? View.GONE : View.VISIBLE);
     }
@@ -170,6 +185,13 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         }
         adapter.submitList(items);
         boolean empty = items.isEmpty();
+        if (emptyMessage != null) {
+            emptyMessage.setText(loadFailed
+                    ? "Não foi possível carregar as solicitações. Toque para tentar novamente."
+                    : apiItems.isEmpty() ? getString(R.string.app_requests_empty) : "Nenhuma solicitação encontrada.");
+            if (loadFailed) emptyMessage.setOnClickListener(v -> loadRequests());
+            else emptyMessage.setOnClickListener(null);
+        }
         emptyView.setVisibility(empty ? View.VISIBLE : View.GONE);
         list.setVisibility(empty ? View.GONE : View.VISIBLE);
     }

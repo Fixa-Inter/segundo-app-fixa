@@ -93,6 +93,10 @@ public final class OperationsBinder {
             if (view instanceof EditText) {
                 EditText field = (EditText) view;
                 String label = item.optString("label");
+                field.setTextColor(ContextCompat.getColor(activity, R.color.app_text_black));
+                field.setHintTextColor(ContextCompat.getColor(activity, R.color.app_text_hint));
+                field.setTypeface(ResourcesCompat.getFont(activity, R.font.poppins_regular));
+                if (label.equals("Pesquisar")) field.setHint("Pesquisar...");
                 String saved = activity.model.field(key, label);
                 if (saved == null && spec.optString("name").startsWith("edit_")
                         && (label.startsWith("Nome") || label.startsWith("Título") || label.equals("Identificador"))

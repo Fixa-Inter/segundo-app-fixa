@@ -1,24 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingBottom="24dp">
-        <ImageView android:id="@+id/occurrenceEditInfoBack" android:layout_width="22dp" android:layout_height="22dp" android:layout_marginStart="11dp" android:layout_marginTop="22dp" android:src="@drawable/figma_eee40" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-        <TextView android:id="@+id/occurrenceEditInfoTitle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="32dp" android:layout_marginTop="58dp" android:layout_marginEnd="24dp" android:fontFamily="@font/poppins_bold" android:text="@string/ops_occurrence_edit_title" android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Title" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-        <TextView android:id="@+id/occurrenceEditInfoSubtitle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="32dp" android:layout_marginTop="8dp" android:layout_marginEnd="24dp" android:text="@string/ops_occurrence_edit_information_subtitle" android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditInfoTitle" />
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background">
 
-        <TextView android:id="@+id/occurrenceEditLabelLocation" style="@style/TextAppearance.FIXA.App.Filter.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="32dp" android:layout_marginTop="24dp" android:text="@string/app_filter_location" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditInfoSubtitle" />
-        <include android:id="@+id/occurrenceEditFieldLocation" layout="@layout/view_app_filter_dropdown" android:layout_width="0dp" android:layout_height="@dimen/app_filter_field_height" android:layout_marginStart="32dp" android:layout_marginTop="8dp" android:layout_marginEnd="32dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditLabelLocation" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/occurrenceEditInfoScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/occurrenceEditInfoFooter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView android:id="@+id/occurrenceEditLabelEquipment" style="@style/TextAppearance.FIXA.App.Filter.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="32dp" android:layout_marginTop="18dp" android:text="@string/ops_filter_equipment_category" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditFieldLocation" />
-        <include android:id="@+id/occurrenceEditFieldEquipment" layout="@layout/view_app_filter_dropdown" android:layout_width="0dp" android:layout_height="@dimen/app_filter_field_height" android:layout_marginStart="32dp" android:layout_marginTop="8dp" android:layout_marginEnd="32dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditLabelEquipment" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
 
-        <TextView android:id="@+id/occurrenceEditLabelCategory" style="@style/TextAppearance.FIXA.App.Filter.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="32dp" android:layout_marginTop="18dp" android:text="@string/ops_filter_problem_category" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditFieldEquipment" />
-        <include android:id="@+id/occurrenceEditFieldCategory" layout="@layout/view_app_filter_dropdown" android:layout_width="0dp" android:layout_height="@dimen/app_filter_field_height" android:layout_marginStart="32dp" android:layout_marginTop="8dp" android:layout_marginEnd="32dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditLabelCategory" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/occurrenceEditGuideStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/app_step_label_margin_start" />
 
-        <TextView android:id="@+id/occurrenceEditLabelPriority" style="@style/TextAppearance.FIXA.App.Filter.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="32dp" android:layout_marginTop="18dp" android:text="@string/ops_filter_priority" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditFieldCategory" />
-        <include android:id="@+id/occurrenceEditFieldPriority" layout="@layout/view_app_filter_dropdown" android:layout_width="0dp" android:layout_height="@dimen/app_filter_field_height" android:layout_marginStart="32dp" android:layout_marginTop="8dp" android:layout_marginEnd="32dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditLabelPriority" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/occurrenceEditGuideEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/app_step_label_margin_start" />
 
-        <com.google.android.material.button.MaterialButton android:id="@+id/occurrenceEditInfoCancel" style="@style/Widget.FIXA.App.Button.Text" android:layout_width="0dp" android:layout_height="@dimen/app_filter_apply_height" android:layout_marginStart="32dp" android:layout_marginTop="28dp" android:layout_marginEnd="8dp" android:text="@string/app_cancel" app:layout_constraintEnd_toStartOf="@id/occurrenceEditInfoNext" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/occurrenceEditFieldPriority" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/occurrenceEditInfoNext" style="@style/Widget.FIXA.App.Button.Primary" android:layout_width="0dp" android:layout_height="@dimen/app_filter_apply_height" android:layout_marginStart="8dp" android:layout_marginEnd="32dp" android:text="@string/onboarding_next" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/occurrenceEditInfoCancel" app:layout_constraintTop_toTopOf="@id/occurrenceEditInfoCancel" />
+            <TextView
+                android:id="@+id/occurrenceEditInfoTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_step_title_margin_start"
+                android:layout_marginTop="@dimen/app_step_title_margin_top"
+                android:layout_marginEnd="@dimen/app_step_title_margin_start"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/ops_occurrence_edit_title"
+                android:textAppearance="@style/TextAppearance.FIXA.App.StepTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/occurrenceEditLabelLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_section_margin_top"
+                android:text="@string/app_filter_location"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/occurrenceEditGuideStart"
+                app:layout_constraintTop_toBottomOf="@id/occurrenceEditInfoTitle" />
+            <include
+                android:id="@+id/occurrenceEditFieldLocation"
+                layout="@layout/view_app_filter_dropdown"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_field_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                app:layout_constraintEnd_toEndOf="@id/occurrenceEditGuideEnd"
+                app:layout_constraintStart_toStartOf="@id/occurrenceEditGuideStart"
+                app:layout_constraintTop_toBottomOf="@id/occurrenceEditLabelLocation" />
+
+            <TextView
+                android:id="@+id/occurrenceEditLabelEquipment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_section_margin_top"
+                android:text="@string/ops_filter_equipment_category"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/occurrenceEditGuideStart"
+                app:layout_constraintTop_toBottomOf="@id/occurrenceEditFieldLocation" />
+            <include
+                android:id="@+id/occurrenceEditFieldEquipment"
+                layout="@layout/view_app_filter_dropdown"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_field_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                app:layout_constraintEnd_toEndOf="@id/occurrenceEditGuideEnd"
+                app:layout_constraintStart_toStartOf="@id/occurrenceEditGuideStart"
+                app:layout_constraintTop_toBottomOf="@id/occurrenceEditLabelEquipment" />
+
+            <TextView
+                android:id="@+id/occurrenceEditLabelCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_section_margin_top"
+                android:text="@string/ops_filter_problem_category"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/occurrenceEditGuideStart"
+                app:layout_constraintTop_toBottomOf="@id/occurrenceEditFieldEquipment" />
+            <include
+                android:id="@+id/occurrenceEditFieldCategory"
+                layout="@layout/view_app_filter_dropdown"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_field_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                app:layout_constraintEnd_toEndOf="@id/occurrenceEditGuideEnd"
+                app:layout_constraintStart_toStartOf="@id/occurrenceEditGuideStart"
+                app:layout_constraintTop_toBottomOf="@id/occurrenceEditLabelCategory" />
+
+            <TextView
+                android:id="@+id/occurrenceEditLabelPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_step_section_margin_top"
+                android:text="@string/ops_filter_priority"
+                android:textAppearance="@style/TextAppearance.FIXA.App.Step.Label"
+                app:layout_constraintStart_toStartOf="@id/occurrenceEditGuideStart"
+                app:layout_constraintTop_toBottomOf="@id/occurrenceEditFieldCategory" />
+            <include
+                android:id="@+id/occurrenceEditFieldPriority"
+                layout="@layout/view_app_filter_dropdown"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/app_step_field_height"
+                android:layout_marginTop="@dimen/app_step_field_margin_top"
+                app:layout_constraintEnd_toEndOf="@id/occurrenceEditGuideEnd"
+                app:layout_constraintStart_toStartOf="@id/occurrenceEditGuideStart"
+                app:layout_constraintTop_toBottomOf="@id/occurrenceEditLabelPriority" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ImageButton
+        android:id="@+id/occurrenceEditInfoBack"
+        android:layout_width="@dimen/app_back_button_size"
+        android:layout_height="@dimen/app_back_button_size"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:padding="12dp"
+        android:src="@drawable/figma_eee40"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/occurrenceEditInfoFooter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_step_actions_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/occurrenceEditInfoCancel"
+            style="@style/Widget.FIXA.App.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/app_button_height_lg"
+            android:layout_marginStart="@dimen/app_step_back_margin_start"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:text="@string/app_cancel"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Step.Action"
+            android:textColor="@color/app_text_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/occurrenceEditInfoNext"
+            style="@style/Widget.FIXA.App.Button.Primary"
+            android:layout_width="@dimen/app_button_step_width"
+            android:layout_height="@dimen/app_button_height_lg"
+            android:layout_marginEnd="@dimen/app_step_actions_side_margin"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/app_next"
+            android:textAppearance="@style/TextAppearance.FIXA.App.Step.Action"
+            android:textColor="@color/app_on_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

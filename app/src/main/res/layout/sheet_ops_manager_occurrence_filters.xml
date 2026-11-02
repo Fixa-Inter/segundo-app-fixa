@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_app_sheet">
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_app_filter_sheet">
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:paddingStart="@dimen/app_filter_side_margin" android:paddingTop="@dimen/app_filter_title_margin_top"
         android:paddingEnd="@dimen/app_filter_side_margin" android:paddingBottom="@dimen/app_filter_sheet_padding_bottom">

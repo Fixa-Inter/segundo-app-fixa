@@ -24,14 +24,14 @@
 
         <TextView
             android:id="@+id/tvHomeMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/app_text_navy"
             android:textSize="16sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -501,21 +501,12 @@
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toBottomOf="@id/btnOpenRequest">
 
-            <ImageView
+            <TextView
+                android:id="@+id/tvHomeRequestsEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:adjustViewBounds="true"
-                android:maxHeight="180dp"
-                android:importantForAccessibility="no"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/img_empty_results" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/app_home_requests_empty"
-                android:textAppearance="@style/TextAppearance.FIXA.App.EmptyTitle" />
+                android:gravity="center" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,9 +32,9 @@
             android:maxLines="1"  app:layout_constraintEnd_toEndOf="parent"/>
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ops_5717_10025"
-            android:layout_width="@dimen/ops_dp_130_0"
-            android:layout_height="@dimen/ops_dp_130_0"
-            android:layout_marginStart="@dimen/ops_dp_141_0"
+            android:layout_width="@dimen/ops_dp_100_0"
+            android:layout_height="@dimen/ops_dp_100_0"
+            android:layout_marginStart="@dimen/ops_dp_156_0"
             android:layout_marginTop="@dimen/ops_dp_88_0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -38,7 +38,7 @@
         android:layout_marginEnd="48dp"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/ops_color_ff0b013c"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/ops_color_ff637087"
-        android:textSize="13sp"
+        android:textSize="15sp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
         android:fontFamily="@font/poppins_medium"
         android:text="Marca"
         android:textColor="@color/ops_color_ff4c5461"
-        android:textSize="13sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/modelCategory" />
 
@@ -82,7 +82,7 @@
         android:layout_marginTop="2dp"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/ops_color_ff0b013c"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/modelBrandLabel" />
@@ -95,7 +95,7 @@
         android:fontFamily="@font/poppins_medium"
         android:text="Aparelhos"
         android:textColor="@color/ops_color_ff4c5461"
-        android:textSize="13sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/modelBrandLabel" />
 
@@ -107,7 +107,7 @@
         android:layout_marginTop="2dp"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/ops_color_ff0b013c"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/modelDevicesLabel" />
 </androidx.constraintlayout.widget.ConstraintLayout>

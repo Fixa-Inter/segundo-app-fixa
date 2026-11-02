@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:6455 • manager / categories. Componentes nativos; dimensões em values e sw400dp. -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff6f9fe" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_829_0" android:clipChildren="false" android:clipToPadding="false">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff6f9fe" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/app_fab_size">
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/category_content_root" android:layout_width="match_parent" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_6467"
             android:layout_width="@dimen/app_back_icon_size"
@@ -18,11 +24,11 @@
             android:id="@+id/ops_5717_6466"
             android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_58_8"
-            android:layout_marginStart="@dimen/ops_dp_31"
+            android:layout_marginStart="@dimen/ops_manager_home_card_side_margin"
             android:layout_marginTop="@dimen/ops_dp_62_6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_45"
+            android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_categorias_cba7e0"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.6851057a58"
@@ -33,75 +39,62 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold"
             android:maxLines="1" />
-        <ImageView
-            android:id="@+id/ops_5717_6500"
-            android:layout_width="@dimen/ops_dp_53_0"
-            android:layout_height="@dimen/ops_dp_53_0"
-            android:layout_marginStart="@dimen/ops_dp_21_0"
-            android:layout_marginTop="@dimen/ops_dp_23_6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ops_5717_6466"
-            android:src="@drawable/figma_58b2a"
-            android:scaleType="fitXY"
-            android:importantForAccessibility="no"
-            android:tag="image:"
-            android:translationZ="@dimen/ops_dp_3" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6497" android:layout_width="0dp" android:layout_height="@dimen/app_requests_search_height" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_26_6" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6466" android:background="@drawable/bg_ops_c5ebb731c9" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ops_5717_6498"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/ops_dp_21"
-                android:layout_marginStart="@dimen/ops_dp_53_0"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintStart_toEndOf="@id/ops_5717_6505"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="@dimen/ops_dp_52_03"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.532bcc5bfe"
                 android:includeFontPadding="false"
                 android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_21"
+                android:minHeight="48dp"
                 android:tag="field:Pesquisar"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_regular"
                 android:maxLines="1"
                 android:hint="@string/ops_text_pesquisar_d0839a"
+                android:textColorHint="@color/app_text_secondary"
                 android:background="@null"
                 android:singleLine="true"
                 android:inputType="text"
                 android:contentDescription="@string/ops_text_pesquisar_b89310" android:textColor="@color/app_text_black" />
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/ops_5717_6505"
-                android:layout_width="@dimen/ops_search_icon_size"
-                android:layout_height="@dimen/ops_search_icon_size"
-                android:layout_marginStart="@dimen/ops_dp_13_0"
+                android:layout_width="@dimen/app_requests_search_height"
+                android:layout_height="@dimen/app_requests_search_height"
+                android:layout_marginStart="1dp"
+                android:background="@drawable/bg_app_circle_primary"
+                android:contentDescription="@string/app_requests_search"
+                android:elevation="3dp"
+                android:scaleType="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/figma_e0dbb"
-                android:scaleType="fitXY"
-                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_search_26"
+                app:tint="@color/app_on_primary"
                 android:tag="image:search"
                 android:translationZ="@dimen/ops_dp_3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <ImageView
-            android:id="@+id/ops_5717_6509"
-            android:layout_width="@dimen/ops_dp_70_0"
-            android:layout_height="@dimen/ops_dp_70_0"
-            android:layout_marginTop="@dimen/ops_dp_735_0"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/figma_bd6ee"
-            android:scaleType="fitXY"
-            android:importantForAccessibility="no"
-            android:tag="image:" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
-        <ImageView
-            android:id="@+id/ops_5717_6511"
-            android:layout_width="@dimen/ops_dp_28_96"
-            android:layout_height="@dimen/ops_dp_29_05"
-            android:layout_marginTop="@dimen/ops_dp_755_48"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/figma_c5cb2"
-            android:scaleType="fitXY"
-            android:importantForAccessibility="no"
-            android:tag="image:" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ops_5717_6509"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/app_fab_margin_end"
+        android:layout_marginBottom="@dimen/app_fab_margin_bottom"
+        android:contentDescription="@string/ops_text_criar_categoria_81e041"
+        app:backgroundTint="@color/app_primary"
+        app:elevation="4dp"
+        app:fabCustomSize="@dimen/app_fab_size"
+        app:maxImageSize="@dimen/app_fab_icon_size"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        app:srcCompat="@drawable/ic_plus_24"
+        app:tint="@color/app_on_primary" />
+</FrameLayout>

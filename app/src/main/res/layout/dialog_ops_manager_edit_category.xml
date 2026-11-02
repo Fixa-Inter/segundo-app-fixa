@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:7851 • manager / edit_category. Componentes nativos; dimensões em values e sw400dp. -->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_ops_b18732bb6c" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_273" android:clipChildren="false" android:clipToPadding="false">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="320dp" android:clipChildren="false" android:clipToPadding="false">
         <TextView
             android:id="@+id/ops_5717_7852"
             android:layout_width="@dimen/ops_dp_200_9"
@@ -24,7 +24,7 @@
             android:layout_width="@dimen/ops_dp_45"
             android:layout_height="@dimen/ops_dp_21"
             android:layout_marginStart="@dimen/ops_dp_35"
-            android:layout_marginTop="@dimen/ops_dp_27_0"
+            android:layout_marginTop="@dimen/ops_dp_18_0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_7852"
             android:text="@string/ops_text_nome_508690"
@@ -39,14 +39,14 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ops_5717_7857"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ops_dp_35_0"
+            android:layout_height="56dp"
             android:layout_marginStart="@dimen/ops_dp_35_0"
             android:layout_marginTop="@dimen/ops_dp_7_0"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="@dimen/ops_dp_35_0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_7859"
-            android:background="@drawable/bg_ops_70aaab1e67"
+            android:background="@drawable/bg_ops_category_input"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.c9e7c40f6d"
@@ -64,44 +64,56 @@
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
             android:tag="field:Nome" android:textColor="@color/app_text_black" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7854" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_69_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7859" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
-            <TextView
-                android:id="@+id/ops_5717_7855"
-                android:layout_width="@dimen/ops_dp_62"
-                android:layout_height="@dimen/ops_dp_20"
-                android:layout_marginStart="@dimen/ops_dp_42_0"
-                android:layout_marginTop="@dimen/ops_dp_8_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/ops_text_cancelar_bb9dbb"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.be6ece948a"
-                android:includeFontPadding="false"
-                android:gravity="center|center_vertical"
-                android:minHeight="@dimen/ops_dp_20"
-                android:tag="text:Cancelar"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_regular"
-                android:maxLines="1" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/ops_5717_7853"
-            android:layout_width="@dimen/ops_dp_140_0"
+        <LinearLayout
+            android:id="@+id/ops_category_edit_action_row"
+            android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_40_0"
-            android:layout_marginStart="@dimen/ops_dp_185_0"
-            android:layout_marginTop="@dimen/ops_dp_193_0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/bg_ops_eaf7bf3250"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
-            android:padding="@dimen/ops_dp_0"
+            android:layout_marginStart="@dimen/ops_dp_35_0"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="@dimen/ops_dp_35_0"
             android:gravity="center"
-            android:minHeight="@dimen/ops_dp_0"
-            android:minWidth="@dimen/ops_dp_0"
-            android:text="@string/ops_text_salvar_aef7cd"
-            android:textAllCaps="false"
-            android:tag="action:Salvar"
-            app:backgroundTint="@null" />
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_7857">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ops_5717_7854"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_ops_53caa68a0a">
+                <TextView
+                    android:id="@+id/ops_5717_7855"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/ops_text_cancelar_bb9dbb"
+                    android:textAppearance="@style/TextAppearance.FIXA.Operations.be6ece948a"
+                    android:includeFontPadding="false"
+                    android:gravity="center"
+                    android:tag="text:Cancelar"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/ops_5717_7853"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_ops_eaf7bf3250"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
+                android:padding="0dp"
+                android:gravity="center"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:text="@string/ops_text_salvar_aef7cd"
+                android:textAllCaps="false"
+                android:tag="action:Salvar"
+                app:backgroundTint="@null" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

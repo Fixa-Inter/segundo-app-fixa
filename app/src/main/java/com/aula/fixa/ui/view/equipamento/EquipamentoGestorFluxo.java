@@ -24,6 +24,7 @@ import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.aula.fixa.domain.model.equipamento.EquipamentoItem;
 import com.aula.fixa.ui.adapter.equipamento.EquipamentoAdapter;
 import com.aula.fixa.ui.config.AppLoading;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
 import com.aula.fixa.ui.view.operations.OperationsDialogFragment;
 import com.aula.fixa.ui.view.operations.OperationsScreenFragment;
@@ -43,6 +44,7 @@ public final class EquipamentoGestorFluxo {
     private long modeloId;
     private List<EquipamentoItem> all = new ArrayList<>();
     private android.widget.FrameLayout floatingButton;
+    private boolean loadFailed;
 
     public EquipamentoGestorFluxo(OperationsScreenFragment host, OperationsActivity activity) {
         this.host = host;
@@ -84,10 +86,8 @@ public final class EquipamentoGestorFluxo {
 
         empty = new TextView(host.requireContext());
         empty.setText("Nenhum equipamento cadastrado.");
-        empty.setTextSize(15);
-        empty.setTextColor(androidx.core.content.ContextCompat.getColor(host.requireContext(), R.color.ops_color_ff637087));
-        empty.setGravity(android.view.Gravity.CENTER);
-        ConstraintLayout.LayoutParams emptyParams = new ConstraintLayout.LayoutParams(0, dp(160));
+        EmptyStateStyler.apply(empty);
+        ConstraintLayout.LayoutParams emptyParams = new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
         emptyParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         emptyParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         emptyParams.topToBottom = searchBox.getId();
@@ -139,6 +139,7 @@ public final class EquipamentoGestorFluxo {
             @Override public void success(List<EquipamentoItem> values) {
                 if (!host.isAdded() || root == null) return;
                 all = values == null ? new ArrayList<>() : new ArrayList<>(values);
+                loadFailed = false;
                 filter("");
                 finishLoading();
             }
@@ -151,11 +152,11 @@ public final class EquipamentoGestorFluxo {
         all.clear();
         adapter.submit(List.of());
         list.setVisibility(View.GONE);
+        loadFailed = true;
         empty.setText("Não foi possível carregar os equipamentos. Toque para tentar novamente.");
         empty.setOnClickListener(v -> { root.setVisibility(View.INVISIBLE); loading = AppLoading.show(host.requireContext()); load(); });
         empty.setVisibility(View.VISIBLE);
         finishLoading();
-        Toast.makeText(host.requireContext(), AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
     }
 
     private void finishLoading() {
@@ -173,8 +174,13 @@ public final class EquipamentoGestorFluxo {
         adapter.submit(filtered);
         boolean has = !filtered.isEmpty();
         list.setVisibility(has ? View.VISIBLE : View.GONE);
-        empty.setText(all.isEmpty() ? "Nenhum equipamento cadastrado." : "Nenhum equipamento encontrado.");
-        empty.setOnClickListener(null);
+        if (loadFailed) {
+            empty.setText("Não foi possível carregar os equipamentos. Toque para tentar novamente.");
+            empty.setOnClickListener(v -> { root.setVisibility(View.INVISIBLE); loading = AppLoading.show(host.requireContext()); load(); });
+        } else {
+            empty.setText(all.isEmpty() ? "Nenhum equipamento cadastrado." : "Nenhum equipamento encontrado.");
+            empty.setOnClickListener(null);
+        }
         empty.setVisibility(has ? View.GONE : View.VISIBLE);
     }
 

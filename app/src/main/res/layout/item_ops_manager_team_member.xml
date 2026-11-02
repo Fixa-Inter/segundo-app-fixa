@@ -63,6 +63,7 @@
         android:layout_marginTop="@dimen/ops_team_meta_top"
         android:importantForAccessibility="no"
         android:src="@drawable/figma_7c18e"
+        app:tint="@color/app_primary_deep"
         app:layout_constraintStart_toStartOf="@id/teamTechnicianShiftHours"
         app:layout_constraintEnd_toEndOf="@id/teamTechnicianShiftHours"
         app:layout_constraintTop_toTopOf="parent" />
@@ -106,6 +107,7 @@
         android:layout_marginTop="@dimen/ops_team_meta_top"
         android:importantForAccessibility="no"
         android:src="@drawable/figma_57fba"
+        app:tint="@color/app_primary_deep"
         app:layout_constraintStart_toStartOf="@id/teamTechnicianCompetence"
         app:layout_constraintEnd_toEndOf="@id/teamTechnicianCompetence"
         app:layout_constraintTop_toTopOf="parent" />

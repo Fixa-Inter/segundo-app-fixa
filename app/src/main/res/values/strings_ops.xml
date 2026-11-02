@@ -87,6 +87,7 @@
     <string name="ops_text_acompanhe_as_verificacoes_9a69da" formatted="false">Acompanhe as verificações</string>
     <string name="ops_text_acompanhe_os_eventos_7206c9" formatted="false">Acompanhe os eventos</string>
     <string name="ops_text_adicionar_campo_44bda1" formatted="false">+ Adicionar Campo</string>
+    <string name="ops_text_adicionar_campo_label" formatted="false">Adicionar Campo</string>
     <string name="ops_text_adicionar_fotos_e7820f" formatted="false">Adicionar fotos</string>
     <string name="ops_text_adicionar_tarefa_bd7007" formatted="false">+ Adicionar tarefa</string>
     <string name="ops_text_ajuda_com_solicitacao_8cae19" formatted="false">Ajuda com solicitação</string>
@@ -488,4 +489,5 @@
     <string name="ops_text_voce_podera_entrar_novamente_cf611b" formatted="false">Você poderá entrar novamente</string>
     <string name="ops_text_voltar_59dc92" formatted="false">Voltar</string>
     <string name="ops_text_voltar_para_login_c9ad32" formatted="false">Voltar para login</string>
+    <string name="ops_category_delete_prompt">Deseja excluir esse registro?</string>
 </resources>

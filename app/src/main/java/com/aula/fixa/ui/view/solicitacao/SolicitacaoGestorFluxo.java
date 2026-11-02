@@ -152,6 +152,7 @@ public final class SolicitacaoGestorFluxo {
         SolicitacaoGestorViewModel.Callback<List<SolicitacaoGestor>> callback = new SolicitacaoGestorViewModel.Callback<List<SolicitacaoGestor>>() {
             @Override public void success(List<SolicitacaoGestor> result) {
                 if (!isCurrent(content)) return;
+                if (listAdapter != null) listAdapter.setEmptyState(null, null);
                 pendingRequests.clear();
                 pendingRequests.addAll(result);
                 renderList(content);
@@ -159,10 +160,12 @@ public final class SolicitacaoGestorFluxo {
             }
             @Override public void failure(Throwable error) {
                 if (!isCurrent(content)) return;
+                if (listAdapter != null) listAdapter.setEmptyState(
+                        "Não foi possível carregar as solicitações. Toque para tentar novamente.",
+                        () -> loadList(content, approvedForPlanning));
                 pendingRequests.clear();
                 renderList(content);
                 finishLoading(content);
-                Toast.makeText(host.requireContext(), AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
             }
         };
         if (approvedForPlanning) viewModel.loadApproved(callback);

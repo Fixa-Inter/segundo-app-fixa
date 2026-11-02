@@ -6,7 +6,8 @@
     android:background="@drawable/bg_ops_892fe1afbe"
     android:elevation="@dimen/ops_dp_2"
     android:clipChildren="false"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:clipToOutline="true">
 
     <TextView
         android:id="@+id/checklistFieldDrag"
@@ -27,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="48dp"
         android:textAppearance="@style/TextAppearance.FIXA.Operations.ed72944a40"
         android:includeFontPadding="false"

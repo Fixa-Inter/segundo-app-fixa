@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
 import com.aula.fixa.domain.model.ocorrencia.OcorrenciaItem;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import java.time.OffsetDateTime;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -21,8 +22,11 @@ public final class OcorrenciaListAdapter extends RecyclerView.Adapter<RecyclerVi
     private static final int ITEM=0, EMPTY=1;
     private final List<OcorrenciaItem> items=new ArrayList<>();
     private final Listener listener;
+    private CharSequence emptyMessage;
+    private Runnable emptyClick;
     public OcorrenciaListAdapter(Listener listener){this.listener=listener;}
     public void submit(List<OcorrenciaItem> values){items.clear();if(values!=null)items.addAll(values);notifyDataSetChanged();}
+    public void setEmptyState(CharSequence message,Runnable onClick){emptyMessage=message;emptyClick=onClick;notifyDataSetChanged();}
     @Override public int getItemViewType(int position){return items.isEmpty()?EMPTY:ITEM;}
     @Override public int getItemCount(){return items.isEmpty()?1:items.size();}
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int type){
@@ -30,7 +34,7 @@ public final class OcorrenciaListAdapter extends RecyclerView.Adapter<RecyclerVi
         return type==EMPTY?new EmptyHolder(view):new Holder(view);
     }
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder,int position){
-        if(holder instanceof EmptyHolder)return;
+        if(holder instanceof EmptyHolder){EmptyHolder empty=(EmptyHolder)holder;empty.text.setText(emptyMessage==null?holder.itemView.getContext().getString(R.string.ops_manager_no_occurrences):emptyMessage);if(emptyClick==null)empty.itemView.setOnClickListener(null);else empty.itemView.setOnClickListener(v->emptyClick.run());return;}
         OcorrenciaItem item=items.get(position); Holder h=(Holder)holder;
         h.date.setText(formatDate(item.dataCriacao)); h.title.setText(item.titulo);
         String location=item.localUnidade;
@@ -51,5 +55,5 @@ public final class OcorrenciaListAdapter extends RecyclerView.Adapter<RecyclerVi
         final TextView date,title,location,author;final View menu;
         Holder(View v){super(v);date=v.findViewById(R.id.occurrenceDate);title=v.findViewById(R.id.occurrenceTitle);location=v.findViewById(R.id.occurrenceLocation);author=v.findViewById(R.id.occurrenceAuthor);menu=v.findViewById(R.id.occurrenceMenu);}
     }
-    static final class EmptyHolder extends RecyclerView.ViewHolder{EmptyHolder(View v){super(v);}}
+    static final class EmptyHolder extends RecyclerView.ViewHolder{final TextView text;EmptyHolder(View v){super(v);text=v.findViewById(R.id.opsManagerOccurrenceEmptyText);EmptyStateStyler.apply(text);}}
 }

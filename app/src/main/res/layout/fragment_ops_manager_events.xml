@@ -82,23 +82,6 @@
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_light"
                 android:maxLines="1" />
-            <TextView
-                android:id="@+id/ops_5717_6403"
-                android:layout_width="@dimen/ops_dp_27"
-                android:layout_height="@dimen/ops_dp_20"
-                android:layout_marginStart="@dimen/ops_dp_17_0"
-                android:layout_marginTop="@dimen/ops_dp_54_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/ops_text_seg_317a55"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.ce27e4d108"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_20"
-                android:tag="text:Seg"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_light"
-                android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6405" android:layout_width="@dimen/ops_dp_60_0" android:layout_height="@dimen/ops_dp_100_0" android:layout_marginStart="@dimen/ops_dp_109_0" android:layout_marginTop="@dimen/ops_dp_216_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_e1a13aceb8" android:clipChildren="false" android:clipToPadding="false">
             <TextView
@@ -120,23 +103,6 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6414"
-                android:layout_width="@dimen/ops_dp_22"
-                android:layout_height="@dimen/ops_dp_20"
-                android:layout_marginStart="@dimen/ops_dp_20_0"
-                android:layout_marginTop="@dimen/ops_dp_55_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/ops_text_ter_74ae3f"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.5764966c48"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_20"
-                android:tag="text:Ter"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_light"
-                android:maxLines="1" />
-            <TextView
-                android:id="@+id/ops_5717_6415"
                 android:layout_width="@dimen/ops_dp_22"
                 android:layout_height="@dimen/ops_dp_20"
                 android:layout_marginStart="@dimen/ops_dp_20_0"
@@ -283,7 +249,7 @@
                 android:id="@+id/ops_5717_6384"
                 android:layout_width="@dimen/ops_dp_188_6"
                 android:layout_height="@dimen/ops_dp_24"
-                android:layout_marginStart="@dimen/ops_dp_50_0"
+                android:layout_marginStart="@dimen/ops_dp_63_0"
                 android:layout_marginTop="@dimen/ops_dp_12_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -298,9 +264,9 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6383"
-                android:layout_width="@dimen/ops_dp_25"
+                android:layout_width="@dimen/ops_dp_40"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ops_dp_15_0"
+                android:layout_marginStart="@dimen/ops_dp_8_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -344,7 +310,7 @@
                 android:id="@+id/ops_5717_6386"
                 android:layout_width="@dimen/ops_dp_8_0"
                 android:layout_height="@dimen/ops_dp_8_0"
-                android:layout_marginStart="@dimen/ops_dp_50_0"
+                android:layout_marginStart="@dimen/ops_dp_63_0"
                 android:layout_marginTop="@dimen/ops_dp_8_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_6384"
@@ -359,7 +325,7 @@
                 android:id="@+id/ops_5717_6395"
                 android:layout_width="@dimen/ops_dp_132_22"
                 android:layout_height="@dimen/ops_dp_24"
-                android:layout_marginStart="@dimen/ops_dp_50_0"
+                android:layout_marginStart="@dimen/ops_dp_63_0"
                 android:layout_marginTop="@dimen/ops_dp_12_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -374,9 +340,9 @@
                 android:maxLines="1" />
             <TextView
                 android:id="@+id/ops_5717_6394"
-                android:layout_width="@dimen/ops_dp_25"
+                android:layout_width="@dimen/ops_dp_40"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ops_dp_15_0"
+                android:layout_marginStart="@dimen/ops_dp_8_0"
                 android:layout_marginTop="@dimen/ops_dp_15_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -420,7 +386,7 @@
                 android:id="@+id/ops_5717_6397"
                 android:layout_width="@dimen/ops_dp_8_0"
                 android:layout_height="@dimen/ops_dp_8_0"
-                android:layout_marginStart="@dimen/ops_dp_50_0"
+                android:layout_marginStart="@dimen/ops_dp_63_0"
                 android:layout_marginTop="@dimen/ops_dp_8_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ops_5717_6395"

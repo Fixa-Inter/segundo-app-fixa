@@ -13,7 +13,7 @@
             android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_gerencie_os_equipamentos_7064bd"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
+            android:textAppearance="@style/TextAppearance.FIXA.Operations.cce53d82bb"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:tag="text:Gerencie os equipamentos"

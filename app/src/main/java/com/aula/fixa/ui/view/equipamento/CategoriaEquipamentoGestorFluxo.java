@@ -19,6 +19,7 @@ import com.aula.fixa.adapter.equipamento.CategoriaEquipamentoViewModelFactory;
 import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.aula.fixa.ui.adapter.equipamento.CategoriaEquipamentoAdapter;
 import com.aula.fixa.ui.config.AppLoading;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
 import com.aula.fixa.ui.view.operations.OperationsDialogFragment;
 import com.aula.fixa.ui.view.operations.OperationsScreenFragment;
@@ -37,6 +38,7 @@ public final class CategoriaEquipamentoGestorFluxo {
     private View root;
     private Dialog loading;
     private String query = "";
+    private boolean loadFailed;
     private final List<OpcaoCadastro> categories = new ArrayList<>();
 
     public CategoriaEquipamentoGestorFluxo(OperationsScreenFragment host, OperationsActivity activity) {
@@ -47,33 +49,35 @@ public final class CategoriaEquipamentoGestorFluxo {
         root = content;
         model = new ViewModelProvider(host, new CategoriaEquipamentoViewModelFactory(host.requireContext()))
                 .get(CategoriaEquipamentoViewModel.class);
-        ViewGroup container = (ViewGroup) ((ViewGroup) content).getChildAt(0);
+        ViewGroup container = content.findViewById(R.id.category_content_root);
         View back = content.findViewById(R.id.ops_5717_6467);
         if (back != null) back.setOnClickListener(v -> activity.back());
         int searchId = R.id.ops_5717_6497, fabId = R.id.ops_5717_6509;
         RecyclerView recycler = new RecyclerView(host.requireContext());
         recycler.setId(View.generateViewId()); recycler.setClipToPadding(false);
+        recycler.setNestedScrollingEnabled(false);
         recycler.setPadding(0, 0, 0, dp(8));
-        ConstraintLayout.LayoutParams listParams = new ConstraintLayout.LayoutParams(0, 0);
+        ConstraintLayout.LayoutParams listParams = new ConstraintLayout.LayoutParams(
+                0, ViewGroup.LayoutParams.WRAP_CONTENT);
         listParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         listParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-        listParams.topToBottom = searchId; listParams.bottomToTop = fabId;
-        listParams.setMarginStart(dp(31)); listParams.setMarginEnd(dp(41));
-        listParams.topMargin = dp(15); listParams.bottomMargin = dp(12);
+        listParams.topToBottom = searchId;
+        int contentMargin = host.requireContext().getResources()
+                .getDimensionPixelSize(R.dimen.ops_manager_home_card_side_margin);
+        listParams.setMarginStart(contentMargin); listParams.setMarginEnd(contentMargin);
+        listParams.topMargin = dp(20);
         container.addView(recycler, listParams);
         recycler.setLayoutManager(new LinearLayoutManager(host.requireContext()));
         list = recycler;
 
         TextView emptyView = new TextView(host.requireContext());
         emptyView.setText("Nenhuma categoria cadastrada.");
-        emptyView.setTextSize(14);
-        emptyView.setTextColor(androidx.core.content.ContextCompat.getColor(host.requireContext(), R.color.app_text_secondary));
-        emptyView.setGravity(android.view.Gravity.CENTER);
-        ConstraintLayout.LayoutParams emptyParams = new ConstraintLayout.LayoutParams(0, 0);
+        EmptyStateStyler.apply(emptyView);
+        ConstraintLayout.LayoutParams emptyParams = new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
         emptyParams.startToStart = listParams.startToStart; emptyParams.endToEnd = listParams.endToEnd;
-        emptyParams.topToTop = listParams.topToTop; emptyParams.bottomToBottom = listParams.bottomToBottom;
+        emptyParams.topToBottom = searchId;
         emptyParams.setMarginStart(listParams.getMarginStart()); emptyParams.setMarginEnd(listParams.getMarginEnd());
-        emptyParams.topMargin = listParams.topMargin; emptyParams.bottomMargin = listParams.bottomMargin;
+        emptyParams.topMargin = listParams.topMargin;
         container.addView(emptyView, emptyParams); empty = emptyView;
 
         adapter = new CategoriaEquipamentoAdapter(this::showMenu);
@@ -84,10 +88,9 @@ public final class CategoriaEquipamentoGestorFluxo {
             public void onTextChanged(CharSequence s, int start, int before, int count) { query = s.toString(); render(); }
             public void afterTextChanged(android.text.Editable e) { }
         });
-        View fab = content.findViewById(fabId), plus = content.findViewById(R.id.ops_5717_6511);
+        View fab = content.findViewById(fabId);
         View.OnClickListener create = v -> activity.open("manager_create_category");
         if (fab != null) fab.setOnClickListener(create);
-        if (plus != null) plus.setOnClickListener(create);
         content.setVisibility(View.INVISIBLE);
         loading = AppLoading.show(host.requireContext());
         load();
@@ -98,13 +101,17 @@ public final class CategoriaEquipamentoGestorFluxo {
             @Override public void success(List<OpcaoCadastro> values) {
                 if (!host.isAdded() || root == null) return;
                 categories.clear(); if (values != null) categories.addAll(values);
+                loadFailed = false;
                 AppLoading.hide(loading); loading = null; root.setVisibility(View.VISIBLE); render();
             }
             @Override public void failure(Throwable error) {
                 if (!host.isAdded() || root == null) return;
-                categories.clear(); if (empty != null) empty.setText("Não foi possível carregar as categorias.");
+                categories.clear(); loadFailed = true;
+                if (empty != null) {
+                    empty.setText("Não foi possível carregar as categorias. Toque para tentar novamente.");
+                    empty.setOnClickListener(v -> { root.setVisibility(View.INVISIBLE); loading = AppLoading.show(host.requireContext()); load(); });
+                }
                 AppLoading.hide(loading); loading = null; root.setVisibility(View.VISIBLE); render();
-                Toast.makeText(host.requireContext(), AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -115,7 +122,16 @@ public final class CategoriaEquipamentoGestorFluxo {
         List<OpcaoCadastro> visible = new ArrayList<>();
         for (OpcaoCadastro category : categories) if (normalize(category.getNome()).contains(needle)) visible.add(category);
         adapter.submit(visible);
-        if (empty != null) empty.setVisibility(visible.isEmpty() ? View.VISIBLE : View.GONE);
+        if (empty != null) {
+            if (loadFailed) {
+                empty.setText("Não foi possível carregar as categorias. Toque para tentar novamente.");
+                empty.setOnClickListener(v -> { root.setVisibility(View.INVISIBLE); loading = AppLoading.show(host.requireContext()); load(); });
+            } else {
+                empty.setText(visible.isEmpty() ? (query.trim().isEmpty() ? "Nenhuma categoria cadastrada." : "Nenhuma categoria encontrada.") : "");
+                empty.setOnClickListener(null);
+            }
+            empty.setVisibility(visible.isEmpty() ? View.VISIBLE : View.GONE);
+        }
         if (list != null) list.setVisibility(visible.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
@@ -173,7 +189,11 @@ public final class CategoriaEquipamentoGestorFluxo {
         } else if ("manager_delete_category".equals(key)) {
             View cancel = content.findViewById(R.id.ops_5717_7874), remove = content.findViewById(R.id.ops_5717_7872);
             TextView message = content.findViewById(R.id.ops_5717_7871);
-            if (message != null) message.setText("Deseja excluir “" + activity.model.selectedTitle() + "”? ");
+            if (message != null) {
+                message.setText(R.string.ops_category_delete_prompt);
+                message.setSingleLine(true);
+                message.setGravity(android.view.Gravity.CENTER);
+            }
             cancel.setOnClickListener(v -> dialog.dismiss());
             remove.setOnClickListener(v -> {
                 long id = selectedId(activity); remove.setEnabled(false); Dialog wait = AppLoading.show(dialog.requireContext());

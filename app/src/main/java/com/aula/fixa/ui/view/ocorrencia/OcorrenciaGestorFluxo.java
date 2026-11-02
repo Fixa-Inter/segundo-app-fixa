@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.aula.fixa.ui.adapter.ocorrencia.OcorrenciaListAdapter;
 import com.aula.fixa.ui.adapter.ocorrencia.OcorrenciaEditPhotoAdapter;
 import com.aula.fixa.ui.config.AppDialogs;
 import com.aula.fixa.ui.config.AppLoading;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
 import com.aula.fixa.ui.view.operations.OperationsScreenFragment;
 import java.text.Normalizer;
@@ -37,7 +40,7 @@ import java.util.TreeSet;
 public final class OcorrenciaGestorFluxo {
     private final OperationsScreenFragment host; private final OperationsActivity activity;
     private OcorrenciaViewModel model; private View content; private RecyclerView list; private OcorrenciaListAdapter adapter;
-    private final List<OcorrenciaItem> all=new ArrayList<>(); private Dialog loading;
+    private final List<OcorrenciaItem> all=new ArrayList<>(); private Dialog loading; private boolean loadFailed;
     private String query="",period="",author="",location="",equipment="",category="",priority="";
     private com.aula.fixa.adapter.foto.FotoViewModel fotoModel;
     private OcorrenciaEditPhotoAdapter photoAdapter;
@@ -66,6 +69,15 @@ public final class OcorrenciaGestorFluxo {
         String scope = activity.role()+"_new_occurrence_form";
         screen = screen.replaceFirst("^technician_", "manager_");
         if ("manager_occurrence_intro".equals(screen)) {
+            root.findViewById(R.id.occurrenceIntroBack).setOnClickListener(v -> activity.back());
+            root.findViewById(R.id.occurrenceIntroCancel).setOnClickListener(v -> activity.back());
+            root.findViewById(R.id.occurrenceIntroContinue).setOnClickListener(v -> activity.openOccurrenceBasic());
+            return;
+        }
+        bindCreationProgress(root, "manager_occurrence_basic".equals(screen) ? 1
+                : "manager_occurrence_service".equals(screen) ? 2
+                : "manager_occurrence_location".equals(screen) ? 3 : 4);
+        if ("manager_occurrence_basic".equals(screen)) {
             EditText title = root.findViewById(R.id.occurrenceCreateTitle);
             EditText description = root.findViewById(R.id.occurrenceCreateDescription);
             title.setText(value(scope, "title"));
@@ -82,6 +94,7 @@ public final class OcorrenciaGestorFluxo {
         }
         if ("manager_occurrence_service".equals(screen)) {
             android.widget.AutoCompleteTextView local = editField(root, R.id.occurrenceCreateLocal);
+            styleOccurrenceDropdown(root.findViewById(R.id.occurrenceCreateLocal), local);
             EditText locationDescription = root.findViewById(R.id.occurrenceCreateLocationDescription);
             locationDescription.setText(value(scope, "locationDescription"));
             setOptions(local, new ArrayList<>());
@@ -112,6 +125,9 @@ public final class OcorrenciaGestorFluxo {
             android.widget.AutoCompleteTextView equipment = editField(root, R.id.occurrenceCreateEquipment);
             android.widget.AutoCompleteTextView category = editField(root, R.id.occurrenceCreateCategory);
             android.widget.AutoCompleteTextView priority = editField(root, R.id.occurrenceCreatePriority);
+            styleOccurrenceDropdown(root.findViewById(R.id.occurrenceCreateEquipment), equipment);
+            styleOccurrenceDropdown(root.findViewById(R.id.occurrenceCreateCategory), category);
+            styleOccurrenceDropdown(root.findViewById(R.id.occurrenceCreatePriority), priority);
             setOptions(category, enumNames(com.aula.fixa.domain.enums.CategoriaProblema.values()));
             setOptions(priority, enumNames(com.aula.fixa.domain.enums.Prioridade.values()));
             category.setText(value(scope, "categoryName"), false); priority.setText(value(scope, "priorityName"), false);
@@ -158,6 +174,42 @@ public final class OcorrenciaGestorFluxo {
         root.findViewById(R.id.occurrenceCreateAddPhotos).setOnClickListener(v -> activity.photos());
         fotoModel=new ViewModelProvider(host,new com.aula.fixa.adapter.foto.FotoViewModelFactory(host.requireContext())).get(com.aula.fixa.adapter.foto.FotoViewModel.class);
         root.findViewById(R.id.occurrenceCreateFinish).setOnClickListener(v -> submitCreation(scope, selectedPhotos, photosCount));
+    }
+
+    private void bindCreationProgress(View root, int currentStep) {
+        int[] circles = {R.id.occurrenceStep1, R.id.occurrenceStep2, R.id.occurrenceStep3, R.id.occurrenceStep4};
+        int[] labels = {R.id.occurrenceStepLabel1, R.id.occurrenceStepLabel2, R.id.occurrenceStepLabel3, R.id.occurrenceStepLabel4};
+        int[] lines = {R.id.occurrenceStepLine1, R.id.occurrenceStepLine2, R.id.occurrenceStepLine3};
+        for (int i = 0; i < circles.length; i++) {
+            int state = i + 1 < currentStep ? 0 : i + 1 == currentStep ? 1 : 2;
+            int background = state == 0 ? R.drawable.bg_app_circle_done
+                    : state == 1 ? R.drawable.bg_app_circle_primary : R.drawable.bg_app_circle_muted;
+            int color = state == 0 ? R.color.app_status_done
+                    : state == 1 ? R.color.app_primary : R.color.app_text_muted;
+            root.findViewById(circles[i]).setBackgroundResource(background);
+            ((TextView) root.findViewById(labels[i])).setTextColor(ContextCompat.getColor(host.requireContext(), color));
+        }
+        for (int i = 0; i < lines.length; i++) {
+            View line = root.findViewById(lines[i]);
+            if (currentStep > i + 1) {
+                line.setBackgroundResource(R.drawable.bg_app_indicator_line_done);
+            } else if (currentStep == i + 1) {
+                line.setBackgroundResource(R.drawable.bg_app_indicator_line_progress);
+                line.getBackground().setLevel(5000);
+            } else {
+                line.setBackgroundResource(R.drawable.bg_app_indicator_line_pending);
+            }
+        }
+    }
+
+    private void styleOccurrenceDropdown(View container, android.widget.AutoCompleteTextView field) {
+        if (container != null) container.setBackgroundResource(R.drawable.bg_app_step_field);
+        if (field != null) {
+            field.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+            field.setTextColor(ContextCompat.getColor(host.requireContext(), R.color.app_text_black));
+            field.setHintTextColor(ContextCompat.getColor(host.requireContext(), R.color.app_text_placeholder_dark));
+            field.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(host.requireContext(), R.font.poppins_regular));
+        }
     }
 
     private String value(String scope, String field) {
@@ -219,10 +271,10 @@ public final class OcorrenciaGestorFluxo {
         });
     }
     private void load(){if(model==null||content==null)return;content.setVisibility(View.INVISIBLE);AppLoading.hide(loading);loading=AppLoading.show(host.requireContext());OcorrenciaViewModel.Callback<List<OcorrenciaItem>> callback=new OcorrenciaViewModel.Callback<List<OcorrenciaItem>>(){
-        @Override public void success(List<OcorrenciaItem> values){if(!current())return;all.clear();if(values!=null)all.addAll(values);renderList();finish();}
-        @Override public void failure(Throwable error){if(!current())return;all.clear();renderList();finish();Toast.makeText(host.requireContext(),AutenticacaoViewModel.messageFrom(error),Toast.LENGTH_LONG).show();}
+        @Override public void success(List<OcorrenciaItem> values){if(!current())return;loadFailed=false;all.clear();if(values!=null)all.addAll(values);renderList();finish();}
+        @Override public void failure(Throwable error){if(!current())return;loadFailed=true;all.clear();renderList();finish();}
     };if("technician".equals(activity.role()))model.listarMinhas(callback);else model.listar(callback);}
-    private void renderList(){if(adapter==null)return;String q=norm(query);List<OcorrenciaItem> visible=new ArrayList<>();for(OcorrenciaItem item:all){if(!matchesQuery(item,q)||!matches(item.autor,author)||!matches(item.localUnidade,location)||!matches(item.categoriaEquipamento,equipment)||!matches(item.categoriaProblema,category)||!matches(item.prioridade,priority)||!matchesPeriod(item.dataCriacao,period))continue;visible.add(item);}adapter.submit(visible);}
+    private void renderList(){if(adapter==null)return;if(loadFailed)adapter.setEmptyState("Não foi possível carregar as ocorrências. Toque para tentar novamente.",this::load);else adapter.setEmptyState(null,null);String q=norm(query);List<OcorrenciaItem> visible=new ArrayList<>();for(OcorrenciaItem item:all){if(!matchesQuery(item,q)||!matches(item.autor,author)||!matches(item.localUnidade,location)||!matches(item.categoriaEquipamento,equipment)||!matches(item.categoriaProblema,category)||!matches(item.prioridade,priority)||!matchesPeriod(item.dataCriacao,period))continue;visible.add(item);}adapter.submit(visible);}
     private boolean matchesQuery(OcorrenciaItem i,String q){return q.isEmpty()||norm(i.titulo).contains(q);}
     private boolean matches(String value,String selected){return selected==null||selected.trim().isEmpty()||norm(value).equals(norm(selected));}
     private String norm(String value){return Normalizer.normalize(value==null?"":value,Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT).replace('_',' ').trim();}
@@ -236,15 +288,16 @@ public final class OcorrenciaGestorFluxo {
     private void showEdit(OcorrenciaItem item){activity.openOccurrenceEdit(item);}
     public void bindEditInformation(View root){
         content=root;android.os.Bundle args=host.getArguments();if(args==null)return;
-        View back=root.findViewById(R.id.occurrenceEditInfoBack);if(back!=null)back.setOnClickListener(v->activity.back());
+        View back=root.findViewById(R.id.occurrenceEditInfoBack);if(back!=null)back.setOnClickListener(v->activity.finishOccurrenceEdit());
         android.widget.AutoCompleteTextView local=editField(root,R.id.occurrenceEditFieldLocation),equipmentField=editField(root,R.id.occurrenceEditFieldEquipment),categoryField=editField(root,R.id.occurrenceEditFieldCategory),priorityField=editField(root,R.id.occurrenceEditFieldPriority);
+        styleOccurrenceDropdown(root.findViewById(R.id.occurrenceEditFieldLocation),local);styleOccurrenceDropdown(root.findViewById(R.id.occurrenceEditFieldEquipment),equipmentField);styleOccurrenceDropdown(root.findViewById(R.id.occurrenceEditFieldCategory),categoryField);styleOccurrenceDropdown(root.findViewById(R.id.occurrenceEditFieldPriority),priorityField);
         local.setHint(R.string.app_filter_location_default);equipmentField.setHint(R.string.app_filter_location_default);categoryField.setHint(R.string.app_filter_location_default);priorityField.setHint(R.string.app_filter_location_default);
         List<String> categories=new ArrayList<>(),priorities=new ArrayList<>();for(com.aula.fixa.domain.enums.CategoriaProblema c:com.aula.fixa.domain.enums.CategoriaProblema.values())categories.add(c.getNome());for(com.aula.fixa.domain.enums.Prioridade p:com.aula.fixa.domain.enums.Prioridade.values())priorities.add(p.getNome());
         setOptions(categoryField,categories);setOptions(priorityField,priorities);categoryField.setText(args.getString("categoryName",""),false);priorityField.setText(args.getString("priorityName",""),false);
         com.aula.fixa.adapter.cadastro.CadastroViewModel catalogs=new ViewModelProvider(host,new com.aula.fixa.adapter.cadastro.CadastroViewModelFactory(host.requireContext())).get(com.aula.fixa.adapter.cadastro.CadastroViewModel.class);
         catalogs.listarLocais(new com.aula.fixa.adapter.cadastro.CadastroViewModel.Callback<List<com.aula.fixa.domain.model.OpcaoCadastro>>(){public void aoConcluir(List<com.aula.fixa.domain.model.OpcaoCadastro> values){if(!host.isAdded())return;localOptions=values==null?new ArrayList<>():values;List<String> names=new ArrayList<>();for(com.aula.fixa.domain.model.OpcaoCadastro option:localOptions)names.add(option.getNome());setOptions(local,names);local.setText(args.getString("localName",""),false);}public void aoFalhar(Throwable error){showError(error);}});
         catalogs.listarCategorias(new com.aula.fixa.adapter.cadastro.CadastroViewModel.Callback<List<com.aula.fixa.domain.model.OpcaoCadastro>>(){public void aoConcluir(List<com.aula.fixa.domain.model.OpcaoCadastro> values){if(!host.isAdded())return;equipmentOptions=values==null?new ArrayList<>():values;List<String> names=new ArrayList<>();for(com.aula.fixa.domain.model.OpcaoCadastro option:equipmentOptions)names.add(option.getNome());setOptions(equipmentField,names);equipmentField.setText(args.getString("equipmentName",""),false);}public void aoFalhar(Throwable error){showError(error);}});
-        root.findViewById(R.id.occurrenceEditInfoCancel).setOnClickListener(v->activity.back());
+        root.findViewById(R.id.occurrenceEditInfoCancel).setOnClickListener(v->activity.finishOccurrenceEdit());
         root.findViewById(R.id.occurrenceEditInfoNext).setOnClickListener(v->{String locationName=local.getText().toString().trim(),equipmentName=equipmentField.getText().toString().trim(),categoryName=categoryField.getText().toString().trim(),priorityName=priorityField.getText().toString().trim();if(locationName.isEmpty()||equipmentName.isEmpty()||categoryName.isEmpty()||priorityName.isEmpty()){Toast.makeText(host.requireContext(),R.string.ops_occurrence_select_all_fields,Toast.LENGTH_SHORT).show();return;}Long localId=findId(localOptions,locationName),equipmentId=findId(equipmentOptions,equipmentName);com.aula.fixa.domain.enums.CategoriaProblema categoryValue=category(categoryName);com.aula.fixa.domain.enums.Prioridade priorityValue=priority(priorityName);if(localId==null||equipmentId==null||categoryValue==null||priorityValue==null){Toast.makeText(host.requireContext(),R.string.ops_occurrence_select_all_fields,Toast.LENGTH_SHORT).show();return;}activity.model.field("occurrence_edit","localId",String.valueOf(localId));activity.model.field("occurrence_edit","equipmentId",String.valueOf(equipmentId));activity.model.field("occurrence_edit","category",categoryValue.name());activity.model.field("occurrence_edit","priority",priorityValue.name());activity.openOccurrenceEditPhotos(args.getLong("occurrenceId"),args.getLongArray("photoIds"),args.getStringArrayList("photoUrls"));});
     }
 
@@ -265,8 +318,8 @@ public final class OcorrenciaGestorFluxo {
     private com.aula.fixa.domain.enums.Prioridade priority(String value){for(com.aula.fixa.domain.enums.Prioridade p:com.aula.fixa.domain.enums.Prioridade.values())if(p.getNome().equalsIgnoreCase(value)||p.name().equalsIgnoreCase(value))return p;return null;}
     private void updatePhotoSaveState(){if(content!=null){View save=content.findViewById(R.id.occurrenceEditPhotosSave);if(save!=null)save.setEnabled(pendingPhotoUploads==0);}}
 
-    public void bindDetails(View root){content=root;model=new ViewModelProvider(host,new OcorrenciaViewModelFactory(host.requireContext())).get(OcorrenciaViewModel.class);View back=root.findViewById(R.id.ops_5717_9112);if(back!=null)back.setOnClickListener(v->activity.back());android.widget.TextView heading=root.findViewById(R.id.ops_5717_9111);if(heading!=null)heading.setText(R.string.ops_occurrence_details_title);long id=host.getArguments()==null?0:host.getArguments().getLong("occurrenceId",0);if(id<=0){Toast.makeText(host.requireContext(),R.string.ops_occurrence_load_error,Toast.LENGTH_LONG).show();return;}root.setVisibility(View.INVISIBLE);loading=AppLoading.show(host.requireContext());model.detalhar(id,new OcorrenciaViewModel.Callback<OcorrenciaItem>(){public void success(OcorrenciaItem item){if(!current())return;bindDetailValues(root,item);finish();}public void failure(Throwable error){if(!current())return;finish();showError(error);}});}
-    private void bindDetailValues(View root,OcorrenciaItem i){setText(root,R.id.ops_5717_9117,i.titulo);setText(root,R.id.ops_5717_9118,i.descricao);setText(root,R.id.ops_5717_9120,getString(R.string.ops_occurrence_equipment,i.categoriaEquipamento));setText(root,R.id.ops_5717_9119,getString(R.string.ops_occurrence_local,i.localUnidade));setText(root,R.id.ops_5717_9123,i.descricaoLocal);android.widget.ImageView first=root.findViewById(R.id.ops_5717_9124),second=root.findViewById(R.id.ops_5717_9125);loadPhoto(first,i.fotos.size()>0?i.fotos.get(0).url:null);if(i.fotos.size()>1)loadPhoto(second,i.fotos.get(1).url);else if(second!=null)second.setVisibility(View.GONE);}
+    public void bindDetails(View root){content=root;model=new ViewModelProvider(host,new OcorrenciaViewModelFactory(host.requireContext())).get(OcorrenciaViewModel.class);View back=root.findViewById(R.id.ops_5717_9112);if(back!=null)back.setOnClickListener(v->activity.back());android.widget.TextView heading=root.findViewById(R.id.ops_5717_9111);if(heading!=null){heading.setText(R.string.ops_occurrence_details_title);heading.setTextColor(ContextCompat.getColor(host.requireContext(),R.color.ops_color_ff0b013c));heading.setTextSize(36);}long id=host.getArguments()==null?0:host.getArguments().getLong("occurrenceId",0);if(id<=0){EmptyStateStyler.showBelowBack(root,"Ocorrência não encontrada.",null);return;}EmptyStateStyler.removeFromRoot(root);root.setVisibility(View.INVISIBLE);loading=AppLoading.show(host.requireContext());model.detalhar(id,new OcorrenciaViewModel.Callback<OcorrenciaItem>(){public void success(OcorrenciaItem item){if(!current())return;EmptyStateStyler.removeFromRoot(root);bindDetailValues(root,item);finish();}public void failure(Throwable error){if(!current())return;finish();EmptyStateStyler.showBelowBack(root,"Não foi possível carregar a ocorrência. Toque para tentar novamente.",()->bindDetails(root));}});}
+    private void bindDetailValues(View root,OcorrenciaItem i){setText(root,R.id.ops_5717_9117,i.titulo);TextView title=root.findViewById(R.id.ops_5717_9117);if(title!=null)title.setTextColor(ContextCompat.getColor(host.requireContext(),R.color.ops_color_ff0b013c));setText(root,R.id.ops_5717_9118,i.descricao);setText(root,R.id.ops_5717_9120,getString(R.string.ops_occurrence_equipment,i.categoriaEquipamento));setText(root,R.id.ops_5717_9119,getString(R.string.ops_occurrence_local,i.localUnidade));setText(root,R.id.ops_5717_9123,i.descricaoLocal);android.widget.ImageView first=root.findViewById(R.id.ops_5717_9124),second=root.findViewById(R.id.ops_5717_9125);loadPhoto(first,i.fotos.size()>0?i.fotos.get(0).url:null);if(i.fotos.size()>1)loadPhoto(second,i.fotos.get(1).url);else if(second!=null)second.setVisibility(View.GONE);}
     private String getString(int id,String value){return host.getString(id,value==null?"":value);}
     private void setText(View root,int id,CharSequence value){android.widget.TextView text=root.findViewById(id);if(text!=null)text.setText(value);}
     private void loadPhoto(android.widget.ImageView target,String url){if(target==null)return;if(url==null||url.trim().isEmpty()){target.setVisibility(View.GONE);return;}target.setVisibility(View.VISIBLE);com.bumptech.glide.Glide.with(host).load(url).centerCrop().placeholder(R.drawable.img_empty_results).error(R.drawable.img_empty_results).into(target);}

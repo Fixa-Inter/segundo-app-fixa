@@ -127,6 +127,16 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/ops_create_planning_step_indicator"
+            layout="@layout/view_app_step_indicator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_step_indicator_margin_top"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_8530" />
         <ImageView
             android:id="@+id/ops_5717_8506"
             android:layout_width="36dp"
@@ -191,23 +201,23 @@
             android:maxLines="1" />
         <View
             android:id="@+id/ops_shape_1"
-            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_4_0"
-            android:layout_marginTop="64dp"
             app:layout_constraintStart_toEndOf="@id/ops_5717_8506"
             app:layout_constraintEnd_toStartOf="@id/ops_5717_8509"
-            app:layout_constraintTop_toBottomOf="@id/ops_5717_8530"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_8506"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_8506"
             android:background="@drawable/bg_ops_56c27dd68d"
             android:clipChildren="false"
             android:clipToPadding="false" />
         <View
             android:id="@+id/ops_shape_2"
-            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_4_0"
-            android:layout_marginTop="64dp"
             app:layout_constraintStart_toEndOf="@id/ops_5717_8506"
             app:layout_constraintEnd_toStartOf="@id/ops_5717_8509"
-            app:layout_constraintTop_toBottomOf="@id/ops_5717_8530"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_8506"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_8506"
             android:background="@drawable/bg_ops_053a9b3e5e"
             android:clipChildren="false"
             android:clipToPadding="false" />
@@ -274,7 +284,7 @@
             app:layout_constraintBottom_toBottomOf="@id/ops_tasks_step_3_circle" />
         <View
             android:id="@+id/ops_tasks_step_connector_2"
-            android:layout_width="@dimen/ops_dp_65_0"
+            android:layout_width="0dp"
             android:layout_height="4dp"
             android:background="@drawable/bg_ops_f5d8731d7a"
             app:layout_constraintStart_toEndOf="@id/ops_5717_8509"
@@ -297,11 +307,13 @@
             app:layout_constraintTop_toBottomOf="@id/ops_tasks_step_3_circle" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ops_5717_8516"
-            android:layout_width="@dimen/ops_dp_140_0"
-            android:layout_height="@dimen/ops_dp_50_0"
-            android:layout_marginStart="@dimen/ops_dp_236_0"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="36dp"
             android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ops_5717_8514"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_tasks_step_3_label"
             android:background="@drawable/bg_ops_e9ff3d87c6"
             android:clipChildren="false"
@@ -317,11 +329,13 @@
             app:backgroundTint="@null" />
         <TextView
             android:id="@+id/ops_5717_8514"
-            android:layout_width="@dimen/ops_dp_140_0"
-            android:layout_height="@dimen/ops_dp_50_0"
-            android:layout_marginStart="@dimen/ops_dp_56"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ops_5717_8516"
             app:layout_constraintTop_toBottomOf="@id/ops_tasks_step_3_label"
             android:text="@string/ops_text_voltar_59dc92"
             android:background="@drawable/bg_ops_6fc7f4db18"

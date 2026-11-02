@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_filter_field_height"
-    android:background="@drawable/bg_app_field_soft">
+    android:background="@drawable/bg_app_filter_field">
 
     <AutoCompleteTextView
         android:id="@+id/actvFilterValue"
@@ -20,6 +20,7 @@
         android:paddingEnd="@dimen/app_filter_field_padding_end"
         android:popupBackground="@drawable/bg_app_popup_menu"
         android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Field"
+        android:textColorHint="@color/app_text_secondary"
         tools:text="Últimos 30 dias" android:textColor="@color/app_text_black" />
 
     <ImageView

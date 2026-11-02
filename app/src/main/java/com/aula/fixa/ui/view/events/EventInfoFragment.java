@@ -8,10 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.AppText;
 import com.aula.fixa.ui.config.FragmentUi;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.adapter.evento.EventoViewModel;
 import com.aula.fixa.adapter.evento.EventoViewModelFactory;
 import com.aula.fixa.domain.model.Evento;
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class EventInfoFragment extends Fragment {
+    private EventoViewModel viewModel;
 
     public EventInfoFragment() {
         super(R.layout.fragment_event_info);
@@ -30,11 +33,17 @@ public class EventInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.btnBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         AppText.setHtml(view.findViewById(R.id.tvTitle), R.string.app_event_info_title);
+        viewModel = new androidx.lifecycle.ViewModelProvider(this,
+                new EventoViewModelFactory(requireContext())).get(EventoViewModel.class);
         long id = getArguments() == null ? 0 : getArguments().getLong("eventId", 0);
-        if (id > 0) {
-            EventoViewModel viewModel = new androidx.lifecycle.ViewModelProvider(this,
-                    new EventoViewModelFactory(requireContext())).get(EventoViewModel.class);
-            viewModel.detalhar(id, new EventoViewModel.Listener() {
+        if (id > 0) loadEvent(view, id);
+        else showErrorState(view, "Evento não encontrado.", null);
+    }
+
+    private void loadEvent(View view, long id) {
+        EmptyStateStyler.removeFromConstraint((ConstraintLayout) view.findViewById(R.id.eventInfoRoot));
+        view.findViewById(R.id.panelInfo).setVisibility(View.VISIBLE);
+        viewModel.detalhar(id, new EventoViewModel.Listener() {
                 @Override public void aoCarregar(boolean carregando) { }
                 @Override public void aoListar(java.util.List<Evento> eventos) { }
                 @Override public void aoDetalhar(Evento evento) {
@@ -51,9 +60,16 @@ public class EventInfoFragment extends Fragment {
                 }
                 @Override public void aoFalhar(Throwable error) {
                     FragmentUi.runIfViewActive(EventInfoFragment.this, view,
-                            () -> android.widget.Toast.makeText(view.getContext(), AutenticacaoViewModel.messageFrom(error), android.widget.Toast.LENGTH_LONG).show());
+                            () -> showErrorState(view,
+                                    "Não foi possível carregar o evento. Toque para tentar novamente.",
+                                    () -> loadEvent(view, id)));
                 }
             });
-        }
+    }
+
+    private void showErrorState(View view, String message, Runnable retry) {
+        view.findViewById(R.id.panelInfo).setVisibility(View.GONE);
+        EmptyStateStyler.showInConstraint((ConstraintLayout) view.findViewById(R.id.eventInfoRoot),
+                R.id.tvTitle, message, retry);
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:8938 • manager / execution_pending. Componentes nativos; dimensões em values e sw400dp. -->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_930_0" android:clipChildren="false" android:clipToPadding="false">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="0dp" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_8940"
             android:layout_width="@dimen/app_back_icon_size"
@@ -18,21 +18,22 @@
             android:id="@+id/ops_5717_8939"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_26"
+            android:layout_marginStart="@dimen/ops_manager_home_card_side_margin"
             android:layout_marginTop="@dimen/ops_dp_67_0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_50"
+            android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/ops_text_realizar_as_tarefas_da_os_e7983a"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.f7482f3f7a"
+            android:textColor="@color/ops_color_ff0b013c"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_81"
             android:tag="text:Realizar as tarefas da OS"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8950" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_39_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8939" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8950" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_110_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_24_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8939" android:background="@drawable/bg_ops_9a20d877fd" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Torneira quebrada">
             <View
                 android:id="@+id/ops_5717_8951"
                 android:layout_width="@dimen/ops_dp_13_0"
@@ -145,10 +146,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/ops_5717_8943"
-            android:layout_width="@dimen/ops_dp_124_03"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/ops_dp_24"
-            android:layout_marginStart="@dimen/ops_dp_26"
-            android:layout_marginTop="@dimen/ops_dp_41_0"
+            android:layout_marginStart="@dimen/ops_manager_home_card_side_margin"
+            android:layout_marginTop="@dimen/ops_dp_24_0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8950"
             android:text="@string/ops_text_tarefas_a_fazer_a53db2"
@@ -289,12 +290,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8945" android:layout_width="@dimen/ops_dp_160_0" android:layout_height="@dimen/ops_dp_45_0" android:layout_marginStart="@dimen/ops_dp_27_0" android:layout_marginTop="@dimen/ops_dp_861_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_6fc7f4db18" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8946"
-                android:layout_width="@dimen/ops_dp_72"
-                android:layout_height="@dimen/ops_dp_23"
-                android:layout_marginStart="@dimen/ops_dp_45_0"
-                android:layout_marginTop="@dimen/ops_dp_11_0"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:text="@string/ops_text_cancelar_bb9dbb"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.8448a6d123"
                 android:includeFontPadding="false"
@@ -313,7 +314,7 @@
             android:layout_marginTop="@dimen/ops_dp_861_0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/bg_ops_c35b4bf436"
+            android:background="@drawable/bg_ops_execution_finish_state"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.755f0ac70d"

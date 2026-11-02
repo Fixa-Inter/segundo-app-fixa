@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
 import com.aula.fixa.domain.model.solicitacao.SolicitacaoGestor;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public final class SolicitacaoGestorListAdapter extends RecyclerView.Adapter<Rec
     private final List<SolicitacaoGestor> items = new ArrayList<>();
     private final Listener listener;
     private final int emptyText;
+    private CharSequence emptyMessage;
+    private Runnable emptyClick;
 
     public SolicitacaoGestorListAdapter(Listener listener) {
         this(listener, R.string.app_requests_empty);
@@ -41,6 +44,12 @@ public final class SolicitacaoGestorListAdapter extends RecyclerView.Adapter<Rec
     public void submitList(List<SolicitacaoGestor> requests) {
         items.clear();
         if (requests != null) items.addAll(requests);
+        notifyDataSetChanged();
+    }
+
+    public void setEmptyState(CharSequence message, Runnable onClick) {
+        emptyMessage = message;
+        emptyClick = onClick;
         notifyDataSetChanged();
     }
 
@@ -84,7 +93,12 @@ public final class SolicitacaoGestorListAdapter extends RecyclerView.Adapter<Rec
                 if (listener != null) listener.onRequestSelected(request);
             });
         } else if (holder instanceof EmptyHolder) {
-            ((EmptyHolder) holder).text.setText(emptyText);
+            EmptyHolder empty = (EmptyHolder) holder;
+            CharSequence message = emptyMessage == null
+                    ? empty.itemView.getContext().getText(emptyText) : emptyMessage;
+            empty.text.setText(message);
+            if (emptyClick == null) empty.itemView.setOnClickListener(null);
+            else empty.itemView.setOnClickListener(v -> emptyClick.run());
         }
     }
 
@@ -115,6 +129,10 @@ public final class SolicitacaoGestorListAdapter extends RecyclerView.Adapter<Rec
 
     private static final class EmptyHolder extends RecyclerView.ViewHolder {
         final TextView text;
-        EmptyHolder(@NonNull View view) { super(view); text = view.findViewById(R.id.opsManagerRequestEmptyText); }
+        EmptyHolder(@NonNull View view) {
+            super(view);
+            text = view.findViewById(R.id.opsManagerRequestEmptyText);
+            EmptyStateStyler.apply(text);
+        }
     }
 }

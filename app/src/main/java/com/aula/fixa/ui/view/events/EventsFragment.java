@@ -11,10 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.AppText;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.domain.model.EventoItem;
 import com.aula.fixa.adapter.evento.EventoViewModel;
 import com.aula.fixa.adapter.evento.EventoViewModelFactory;
@@ -38,6 +40,7 @@ import java.util.Locale;
 public class EventsFragment extends Fragment {
     private LocalDate selectedDate;
     private EventoViewModel viewModel;
+    private TextView emptyMessage;
 
     public EventsFragment() {
         super(R.layout.fragment_events);
@@ -51,6 +54,8 @@ public class EventsFragment extends Fragment {
             selectedDate = LocalDate.parse(savedInstanceState.getString("selectedDate"));
         }
         AppText.setHtml(view.findViewById(R.id.tvTitle), R.string.app_events_title);
+        emptyMessage = view.findViewById(R.id.tvEmptyEventsMessage);
+        EmptyStateStyler.apply(emptyMessage);
         viewModel = new androidx.lifecycle.ViewModelProvider(this,
                 new EventoViewModelFactory(requireContext())).get(EventoViewModel.class);
 
@@ -67,13 +72,19 @@ public class EventsFragment extends Fragment {
             @Override public void aoCarregar(boolean carregando) { }
             @Override public void aoDetalhar(Evento evento) { }
             @Override public void aoListar(List<Evento> response) {
+                if (emptyMessage != null) {
+                    emptyMessage.setText(R.string.app_events_empty);
+                    emptyMessage.setOnClickListener(null);
+                }
                 List<EventoItem> items = new ArrayList<>();
 
                 for (Evento event : response) {
                     LocalDateTime start = LocalDateTime.parse(event.inicio);
                     LocalDateTime end = LocalDateTime.parse(event.fim);
+                    String[] weekdayLabels = {"dom", "seg", "ter", "qua", "qui", "sex", "sáb"};
+                    String weekday = weekdayLabels[start.getDayOfWeek().getValue() % 7];
                     items.add(new EventoItem(event.id, String.valueOf(start.getDayOfMonth()),
-                            start.format(DateTimeFormatter.ofPattern("EEE")), event.titulo,
+                            weekday, event.titulo,
                             start.format(DateTimeFormatter.ofPattern("HH:mm")) + " - " + end.format(DateTimeFormatter.ofPattern("HH:mm")), start.toLocalDate().toString()));
                 }
 
@@ -96,7 +107,12 @@ public class EventsFragment extends Fragment {
             @Override public void aoFalhar(Throwable error) {
                 FragmentUi.runIfViewActive(EventsFragment.this, view, () -> {
                     AppLoading.hide(loading);
-                    android.widget.Toast.makeText(view.getContext(), AutenticacaoViewModel.messageFrom(error), android.widget.Toast.LENGTH_LONG).show();
+                    if (emptyMessage != null) {
+                        emptyMessage.setText("Não foi possível carregar os eventos. Toque para tentar novamente.");
+                        emptyMessage.setOnClickListener(v -> loadEvents(view));
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+                    view.findViewById(R.id.rvEvents).setVisibility(View.GONE);
                 });
             }
         });
@@ -107,13 +123,15 @@ public class EventsFragment extends Fragment {
         LocalDate sunday = selectedDate.minusDays(selectedDate.getDayOfWeek().getValue() % 7);
         List<Integer> days = new ArrayList<>();
         String[] labels = new String[7];
+        String[] weekdayLabels = {"dom", "seg", "ter", "qua", "qui", "sex", "sáb"};
         for (int i = 0; i < 7; i++) {
             LocalDate day = sunday.plusDays(i);
             days.add(day.getDayOfMonth());
-            labels[i] = day.format(DateTimeFormatter.ofPattern("EEE"));
+            labels[i] = weekdayLabels[day.getDayOfWeek().getValue() % 7];
         }
         int selectedIndex = selectedDate.getDayOfWeek().getValue() % 7;
-        view.<RecyclerView>findViewById(R.id.rvDays).setAdapter(new DayAdapter(days, labels, selectedIndex, day -> {
+        RecyclerView dayList = view.findViewById(R.id.rvDays);
+        dayList.setAdapter(new DayAdapter(days, labels, selectedIndex, day -> {
             List<EventoItem> filtered = new ArrayList<>();
             LocalDate chosen = sunday.plusDays(days.indexOf(day));
             for (EventoItem item : items) {
@@ -123,6 +141,15 @@ public class EventsFragment extends Fragment {
             }
             showEvents(view, filtered);
         }));
+        dayList.post(() -> {
+            if (!(dayList.getLayoutManager() instanceof LinearLayoutManager)) return;
+            LinearLayoutManager layoutManager = (LinearLayoutManager) dayList.getLayoutManager();
+            View selectedDay = layoutManager.findViewByPosition(selectedIndex);
+            int visibleEnd = dayList.getWidth() - dayList.getPaddingEnd();
+            if (selectedDay == null || selectedDay.getRight() > visibleEnd) {
+                layoutManager.scrollToPositionWithOffset(selectedIndex, 0);
+            }
+        });
         List<EventoItem> todayEvents = new ArrayList<>();
         for (EventoItem item : items) {
             if (item.dateKey.equals(selectedDate.toString())) {
@@ -137,6 +164,10 @@ public class EventsFragment extends Fragment {
 
     private void showEvents(View view, List<EventoItem> events) {
         boolean empty = events.isEmpty();
+        if (emptyMessage != null) {
+            emptyMessage.setText("Não há eventos nesta data.");
+            emptyMessage.setOnClickListener(null);
+        }
         view.findViewById(R.id.tvEmptyEvents).setVisibility(empty ? View.VISIBLE : View.GONE);
         RecyclerView list = view.findViewById(R.id.rvEvents);
         list.setVisibility(empty ? View.GONE : View.VISIBLE);

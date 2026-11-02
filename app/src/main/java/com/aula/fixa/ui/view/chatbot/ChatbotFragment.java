@@ -34,23 +34,27 @@ public class ChatbotFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        bindUi(view);
+    }
+
+    public static void bindUi(@NonNull View view) {
         DrawerLayout drawer = view.findViewById(R.id.drawerChat);
-        ((TextView) view.findViewById(R.id.tvGreeting)).setText(getString(R.string.app_chat_greeting, "Rapha"));
+        ((TextView) view.findViewById(R.id.tvGreeting)).setText(view.getContext().getString(R.string.app_chat_greeting, "Rapha"));
 
         view.findViewById(R.id.btnMenu).setOnClickListener(v -> drawer.openDrawer(Gravity.START));
 
         RecyclerView recent = view.findViewById(R.id.rvRecentChats);
-        RecentAdapter recentAdapter = new RecentAdapter(Arrays.asList(getResources().getStringArray(R.array.app_chat_recent_items)));
+        RecentAdapter recentAdapter = new RecentAdapter(Arrays.asList(view.getResources().getStringArray(R.array.app_chat_recent_items)));
         recent.setAdapter(recentAdapter);
         EditText recentSearch = view.findViewById(R.id.etRecentSearch);
         view.findViewById(R.id.btnDrawerSearch).setOnClickListener(v -> {
             if (recentSearch.getVisibility() != View.VISIBLE) {
                 recentSearch.setVisibility(View.VISIBLE);
                 recentSearch.requestFocus();
-                recentSearch.post(() -> ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                recentSearch.post(() -> ((InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                         .showSoftInput(recentSearch, InputMethodManager.SHOW_IMPLICIT));
             } else {
-                ((InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                ((InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(recentSearch.getWindowToken(), 0);
                 recentSearch.setText("");
                 recentSearch.setVisibility(View.GONE);

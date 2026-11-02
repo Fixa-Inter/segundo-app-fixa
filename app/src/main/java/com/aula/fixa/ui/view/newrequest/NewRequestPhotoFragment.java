@@ -170,7 +170,8 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
                 add.setLayoutParams(addParams);
                 add.setBackgroundResource(R.drawable.bg_app_dialog_photo_add);
                 add.setImageResource(R.drawable.ic_plus_24);
-                add.setPadding(32, 32, 32, 32);
+                int iconPadding = parent.getResources().getDimensionPixelSize(R.dimen.app_confirm_add_photo_icon_padding);
+                add.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
                 return new Holder(add);
             }
             View image = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_app_photo_thumb, parent, false);

@@ -20,6 +20,8 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
         android:textAppearance="@style/TextAppearance.FIXA.App.Events.DayNumber"
         android:textColor="@color/app_text_secondary"
         tools:text="11" />

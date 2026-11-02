@@ -70,30 +70,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_5771" android:layout_width="@dimen/ops_dp_115_0" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_173_0" android:layout_marginTop="@dimen/ops_dp_273_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:background="@drawable/bg_ops_ac8a55a5cb" android:clipChildren="false" android:clipToPadding="false">
                 <TextView
-                    android:id="@+id/ops_5717_5773"
-                    android:layout_width="@dimen/ops_dp_43"
-                    android:layout_height="@dimen/ops_dp_20"
-                    android:layout_marginStart="@dimen/ops_dp_37_0"
-                    android:layout_marginTop="@dimen/ops_dp_7_0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="@string/ops_text_salvar_aef7cd"
-                    android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
-                    android:includeFontPadding="false"
-                    android:gravity="center|center_vertical"
-                    android:minHeight="@dimen/ops_dp_20"
-                    android:tag="text:Salvar"
-                    android:padding="@dimen/ops_dp_0"
-                    android:fontFamily="@font/poppins_regular"
-                    android:maxLines="1" />
-                <TextView
                     android:id="@+id/ops_5717_5777"
-                    android:layout_width="@dimen/ops_dp_27"
-                    android:layout_height="@dimen/ops_dp_20"
-                    android:layout_marginStart="@dimen/ops_dp_45_0"
-                    android:layout_marginTop="@dimen/ops_dp_7_0"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:text="@string/ops_text_sair_2d023d"
                     android:textAppearance="@style/TextAppearance.FIXA.Operations.1ad84ad5b4"
                     android:includeFontPadding="false"
@@ -104,17 +87,6 @@
                     android:fontFamily="@font/poppins_regular"
                     android:maxLines="1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <View
-                android:id="@+id/ops_5717_5774"
-                android:layout_width="@dimen/ops_dp_115_0"
-                android:layout_height="@dimen/ops_dp_35_0"
-                android:layout_marginStart="@dimen/ops_dp_173_0"
-                android:layout_marginTop="@dimen/ops_dp_273_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@drawable/bg_ops_ac8a55a5cb"
-                android:clipChildren="false"
-                android:clipToPadding="false" />
             <TextView
                 android:id="@+id/ops_5717_5772"
                 android:layout_width="@dimen/ops_dp_62"

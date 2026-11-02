@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="app_empty_state_image_size">280dp</dimen>
+    <dimen name="app_empty_state_gap">14dp</dimen>
+    <dimen name="app_empty_state_text_min_height">56dp</dimen>
+    <dimen name="app_empty_state_text_size">18sp</dimen>
+    <dimen name="app_occurrence_intro_connector_height">44dp</dimen>
+    <dimen name="app_occurrence_intro_step_gap">12dp</dimen>
     <!-- Tablets 10"+ -->
     <dimen name="app_screen_side_margin">120dp</dimen>
     <dimen name="app_screen_side_margin_alt">128dp</dimen>
     <dimen name="app_content_max_width">720dp</dimen>
+    <dimen name="app_board_card_height">148dp</dimen>
+    <dimen name="app_board_card_date_width">120dp</dimen>
+    <dimen name="app_board_card_title_text_size">20sp</dimen>
+    <dimen name="app_board_card_content_text_size">16sp</dimen>
+    <dimen name="app_board_card_meta_text_size">14sp</dimen>
+    <dimen name="app_board_card_title_height">34dp</dimen>
+    <dimen name="app_board_card_content_height">24dp</dimen>
+    <dimen name="app_board_card_meta_height">22dp</dimen>
+    <dimen name="app_board_card_avatar_size">28dp</dimen>
     <dimen name="app_home_card_side_margin">120dp</dimen>
     <dimen name="app_requests_title_margin_start">64dp</dimen>
     <dimen name="app_details_title_margin_start">128dp</dimen>
@@ -11,6 +26,13 @@
     <dimen name="app_events_title_margin_start">120dp</dimen>
     <dimen name="app_event_info_panel_side_padding">120dp</dimen>
     <dimen name="app_chat_input_side_margin">120dp</dimen>
+    <dimen name="app_chat_avatar_size">130dp</dimen>
+    <dimen name="app_chat_greeting_max_width">224dp</dimen>
+    <dimen name="app_chat_bubble_width">224dp</dimen>
+    <dimen name="app_chat_bubble_height">88dp</dimen>
+    <dimen name="app_chat_bubble_overlap">-12dp</dimen>
+    <dimen name="app_chat_bubble_padding_start">16dp</dimen>
+    <dimen name="app_chat_bubble_padding_top">10dp</dimen>
     <dimen name="app_new_request_title_margin_start">128dp</dimen>
     <dimen name="app_step_title_margin_start">128dp</dimen>
     <dimen name="app_step_label_margin_start">136dp</dimen>

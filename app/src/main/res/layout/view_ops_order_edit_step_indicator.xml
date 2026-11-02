@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/ops_edit_step_1"
+        android:layout_width="@dimen/app_step_indicator_circle_size"
+        android:layout_height="@dimen/app_step_indicator_circle_size"
+        android:layout_marginStart="@dimen/app_step_indicator_side_margin"
+        android:background="@drawable/bg_app_circle_primary"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/ops_text_1_6b86b2"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorNumber"
+        app:layout_constraintEnd_toStartOf="@id/ops_edit_step_2"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ops_edit_step_2"
+        android:layout_width="@dimen/app_step_indicator_circle_size"
+        android:layout_height="@dimen/app_step_indicator_circle_size"
+        android:layout_marginEnd="@dimen/app_step_indicator_side_margin"
+        android:background="@drawable/bg_app_circle_muted"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/ops_text_2_d4735e"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ops_edit_step_1"
+        app:layout_constraintTop_toTopOf="@id/ops_edit_step_1" />
+
+    <View
+        android:id="@+id/ops_edit_step_line"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/app_step_indicator_line_height"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_app_indicator_line_pending"
+        app:layout_constraintBottom_toBottomOf="@id/ops_edit_step_1"
+        app:layout_constraintEnd_toStartOf="@id/ops_edit_step_2"
+        app:layout_constraintStart_toEndOf="@id/ops_edit_step_1"
+        app:layout_constraintTop_toTopOf="@id/ops_edit_step_1" />
+
+    <TextView
+        android:id="@+id/ops_edit_step_1_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_step_indicator_label_margin_top"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/ops_text_informacoes_07156d"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorLabel"
+        android:textColor="@color/app_primary"
+        app:layout_constraintEnd_toEndOf="@id/ops_edit_step_1"
+        app:layout_constraintStart_toStartOf="@id/ops_edit_step_1"
+        app:layout_constraintTop_toBottomOf="@id/ops_edit_step_1" />
+
+    <TextView
+        android:id="@+id/ops_edit_step_2_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/ops_text_tecnico_6c597d"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorLabel"
+        android:textColor="@color/app_text_muted"
+        app:layout_constraintEnd_toEndOf="@id/ops_edit_step_2"
+        app:layout_constraintStart_toStartOf="@id/ops_edit_step_2"
+        app:layout_constraintTop_toTopOf="@id/ops_edit_step_1_label" />
+</androidx.constraintlayout.widget.ConstraintLayout>

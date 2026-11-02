@@ -18,6 +18,7 @@ import com.aula.fixa.adapter.perfil.PerfilViewModel;
 import com.aula.fixa.adapter.perfil.PerfilViewModelFactory;
 import com.aula.fixa.domain.model.Perfil;
 import com.aula.fixa.ui.config.DataChangeNotifier;
+import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.bumptech.glide.Glide;
 
 public class MyProfileFragment extends Fragment {
@@ -51,9 +52,11 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void loadProfile(View view) {
+        EmptyStateStyler.removeFromRoot(view);
         viewModel.obter(new PerfilViewModel.Callback<Perfil>() {
             @Override public void aoConcluir(Perfil profile) {
                 if (!isAdded() || getView() != view) return;
+                EmptyStateStyler.removeFromRoot(view);
                 bindRow(view, R.id.rowName, R.drawable.ic_user_24, profile.nomeCompleto);
                 bindRow(view, R.id.rowBirth, R.drawable.ic_calendar_24, profile.dataNascimento);
                 bindRow(view, R.id.rowEmail, R.drawable.ic_mail_24, profile.email);
@@ -64,8 +67,12 @@ public class MyProfileFragment extends Fragment {
                         .circleCrop().into((ImageView) view.findViewById(R.id.ivAvatar));
             }
             @Override public void aoFalhar(Throwable erro) {
-                if (isAdded() && getView() == view) ((ImageView) view.findViewById(R.id.ivAvatar))
-                        .setImageResource(R.drawable.img_avatar_115);
+                if (isAdded() && getView() == view) {
+                    ((ImageView) view.findViewById(R.id.ivAvatar)).setImageResource(R.drawable.img_avatar_115);
+                    EmptyStateStyler.showBelowBack(view,
+                            "Não foi possível carregar os dados do perfil. Toque para tentar novamente.",
+                            () -> loadProfile(view));
+                }
             }
         });
     }
