@@ -67,4 +67,19 @@
         tools:itemCount="5"
         tools:listitem="@layout/item_app_notification" />
 
+    <TextView
+        android:id="@+id/tvNotificationsEmpty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_notifications_side_margin"
+        android:layout_marginEnd="@dimen/app_notifications_side_margin"
+        android:gravity="center"
+        android:text="@string/app_notifications_empty"
+        android:textAppearance="@style/TextAppearance.FIXA.App.Notifications.Section"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

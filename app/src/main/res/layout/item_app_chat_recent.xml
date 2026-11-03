@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+<TextView
     android:id="@+id/tvRecentChat"
-    android:layout_width="@dimen/app_chat_drawer_item_width"
+    android:layout_width="0dp"
     android:layout_height="@dimen/app_chat_drawer_item_height"
-    android:layout_marginBottom="@dimen/app_chat_drawer_item_spacing"
     android:background="@drawable/bg_app_chat_recent_selected"
     android:clickable="true"
     android:ellipsize="end"
@@ -15,4 +20,18 @@
     android:paddingEnd="@dimen/app_chat_drawer_item_padding_start"
     android:textColor="@color/app_chat_drawer_item_text"
     android:textAppearance="@style/TextAppearance.FIXA.App.Chat.DrawerItem"
+    android:layout_weight="1"
     tools:text="Nova conversa" />
+
+<TextView
+    android:id="@+id/btnRecentMenu"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="Opções da conversa"
+    android:gravity="center"
+    android:text="⋮"
+    android:textSize="22sp"
+    android:textColor="@color/app_text_secondary" />
+
+</LinearLayout>

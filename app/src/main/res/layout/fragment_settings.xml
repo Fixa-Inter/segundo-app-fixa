@@ -47,7 +47,7 @@
             android:id="@+id/switchNotifications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:minWidth="@dimen/app_settings_switch_width"
             android:minHeight="@dimen/app_settings_switch_height"
             app:thumbTint="@color/app_surface"

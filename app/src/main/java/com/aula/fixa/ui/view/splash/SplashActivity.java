@@ -45,7 +45,7 @@ public class SplashActivity extends ImmersiveActivity {
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             if (sessaoViewModel.temSessao() && sessaoViewModel.tokenValido()
-                    && NavegacaoAcesso.abrir(this, sessaoViewModel.tipoAcesso())) return;
+                    && NavegacaoAcesso.abrir(this, sessaoViewModel.tipoAcesso(), getIntent())) return;
             sessaoViewModel.encerrar();
             Intent intent = new Intent(SplashActivity.this, OnboardingActivity.class);
             startActivity(intent);

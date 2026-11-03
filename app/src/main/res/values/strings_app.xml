@@ -87,15 +87,12 @@
     <string name="app_chat_add">Adicionar</string>
     <string name="app_chat_attach">Anexar arquivo</string>
     <string name="app_chat_send">Enviar</string>
+    <string name="app_chat_loading">Carregando a conversa</string>
+    <string name="app_chat_typing">Manu está respondendo</string>
     <string name="app_chat_assistant_avatar">Avatar da assistente Manu</string>
     <string name="app_chat_drawer_search">Buscar conversas</string>
     <string name="app_chat_drawer_new">Novo chat</string>
     <string name="app_chat_drawer_recent">Recentes</string>
-    <string-array name="app_chat_recent_items">
-        <item>Nova conversa</item>
-        <item>Ajuda com solicitação</item>
-        <item>Dúvidas sobre o app</item>
-    </string-array>
 
     <!-- Abrir solicitação -->
     <string name="app_new_request_title"><![CDATA[<b><font color="#153D7D">Abra</font></b> sua solicitação]]></string>
@@ -188,7 +185,9 @@
     <string name="app_notifications_title">Notificações</string>
     <string name="app_notifications_today">Hoje</string>
     <string name="app_notifications_last_week">Última semana</string>
-    <string name="app_notification_sample">Sua solicitação foi aprovada!</string>
+    <string name="app_notifications_older">Mais antigas</string>
+    <string name="app_notifications_empty">Você ainda não tem notificações.</string>
+    <string name="app_notifications_channel">Notificações do FIXA</string>
 
     <!-- Filtros -->
     <string name="app_filter_title">Filtrar solicitações</string>

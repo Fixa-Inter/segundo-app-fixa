@@ -74,7 +74,7 @@
     <fragment android:id="@+id/ops_manager_home" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_home_4ea140">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_home" />
     </fragment>
-    <fragment android:id="@+id/ops_manager_notifications" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_notifications_8bb692">
+    <fragment android:id="@+id/ops_manager_notifications" android:name="com.aula.fixa.ui.view.notifications.NotificationsFragment" android:label="@string/ops_text_notifications_8bb692">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_notifications" />
     </fragment>
     <fragment android:id="@+id/ops_manager_edit_profile" android:name="com.aula.fixa.ui.view.profile.EditProfileFragment" android:label="@string/ops_text_edit_profile_6ee2e4">
@@ -268,7 +268,7 @@
     <fragment android:id="@+id/ops_technician_execution_completed" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_execution_completed_febc12">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_execution_completed" />
     </fragment>
-    <fragment android:id="@+id/ops_technician_notifications" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_notifications_8bb692">
+    <fragment android:id="@+id/ops_technician_notifications" android:name="com.aula.fixa.ui.view.notifications.NotificationsFragment" android:label="@string/ops_text_notifications_8bb692">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_notifications" />
     </fragment>
     <fragment android:id="@+id/ops_technician_occurrence_details" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_details_35f190">

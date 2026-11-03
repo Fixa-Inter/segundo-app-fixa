@@ -45,10 +45,11 @@
     <dimen name="app_home_header_icon_margin_top">29dp</dimen>
     <dimen name="app_home_header_icon_margin_end">29dp</dimen>
     <dimen name="app_home_header_icon_spacing">10dp</dimen>
-    <dimen name="app_home_header_icon_size">16dp</dimen>
+    <dimen name="app_home_header_icon_size">20dp</dimen>
+    <dimen name="app_home_greeting_margin_top">51dp</dimen>
     <dimen name="app_home_header_margin_top">24dp</dimen>
     <dimen name="app_home_greeting_margin_start">6dp</dimen>
-    <dimen name="app_home_greeting_text_size">22sp</dimen>
+    <dimen name="app_home_greeting_text_size">24sp</dimen>
     <dimen name="app_home_card_margin_top">37dp</dimen>
     <dimen name="app_home_card_side_margin">24dp</dimen>
     <dimen name="app_home_card_height">232dp</dimen>
@@ -228,7 +229,7 @@
     <dimen name="app_chat_input_side_margin">16dp</dimen>
     <dimen name="app_chat_input_height">120dp</dimen>
     <dimen name="app_chat_input_radius">26dp</dimen>
-    <dimen name="app_chat_input_margin_bottom">25dp</dimen>
+    <dimen name="app_chat_input_margin_bottom">8dp</dimen>
     <dimen name="app_chat_input_padding_start">24dp</dimen>
     <dimen name="app_chat_input_padding_top">29dp</dimen>
     <dimen name="app_chat_input_text_size">16sp</dimen>

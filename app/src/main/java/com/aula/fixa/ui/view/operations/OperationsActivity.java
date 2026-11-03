@@ -1,6 +1,7 @@
 package com.aula.fixa.ui.view.operations;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import com.aula.fixa.adapter.operations.OperationsViewModel;
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.operations.ScreenCatalog;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
+import com.aula.fixa.infrastructure.remote.api.ApiClient;
 import com.aula.fixa.infrastructure.remote.repository.ExportacaoRepository;
 
 import org.json.JSONArray;
@@ -117,6 +119,7 @@ public class OperationsActivity extends AppCompatActivity {
         getLifecycle().addObserver(new com.aula.fixa.ui.config.ConnectivityWatcher(this));
 
         setContentView(R.layout.activity_operations);
+        com.aula.fixa.infrastructure.remote.notifications.FcmTokenRegistrar.inicializar(this);
         configureNavigationItems();
         model = new ViewModelProvider(this).get(OperationsViewModel.class);
         bar = findViewById(R.id.operationsBar);
@@ -166,7 +169,60 @@ public class OperationsActivity extends AppCompatActivity {
             bar.setLayoutParams(params);
             return WindowInsetsCompat.CONSUMED;
         });
+        handleNotificationIntent(getIntent());
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleNotificationIntent(intent);
+    }
+
+    private void handleNotificationIntent(Intent intent) {
+        if (intent == null || navigation == null) return;
+        int type;
+        long referenceId;
+        try {
+            String typeValue = intent.getStringExtra("notification_type");
+            if (typeValue == null) typeValue = intent.getStringExtra("tipoNotificacao");
+            String referenceValue = intent.getStringExtra("notification_reference_id");
+            if (referenceValue == null) referenceValue = intent.getStringExtra("referenciaId");
+            type = Integer.parseInt(typeValue);
+            referenceId = Long.parseLong(referenceValue);
+        } catch (Exception ignored) {
+            clearNotificationIntent(intent);
+            return;
+        }
+
+        String notificationId = intent.getStringExtra("notification_id");
+        if (notificationId == null) notificationId = intent.getStringExtra("notificacaoId");
+        if (notificationId != null && !notificationId.isBlank()) {
+            ApiClient.notificacoes(new SessionStorage(this)).marcarVisualizada(notificationId).enqueue(
+                    new retrofit2.Callback<com.aula.fixa.infrastructure.remote.dto.NotificacaoResponse>() {
+                        @Override public void onResponse(
+                                retrofit2.Call<com.aula.fixa.infrastructure.remote.dto.NotificacaoResponse> call,
+                                retrofit2.Response<com.aula.fixa.infrastructure.remote.dto.NotificacaoResponse> response) { }
+                        @Override public void onFailure(
+                                retrofit2.Call<com.aula.fixa.infrastructure.remote.dto.NotificacaoResponse> call,
+                                Throwable error) { }
+                    });
+        }
+
+        if (type == 1) openEventDetails(referenceId);
+        else if (type == 2) openRequestDetails(referenceId, "");
+        else if (type == 3) openOrderDetails(referenceId, "");
+        clearNotificationIntent(intent);
+    }
+
+    private void clearNotificationIntent(Intent intent) {
+        intent.removeExtra("notification_type");
+        intent.removeExtra("notification_reference_id");
+        intent.removeExtra("notification_id");
+        intent.removeExtra("tipoNotificacao");
+        intent.removeExtra("referenciaId");
+        intent.removeExtra("notificacaoId");
     }
 
     public String role() {
@@ -317,6 +373,12 @@ public class OperationsActivity extends AppCompatActivity {
         args.putLong("orderId", id);
         args.putString("orderTitle", title == null ? "" : title);
         navigation.navigate(destination(role + "_execution_pending"), args);
+    }
+
+    public void openEventDetails(long id) {
+        Bundle args = new Bundle();
+        args.putLong("eventId", id);
+        navigation.navigate(destination(role + "_event_details"), args);
     }
 
     public void openOccurrenceDetails(long id, String title) {

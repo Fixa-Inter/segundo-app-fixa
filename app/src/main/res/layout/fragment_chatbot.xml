@@ -49,8 +49,13 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginEnd="72dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
             android:text="@string/app_chat_title"
             android:textAppearance="@style/TextAppearance.FIXA.App.Chat.Title"
             app:layout_constraintBottom_toBottomOf="@id/btnMenu"
@@ -58,19 +63,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/btnMenu" />
 
+        <TextView
+            android:id="@+id/tvChatWarning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/bg_app_chat_recent_selected"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:text="Envio não confirmado. Toque após conferir o histórico para descartar o rascunho."
+            android:textColor="@color/app_text_secondary"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnMenu" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMessages"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
+            android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/cardInput"
+            app:layout_constraintBottom_toTopOf="@id/chatAttachmentsPreview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnMenu"
+            app:layout_constraintTop_toBottomOf="@id/tvChatWarning"
             app:stackFromEnd="true" />
+
+        <ProgressBar
+            android:id="@+id/chatProgress"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/app_chat_loading"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/chatAttachmentsPreview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnMenu" />
 
         <!-- Estado inicial -->
         <!-- Figma: avatar 130dp em x=11; balão 220x84 começa 10dp antes do fim do avatar e 20dp acima dele -->
@@ -78,10 +114,10 @@
             android:id="@+id/layoutGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/cardInput"
+            app:layout_constraintBottom_toTopOf="@id/chatAttachmentsPreview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnMenu"
+            app:layout_constraintTop_toBottomOf="@id/tvChatWarning"
             app:layout_constraintHorizontal_bias="0.56"
             app:layout_constraintVertical_bias="0.42">
 
@@ -94,7 +130,7 @@
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img_chatbot_avatar_hires" />
+                app:srcCompat="@drawable/pensativo" />
 
             <TextView
                 android:id="@+id/tvGreeting"
@@ -110,6 +146,29 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Olá Rapha, como posso te ajudar hoje?" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/chatAttachmentsPreview"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="6dp"
+            android:clipToPadding="false"
+            android:fillViewport="false"
+            android:scrollbars="none"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/cardInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:id="@+id/layoutChatAttachmentItems"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
 
         <!-- Caixa de entrada -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -131,14 +190,14 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@null"
-                android:gravity="top|start"
+                android:gravity="center_vertical|start"
                 android:hint="@string/app_chat_input_hint"
                 android:textColor="@color/app_text_black"
                 android:textColorHint="@color/app_text_secondary"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine|textCapSentences"
                 android:paddingStart="@dimen/app_chat_input_padding_start"
-                android:paddingTop="@dimen/app_chat_input_padding_top"
+                android:paddingTop="0dp"
                 android:paddingEnd="@dimen/app_chat_input_padding_start"
                 android:textAppearance="@style/TextAppearance.FIXA.App.Chat.Input"
                 app:layout_constraintBottom_toTopOf="@id/btnAttach"

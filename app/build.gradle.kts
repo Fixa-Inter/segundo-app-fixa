@@ -7,6 +7,7 @@ fun localProperty(name: String, vararg aliases: String): String {
     val keys = listOf(name) + aliases
     return keys.firstNotNullOfOrNull { key -> localProperties.getProperty(key)?.trim() } ?: ""
 }
+val iaApiBaseUrl = localProperty("ia.api.base_url").ifEmpty { "https://ia-api.fixa.solutions/" }
 
 plugins {
     alias(libs.plugins.android.application)
@@ -31,6 +32,7 @@ android {
         buildConfigField("String", "CLOUDINARY_API_KEY", "\"${localProperty("cloudinary.api_key")}\"")
         buildConfigField("String", "CLOUDINARY_UPLOAD_PRESET", "\"${localProperty("cloudinary.upload_preset", "cloudinary.upload-preset", "cloudinary.uploadPreset")}\"")
         buildConfigField("String", "CLOUDINARY_SOLICITACOES_FOLDER", "\"${localProperty("cloudinary.solicitacoes_folder")}\"")
+        buildConfigField("String", "IA_API_BASE_URL", "\"$iaApiBaseUrl\"")
     }
 
     buildFeatures { buildConfig = true }
@@ -53,6 +55,7 @@ android {
 dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.messaging)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -74,4 +77,6 @@ dependencies {
     implementation("com.cloudinary:cloudinary-android:3.1.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("io.noties.markwon:core:4.6.2")
+    implementation("io.noties.markwon:ext-tables:4.6.2")
 }

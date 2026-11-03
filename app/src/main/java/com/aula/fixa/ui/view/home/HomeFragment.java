@@ -35,6 +35,7 @@ import com.aula.fixa.adapter.solicitacao.SolicitacaoViewModelFactory;
 import com.aula.fixa.ui.adapter.solicitacao.RequestAdapter;
 import com.aula.fixa.ui.view.requests.RequestMenuPopup;
 import com.aula.fixa.ui.view.auth.LoginActivity;
+import com.aula.fixa.ui.view.notifications.NotificationBadge;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -84,6 +85,15 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
                 Navigation.findNavController(v).navigate(R.id.action_home_to_profile));
         view.findViewById(R.id.btnOpenRequest).setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_home_to_new_request));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        View view = getView();
+        if (view != null) {
+            NotificationBadge.load(requireContext(), view.findViewById(R.id.viewUnreadNotificationsBadge));
+        }
     }
 
     private void loadHomeData(View view, TextView greeting) {
@@ -171,10 +181,27 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
         root.findViewById(R.id.layoutLegend).setVisibility(View.GONE);
         root.findViewById(R.id.ivChart).setVisibility(View.GONE);
         root.findViewById(R.id.layoutBigNumbers).setVisibility(View.VISIBLE);
-        ((TextView) root.findViewById(R.id.bigNumberAnalysis)).setText(String.valueOf(analysis));
-        ((TextView) root.findViewById(R.id.bigNumberDone)).setText(String.valueOf(done));
-        ((TextView) root.findViewById(R.id.bigNumberApproved)).setText(String.valueOf(approved));
-        ((TextView) root.findViewById(R.id.bigNumberRefused)).setText(String.valueOf(refused));
+        bindBigNumberCard(root, R.id.cardBigNumberDone, "Concluídas", done,
+                R.drawable.bignumber_1, R.color.app_home_big_done);
+        bindBigNumberCard(root, R.id.cardBigNumberApproved, "Aprovadas", approved,
+                R.drawable.bignumber_2, R.color.app_home_big_approved);
+        bindBigNumberCard(root, R.id.cardBigNumberRefused, "Reprovadas", refused,
+                R.drawable.bignumber_3, R.color.app_home_big_refused);
+        bindBigNumberCard(root, R.id.cardBigNumberAnalysis, "Em Análise", analysis,
+                R.drawable.bignumber_4, R.color.app_home_big_analysis);
+    }
+
+    private void bindBigNumberCard(View root, int cardId, String label, int count, int icon, int colorRes) {
+        View card = root.findViewById(cardId);
+        int color = androidx.core.content.ContextCompat.getColor(requireContext(), colorRes);
+        TextView title = card.findViewById(R.id.bigNumberLabel);
+        TextView value = card.findViewById(R.id.bigNumberValue);
+        ImageView image = card.findViewById(R.id.bigNumberIcon);
+        title.setText(label);
+        title.setTextColor(color);
+        value.setText(String.valueOf(count));
+        value.setTextColor(color);
+        image.setImageResource(icon);
     }
 
     private StatusProblema statusOf(String value) {

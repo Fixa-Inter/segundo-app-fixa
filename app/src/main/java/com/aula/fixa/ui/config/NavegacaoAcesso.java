@@ -11,6 +11,10 @@ public final class NavegacaoAcesso {
     private NavegacaoAcesso() { }
 
     public static boolean abrir(Activity activity, TipoAcesso tipoAcesso) {
+        return abrir(activity, tipoAcesso, null);
+    }
+
+    public static boolean abrir(Activity activity, TipoAcesso tipoAcesso, Intent sourceIntent) {
         Intent intent;
         if (tipoAcesso == TipoAcesso.SOLICITANTE) {
             intent = new Intent(activity, MainActivity.class);
@@ -26,6 +30,18 @@ public final class NavegacaoAcesso {
 
         } else {
             return false;
+        }
+
+        if (sourceIntent != null) {
+            String notificationType = sourceIntent.getStringExtra("notification_type");
+            if (notificationType == null) notificationType = sourceIntent.getStringExtra("tipoNotificacao");
+            String referenceId = sourceIntent.getStringExtra("notification_reference_id");
+            if (referenceId == null) referenceId = sourceIntent.getStringExtra("referenciaId");
+            String notificationId = sourceIntent.getStringExtra("notification_id");
+            if (notificationId == null) notificationId = sourceIntent.getStringExtra("notificacaoId");
+            if (notificationType != null) intent.putExtra("notification_type", notificationType);
+            if (referenceId != null) intent.putExtra("notification_reference_id", referenceId);
+            if (notificationId != null) intent.putExtra("notification_id", notificationId);
         }
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

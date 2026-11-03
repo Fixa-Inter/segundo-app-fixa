@@ -109,4 +109,17 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_app_chat_recent" />
 
+    <TextView
+        android:id="@+id/tvRecentEmpty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Nenhuma conversa encontrada"
+        android:textColor="@color/app_text_secondary"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etRecentSearch" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
