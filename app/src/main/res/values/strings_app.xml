@@ -93,6 +93,10 @@
     <string name="app_chat_drawer_search">Buscar conversas</string>
     <string name="app_chat_drawer_new">Novo chat</string>
     <string name="app_chat_drawer_recent">Recentes</string>
+    <string-array name="app_chat_recent_items">
+        <item>Ajuda com solicitação</item>
+        <item>Dúvidas sobre o app</item>
+    </string-array>
 
     <!-- Abrir solicitação -->
     <string name="app_new_request_title"><![CDATA[<b><font color="#153D7D">Abra</font></b> sua solicitação]]></string>

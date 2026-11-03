@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.net.NetworkCapabilities;
+import com.aula.fixa.infrastructure.local.NetworkAvailability;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
@@ -34,9 +34,7 @@ public class ConnectivityWatcher implements DefaultLifecycleObserver {
     }
 
     public static boolean isOnline(@NonNull Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkCapabilities caps = cm.getNetworkCapabilities(cm.getActiveNetwork());
-        return caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+        return NetworkAvailability.isOnline(context);
     }
 
     @Override
