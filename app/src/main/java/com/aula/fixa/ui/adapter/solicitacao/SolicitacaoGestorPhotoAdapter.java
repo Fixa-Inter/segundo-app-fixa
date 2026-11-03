@@ -31,7 +31,10 @@ public final class SolicitacaoGestorPhotoAdapter extends RecyclerView.Adapter<So
     }
 
     @Override public void onBindViewHolder(@NonNull Holder holder, int position) {
-        Glide.with(fragment).load(photos.get(position).url).centerCrop().into(holder.image);
+        Glide.with(fragment).load(photos.get(position).url)
+                .placeholder(R.drawable.img_empty_results)
+                .error(R.drawable.img_empty_results)
+                .centerCrop().into(holder.image);
     }
 
     @Override public int getItemCount() { return photos == null ? 0 : photos.size(); }

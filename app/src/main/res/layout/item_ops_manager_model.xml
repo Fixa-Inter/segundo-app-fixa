@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:layout_marginBottom="14dp"
+    android:layout_marginBottom="18dp"
     android:background="@drawable/bg_ops_e04d888c51"
     android:elevation="2dp"
     android:clipChildren="false">
@@ -38,7 +38,7 @@
         android:layout_marginEnd="48dp"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/ops_color_ff0b013c"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintStart_toStartOf="parent"

@@ -134,11 +134,22 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 : screen.endsWith("_chatbot")
                 ? com.aula.fixa.R.layout.fragment_chatbot
                 : ScreenCatalog.get(requireContext()).layout(requireContext(), screen);
-        View content = getLayoutInflater().inflate(screenLayout, host, false);
+        View inflatedContent = getLayoutInflater().inflate(screenLayout, host, false);
+        String editingOrderId = ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId");
+        boolean creatingPlanningStep = "manager_planning_tasks".equals(screen)
+                || (("manager_plan_information".equals(screen) || "manager_assign_member".equals(screen))
+                && (editingOrderId == null || editingOrderId.trim().isEmpty()));
+        View content = creatingPlanningStep ? wrapPlanningStepWithFixedFooter(inflatedContent, screen) : inflatedContent;
         host.addView(content);
          styleSharedFormFields(content);
         if (screen.endsWith("_chatbot")) {
-            com.aula.fixa.ui.view.chatbot.ChatbotFragment.bindUi(content);
+            boolean managerChatbot = screen.startsWith("manager_");
+            Runnable chatBack = null;
+            if (managerChatbot) {
+                OperationsActivity managerActivity = (OperationsActivity) requireActivity();
+                chatBack = managerActivity::backFromManagerChatbot;
+            }
+            com.aula.fixa.ui.view.chatbot.ChatbotFragment.bindUi(content, managerChatbot, chatBack);
         }
         if ("manager_home".equals(screen) || "technician_home".equals(requestedScreen)) {
             content.setVisibility(View.INVISIBLE);
@@ -206,14 +217,19 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if ("manager_plan_information".equals(screen) && editingOrder != null && !editingOrder.trim().isEmpty()) {
             bindOrderEditInformation(content, (OperationsActivity) requireActivity());
         } else if ("manager_plan_information".equals(screen)) {
+            stylePlanningCreateInformation(content);
             bindPlanningCreateStepIndicator(content, 1);
         }
         if ("manager_assign_member".equals(screen) && editingOrder != null && !editingOrder.trim().isEmpty()) {
             bindOrderEditTechnician(content);
         } else if ("manager_assign_member".equals(screen)) {
+            stylePlanningCreateTechnician(content);
             bindPlanningCreateStepIndicator(content, 3);
         }
         if ("manager_planning_tasks".equals(screen)) {
+            styleOrderEditTitle(content, R.id.ops_5717_8499);
+            styleOrderEditActions(content, R.id.ops_5717_8530,
+                    R.id.ops_5717_8514, R.id.ops_5717_8516, false, 0);
             bindPlanningCreateStepIndicator(content, 2);
             planejamentoTarefasFluxo = new PlanejamentoTarefasFluxo(this, (OperationsActivity) requireActivity(), content);
             planejamentoTarefasFluxo.bind();
@@ -292,6 +308,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         } else if ("manager_occurrence_details".equals(screen)) {
             ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
             ocorrenciaGestorFluxo.bindDetails(content);
+        } else if ("technician_occurrence_details".equals(screen)) {
+            ocorrenciaGestorFluxo = new com.aula.fixa.ui.view.ocorrencia.OcorrenciaGestorFluxo(this, (OperationsActivity) requireActivity());
+            ocorrenciaGestorFluxo.bindDetails(content);
         } else {
             ocorrenciaGestorFluxo = null;
         }
@@ -304,6 +323,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         }
         content.post(() -> com.aula.fixa.ui.config.TwoToneTitleStyler.apply(content));
     }
+
 
     private void styleSharedFormFields(View view) {
         if (view instanceof android.widget.EditText) {
@@ -587,6 +607,32 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 activity.back();
             });
         }
+    }
+
+    /** Mantém o mesmo desenho do formulário de edição durante a criação da OS. */
+    private void stylePlanningCreateInformation(View content) {
+        styleOrderEditTitle(content, R.id.ops_5717_6240);
+        styleOrderEditLabel(content, R.id.ops_5717_6259);
+        styleOrderEditLabel(content, R.id.ops_5717_6239);
+        styleOrderEditLabel(content, R.id.ops_plan_due_date_label);
+        setOrderEditTopMarginDp(content, R.id.ops_5717_6259, 12);
+        styleOrderEditField(content, R.id.ops_5717_6260);
+        styleOrderEditField(content, R.id.ops_5717_6263);
+        positionOrderEditPriority(content);
+        setOrderEditTopMarginDp(content, R.id.ops_plan_due_date_label, 18);
+        styleOrderEditMonthSelector(content);
+        styleOrderEditCalendar(content);
+        styleOrderEditActions(content, R.id.ops_5717_8889,
+                R.id.ops_5717_6255, R.id.ops_5717_6257, false, dp(42));
+    }
+
+    /** Aplica no planejamento de criação as dimensões usadas ao editar e atribuir uma OS. */
+    private void stylePlanningCreateTechnician(View content) {
+        styleOrderEditTitle(content, R.id.ops_5717_8739);
+        styleOrderEditLabel(content, R.id.ops_5717_8743);
+        styleOrderEditTechnicianList(content);
+        styleOrderEditActions(content, R.id.ops_available_technicians_container,
+                R.id.ops_5717_8745, R.id.ops_5717_8744, true, dp(150));
     }
 
     private void bindOrderEditTechnician(View content) {
@@ -955,7 +1001,157 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         } else {
             actions = new int[]{R.id.ops_5717_8745, R.id.ops_5717_8744};
         }
-        movePlanningActionsBelowIndicator(content, actions);
+        if ("manager_planning_tasks".equals(screen)) {
+            positionPlanningTaskFlow(content);
+        }
+        positionPlanningFixedFooter(content, indicator, actions[0], actions[1], screen);
+    }
+
+    /** Reparents the progress and action controls so all planning steps share a fixed footer. */
+    private View wrapPlanningStepWithFixedFooter(View inflated, String screen) {
+        if (!(inflated instanceof androidx.core.widget.NestedScrollView)) return inflated;
+        androidx.core.widget.NestedScrollView scroll = (androidx.core.widget.NestedScrollView) inflated;
+        if (scroll.getChildCount() == 0
+                || !(scroll.getChildAt(0) instanceof androidx.constraintlayout.widget.ConstraintLayout)) return inflated;
+
+        int cancelId;
+        int primaryId;
+        if ("manager_plan_information".equals(screen)) {
+            cancelId = R.id.ops_5717_6255;
+            primaryId = R.id.ops_5717_6257;
+        } else if ("manager_planning_tasks".equals(screen)) {
+            cancelId = R.id.ops_5717_8514;
+            primaryId = R.id.ops_5717_8516;
+        } else {
+            cancelId = R.id.ops_5717_8745;
+            primaryId = R.id.ops_5717_8744;
+        }
+
+        View indicator = scroll.findViewById(R.id.ops_create_planning_step_indicator);
+        View cancel = scroll.findViewById(cancelId);
+        View primary = scroll.findViewById(primaryId);
+        android.view.ViewParent footerParent = indicator == null ? null : indicator.getParent();
+        if (!(footerParent instanceof androidx.constraintlayout.widget.ConstraintLayout)
+                || cancel == null || primary == null
+                || cancel.getParent() != footerParent || primary.getParent() != footerParent) return inflated;
+
+        androidx.constraintlayout.widget.ConstraintLayout page = new androidx.constraintlayout.widget.ConstraintLayout(requireContext());
+        ((androidx.constraintlayout.widget.ConstraintLayout) scroll.getChildAt(0)).setMinimumHeight(0);
+        page.setLayoutParams(new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        android.graphics.drawable.Drawable background = scroll.getBackground();
+        if (background != null) page.setBackground(background.mutate());
+        else page.setBackgroundColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.ops_color_fff5f7fa));
+        page.setClipChildren(false);
+        page.setClipToPadding(false);
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams cancelParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancel.getLayoutParams();
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams primaryParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) primary.getLayoutParams();
+        ((ViewGroup) footerParent).removeView(indicator);
+        ((ViewGroup) footerParent).removeView(cancel);
+        ((ViewGroup) footerParent).removeView(primary);
+
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams scrollParams =
+                new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(0, 0);
+        scrollParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        scrollParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        scrollParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        scrollParams.bottomToTop = indicator.getId();
+        scroll.setLayoutParams(scrollParams);
+        page.addView(scroll, scrollParams);
+        page.addView(indicator, indicatorParams);
+        page.addView(cancel, cancelParams);
+        page.addView(primary, primaryParams);
+        return page;
+    }
+
+    private void positionPlanningTaskFlow(View content) {
+        int contentSide = getResources().getDimensionPixelSize(R.dimen.app_step_title_margin_start);
+        View list = content.findViewById(R.id.ops_planning_tasks_list);
+        if (list != null && list.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) list.getLayoutParams();
+            params.topToBottom = R.id.ops_5717_8499;
+            params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            params.topMargin = getResources().getDimensionPixelSize(R.dimen.app_step_field_margin_top);
+            params.setMarginStart(contentSide);
+            params.setMarginEnd(contentSide);
+            list.setLayoutParams(params);
+        }
+
+        View addTask = content.findViewById(R.id.ops_5717_8530);
+        if (addTask != null && addTask.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) addTask.getLayoutParams();
+            params.topToBottom = R.id.ops_planning_tasks_list;
+            params.topMargin = dp(12);
+            params.setMarginStart(contentSide);
+            params.setMarginEnd(contentSide);
+            addTask.setLayoutParams(params);
+        }
+    }
+
+    private void positionPlanningFixedFooter(View content, View indicator, int cancelId, int primaryId, String screen) {
+        if (!(content instanceof androidx.constraintlayout.widget.ConstraintLayout)
+                || !(indicator.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        int parentId = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        int footerGap = getResources().getDimensionPixelSize(R.dimen.app_step_section_margin_top);
+        int bottomGap = "manager_plan_information".equals(screen)
+                ? dp(24) : getResources().getDimensionPixelSize(R.dimen.app_step_actions_margin_bottom);
+
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
+        indicatorParams.width = 0;
+        indicatorParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        indicatorParams.startToStart = parentId;
+        indicatorParams.endToEnd = parentId;
+        indicatorParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        indicatorParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        indicatorParams.bottomToTop = cancelId;
+        indicatorParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        indicatorParams.topMargin = 0;
+        indicatorParams.bottomMargin = footerGap;
+        indicator.setLayoutParams(indicatorParams);
+
+        View cancel = content.findViewById(cancelId);
+        View primary = content.findViewById(primaryId);
+        if (cancel == null || primary == null
+                || !(cancel.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)
+                || !(primary.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams cancelParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancel.getLayoutParams();
+        cancelParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.bottomToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.bottomToBottom = parentId;
+        cancelParams.topMargin = 0;
+        cancelParams.bottomMargin = bottomGap;
+        cancel.setLayoutParams(cancelParams);
+
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams primaryParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) primary.getLayoutParams();
+        primaryParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        primaryParams.bottomToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        primaryParams.topToTop = cancelId;
+        primaryParams.bottomToBottom = cancelId;
+        primaryParams.topMargin = 0;
+        primaryParams.bottomMargin = 0;
+        primary.setLayoutParams(primaryParams);
+
+        View scroll = ((ViewGroup) content).getChildAt(0);
+        if (scroll instanceof androidx.core.widget.NestedScrollView
+                && scroll.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams scrollParams =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) scroll.getLayoutParams();
+            scrollParams.bottomToTop = indicator.getId();
+            scroll.setLayoutParams(scrollParams);
+        }
     }
 
     private void hidePlanningTasksTimeline(View content) {

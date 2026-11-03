@@ -501,6 +501,7 @@
     <dimen name="app_dialog_delete_reason_height">112dp</dimen>
     <dimen name="app_dialog_delete_reason_margin_top">16dp</dimen>
     <dimen name="app_dialog_width">300dp</dimen>
+    <dimen name="app_execution_task_dialog_width">340dp</dimen>
     <dimen name="app_dialog_edit_width">320dp</dimen>
     <dimen name="app_dialog_side_padding">19dp</dimen>
     <dimen name="app_dialog_image_size">170dp</dimen>

@@ -81,6 +81,7 @@
     <!-- Chatbot -->
     <string name="app_chat_title">Manu</string>
     <string name="app_chat_open_menu">Abrir menu de conversas</string>
+    <string name="app_chat_back">Voltar</string>
     <string name="app_chat_greeting">Olá %1$s, como posso te ajudar hoje?</string>
     <string name="app_chat_input_hint">Como posso te ajudar hoje?</string>
     <string name="app_chat_add">Adicionar</string>

@@ -172,7 +172,7 @@
             android:autoSizeStepGranularity="1sp" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ops_5717_8884"
-            android:layout_width="132dp"
+            android:layout_width="155dp"
             android:layout_height="39dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="0dp"
@@ -186,7 +186,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="22dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/ops_5717_8886"
                 app:layout_constraintTop_toTopOf="parent"
@@ -194,7 +194,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/ops_text_selecione_mes"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.be0125e71c"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:tag="text:Selecione o mês" />

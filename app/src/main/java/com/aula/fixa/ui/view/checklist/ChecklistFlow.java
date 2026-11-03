@@ -149,6 +149,13 @@ public final class ChecklistFlow {
         hideViews(content, legacyLabels);
         hideViews(content, legacyLines);
         hideViews(content, backId, nextId);
+        String editId = activity.model.field("checklist", "editId");
+        if (editId != null && !editId.isEmpty()) {
+            View indicator = content.findViewById(R.id.stepIndicator);
+            if (indicator != null) indicator.setVisibility(View.GONE);
+            raiseChecklistActions(content);
+            return;
+        }
         bindChecklistIndicator(content, step);
         raiseChecklistActions(content);
         if (step == 1) {

@@ -1,193 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Figma 5717:9110 • manager / occurrence_details. Componentes nativos; dimensões em values e sw400dp. -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_756_0" android:clipChildren="false" android:clipToPadding="false">
-        <ImageView
-            android:id="@+id/ops_5717_9112"
-            android:layout_width="@dimen/app_back_icon_size"
-            android:layout_height="@dimen/app_back_icon_size"
-            android:layout_marginStart="@dimen/ops_dp_11_0"
-            android:layout_marginTop="@dimen/ops_dp_22_0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/figma_eee40"
-            android:scaleType="fitXY"
-            android:importantForAccessibility="no"
-            android:tag="image:arrow-left" />
-        <TextView
-            android:id="@+id/ops_5717_9111"
-            android:layout_width="0dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".ui.view.operations.OperationsScreenFragment">
+
+    <ImageButton
+        android:id="@+id/ops_5717_9112"
+        android:layout_width="@dimen/app_back_button_size"
+        android:layout_height="@dimen/app_back_button_size"
+        android:layout_marginStart="@dimen/app_back_button_margin_start"
+        android:layout_marginTop="@dimen/app_back_button_margin_top"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_back"
+        android:scaleType="center"
+        android:tag="image:arrow-left"
+        app:srcCompat="@drawable/ic_arrow_left_26"
+        app:tint="@color/app_primary_deep"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/occurrenceDetailsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ops_5717_9112">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ops_dp_44"
-            android:layout_marginTop="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/ops_dp_41"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/ops_text_detalhes_da_solicitacao_19e72a"
-            android:textAppearance="@style/TextAppearance.FIXA.Operations.32afd0b1db"
-            android:textColor="@color/ops_color_ff0b013c"
-            android:textSize="36sp"
-            android:includeFontPadding="false"
-            android:gravity="start|center_vertical"
-            android:minHeight="@dimen/ops_dp_106"
-            android:tag="text:Detalhes da solicitação"
-            android:padding="@dimen/ops_dp_0"
-            android:fontFamily="@font/poppins_bold" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9116" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_520_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_212_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" android:background="@drawable/bg_ops_892fe1afbe" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Ar-condicionado quebrado">
+            android:paddingBottom="24dp">
+
             <TextView
-                android:id="@+id/ops_5717_9117"
+                android:id="@+id/ops_5717_9111"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ops_dp_27_0"
-                android:layout_marginTop="@dimen/ops_dp_27_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="@dimen/ops_dp_32_0"
+                android:layout_marginStart="@dimen/app_confirm_title_margin_start"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/app_confirm_title_margin_start"
+                android:text="@string/ops_occurrence_details_title"
+                android:textAppearance="@style/TextAppearance.FIXA.App.StepTitle"
+                android:tag="text:Detalhes da ocorrência"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/ops_text_ar_condicionado_quebrado_d6029a"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.360d59c4e1"
-                android:textColor="@color/ops_color_ff0b013c"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_76"
-                android:tag="text:Ar-condicionado quebrado"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_bold" />
-            <TextView
-                android:id="@+id/ops_5717_9118"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ops_5717_9116"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ops_dp_29_0"
-                android:layout_marginTop="@dimen/ops_dp_9_0"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="@dimen/ops_dp_36_0"
+                android:layout_marginStart="@dimen/app_confirm_title_margin_start"
+                android:layout_marginTop="@dimen/app_confirm_card_margin_top"
+                android:layout_marginEnd="@dimen/app_confirm_title_margin_start"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/app_confirm_card_padding"
+                android:tag="card:Ar-condicionado quebrado"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ops_5717_9117"
-                android:text="@string/ops_text_o_ar_condicionado_estava_apresentando__a14433"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.1ddd2e8c5d"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_54"
-                android:tag="text:O ar-condicionado estava apresentando vazamento e um ruído estranho até desligar completamente e não ligar mais."
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_regular" />
-            <TextView
-                android:id="@+id/ops_5717_9120"
-                android:layout_width="@dimen/ops_dp_205_0"
-                android:layout_height="@dimen/ops_dp_21"
-                android:layout_marginStart="@dimen/ops_dp_29_0"
-                android:layout_marginTop="@dimen/ops_dp_17_0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ops_5717_9118"
-                android:text="@string/ops_text_aparelho_ar_condicionado_e63364"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.e64b9e5e89"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_21"
-                android:tag="text:Aparelho: Ar-Condicionado"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_bold"
-                android:maxLines="1" />
-            <TextView
-                android:id="@+id/ops_5717_9119"
-                android:layout_width="@dimen/ops_dp_98_4"
-                android:layout_height="@dimen/ops_dp_21"
-                android:layout_marginStart="@dimen/ops_dp_234_0"
-                android:layout_marginTop="@dimen/ops_dp_183_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/ops_text_local_sala_s11_9bf398"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.e64b9e5e89"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_21"
-                android:tag="text:Local: Sala S11"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_bold"
-                android:maxLines="1" />
-            <TextView
-                android:id="@+id/ops_5717_9121"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/ops_dp_21"
-                android:layout_marginStart="@dimen/ops_dp_29_0"
-                android:layout_marginTop="@dimen/ops_dp_11_0"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="@dimen/ops_dp_36_0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ops_5717_9120"
-                android:text="@string/ops_text_descricao_3bbd8f"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.39f440aaa3"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_21"
-                android:tag="text:Descrição:"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_semibold"
-                android:maxLines="1" />
-            <TextView
-                android:id="@+id/ops_5717_9123"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ops_dp_29_0"
-                android:layout_marginTop="@dimen/ops_dp_9_0"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="@dimen/ops_dp_36_0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ops_5717_9121"
-                android:text="@string/ops_text_sala_localizada_no_2_andar_no_corredor_a27b15"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.1ddd2e8c5d"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_80"
-                android:tag="text:Sala localizada no 2° andar no corredor da esquerda subindo pela escada rolante, sala do meio do corredor onde fica o 2° Ano G."
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_regular" />
-            <TextView
-                android:id="@+id/ops_5717_9122"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/ops_dp_21"
-                android:layout_marginStart="@dimen/ops_dp_29_0"
-                android:layout_marginTop="@dimen/ops_dp_12_0"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="@dimen/ops_dp_36_0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ops_5717_9123"
-                android:text="@string/ops_text_imagens_dfca0b"
-                android:textAppearance="@style/TextAppearance.FIXA.Operations.e64b9e5e89"
-                android:includeFontPadding="false"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/ops_dp_21"
-                android:tag="text:Imagens"
-                android:padding="@dimen/ops_dp_0"
-                android:fontFamily="@font/poppins_bold"
-                android:maxLines="1" />
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ops_5717_9124"
-                android:layout_width="@dimen/ops_dp_110_0"
-                android:layout_height="@dimen/ops_dp_110_0"
-                android:layout_marginStart="@dimen/ops_dp_29_0"
-                android:layout_marginTop="@dimen/ops_dp_17_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ops_5717_9122"
-                android:src="@drawable/figma_57a33"
-                android:scaleType="matrix"
-                android:importantForAccessibility="no"
-                android:tag="image:"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.Operations.f1e42019ae" />
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ops_5717_9125"
-                android:layout_width="@dimen/ops_dp_110_0"
-                android:layout_height="@dimen/ops_dp_110_0"
-                android:layout_marginStart="@dimen/ops_dp_152_0"
-                android:layout_marginTop="@dimen/ops_dp_375_0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/figma_57a33"
-                android:scaleType="matrix"
-                android:importantForAccessibility="no"
-                android:tag="image:"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.Operations.f1e42019ae" />
+                app:layout_constraintTop_toBottomOf="@id/ops_5717_9111"
+                app:layout_constraintWidth_max="@dimen/app_content_max_width">
+
+                <TextView
+                    android:id="@+id/ops_5717_9117"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ops_text_ar_condicionado_quebrado_d6029a"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Title"
+                    android:tag="text:Ar-condicionado quebrado"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/ops_5717_9118"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_body_margin_top"
+                    android:text="@string/ops_text_o_ar_condicionado_estava_apresentando__a14433"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Body"
+                    android:tag="text:O ar-condicionado estava apresentando vazamento e um ruído estranho até desligar completamente e não ligar mais."
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ops_5717_9117" />
+
+                <TextView
+                    android:id="@+id/ops_5717_9120"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_meta_margin_top"
+                    android:text="@string/ops_text_aparelho_ar_condicionado_e63364"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
+                    android:tag="text:Aparelho: Ar-Condicionado"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ops_5717_9118" />
+
+                <TextView
+                    android:id="@+id/ops_5717_9119"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_meta_spacing_vertical"
+                    android:text="@string/ops_text_local_sala_s11_9bf398"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
+                    android:tag="text:Local: Sala S11"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ops_5717_9120" />
+
+                <TextView
+                    android:id="@+id/ops_5717_9121"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_section_margin_top"
+                    android:text="@string/ops_text_descricao_3bbd8f"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
+                    android:tag="text:Descrição:"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ops_5717_9119" />
+
+                <TextView
+                    android:id="@+id/ops_5717_9123"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_body_margin_top"
+                    android:text="@string/ops_text_sala_localizada_no_2_andar_no_corredor_a27b15"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Body"
+                    android:tag="text:Sala localizada no 2° andar no corredor da esquerda subindo pela escada rolante, sala do meio do corredor onde fica o 2° Ano G."
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ops_5717_9121" />
+
+                <TextView
+                    android:id="@+id/ops_5717_9122"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_section_margin_top"
+                    android:text="@string/ops_text_imagens_dfca0b"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Section"
+                    android:tag="text:Imagens"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ops_5717_9123" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ops_5717_9124"
+                    android:layout_width="@dimen/app_confirm_photo_size"
+                    android:layout_height="@dimen/app_confirm_photo_size"
+                    android:layout_marginTop="@dimen/app_confirm_card_images_margin_top"
+                    android:scaleType="centerCrop"
+                    android:importantForAccessibility="no"
+                    android:tag="image:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ops_5717_9122"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.Operations.f1e42019ae" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ops_5717_9125"
+                    android:layout_width="@dimen/app_confirm_photo_size"
+                    android:layout_height="@dimen/app_confirm_photo_size"
+                    android:layout_marginStart="12dp"
+                    android:scaleType="centerCrop"
+                    android:importantForAccessibility="no"
+                    android:tag="image:"
+                    app:layout_constraintStart_toEndOf="@id/ops_5717_9124"
+                    app:layout_constraintTop_toTopOf="@id/ops_5717_9124"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.FIXA.Operations.f1e42019ae" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

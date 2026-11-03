@@ -56,7 +56,7 @@ public final class OcorrenciaGestorFluxo {
         View back=root.findViewById(R.id.managerOccurrencesBack);if(back!=null)back.setOnClickListener(v->activity.back());
         EditText search=root.findViewById(R.id.managerOccurrencesSearch);if(search!=null)search.addTextChangedListener(new TextWatcher(){public void beforeTextChanged(CharSequence s,int st,int c,int a){}public void onTextChanged(CharSequence s,int st,int before,int count){query=s.toString();renderList();}public void afterTextChanged(Editable e){}});
         list=root.findViewById(R.id.managerOccurrencesList);list.setLayoutManager(new LinearLayoutManager(host.requireContext()));
-        adapter=new OcorrenciaListAdapter(new OcorrenciaListAdapter.Listener(){public void onClick(OcorrenciaItem item){activity.openOccurrenceDetails(item.id,item.titulo);}public void onMenuClick(View anchor,OcorrenciaItem item){showMenu(anchor,item);}});list.setAdapter(adapter);
+        adapter=new OcorrenciaListAdapter(new OcorrenciaListAdapter.Listener(){public void onClick(OcorrenciaItem item){activity.openOccurrenceDetails(item);}public void onMenuClick(View anchor,OcorrenciaItem item){showMenu(anchor,item);}});list.setAdapter(adapter);
         View filter=root.findViewById(R.id.managerOccurrencesFilter);if(filter!=null)filter.setOnClickListener(v->showFilters());
         View fab=root.findViewById(R.id.managerOccurrencesFab);if(fab!=null)fab.setOnClickListener(v->{activity.model.clearDraft(activity.role()+"_new_occurrence_form");activity.openName("occurrence_intro");});
         load();
@@ -318,11 +318,46 @@ public final class OcorrenciaGestorFluxo {
     private com.aula.fixa.domain.enums.Prioridade priority(String value){for(com.aula.fixa.domain.enums.Prioridade p:com.aula.fixa.domain.enums.Prioridade.values())if(p.getNome().equalsIgnoreCase(value)||p.name().equalsIgnoreCase(value))return p;return null;}
     private void updatePhotoSaveState(){if(content!=null){View save=content.findViewById(R.id.occurrenceEditPhotosSave);if(save!=null)save.setEnabled(pendingPhotoUploads==0);}}
 
-    public void bindDetails(View root){content=root;model=new ViewModelProvider(host,new OcorrenciaViewModelFactory(host.requireContext())).get(OcorrenciaViewModel.class);View back=root.findViewById(R.id.ops_5717_9112);if(back!=null)back.setOnClickListener(v->activity.back());android.widget.TextView heading=root.findViewById(R.id.ops_5717_9111);if(heading!=null){heading.setText(R.string.ops_occurrence_details_title);heading.setTextColor(ContextCompat.getColor(host.requireContext(),R.color.ops_color_ff0b013c));heading.setTextSize(36);}long id=host.getArguments()==null?0:host.getArguments().getLong("occurrenceId",0);if(id<=0){EmptyStateStyler.showBelowBack(root,"Ocorrência não encontrada.",null);return;}EmptyStateStyler.removeFromRoot(root);root.setVisibility(View.INVISIBLE);loading=AppLoading.show(host.requireContext());model.detalhar(id,new OcorrenciaViewModel.Callback<OcorrenciaItem>(){public void success(OcorrenciaItem item){if(!current())return;EmptyStateStyler.removeFromRoot(root);bindDetailValues(root,item);finish();}public void failure(Throwable error){if(!current())return;finish();EmptyStateStyler.showBelowBack(root,"Não foi possível carregar a ocorrência. Toque para tentar novamente.",()->bindDetails(root));}});}
-    private void bindDetailValues(View root,OcorrenciaItem i){setText(root,R.id.ops_5717_9117,i.titulo);TextView title=root.findViewById(R.id.ops_5717_9117);if(title!=null)title.setTextColor(ContextCompat.getColor(host.requireContext(),R.color.ops_color_ff0b013c));setText(root,R.id.ops_5717_9118,i.descricao);setText(root,R.id.ops_5717_9120,getString(R.string.ops_occurrence_equipment,i.categoriaEquipamento));setText(root,R.id.ops_5717_9119,getString(R.string.ops_occurrence_local,i.localUnidade));setText(root,R.id.ops_5717_9123,i.descricaoLocal);android.widget.ImageView first=root.findViewById(R.id.ops_5717_9124),second=root.findViewById(R.id.ops_5717_9125);loadPhoto(first,i.fotos.size()>0?i.fotos.get(0).url:null);if(i.fotos.size()>1)loadPhoto(second,i.fotos.get(1).url);else if(second!=null)second.setVisibility(View.GONE);}
+    public void bindDetails(View root){
+        content=root;
+        model=new ViewModelProvider(host,new OcorrenciaViewModelFactory(host.requireContext())).get(OcorrenciaViewModel.class);
+        boolean technician="technician".equals(activity.role());
+        int backId=technician?R.id.ops_5717_10795:R.id.ops_5717_9112;
+        int headingId=technician?R.id.ops_5717_10794:R.id.ops_5717_9111;
+        View back=root.findViewById(backId);if(back!=null)back.setOnClickListener(v->activity.back());
+        if(technician){View bottomBack=root.findViewById(R.id.ops_5717_10799);if(bottomBack!=null)bottomBack.setOnClickListener(v->activity.back());}
+        TextView heading=root.findViewById(headingId);if(heading!=null)heading.setText(R.string.ops_occurrence_details_title);
+        long id=host.getArguments()==null?0:host.getArguments().getLong("occurrenceId",0);
+        if(id<=0){EmptyStateStyler.showBelowBack(root,"Ocorrência não encontrada.",null);return;}
+        OcorrenciaItem cached=null;
+        String cachedJson=activity.model.field("occurrence_details","cached_item");
+        if(cachedJson!=null&&!cachedJson.isEmpty())try{OcorrenciaItem candidate=new com.google.gson.Gson().fromJson(cachedJson,OcorrenciaItem.class);if(candidate!=null&&candidate.id==id)cached=candidate;}catch(RuntimeException error){android.util.Log.w("OccurrenceDetails","Não foi possível ler a ocorrência armazenada em memória.",error);}
+        final OcorrenciaItem cachedItem=cached;
+        EmptyStateStyler.removeFromRoot(root);
+        if(cachedItem!=null){bindDetailValues(root,cachedItem);root.setVisibility(View.VISIBLE);}else{root.setVisibility(View.INVISIBLE);loading=AppLoading.show(host.requireContext());}
+        model.detalhar(id,new OcorrenciaViewModel.Callback<OcorrenciaItem>(){public void success(OcorrenciaItem item){if(!current())return;activity.model.field("occurrence_details","cached_item",new com.google.gson.Gson().toJson(item));EmptyStateStyler.removeFromRoot(root);bindDetailValues(root,item);finish();}public void failure(Throwable error){if(!current())return;android.util.Log.e("OccurrenceDetails","Falha ao buscar ocorrência id="+id+" em GET /api/v1/ocorrencias/"+id,error);finish();if(cachedItem==null)EmptyStateStyler.showBelowBack(root,"Não foi possível carregar a ocorrência. Toque para tentar novamente.",()->bindDetails(root));}});
+    }
+    private void bindDetailValues(View root,OcorrenciaItem i){
+        boolean technician="technician".equals(activity.role());
+        int titleId=technician?R.id.ops_5717_10803:R.id.ops_5717_9117;
+        int descriptionId=technician?R.id.ops_5717_10804:R.id.ops_5717_9118;
+        int equipmentId=technician?R.id.ops_5717_10806:R.id.ops_5717_9120;
+        int localId=technician?R.id.ops_5717_10805:R.id.ops_5717_9119;
+        int localDescriptionId=technician?R.id.ops_5717_10809:R.id.ops_5717_9123;
+        int imagesLabelId=technician?R.id.ops_5717_10808:R.id.ops_5717_9122;
+        int firstPhotoId=technician?R.id.ops_5717_10810:R.id.ops_5717_9124;
+        int secondPhotoId=technician?R.id.ops_5717_10811:R.id.ops_5717_9125;
+        setText(root,titleId,i.titulo);
+        setText(root,descriptionId,i.descricao);setText(root,equipmentId,getString(R.string.ops_occurrence_equipment,i.categoriaEquipamento));setText(root,localId,getString(R.string.ops_occurrence_local,i.localUnidade));setText(root,localDescriptionId,i.descricaoLocal);
+        boolean hasPhotos=i.fotos!=null&&!i.fotos.isEmpty();
+        View imagesLabel=root.findViewById(imagesLabelId);if(imagesLabel!=null)imagesLabel.setVisibility(hasPhotos?View.VISIBLE:View.GONE);
+        android.widget.ImageView first=root.findViewById(firstPhotoId),second=root.findViewById(secondPhotoId);
+        loadPhoto(first,hasPhotos?i.fotos.get(0).url:null);
+        if(i.fotos!=null&&i.fotos.size()>1)loadPhoto(second,i.fotos.get(1).url);else loadPhoto(second,null);
+    }
     private String getString(int id,String value){return host.getString(id,value==null?"":value);}
     private void setText(View root,int id,CharSequence value){android.widget.TextView text=root.findViewById(id);if(text!=null)text.setText(value);}
-    private void loadPhoto(android.widget.ImageView target,String url){if(target==null)return;if(url==null||url.trim().isEmpty()){target.setVisibility(View.GONE);return;}target.setVisibility(View.VISIBLE);com.bumptech.glide.Glide.with(host).load(url).centerCrop().placeholder(R.drawable.img_empty_results).error(R.drawable.img_empty_results).into(target);}
+    private void loadPhoto(android.widget.ImageView target,String url){if(target==null)return;com.bumptech.glide.Glide.with(host).clear(target);if(url==null||url.trim().isEmpty()){target.setImageDrawable(null);target.setVisibility(View.GONE);return;}target.setVisibility(View.VISIBLE);com.bumptech.glide.Glide.with(host).load(url).placeholder(R.drawable.img_empty_results).error(R.drawable.img_empty_results).centerCrop().into(target);}
     private void showError(Throwable error){Toast.makeText(host.requireContext(),AutenticacaoViewModel.messageFrom(error),Toast.LENGTH_LONG).show();}
     private int dp(int value){return (int)(value*host.getResources().getDisplayMetrics().density+0.5f);}
     private boolean current(){return host.isAdded()&&host.getView() instanceof android.widget.FrameLayout&&((android.widget.FrameLayout)host.getView()).getChildCount()>0&&((android.widget.FrameLayout)host.getView()).getChildAt(0)==content;}
