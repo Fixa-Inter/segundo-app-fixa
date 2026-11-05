@@ -16,7 +16,6 @@ import com.aula.fixa.infrastructure.remote.dto.LoginGoogleRequest;
 import com.aula.fixa.infrastructure.remote.dto.LoginRequest;
 import com.aula.fixa.infrastructure.remote.dto.RedefinirSenhaRequest;
 import com.aula.fixa.infrastructure.remote.dto.ValidarCodigoRequest;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -171,16 +170,4 @@ public final class AuthRepository implements AutenticacaoRepository {
         SessionTokenAuthenticator.resetLoginRedirect();
     }
 
-    public static String messageFrom(Throwable throwable) {
-        if (throwable instanceof ApiException) {
-            try {
-                Object message = new JSONObject(((ApiException) throwable).body).opt("message");
-                if (message instanceof org.json.JSONArray) return ((org.json.JSONArray) message).join("\\n").replace("\"", "");
-                if (message != null && !message.toString().trim().isEmpty()) {
-                    return message.toString();
-                }
-            } catch (Exception ignored) { }
-        }
-        return throwable.getMessage() == null ? "Não foi possível concluir a operação." : throwable.getMessage();
-    }
 }

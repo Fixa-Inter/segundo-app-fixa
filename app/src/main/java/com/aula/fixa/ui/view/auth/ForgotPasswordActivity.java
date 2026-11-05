@@ -1,9 +1,7 @@
 package com.aula.fixa.ui.view.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -41,20 +39,18 @@ public class ForgotPasswordActivity extends RecoveryActivity {
 
             findViewById(R.id.btnSend).setEnabled(false);
 
-            new Thread(() -> {
-                try {
-                    autenticacao.requestPasswordRecovery(value);
-                    runOnUiThread(() -> {
-                        startActivity(VerifyEmailActivity.intent(this, value, false));
-                        finish();
-                    });
-                } catch (Exception exception) {
-                    runOnUiThread(() -> {
-                        findViewById(R.id.btnSend).setEnabled(true);
-                        Toast.makeText(this, AutenticacaoViewModel.messageFrom(exception), Toast.LENGTH_LONG).show();
-                    });
+            autenticacao.requestPasswordRecovery(value,
+                    new AutenticacaoViewModel.Listener<com.aula.fixa.domain.model.ResultadoRecuperacaoSenha>() {
+                @Override public void onResultado(com.aula.fixa.domain.model.ResultadoRecuperacaoSenha resultado) {
+                    startActivity(VerifyEmailActivity.intent(ForgotPasswordActivity.this, value, false));
+                    finish();
                 }
-            }).start();
+                @Override public void onErro(Throwable erro) {
+                    findViewById(R.id.btnSend).setEnabled(true);
+                    Toast.makeText(ForgotPasswordActivity.this,
+                            AutenticacaoViewModel.messageFrom(erro), Toast.LENGTH_LONG).show();
+                }
+            });
         });
 
         findViewById(R.id.btnBackToLogin).setOnClickListener(view -> finish());

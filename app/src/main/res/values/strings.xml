@@ -28,6 +28,13 @@
     <string name="register_institution_hint">Selecione sua instituição</string>
     <string name="register_unit_label">Unidade</string>
     <string name="register_unit_hint">Selecione a unidade</string>
+    <string name="register_unit_required">Selecione uma unidade válida.</string>
+    <string name="register_fields_required">Preencha todos os campos obrigatórios.</string>
+    <string name="register_email_invalid">Informe um e-mail válido.</string>
+    <string name="register_password_mismatch">As senhas não coincidem.</string>
+    <string name="register_password_minimum_length">A senha deve ter pelo menos 4 caracteres.</string>
+    <string name="register_birth_date_invalid">Informe uma data de nascimento válida.</string>
+    <string name="register_minimum_age">É necessário ter pelo menos 12 anos para se cadastrar.</string>
     <string name="register_continue">Continuar</string>
     <string name="register_full_name_label">Nome completo</string>
     <string name="register_full_name_hint">João Silva</string>

@@ -29,7 +29,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class LoginActivity extends ImmersiveActivity {
-    private AutenticacaoViewModel authRepository;
+    private AutenticacaoViewModel autenticacao;
     private FirebaseAuth firebaseAuth;
     private GoogleSignInClient googleSignInClient;
 
@@ -57,7 +57,7 @@ public class LoginActivity extends ImmersiveActivity {
         WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightNavigationBars(true);
         setContentView(R.layout.activity_login);
 
-        authRepository = AutenticacaoViewModel.obter(this, this);
+        autenticacao = AutenticacaoViewModel.obter(this, this);
         firebaseAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -88,17 +88,13 @@ public class LoginActivity extends ImmersiveActivity {
         }
 
         findViewById(R.id.btnLogin).setEnabled(false);
-        new Thread(() -> {
-            try {
-                SessaoUsuario sessao = authRepository.login(email, password);
-                runOnUiThread(() -> abrirFluxo(sessao.tipoAcesso));
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    findViewById(R.id.btnLogin).setEnabled(true);
-                    showLoginError(e);
-                });
+        autenticacao.login(email, password, new AutenticacaoViewModel.Listener<SessaoUsuario>() {
+            @Override public void onResultado(SessaoUsuario sessao) { abrirFluxo(sessao.tipoAcesso); }
+            @Override public void onErro(Throwable erro) {
+                findViewById(R.id.btnLogin).setEnabled(true);
+                showLoginError(erro);
             }
-        }).start();
+        });
     }
 
     private void firebaseAuthWithGoogle(String googleIdToken) {
@@ -116,35 +112,30 @@ public class LoginActivity extends ImmersiveActivity {
                     return;
                 }
 
-                new Thread(() -> {
-                    try {
-                        String firebaseToken = tokenTask.getResult().getToken();
-
-                        com.aula.fixa.domain.model.ResultadoLoginGoogle response = authRepository.loginGoogle(firebaseToken);
-
-                        String status = response.status;
+                String firebaseToken = tokenTask.getResult().getToken();
+                autenticacao.loginGoogle(firebaseToken,
+                        new AutenticacaoViewModel.Listener<com.aula.fixa.domain.model.ResultadoLoginGoogle>() {
+                    @Override public void onResultado(com.aula.fixa.domain.model.ResultadoLoginGoogle response) {
                         String responseEmail = response.email == null ? "" : response.email;
-
-                        if ("AUTHENTICATED".equals(status) && response.token != null && !response.token.trim().isEmpty()) {
-                            runOnUiThread(() -> abrirFluxo(response.tipoAcesso));
-                        } else if ("REGISTRATION_REQUIRED".equals(status)
-                                || (!responseEmail.trim().isEmpty() && (response.token == null || response.token.trim().isEmpty()))) {
-                            Intent intent = new Intent(this, RegisterActivity.class)
+                        if ("AUTHENTICATED".equals(response.status)
+                                && response.token != null && !response.token.trim().isEmpty()) {
+                            abrirFluxo(response.tipoAcesso);
+                        } else if ("REGISTRATION_REQUIRED".equals(response.status)
+                                || (!responseEmail.trim().isEmpty()
+                                && (response.token == null || response.token.trim().isEmpty()))) {
+                            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class)
                                     .putExtra("google_email", responseEmail)
                                     .putExtra("google_name", response.nome == null ? "" : response.nome);
-
-                            runOnUiThread(() -> {
-                                startActivity(intent);
-                                finish();
-                            });
-
+                            startActivity(intent);
+                            finish();
                         } else {
-                            showGoogleError(new IllegalStateException("A API não retornou um status de autenticação válido."));
+                            showGoogleError(new IllegalStateException(
+                                    "A API não retornou um status de autenticação válido."));
                         }
-                    } catch (Exception e) {
-                        showGoogleError(e);
                     }
-                }).start();
+
+                    @Override public void onErro(Throwable erro) { showGoogleError(erro); }
+                });
             });
         });
     }
@@ -172,9 +163,7 @@ public class LoginActivity extends ImmersiveActivity {
     }
 
     private void showGoogleError(Throwable error) {
-        runOnUiThread(() -> {
-            findViewById(R.id.btnGoogle).setEnabled(true);
-            Toast.makeText(this, AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
-        });
+        findViewById(R.id.btnGoogle).setEnabled(true);
+        Toast.makeText(this, AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
     }
 }

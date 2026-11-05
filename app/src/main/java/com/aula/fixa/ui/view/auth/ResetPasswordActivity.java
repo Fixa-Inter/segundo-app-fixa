@@ -55,20 +55,17 @@ public class ResetPasswordActivity extends RecoveryActivity {
         }
 
         findViewById(R.id.btnConfirm).setEnabled(false);
-        new Thread(() -> {
-            try {
-                autenticacao.resetPassword(email, code, password);
-                runOnUiThread(() -> {
-                    startActivity(PasswordSuccessActivity.intent(this,
-                            getIntent().getBooleanExtra(EXTRA_PROFILE_FLOW, false)));
-                    finish();
-                });
-            } catch (Exception error) {
-                runOnUiThread(() -> {
-                    findViewById(R.id.btnConfirm).setEnabled(true);
-                    Toast.makeText(this, AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
-                });
+        autenticacao.resetPassword(email, code, password, new AutenticacaoViewModel.Listener<String>() {
+            @Override public void onResultado(String resultado) {
+                startActivity(PasswordSuccessActivity.intent(ResetPasswordActivity.this,
+                        getIntent().getBooleanExtra(EXTRA_PROFILE_FLOW, false)));
+                finish();
             }
-        }).start();
+            @Override public void onErro(Throwable error) {
+                findViewById(R.id.btnConfirm).setEnabled(true);
+                Toast.makeText(ResetPasswordActivity.this,
+                        AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
