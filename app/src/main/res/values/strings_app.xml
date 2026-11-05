@@ -82,10 +82,26 @@
 
     <!-- Chatbot -->
     <string name="app_chat_title">Manu</string>
+    <string name="app_chat_greeting_default">Olá, como posso te ajudar hoje?</string>
     <string name="app_chat_open_menu">Abrir menu de conversas</string>
     <string name="app_chat_back">Voltar</string>
     <string name="app_chat_greeting">Olá %1$s, como posso te ajudar hoje?</string>
     <string name="app_chat_input_hint">Como posso te ajudar hoje?</string>
+    <string name="app_chat_finish_conversation">Finalizar conversa</string>
+    <string name="app_chat_delete_conversation">Excluir conversa</string>
+    <string name="app_chat_discard_draft_title">Descartar rascunho incerto?</string>
+    <string name="app_chat_discard_draft_message">A mensagem não será reenviada. Confirme que você já verificou o histórico antes de descartá-la.</string>
+    <string name="app_chat_keep_draft">Manter</string>
+    <string name="app_chat_discard_draft">Descartar</string>
+    <string name="app_chat_recent_empty">Você ainda não possui conversas.</string>
+    <string name="app_chat_recent_no_matches">Nenhuma conversa encontrada.</string>
+    <string name="app_chat_recent_draft_only">Conversa com rascunho não confirmado</string>
+    <string name="app_chat_draft_indicator">Esta conversa tem uma mensagem não confirmada</string>
+    <string name="app_chat_recent_options">Opções da conversa</string>
+    <string name="app_chat_remove_attachment">Remover anexo</string>
+    <string name="app_chat_warning_unconfirmed">Envio não confirmado: “%1$s”. Confira o histórico; toque aqui para descartar o rascunho.</string>
+    <string name="app_chat_warning_unconfirmed_short">Envio não confirmado. Toque após conferir o histórico para descartar o rascunho.</string>
+    <string name="app_chat_attachments_hint">Como posso ajudar? (%1$d imagem(ns) anexada(s))</string>
     <string name="app_chat_add">Adicionar</string>
     <string name="app_chat_attach">Anexar arquivo</string>
     <string name="app_chat_send">Enviar</string>

@@ -503,6 +503,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowMinWidthMajor">0dp</item>
         <item name="android:windowMinWidthMinor">0dp</item>
+        <item name="android:windowAnimationStyle">@style/AppDialogAnimation</item>
+    </style>
+
+    <style name="AppDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/app_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/app_dialog_exit</item>
     </style>
 
     <!-- Recuperação de senha -->

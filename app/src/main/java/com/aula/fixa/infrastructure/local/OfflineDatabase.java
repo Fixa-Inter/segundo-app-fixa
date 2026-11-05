@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Persistência local de respostas HTTP para fallback e solicitações pendentes.
+ * Persistência local de cache HTTP, solicitações pendentes e rascunhos de chat.
  */
 public final class OfflineDatabase extends SQLiteOpenHelper {
     private static final String NAME = "fixa_offline.db";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final long CACHE_RETENTION_MS = 60L * 24 * 60 * 60 * 1000;
     private static final long MAX_CACHE_BYTES = 50L * 1024 * 1024;
     private static volatile OfflineDatabase instance;
@@ -42,10 +42,41 @@ public final class OfflineDatabase extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX api_cache_owner_date ON api_cache(owner_key, cached_at DESC)");
         db.execSQL("CREATE TABLE pending_requests (id TEXT PRIMARY KEY NOT NULL, owner_key TEXT NOT NULL, payload BLOB NOT NULL, created_at INTEGER NOT NULL)");
         db.execSQL("CREATE INDEX pending_requests_owner_date ON pending_requests(owner_key, created_at ASC)");
+        createChatDraftTable(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if (oldVersion < 2) createChatDraftTable(db);
+    }
+
+    private static void createChatDraftTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS chat_pending_drafts (owner_key TEXT PRIMARY KEY NOT NULL, payload BLOB NOT NULL, updated_at INTEGER NOT NULL)");
+    }
+
+    public synchronized byte[] chatDraft(String owner) {
+        try (Cursor cursor = getReadableDatabase().query(
+                "chat_pending_drafts", new String[]{"payload"}, "owner_key=?",
+                new String[]{owner}, null, null, null, "1")) {
+            return cursor.moveToFirst() ? cursor.getBlob(0) : null;
+        }
+    }
+
+    public synchronized void saveChatDraft(String owner, byte[] payload) {
+        if (owner == null || owner.isEmpty() || payload == null || payload.length == 0) {
+            throw new IllegalArgumentException("Identificação e rascunho são obrigatórios.");
+        }
+        ContentValues values = new ContentValues();
+        values.put("owner_key", owner);
+        values.put("payload", payload);
+        values.put("updated_at", System.currentTimeMillis());
+        long rowId = getWritableDatabase().insertWithOnConflict(
+                "chat_pending_drafts", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        if (rowId == -1L) throw new IllegalStateException("O rascunho não foi persistido no SQLite.");
+    }
+
+    public synchronized void deleteChatDraft(String owner) {
+        getWritableDatabase().delete("chat_pending_drafts", "owner_key=?", new String[]{owner});
     }
 
     public synchronized CachedResponse get(String key, String owner) {

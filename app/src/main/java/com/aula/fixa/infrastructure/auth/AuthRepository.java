@@ -9,7 +9,7 @@ import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.aula.fixa.domain.model.SessaoUsuario;
 import com.aula.fixa.domain.model.ResultadoLoginGoogle;
 import com.aula.fixa.domain.model.ResultadoRecuperacaoSenha;
-import com.aula.fixa.domain.repository.AutenticacaoRepository;
+import com.aula.fixa.domain.repository.auth.AutenticacaoRepository;
 import com.aula.fixa.infrastructure.remote.dto.OpcaoCadastroResponse;
 import com.aula.fixa.infrastructure.remote.dto.CadastroUsuarioRequest;
 import com.aula.fixa.infrastructure.remote.dto.LoginGoogleRequest;

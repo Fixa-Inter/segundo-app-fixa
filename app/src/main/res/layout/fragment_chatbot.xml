@@ -74,7 +74,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="8dp"
-            android:text="Envio não confirmado. Toque após conferir o histórico para descartar o rascunho."
+            android:text="@string/app_chat_warning_unconfirmed_short"
             android:textColor="@color/app_text_secondary"
             android:textSize="12sp"
             android:visibility="gone"
@@ -147,7 +147,7 @@
                 tools:text="Olá Rapha, como posso te ajudar hoje?" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chatAttachmentsPreview"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -155,20 +155,11 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="6dp"
             android:clipToPadding="false"
-            android:fillViewport="false"
-            android:scrollbars="none"
+            android:overScrollMode="never"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/cardInput"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:id="@+id/layoutChatAttachmentItems"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Caixa de entrada -->
         <androidx.constraintlayout.widget.ConstraintLayout

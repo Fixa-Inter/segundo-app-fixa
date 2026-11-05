@@ -1,4 +1,4 @@
-package com.aula.fixa.ui.adapter.chat;
+package com.aula.fixa.ui.adapter.chatbot;
 
 import android.graphics.Color;
 import android.graphics.Typeface;

@@ -255,6 +255,8 @@
     <dimen name="app_chat_drawer_item_width">180dp</dimen>
     <dimen name="app_chat_drawer_item_radius">13dp</dimen>
     <dimen name="app_chat_drawer_item_padding_start">11dp</dimen>
+    <dimen name="app_chat_draft_icon_size">20dp</dimen>
+    <dimen name="app_chat_draft_icon_margin_end">8dp</dimen>
     <dimen name="app_chat_drawer_item_text_size">13sp</dimen>
     <dimen name="app_chat_drawer_item_spacing">3dp</dimen>
 
@@ -548,6 +550,13 @@
     <dimen name="app_popup_menu_item_height">48dp</dimen>
     <dimen name="app_popup_menu_padding_vertical">4dp</dimen>
     <dimen name="app_popup_menu_text_size">16sp</dimen>
+    <dimen name="app_popup_menu_elevation">6dp</dimen>
+    <dimen name="app_chat_attachment_size">42dp</dimen>
+    <dimen name="app_chat_attachment_spacing">7dp</dimen>
+    <dimen name="app_chat_attachment_remove_size">18dp</dimen>
+    <dimen name="app_chat_attachment_remove_icon_padding">2dp</dimen>
+    <dimen name="app_chat_attachment_remove_icon_size">10dp</dimen>
+    <dimen name="app_chat_attachment_radius">10dp</dimen>
 
     <!-- Recuperação de senha (Figma 'Esqueceu a senha?' / 'Sucesso') -->
     <dimen name="recovery_side_margin">27dp</dimen>
