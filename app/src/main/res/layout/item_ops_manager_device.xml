@@ -61,17 +61,18 @@
         app:layout_constraintTop_toBottomOf="@id/deviceLocalLabel"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/deviceMenu"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="Mais opções"
-        android:src="@drawable/ic_more_vertical_18"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_more_options"
+        android:padding="7dp"
         android:scaleType="fitCenter"
-        android:clickable="true"
-        android:focusable="true"
+        android:src="@drawable/ic_more_vertical_14"
+        android:tint="@color/ops_color_ff0b013c"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

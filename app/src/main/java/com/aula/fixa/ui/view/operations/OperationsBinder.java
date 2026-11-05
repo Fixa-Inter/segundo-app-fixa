@@ -54,11 +54,12 @@ public final class OperationsBinder {
             if (kind.equals("card") && spec.optString("name").equals("export")) {
                 boolean selected = activity.model.selected(key + ":export:" + item.optString("text"));
                 view.setSelected(selected);
-                view.setAlpha(selected ? 1f : 0.82f);
-                androidx.core.view.ViewCompat.setBackgroundTintList(view, selected
-                        ? android.content.res.ColorStateList.valueOf(android.graphics.Color.rgb(237, 242, 255))
-                        : null);
-                view.setElevation((selected ? 5f : 2f) * activity.getResources().getDisplayMetrics().density);
+                view.setAlpha(1f);
+                androidx.core.view.ViewCompat.setBackgroundTintList(view, null);
+                view.setElevation(2f * activity.getResources().getDisplayMetrics().density);
+                android.widget.ImageView selector = view.findViewWithTag("image:");
+                if (selector != null) selector.setImageResource(selected
+                        ? R.drawable.figma_7d0bc : R.drawable.figma_3f1ed);
             }
             JSONArray crop=item.optJSONArray("crop");
             if(view instanceof android.widget.ImageView && crop!=null && crop.length()==4) {

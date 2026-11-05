@@ -46,7 +46,7 @@
             android:layout_marginEnd="@dimen/ops_dp_35_0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8200"
-            android:background="@drawable/bg_ops_category_input"
+            android:background="@drawable/bg_ops_70aaab1e67"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.403331c045"
@@ -61,7 +61,7 @@
             android:paddingBottom="@dimen/ops_dp_0"
             android:textSize="16sp"
             android:fontFamily="@font/poppins_regular"
-            android:textColorHint="@color/ops_color_ff637087"
+            android:textColorHint="@color/app_text_placeholder_dark"
             android:hint="@string/ops_text_coloque_o_nome_cbd678"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
@@ -83,7 +83,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8201" android:layout_width="0dp" android:layout_height="56dp" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="10dp" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8204" android:background="@drawable/bg_ops_category_input">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8201" android:layout_width="0dp" android:layout_height="56dp" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="10dp" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8204" android:background="@drawable/bg_ops_70aaab1e67">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ops_5717_8201_input"
                 android:background="@null"

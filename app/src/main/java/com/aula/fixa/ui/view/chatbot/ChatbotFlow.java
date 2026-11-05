@@ -56,6 +56,8 @@ public final class ChatbotFlow {
     private final ChatViewModel viewModel;
     private final FotoViewModel fotoViewModel;
     private final PhotoPicker photoPicker;
+    private final boolean managerMode;
+    private final Runnable onBack;
     private final ExecutorService io = Executors.newSingleThreadExecutor();
     private final List<ChatEntry> messages = new ArrayList<>();
     private final List<ChatHistory> histories = new ArrayList<>();
@@ -85,7 +87,12 @@ public final class ChatbotFlow {
     private ChatEntry typingEntry;
 
     public ChatbotFlow(Fragment fragment, View root, PhotoPicker photoPicker) {
+        this(fragment, root, photoPicker, false, null);
+    }
+
+    public ChatbotFlow(Fragment fragment, View root, PhotoPicker photoPicker, boolean managerMode, Runnable onBack) {
         this.fragment=fragment; this.root=root; this.photoPicker=photoPicker;
+        this.managerMode=managerMode; this.onBack=onBack;
         viewModel = new ViewModelProvider(fragment, new ChatViewModelFactory(fragment.requireContext())).get(ChatViewModel.class);
         fotoViewModel = new ViewModelProvider(fragment, new FotoViewModelFactory(fragment.requireContext())).get(FotoViewModel.class);
         unresolvedDraft = viewModel.loadDraft();
@@ -114,7 +121,30 @@ public final class ChatbotFlow {
         messageList.setLayoutManager(new LinearLayoutManager(fragment.requireContext())); messageList.setAdapter(messageAdapter);
         recentAdapter = new RecentAdapter(); recentList.setLayoutManager(new LinearLayoutManager(fragment.requireContext())); recentList.setAdapter(recentAdapter);
 
-        root.findViewById(R.id.btnMenu).setOnClickListener(v -> drawer.openDrawer(Gravity.START));
+        View drawerContent = root.findViewById(R.id.drawerMenu);
+        if (managerMode) {
+            android.widget.ImageButton back = root.findViewById(R.id.btnMenu);
+            back.setImageResource(R.drawable.ic_arrow_left_26);
+            back.setContentDescription(fragment.getString(R.string.app_chat_back));
+            back.setOnClickListener(v -> { if (onBack != null) onBack.run(); });
+            View openDrawer = root.findViewById(R.id.btnOpenDrawer);
+            openDrawer.setContentDescription(fragment.getString(R.string.app_chat_open_menu));
+            openDrawer.setVisibility(View.VISIBLE);
+            openDrawer.setOnClickListener(v -> drawer.openDrawer(Gravity.END));
+            if (drawerContent != null && drawerContent.getLayoutParams() instanceof DrawerLayout.LayoutParams) {
+                DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) drawerContent.getLayoutParams();
+                params.gravity = Gravity.END;
+                drawerContent.setLayoutParams(params);
+            }
+        } else {
+            root.findViewById(R.id.btnMenu).setOnClickListener(v -> drawer.openDrawer(Gravity.START));
+            root.findViewById(R.id.btnOpenDrawer).setVisibility(View.GONE);
+            if (drawerContent != null && drawerContent.getLayoutParams() instanceof DrawerLayout.LayoutParams) {
+                DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) drawerContent.getLayoutParams();
+                params.gravity = Gravity.START;
+                drawerContent.setLayoutParams(params);
+            }
+        }
         root.findViewById(R.id.btnNewChat).setOnClickListener(v -> startNewChat());
         root.findViewById(R.id.btnSend).setOnClickListener(v -> send());
         root.findViewById(R.id.btnAttach).setOnClickListener(v -> openPhotoPicker());

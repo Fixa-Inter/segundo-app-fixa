@@ -29,9 +29,8 @@
     <dimen name="login_social_line_radius">0.5dp</dimen>
     <dimen name="login_social_line_spacing">12dp</dimen>
     <dimen name="login_social_icons_top_margin">22dp</dimen>
-    <dimen name="login_social_icon_width">78dp</dimen>
-    <dimen name="login_social_icon_height">64dp</dimen>
-    <dimen name="login_social_icon_spacing">32dp</dimen>
+    <dimen name="login_google_button_size">56dp</dimen>
+    <dimen name="login_google_icon_padding">14dp</dimen>
     <dimen name="register_intro_text_size">20sp</dimen>
     <dimen name="register_first_title_top_margin">140dp</dimen>
     <dimen name="register_details_title_top_margin">96dp</dimen>

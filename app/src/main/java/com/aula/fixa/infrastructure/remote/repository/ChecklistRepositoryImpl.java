@@ -55,7 +55,8 @@ public final class ChecklistRepositoryImpl implements ChecklistRepository {
         List<ChecklistTemplate> result = new ArrayList<>();
         if (response.body() != null) for (ModeloChecklistResponse item : response.body()) if (item != null) result.add(map(item));
         try {
-            Response<List<ModeloEquipamentoResponse>> modelResponse = modelosEquipamento.listar().execute();
+            Response<List<ModeloEquipamentoResponse>> modelResponse = modelosEquipamento.listar(
+                    "id,nome,descricao,marca,categoria,quantidadeAparelhos").execute();
             if (modelResponse.isSuccessful() && modelResponse.body() != null) {
                 java.util.Map<Long, String> categories = new java.util.HashMap<>();
                 for (ModeloEquipamentoResponse model : modelResponse.body()) {
@@ -77,7 +78,8 @@ public final class ChecklistRepositoryImpl implements ChecklistRepository {
             if (template == null || (checklistEditadoId != null && checklistEditadoId.equals(template.id)) || template.modelos == null) continue;
             for (ChecklistEquipmentModel model : template.modelos) if (model != null) usados.add(model.modeloEquipamentoId);
         }
-        Response<List<ModeloEquipamentoResponse>> response = modelosEquipamento.listar().execute();
+        Response<List<ModeloEquipamentoResponse>> response = modelosEquipamento.listar(
+                "id,nome,descricao,marca,categoria,quantidadeAparelhos").execute();
         if (response.code() == 404) return new ArrayList<>();
         if (!response.isSuccessful()) throw apiError(response);
         List<EquipmentModelOption> result = new ArrayList<>();

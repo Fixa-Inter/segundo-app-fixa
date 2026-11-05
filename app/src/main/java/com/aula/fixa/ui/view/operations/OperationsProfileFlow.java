@@ -21,6 +21,7 @@ import com.aula.fixa.adapter.perfil.PerfilViewModelFactory;
 import com.aula.fixa.domain.model.AtualizacaoPerfil;
 import com.aula.fixa.domain.model.Perfil;
 import com.aula.fixa.ui.config.AppDialogs;
+import com.aula.fixa.ui.config.AppLoading;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.config.operations.ScreenCatalog;
@@ -48,6 +49,7 @@ final class OperationsProfileFlow {
     private EditText nome, nascimento, email, cargo, senha;
     private String fotoPendente;
     private String snapshotInicial;
+    private android.app.Dialog loading;
 
     OperationsProfileFlow(OperationsScreenFragment fragment, OperationsActivity activity,
                           View root, String screen, PhotoActions photoActions) {
@@ -139,14 +141,20 @@ final class OperationsProfileFlow {
         EmptyStateStyler.removeFromRoot(root);
         ImageView avatar = avatar();
         if (avatar != null) avatar.setImageResource(R.drawable.img_avatar_115);
+        AppLoading.hide(loading);
+        loading = AppLoading.show(activity);
         perfil.obter(new PerfilViewModel.Callback<Perfil>() {
             @Override public void aoConcluir(Perfil data) {
+                AppLoading.hide(loading);
+                loading = null;
                 runIfActive(() -> {
                     EmptyStateStyler.removeFromRoot(root);
                     renderProfile(data);
                 });
             }
             @Override public void aoFalhar(Throwable error) {
+                AppLoading.hide(loading);
+                loading = null;
                 runIfActive(() -> {
                     if (avatar != null) avatar.setImageResource(R.drawable.img_avatar_115);
                     EmptyStateStyler.showBelowBack(root,

@@ -23,7 +23,6 @@ import com.aula.fixa.ui.config.AppLoading;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
 import com.aula.fixa.ui.view.operations.OperationsScreenFragment;
 import java.text.Normalizer;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public final class QuadroOSFluxo {
     private final OperationsScreenFragment host; private final OperationsActivity activity;
     private QuadroOSViewModel model; private QuadroOSAdapter adapter; private RecyclerView list;
     private final List<OrdemServicoQuadro> all=new ArrayList<>(); private View content; private Dialog loading;
-    private String status,query="",equipment="",problem="",priority="",period=""; private boolean loadFailed;
+    private String status,filterStatus,query="",equipment="",problem="",priority="",period=""; private boolean loadFailed;
     private boolean technician;
     public QuadroOSFluxo(OperationsScreenFragment host,OperationsActivity activity){this.host=host;this.activity=activity;}
     public void bind(View root){
@@ -55,12 +54,26 @@ public final class QuadroOSFluxo {
         ConstraintLayout.LayoutParams lp=new ConstraintLayout.LayoutParams(0,ViewGroup.LayoutParams.WRAP_CONTENT);lp.topToBottom=anchor;lp.startToStart=ConstraintLayout.LayoutParams.PARENT_ID;lp.endToEnd=ConstraintLayout.LayoutParams.PARENT_ID;lp.setMargins(sideMargin,dp(20),sideMargin,dp(90));list.setLayoutParams(lp);
         View funnel=root.findViewById(technician?R.id.technician_board_filter_button:R.id.ops_5717_8595);if(funnel!=null)funnel.setOnClickListener(v->showFilters());load();
     }
-    private void load(){if(model==null)return;content.setVisibility(View.INVISIBLE);AppLoading.hide(loading);loading=AppLoading.show(host.requireContext());model.carregar(new QuadroOSViewModel.Callback(){
+    private void load(){if(model==null)return;content.setVisibility(View.INVISIBLE);AppLoading.hide(loading);loading=AppLoading.show(host.requireContext());com.aula.fixa.domain.model.FiltroBusca filters=com.aula.fixa.domain.model.FiltroBusca.quadroOS(period,null,filterStatus,equipment,problem,priority,null);model.carregar(filters,new QuadroOSViewModel.Callback(){
         @Override public void success(List<OrdemServicoQuadro> values){if(!current())return;loadFailed=false;all.clear();if(values!=null)all.addAll(values);renderList();finish();}
         @Override public void failure(Throwable error){if(!current())return;loadFailed=true;all.clear();renderList();finish();}
     });}
     public void refresh(){load();}
-    private void renderList(){if(adapter==null)return;if(loadFailed)adapter.setEmptyState("Não foi possível carregar as ordens de serviço. Toque para tentar novamente.",this::load);else adapter.setEmptyState(null,null);String q=norm(query);List<OrdemServicoQuadro> result=new ArrayList<>();for(OrdemServicoQuadro os:all){if(status!=null&&!norm(status).equals(norm(os.status)))continue;if(!q.isEmpty()&&!norm(os.titulo).contains(q)&&!norm(os.descricao).contains(q)&&!norm(os.categoriaProblema).contains(q)&&!norm(os.categoriaEquipamento).contains(q)&&!norm(os.nomeUsuario).contains(q))continue;if(!matches(os.categoriaEquipamento,equipment)||!matches(os.categoriaProblema,problem)||!matches(os.prioridade,priority)||!matchesPeriod(os.dataPrevista,period))continue;result.add(os);}adapter.submit(result);}
+    private void renderList(){
+        if(adapter==null)return;
+        if(loadFailed)adapter.setEmptyState("Não foi possível carregar as ordens de serviço. Toque para tentar novamente.",this::load);
+        else adapter.setEmptyState(null,null);
+        List<OrdemServicoQuadro> filtered=new ArrayList<>();
+        String term=normalize(query),selectedStatus=normalize(status);
+        for(OrdemServicoQuadro order:all){
+            boolean matchesText=term.isEmpty()||normalize(order.titulo).contains(term)||normalize(order.descricao).contains(term);
+            String orderStatus=normalize(order.status);
+            boolean matchesStatus=selectedStatus.isEmpty()||orderStatus.endsWith(selectedStatus);
+            if(matchesText&&matchesStatus)filtered.add(order);
+        }
+        if(!loadFailed&&filtered.isEmpty())adapter.setEmptyState("Nenhuma ordem de serviço encontrada.",null);
+        adapter.submit(filtered);
+    }
     private void layoutStatusChips(View root,int[] ids){
         View row=root.findViewById(R.id.ops_status_row);
         if(row==null)return;
@@ -82,14 +95,12 @@ public final class QuadroOSFluxo {
             chip.setLayoutParams(params);start+=width+spacing;
         }
     }
-    private void showFilters(){QuadroOSFiltersSheet sheet=new QuadroOSFiltersSheet();android.os.Bundle args=new android.os.Bundle();args.putString("equipment",equipment);args.putString("problem",problem);args.putString("priority",priority);args.putString("period",period);args.putString("status",status==null?"":status);sheet.setArguments(args);sheet.setTargetFragment(host,0);sheet.show(host.getParentFragmentManager(),QuadroOSFiltersSheet.TAG);}
-    public void filters(String e,String p,String pr,String pe,String st){equipment=clean(e);problem=clean(p);priority=clean(pr);period=clean(pe);if(st!=null&&!st.trim().isEmpty()){String selected=clean(st);status=selected.isEmpty()?null:selected;}View root=content;if(root!=null){int[] ids=technician?new int[]{R.id.ops_5717_10521,R.id.ops_5717_10518,R.id.ops_5717_10515,R.id.ops_5717_10512,R.id.ops_5717_10524}:new int[]{R.id.ops_5717_8584,R.id.ops_5717_8581,R.id.ops_5717_8578,R.id.ops_5717_8575,R.id.ops_5717_8587};int[] labelIds=technician?new int[]{0,R.id.ops_5717_10519,R.id.ops_5717_10516,R.id.ops_5717_10513,R.id.ops_5717_10525}:new int[]{0,R.id.ops_5717_8582,R.id.ops_5717_8579,R.id.ops_5717_8576,R.id.ops_5717_8588};updateStatusChips(root,status,ids,labelIds);}renderList();}
+    private void showFilters(){QuadroOSFiltersSheet sheet=new QuadroOSFiltersSheet();android.os.Bundle args=new android.os.Bundle();args.putString("equipment",equipment);args.putString("problem",problem);args.putString("priority",priority);args.putString("period",period);args.putString("status",filterStatus==null?"":filterStatus);sheet.setArguments(args);sheet.setTargetFragment(host,0);sheet.show(host.getParentFragmentManager(),QuadroOSFiltersSheet.TAG);}
+    public void filters(String e,String p,String pr,String pe,String st){equipment=clean(e);problem=clean(p);priority=clean(pr);period=clean(pe);filterStatus=st==null?null:clean(st);load();}
     private void updateStatusChips(View root,String selected,int[] ids,int[] labelIds){int activeBg=R.drawable.bg_ops_c27365e123,inactiveBg=R.drawable.bg_ops_11863650ea;int activeText=ContextCompat.getColor(host.requireContext(),R.color.ops_color_ffffffff),inactiveText=ContextCompat.getColor(host.requireContext(),R.color.ops_color_ff0b013c);String[] labels={"","Não iniciada","Em andamento","Concluída","Atrasada"};for(int i=0;i<ids.length;i++){View chip=root.findViewById(ids[i]);boolean active=(selected==null&&i==0)||(selected!=null&&i>0&&norm(selected).equals(norm(labels[i])));if(chip==null)continue;chip.setBackgroundResource(active?activeBg:inactiveBg);if(chip instanceof TextView)((TextView)chip).setTextColor(active?activeText:inactiveText);if(labelIds[i]!=0){View label=root.findViewById(labelIds[i]);if(label instanceof TextView)((TextView)label).setTextColor(active?activeText:inactiveText);}}}
     private String clean(String s){return s==null||s.equalsIgnoreCase("Todos")||s.equalsIgnoreCase("Todas")?"":s;}
+    private String normalize(String value){return value==null?"":Normalizer.normalize(value,Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT).replace('_',' ').replace('-',' ').replaceAll("[^a-z0-9 ]"," ").replaceAll("\\s+"," ").trim();}
     private String norm(String v){return v==null?"":Normalizer.normalize(v,Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT).replace('_',' ').replace('-',' ').replaceAll("\\be\\b", " ").replaceAll("[^a-z0-9 ]"," ").replaceAll("\\s+"," ").trim();}
-    private boolean matches(String value,String filter){return filter==null||filter.trim().isEmpty()||norm(value).equals(norm(filter));}
-    private boolean matchesPeriod(String raw,String selected){if(selected==null||selected.trim().isEmpty()||norm(selected).startsWith("todos"))return true;try{LocalDate date=parseDate(raw);String periodName=norm(selected);long days=periodName.contains("30")?30:periodName.contains("3 meses")?90:365;return !date.isBefore(LocalDate.now().minusDays(days));}catch(Exception e){return false;}}
-    private LocalDate parseDate(String raw){try{return LocalDate.parse(raw);}catch(Exception ignored){try{return java.time.OffsetDateTime.parse(raw).toLocalDate();}catch(Exception ignoredAgain){return java.time.LocalDateTime.parse(raw).toLocalDate();}}}
     private int dp(int n){return (int)(n*host.getResources().getDisplayMetrics().density+0.5f);}
     private boolean current(){return host.isAdded()&&host.getView() instanceof android.widget.FrameLayout&&((android.widget.FrameLayout)host.getView()).getChildAt(0)==content;}
     private void finish(){AppLoading.hide(loading);loading=null;content.setVisibility(View.VISIBLE);}

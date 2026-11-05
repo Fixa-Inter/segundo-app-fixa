@@ -63,6 +63,11 @@ public final class EquipamentoGestorFluxo {
         View searchBox = content.findViewById(R.id.ops_5717_6589);
         EditText search = content.findViewById(R.id.ops_5717_6590);
         ViewGroup container = (ViewGroup) title.getParent();
+        int horizontalInset = dp(31);
+        if (searchBox.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams searchParams = (ViewGroup.MarginLayoutParams) searchBox.getLayoutParams();
+            horizontalInset = Math.max(searchParams.getMarginStart(), searchParams.getMarginEnd());
+        }
         for (int i = container.getChildCount() - 1; i >= 0; i--) {
             View child = container.getChildAt(i);
             if (child.getTag() instanceof String && ((String) child.getTag()).startsWith("card:")) container.removeViewAt(i);
@@ -76,8 +81,8 @@ public final class EquipamentoGestorFluxo {
         listParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         listParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         listParams.topToBottom = searchBox.getId();
-        listParams.setMarginStart(dp(31));
-        listParams.setMarginEnd(dp(31));
+        listParams.setMarginStart(horizontalInset);
+        listParams.setMarginEnd(horizontalInset);
         listParams.topMargin = dp(18);
         container.addView(list, listParams);
         list.setLayoutManager(new LinearLayoutManager(host.requireContext()));
@@ -91,8 +96,8 @@ public final class EquipamentoGestorFluxo {
         emptyParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         emptyParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         emptyParams.topToBottom = searchBox.getId();
-        emptyParams.setMarginStart(dp(26));
-        emptyParams.setMarginEnd(dp(26));
+        emptyParams.setMarginStart(horizontalInset);
+        emptyParams.setMarginEnd(horizontalInset);
         emptyParams.topMargin = dp(18);
         container.addView(empty, emptyParams);
 
@@ -280,9 +285,15 @@ public final class EquipamentoGestorFluxo {
         popup.setAnchorView(anchor);
         popup.setWidth(anchor.getWidth());
         popup.setModal(true);
+        popup.setVerticalOffset(dp(dialog, 3));
+        popup.setBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(
+                dialog.requireContext(), R.drawable.bg_app_popup_menu));
         popup.setAdapter(new ArrayAdapter<>(dialog.requireContext(), R.layout.item_app_dropdown, names));
         popup.setOnItemClickListener((parent, row, position, id) -> { field.setText(names[position]); popup.dismiss(); });
         popup.show();
+    }
+    private static int dp(OperationsDialogFragment dialog, int value) {
+        return Math.round(value * dialog.requireContext().getResources().getDisplayMetrics().density);
     }
     private static long optionId(List<OpcaoCadastro> values, String name) {
         if (values != null) for (OpcaoCadastro value : values) if (value.getNome().equalsIgnoreCase(name.trim())) return value.getId();

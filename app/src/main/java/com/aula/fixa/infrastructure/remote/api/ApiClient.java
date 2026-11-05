@@ -40,7 +40,8 @@ public final class ApiClient {
                             && request.header("Accept") == null) builder.header("Accept", "application/json");
                     if (token != null && !token.trim().isEmpty()) builder.header("Authorization", "Bearer " + token);
                     return chain.proceed(builder.build());
-                });
+                })
+                .addInterceptor(new LocalApiCacheInterceptor(() -> activeSession));
     }
 
     public static AuthApi auth() {
@@ -140,6 +141,11 @@ public final class ApiClient {
     public static ChatApi chat(SessionStorage session) {
         activeSession = session;
         return retrofit(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)).create(ChatApi.class);
+    }
+
+    public static JevApi jev(SessionStorage session) {
+        activeSession = session;
+        return retrofit(normalizeBaseUrl(BuildConfig.IA_API_BASE_URL)).create(JevApi.class);
     }
 
     private static String normalizeBaseUrl(String value) {

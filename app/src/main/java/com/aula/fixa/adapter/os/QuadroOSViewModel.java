@@ -8,6 +8,7 @@ import com.aula.fixa.domain.model.os.OrdemServicoQuadro;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 public final class QuadroOSViewModel extends ViewModel {
     public interface Callback{void success(List<OrdemServicoQuadro> data);void failure(Throwable error);}
@@ -15,6 +16,7 @@ public final class QuadroOSViewModel extends ViewModel {
     private final ExecutorService io=Executors.newSingleThreadExecutor();
     private final Handler main=new Handler(Looper.getMainLooper());
     public QuadroOSViewModel(ListarOrdensDoQuadro listar){this.listar=listar;}
-    public void carregar(Callback cb){io.execute(()->{try{List<OrdemServicoQuadro> data=listar.executar();main.post(()->cb.success(data));}catch(Throwable e){main.post(()->cb.failure(e));}});}
+    public void carregar(Callback cb){carregar(FiltroBusca.ultimosTresMeses(),cb);}
+    public void carregar(FiltroBusca filtros,Callback cb){io.execute(()->{try{List<OrdemServicoQuadro> data=listar.executar(filtros);main.post(()->cb.success(data));}catch(Throwable e){main.post(()->cb.failure(e));}});}
     @Override protected void onCleared(){io.shutdownNow();}
 }

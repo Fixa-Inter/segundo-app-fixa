@@ -72,7 +72,6 @@ public final class ConclusaoOSFluxo {
         TextView photoLabel = root.findViewById(R.id.ops_5717_6299);
         if (photoLabel != null) photoLabel.setText("Adicionar fotos (1 a 3 obrigatórias)");
         centerPhotoAction(photoLabel);
-
         View cancel = root.findViewById(R.id.ops_5717_6323);
         View submit = root.findViewById(R.id.ops_5717_6325);
         bindBottomButtons(cancel, submit);
@@ -100,12 +99,20 @@ public final class ConclusaoOSFluxo {
     private void bindDifficultyDropdown(AutoCompleteTextView difficulty) {
         if (difficulty == null) return;
         View container = root.findViewById(R.id.ops_5717_6328);
+        if (container != null) {
+            ViewGroup.LayoutParams params = container.getLayoutParams();
+            params.height = dp(56);
+            container.setLayoutParams(params);
+        }
         String[] choices = {"Fácil", "Médio", "Difícil"};
         difficulty.setTextSize(15);
         difficulty.setKeyListener(null);
         difficulty.setFocusable(false);
         difficulty.setThreshold(0);
         difficulty.setAdapter(new ArrayAdapter<>(host.requireContext(), R.layout.item_app_dropdown, choices));
+        difficulty.setDropDownBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(
+                host.requireContext(), R.drawable.bg_app_popup_menu));
+        difficulty.setDropDownVerticalOffset(dp(3));
         difficulty.setOnItemClickListener((parent, row, position, id) -> difficulty.setText(choices[position], false));
         difficulty.setOnClickListener(v -> difficulty.showDropDown());
         difficulty.setOnTouchListener((v, event) -> {
@@ -113,6 +120,8 @@ public final class ConclusaoOSFluxo {
             return true;
         });
         if (container != null) container.setOnClickListener(v -> difficulty.showDropDown());
+        View arrow = root.findViewById(R.id.ops_5717_6330);
+        if (arrow != null) arrow.setOnClickListener(v -> difficulty.showDropDown());
     }
 
     private void centerPhotoAction(TextView label) {

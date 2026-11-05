@@ -18,6 +18,9 @@ public final class FotoViewModel extends ViewModel {
     public void enviarSolicitacao(Uri arquivo, Callback callback) {
         fotos.enviarSolicitacao(arquivo.toString(), adaptar(callback));
     }
+    public void guardarSolicitacaoLocalmente(Uri arquivo, Callback callback) {
+        fotos.guardarSolicitacaoLocalmente(arquivo.toString(), adaptar(callback));
+    }
     public void enviarPerfil(Uri arquivo, Callback callback) {
         fotos.enviarPerfil(arquivo.toString(), adaptar(callback));
     }

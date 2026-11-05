@@ -47,12 +47,23 @@ public final class TecnicoEquipeAdapter extends RecyclerView.Adapter<TecnicoEqui
     @Override public int getItemCount() { return items.size(); }
     private static String competenceName(String value) {
         if (value == null || value.trim().isEmpty()) return "";
+        String normalized = normalize(value);
         for (CategoriaProblema category : CategoriaProblema.values()) {
-            if (category.name().equalsIgnoreCase(value) || category.getNome().equalsIgnoreCase(value)) {
+            if (normalize(category.name()).equals(normalized)
+                    || normalize(category.getNome()).equals(normalized)) {
+                if (category == CategoriaProblema.REDE_CONECTIVIDADE) return "Rede";
+                if (category == CategoriaProblema.LIMPEZA_CONSERVACAO) return "Limpeza";
+                if (category == CategoriaProblema.CLIMATIZACAO) return "Clima";
                 return category.getNome();
             }
         }
         return value;
+    }
+
+    private static String normalize(String value) {
+        return java.text.Normalizer.normalize(value == null ? "" : value.trim(), java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "").replaceAll("[^a-zA-Z0-9]", "")
+                .toLowerCase(java.util.Locale.ROOT);
     }
     static final class Holder extends RecyclerView.ViewHolder {
         final ImageView avatar;

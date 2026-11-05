@@ -58,12 +58,15 @@ public final class ChecklistFlow {
     private final Gson gson = new Gson();
     private List<ChecklistTemplate> templates = new ArrayList<>();
     private final Map<String, List<ChecklistEquipment>> inspectionEquipmentCache = new HashMap<>();
+    private final android.os.Handler inspectionFilterHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+    private Runnable pendingInspectionFilter;
     private List<EquipmentModelOption> availableModels = new ArrayList<>();
     private final Map<String, Object> answers = new LinkedHashMap<>();
     private LinearLayout answerContainer;
     private ChecklistTemplate activeTemplate;
     private ChecklistEquipment activeEquipment;
     private boolean templatesLoadFailed;
+    private String checklistSearchQuery = "";
 
     public ChecklistFlow(Fragment fragment, OperationsActivity activity) {
         this.fragment = fragment;
@@ -153,11 +156,9 @@ public final class ChecklistFlow {
         if (editId != null && !editId.isEmpty()) {
             View indicator = content.findViewById(R.id.stepIndicator);
             if (indicator != null) indicator.setVisibility(View.GONE);
-            raiseChecklistActions(content);
             return;
         }
         bindChecklistIndicator(content, step);
-        raiseChecklistActions(content);
         if (step == 1) {
             lowerChecklistIndicator(content, 82);
             View indicator = content.findViewById(R.id.stepIndicator);
@@ -175,6 +176,7 @@ public final class ChecklistFlow {
                 }
             }
         } else {
+            raiseChecklistActions(content);
             pinChecklistIndicator(content);
         }
     }
@@ -298,10 +300,11 @@ public final class ChecklistFlow {
         int plusFabId = technician ? R.id.ops_5717_10224 : R.id.ops_5717_7937;
         View circleFab = content.findViewById(circleFabId);
         View plusFab = content.findViewById(plusFabId);
+        View back = content.findViewWithTag("image:arrow-left");
+        if (back != null) back.setOnClickListener(v -> activity.back());
         if (circleFab != null) circleFab.setVisibility(View.GONE);
         if (plusFab != null) plusFab.setVisibility(View.GONE);
         installChecklistFab(content, canManage);
-        loadTemplates(content, screen);
         for (View card : new View[]{content.findViewById(R.id.ops_5717_7973), content.findViewById(R.id.ops_5717_7988), content.findViewById(R.id.ops_5717_10260), content.findViewById(R.id.ops_5717_10275)}) {
             if (card != null) {
                 card.setVisibility(View.GONE);
@@ -313,11 +316,34 @@ public final class ChecklistFlow {
         list.setClipChildren(false);
         list.setClipToPadding(false);
         list.setTag("checklist:cards");
-        attachBelow(content, list, screen.startsWith("technician") ? R.id.ops_5717_10217 : R.id.ops_5717_7930, 18);
-        int horizontalInset = activity.getResources()
-                .getDimensionPixelSize(R.dimen.app_events_title_margin_start);
-        list.setPadding(horizontalInset, 0, horizontalInset, dp(activity, 100));
+        int searchContainerId = screen.startsWith("technician")
+                ? R.id.technician_checklist_search_container : R.id.checklist_search_container;
+        int titleMargin = activity.getResources().getDimensionPixelSize(R.dimen.ops_manager_home_card_side_margin);
+        attachBelow(content, list, searchContainerId, 18);
+        if (list.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) list.getLayoutParams();
+            params.setMarginStart(titleMargin);
+            params.setMarginEnd(titleMargin);
+            list.setLayoutParams(params);
+        }
+        list.setPadding(0, 0, 0, dp(activity, 100));
         content.setTag(R.id.ops_5717_7930, list);
+        EditText search = content.findViewById(technician
+                ? R.id.technician_checklist_search_input : R.id.checklist_search_input);
+        View searchButton = content.findViewById(technician
+                ? R.id.technician_checklist_search_button : R.id.checklist_search_button);
+        if (search != null) search.addTextChangedListener(watcher(value -> {
+            checklistSearchQuery = value == null ? "" : value;
+            renderTemplates(content, screen);
+        }));
+        if (searchButton != null && search != null) searchButton.setOnClickListener(v -> {
+            search.requestFocus();
+            android.view.inputmethod.InputMethodManager keyboard =
+                    (android.view.inputmethod.InputMethodManager) activity.getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+            if (keyboard != null) keyboard.showSoftInput(search, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT);
+        });
+        loadTemplates(content, screen);
     }
 
     private void installChecklistFab(View content, boolean visible) {
@@ -378,7 +404,12 @@ public final class ChecklistFlow {
             return;
         }
         list.removeAllViews();
+        int matchingTemplates = 0;
+        String query = checklistSearchQuery == null ? "" : checklistSearchQuery.trim().toLowerCase(Locale.ROOT);
         for (ChecklistTemplate template : templates) {
+            if (!query.isEmpty() && (template.nome == null
+                    || !template.nome.toLowerCase(Locale.ROOT).contains(query))) continue;
+            matchingTemplates++;
             View card = activity.getLayoutInflater().inflate(R.layout.item_ops_manager_checklist, list, false);
             ((TextView) card.findViewById(R.id.checklistCardTitle)).setText(template.nome == null ? "" : template.nome);
             ((TextView) card.findViewById(R.id.checklistCardCategory)).setText(categoryNames(template));
@@ -398,10 +429,10 @@ public final class ChecklistFlow {
             cp.bottomMargin = dp(activity, 14);
             list.addView(card, cp);
         }
-        if (templates.isEmpty()) {
+        if (matchingTemplates == 0) {
             String message = templatesLoadFailed
                     ? "Não foi possível carregar os checklists. Toque para tentar novamente."
-                    : "Não existem checklists cadastrados.";
+                    : templates.isEmpty() ? "Não existem checklists cadastrados." : "Nenhum checklist encontrado.";
             TextView empty = EmptyStateStyler.create(activity, message);
             if (templatesLoadFailed) empty.setOnClickListener(v -> loadTemplates(content, screen));
             list.addView(empty, new LinearLayout.LayoutParams(-1, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -481,7 +512,9 @@ public final class ChecklistFlow {
     private void startNew() {
         activity.model.field("checklist", "editId", "");
         activity.model.field("checklist", "clearModelSelection", "true");
-        activity.model.field("checklist", "templateDraft", gson.toJson(new ChecklistTemplate()));
+        ChecklistTemplate template = new ChecklistTemplate();
+        template.primeiraAbertura = LocalDate.now().toString();
+        activity.model.field("checklist", "templateDraft", gson.toJson(template));
         activity.open("manager_checklist_intro");
     }
 
@@ -521,7 +554,11 @@ public final class ChecklistFlow {
             another.setText("Criar outro checklist");
             another.setOnClickListener(v -> startNew());
         }
-        clickTag(content, "text:Ir para a Home", v -> activity.openName("home"));
+        TextView backToChecklists = content.findViewWithTag("text:Ir para a Home");
+        if (backToChecklists != null) {
+            backToChecklists.setText("Voltar para checklists");
+            backToChecklists.setOnClickListener(v -> activity.open("manager_checklists"));
+        }
     }
 
     private ChecklistTemplate draft() {
@@ -565,6 +602,10 @@ public final class ChecklistFlow {
         }
         if (date != null && t.primeiraAbertura != null) {
             date.setText(t.primeiraAbertura);
+        } else if (date != null) {
+            t.primeiraAbertura = LocalDate.now().toString();
+            date.setText(t.primeiraAbertura);
+            saveDraft(t);
         }
         if (date != null) {
             date.setFocusable(false);
@@ -665,9 +706,10 @@ public final class ChecklistFlow {
         list.setId(View.generateViewId());
         list.setLayoutManager(new LinearLayoutManager(activity));
         list.setNestedScrollingEnabled(true);
+        list.setClipChildren(false);
+        list.setClipToPadding(false);
         attachBelow(content, list, R.id.ops_5717_8041, 12);
-        int titleMargin = activity.getResources().getDimensionPixelSize(R.dimen.app_step_title_margin_start);
-        list.setPadding(titleMargin, 0, titleMargin, 0);
+        list.setPadding(dp(activity, 8), 0, dp(activity, 8), 0);
         FieldListAdapter adapter = new FieldListAdapter(template, list,
                 () -> showFieldDialog(null, -1));
         list.setAdapter(adapter);
@@ -766,7 +808,7 @@ public final class ChecklistFlow {
             View card = activity.getLayoutInflater().inflate(layout, parent, false);
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    dp(activity, viewType == TYPE_ADD ? 56 : 84));
+                    dp(activity, viewType == TYPE_ADD ? 56 : 100));
             params.bottomMargin = dp(activity, viewType == TYPE_ADD ? 12 : 10);
             card.setLayoutParams(params);
             return new FieldHolder(card);
@@ -1772,7 +1814,11 @@ public final class ChecklistFlow {
             statusFilter[0] = String.valueOf(parent.getItemAtPosition(position));
             loadChecklistEquipment(checklistId, adapter, empty, statusFilter, search.getText().toString());
         });
-        search.addTextChangedListener(watcher(value -> loadChecklistEquipment(checklistId, adapter, empty, statusFilter, value)));
+        search.addTextChangedListener(watcher(value -> {
+            if (pendingInspectionFilter != null) inspectionFilterHandler.removeCallbacks(pendingInspectionFilter);
+            pendingInspectionFilter = () -> loadChecklistEquipment(checklistId, adapter, empty, statusFilter, value);
+            inspectionFilterHandler.postDelayed(pendingInspectionFilter, 350);
+        }));
     }
 
     private void loadChecklistEquipment(String checklistId, InspectionEquipmentAdapter adapter, TextView empty, String[] statusFilter, String query) {
@@ -1807,7 +1853,10 @@ public final class ChecklistFlow {
                 if (empty != null) {
                     empty.setText("Não foi possível carregar os equipamentos. Toque para tentar novamente.");
                     empty.setVisibility(View.VISIBLE);
-                    empty.setOnClickListener(v -> loadChecklistEquipment(checklistId, adapter, empty, statusFilter, query));
+                    empty.setOnClickListener(v -> {
+                        inspectionEquipmentCache.remove(cacheKey);
+                        loadChecklistEquipment(checklistId, adapter, empty, statusFilter, query);
+                    });
                 }
             }
         });
@@ -2009,12 +2058,9 @@ public final class ChecklistFlow {
             case NUMERO: {
                 EditText input = new EditText(activity);
                 input.setSingleLine(false);
-                input.setTextColor(Color.WHITE);
-                input.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, android.R.color.white));
-                android.graphics.drawable.GradientDrawable fieldBackground = new android.graphics.drawable.GradientDrawable();
-                fieldBackground.setColor(androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d));
-                fieldBackground.setCornerRadius(dp(activity, 20));
-                input.setBackground(fieldBackground);
+                input.setTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_black));
+                input.setHintTextColor(androidx.core.content.ContextCompat.getColor(activity, R.color.app_text_placeholder_dark));
+                input.setBackgroundResource(R.drawable.bg_app_checklist_input_outline);
                 input.setBackgroundTintList(null);
                 input.setAlpha(1f);
                 input.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.poppins_medium));
@@ -2106,8 +2152,10 @@ public final class ChecklistFlow {
             case AVALIACAO: {
                 RatingBar rating = new RatingBar(activity);
                 rating.setNumStars(5);
-                rating.setMax(5);
-                rating.setStepSize(1);
+                rating.setMax(10);
+                rating.setStepSize(0.5f);
+                rating.setRating(0f);
+                rating.setIsIndicator(false);
                 rating.setProgressTintList(android.content.res.ColorStateList.valueOf(
                         androidx.core.content.ContextCompat.getColor(activity, R.color.ops_color_ff153d7d)));
                 rating.setSecondaryProgressTintList(android.content.res.ColorStateList.valueOf(
@@ -2117,8 +2165,9 @@ public final class ChecklistFlow {
                 answerContainer.addView(rating);
                 answers.remove(field.id);
                 rating.setOnRatingBarChangeListener((bar, value, user) -> {
-                    if (value <= 0) answers.remove(field.id);
-                    else answers.put(field.id, (int) value);
+                    float selected = Math.min(5f, Math.max(0f, Math.round(value * 2f) / 2f));
+                    if (selected == 0f) answers.remove(field.id);
+                    else answers.put(field.id, selected);
                 });
                 break;
             }
@@ -2182,7 +2231,8 @@ public final class ChecklistFlow {
             return false;
         }
         if (field.tipoCampo == TipoCampoChecklist.AVALIACAO) {
-            return value instanceof Number && ((Number) value).intValue() >= 1;
+            return value instanceof Number && ((Number) value).doubleValue() >= 0.5d
+                    && ((Number) value).doubleValue() <= 5d;
         }
         // BOOLEANO armazena false como uma resposta válida, pois o switch representa ambos os valores.
         return field.tipoCampo == TipoCampoChecklist.BOOLEANO;

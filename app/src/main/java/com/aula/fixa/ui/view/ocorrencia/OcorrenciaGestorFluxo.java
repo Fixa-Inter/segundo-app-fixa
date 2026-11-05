@@ -28,10 +28,6 @@ import com.aula.fixa.ui.config.AppLoading;
 import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
 import com.aula.fixa.ui.view.operations.OperationsScreenFragment;
-import java.text.Normalizer;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -131,6 +127,13 @@ public final class OcorrenciaGestorFluxo {
             setOptions(category, enumNames(com.aula.fixa.domain.enums.CategoriaProblema.values()));
             setOptions(priority, enumNames(com.aula.fixa.domain.enums.Prioridade.values()));
             category.setText(value(scope, "categoryName"), false); priority.setText(value(scope, "priorityName"), false);
+            equipment.setOnItemClickListener((parent, row, position, itemId) -> {
+                category.setText("", false);
+                activity.model.field(scope, "categoryName", "");
+                activity.model.field(scope, "category", "");
+                activity.model.field(scope, "jev_request_key", "");
+                recommendOccurrenceCategory(root, scope, equipment, category);
+            });
             com.aula.fixa.adapter.cadastro.CadastroViewModel catalogs = new ViewModelProvider(host,
                     new com.aula.fixa.adapter.cadastro.CadastroViewModelFactory(host.requireContext()))
                     .get(com.aula.fixa.adapter.cadastro.CadastroViewModel.class);
@@ -140,6 +143,7 @@ public final class OcorrenciaGestorFluxo {
                     equipmentOptions = values == null ? new ArrayList<>() : values;
                     List<String> names = new ArrayList<>(); for (com.aula.fixa.domain.model.OpcaoCadastro option : equipmentOptions) names.add(option.getNome());
                     setOptions(equipment, names); equipment.setText(value(scope, "equipmentName"), false);
+                    recommendOccurrenceCategory(root, scope, equipment, category);
                 }
                 public void aoFalhar(Throwable error) { showError(error); }
             });
@@ -207,9 +211,54 @@ public final class OcorrenciaGestorFluxo {
         if (field != null) {
             field.setBackgroundColor(android.graphics.Color.TRANSPARENT);
             field.setTextColor(ContextCompat.getColor(host.requireContext(), R.color.app_text_black));
-            field.setHintTextColor(ContextCompat.getColor(host.requireContext(), R.color.app_text_placeholder_dark));
+            field.setHintTextColor(ContextCompat.getColor(host.requireContext(), R.color.app_text_black));
             field.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(host.requireContext(), R.font.poppins_regular));
         }
+    }
+
+    private void recommendOccurrenceCategory(View root, String scope,
+            android.widget.AutoCompleteTextView equipment,
+            android.widget.AutoCompleteTextView category) {
+        String title = value(scope, "title");
+        String description = value(scope, "description");
+        String equipmentCategory = equipment.getText().toString().trim();
+        if (title.trim().isEmpty() || description.trim().isEmpty() || equipmentCategory.isEmpty()) return;
+
+        String requestKey = title.trim() + "|" + description.trim() + "|" + equipmentCategory;
+        if (requestKey.equals(activity.model.field(scope, "jev_request_key"))) return;
+        String previousRecommendation = activity.model.field(scope, "jev_recommended_category");
+        if (previousRecommendation != null
+                && previousRecommendation.equalsIgnoreCase(category.getText().toString().trim())) {
+            category.setText("", false);
+            activity.model.field(scope, "categoryName", "");
+            activity.model.field(scope, "category", "");
+        }
+        activity.model.field(scope, "jev_request_key", requestKey);
+
+        com.aula.fixa.adapter.planejamento.RecomendacaoCategoriaViewModel viewModel =
+                new ViewModelProvider(host,
+                        new com.aula.fixa.adapter.planejamento.RecomendacaoCategoriaViewModelFactory(host.requireContext()))
+                        .get(com.aula.fixa.adapter.planejamento.RecomendacaoCategoriaViewModel.class);
+        viewModel.recomendar(title, description, equipmentCategory,
+                new com.aula.fixa.adapter.planejamento.RecomendacaoCategoriaViewModel.Callback() {
+                    @Override public void success(String classification) {
+                        if (!host.isAdded() || !root.isAttachedToWindow()
+                                || !requestKey.equals(activity.model.field(scope, "jev_request_key"))) return;
+                        String selected = category.getText().toString().trim();
+                        String currentRecommendation = activity.model.field(scope, "jev_recommended_category");
+                        if (!selected.isEmpty() && (currentRecommendation == null
+                                || !currentRecommendation.equalsIgnoreCase(selected))) return;
+                        com.aula.fixa.domain.enums.CategoriaProblema recommended = matchProblemCategory(classification);
+                        if (recommended == null) return;
+                        category.setText(recommended.getNome(), false);
+                        activity.model.field(scope, "category", recommended.name());
+                        activity.model.field(scope, "categoryName", recommended.getNome());
+                        activity.model.field(scope, "jev_recommended_category", recommended.getNome());
+                    }
+                    @Override public void failure(Throwable error) {
+                        // A recomendação é opcional; o usuário ainda pode escolher manualmente.
+                    }
+                });
     }
 
     private String value(String scope, String field) {
@@ -273,17 +322,23 @@ public final class OcorrenciaGestorFluxo {
     private void load(){if(model==null||content==null)return;content.setVisibility(View.INVISIBLE);AppLoading.hide(loading);loading=AppLoading.show(host.requireContext());OcorrenciaViewModel.Callback<List<OcorrenciaItem>> callback=new OcorrenciaViewModel.Callback<List<OcorrenciaItem>>(){
         @Override public void success(List<OcorrenciaItem> values){if(!current())return;loadFailed=false;all.clear();if(values!=null)all.addAll(values);renderList();finish();}
         @Override public void failure(Throwable error){if(!current())return;loadFailed=true;all.clear();renderList();finish();}
-    };if("technician".equals(activity.role()))model.listarMinhas(callback);else model.listar(callback);}
-    private void renderList(){if(adapter==null)return;if(loadFailed)adapter.setEmptyState("Não foi possível carregar as ocorrências. Toque para tentar novamente.",this::load);else adapter.setEmptyState(null,null);String q=norm(query);List<OcorrenciaItem> visible=new ArrayList<>();for(OcorrenciaItem item:all){if(!matchesQuery(item,q)||!matches(item.autor,author)||!matches(item.localUnidade,location)||!matches(item.categoriaEquipamento,equipment)||!matches(item.categoriaProblema,category)||!matches(item.prioridade,priority)||!matchesPeriod(item.dataCriacao,period))continue;visible.add(item);}adapter.submit(visible);}
-    private boolean matchesQuery(OcorrenciaItem i,String q){return q.isEmpty()||norm(i.titulo).contains(q);}
-    private boolean matches(String value,String selected){return selected==null||selected.trim().isEmpty()||norm(value).equals(norm(selected));}
-    private String norm(String value){return Normalizer.normalize(value==null?"":value,Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT).replace('_',' ').trim();}
-    private boolean matchesPeriod(String raw,String selected){if(selected==null||selected.trim().isEmpty()||norm(selected).contains("todos")||norm(selected).contains("periodo"))return true;try{LocalDate date=parseDate(raw);String p=norm(selected);long days=p.contains("30")?30:p.contains("3 meses")?90:365;return !date.isBefore(LocalDate.now().minusDays(days));}catch(Exception ignored){return false;}}
-    private LocalDate parseDate(String raw){try{return OffsetDateTime.parse(raw).toLocalDate();}catch(Exception ignored){}try{return LocalDateTime.parse(raw).toLocalDate();}catch(Exception ignored){}return LocalDate.parse(raw);}
+    };
+        com.aula.fixa.domain.model.FiltroBusca filters=com.aula.fixa.domain.model.FiltroBusca.periodo(period,null,null,location,equipment,category,priority,author);
+        if("technician".equals(activity.role()))model.listarMinhas(filters,callback);else model.listar(filters,callback);}
+    private void renderList(){
+        if(adapter==null)return;
+        if(loadFailed)adapter.setEmptyState("Não foi possível carregar as ocorrências. Toque para tentar novamente.",this::load);
+        else adapter.setEmptyState(null,null);
+        String term=normalize(query);List<OcorrenciaItem> filtered=new ArrayList<>();
+        for(OcorrenciaItem item:all){if(term.isEmpty()||normalize(item.titulo).contains(term)||normalize(item.descricao).contains(term))filtered.add(item);}
+        if(!loadFailed&&filtered.isEmpty())adapter.setEmptyState("Nenhuma ocorrência encontrada.",null);
+        adapter.submit(filtered);
+    }
     private void showFilters(){OcorrenciaFiltrosSheet sheet=new OcorrenciaFiltrosSheet();android.os.Bundle args=new android.os.Bundle();args.putStringArrayList("authors",distinct(0));args.putStringArrayList("locations",distinct(1));args.putStringArrayList("equipment",distinct(2));sheet.setArguments(args);sheet.setTargetFragment(host,0);sheet.show(host.getParentFragmentManager(),OcorrenciaFiltrosSheet.TAG);}
     private ArrayList<String> distinct(int field){TreeSet<String> values=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);for(OcorrenciaItem i:all){String v=field==0?i.autor:field==1?i.localUnidade:i.categoriaEquipamento;if(v!=null&&!v.trim().isEmpty())values.add(v.trim());}return new ArrayList<>(values);}
-    public void filters(String p,String a,String l,String e,String c,String pr){period=clean(p);author=clean(a);location=clean(l);equipment=clean(e);category=clean(c);priority=clean(pr);renderList();}
+    public void filters(String p,String a,String l,String e,String c,String pr){period=clean(p);author=clean(a);location=clean(l);equipment=clean(e);category=clean(c);priority=clean(pr);load();}
     private String clean(String v){return v==null||v.equalsIgnoreCase("Todos")||v.equalsIgnoreCase("Todas")||v.startsWith("Selecione")?"":v.trim();}
+    private String normalize(String value){return java.text.Normalizer.normalize(value==null?"":value,java.text.Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT).replaceAll("[^a-z0-9]"," ").replaceAll("\\s+"," ").trim();}
     private void showMenu(View anchor,OcorrenciaItem item){View menu=LayoutInflater.from(anchor.getContext()).inflate(R.layout.popup_app_request_menu,null,false);PopupWindow popup=new PopupWindow(menu,anchor.getResources().getDimensionPixelSize(R.dimen.app_popup_menu_width),ViewGroup.LayoutParams.WRAP_CONTENT,true);popup.setBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(anchor.getContext(),R.drawable.bg_app_popup_menu));popup.setElevation(dp(6));menu.findViewById(R.id.tvPopupEdit).setOnClickListener(v->{popup.dismiss();showEdit(item);});menu.findViewById(R.id.tvPopupDelete).setOnClickListener(v->{popup.dismiss();AppDialogs.showDeleteConfirm(anchor.getContext(),()->model.excluir(item.id,new OcorrenciaViewModel.Callback<Void>(){public void success(Void ignored){Toast.makeText(anchor.getContext(),R.string.ops_occurrence_deleted,Toast.LENGTH_SHORT).show();load();}public void failure(Throwable error){showError(error);}}));});popup.setOutsideTouchable(true);popup.showAsDropDown(anchor,-popup.getWidth()+anchor.getWidth(),0);}
     private void showEdit(OcorrenciaItem item){activity.openOccurrenceEdit(item);}
     public void bindEditInformation(View root){
@@ -315,6 +370,18 @@ public final class OcorrenciaGestorFluxo {
     private void setOptions(android.widget.AutoCompleteTextView field,List<String> values){field.setAdapter(new android.widget.ArrayAdapter<>(host.requireContext(),R.layout.item_app_dropdown,values));field.setKeyListener(null);field.setOnClickListener(v->field.showDropDown());field.setOnTouchListener((v,event)->{if(event.getAction()==android.view.MotionEvent.ACTION_UP)field.showDropDown();return false;});}
     private Long findId(List<com.aula.fixa.domain.model.OpcaoCadastro> options,String name){if(options==null)return null;for(com.aula.fixa.domain.model.OpcaoCadastro option:options)if(option.getNome().equalsIgnoreCase(name))return option.getId();return null;}
     private com.aula.fixa.domain.enums.CategoriaProblema category(String value){for(com.aula.fixa.domain.enums.CategoriaProblema c:com.aula.fixa.domain.enums.CategoriaProblema.values())if(c.getNome().equalsIgnoreCase(value)||c.name().equalsIgnoreCase(value))return c;return null;}
+    private com.aula.fixa.domain.enums.CategoriaProblema matchProblemCategory(String value){
+        String normalized=normalizeCategory(value);
+        if(normalized.isEmpty())return null;
+        for(com.aula.fixa.domain.enums.CategoriaProblema option:com.aula.fixa.domain.enums.CategoriaProblema.values()) {
+            String enumName = normalizeCategory(option.name());
+            String displayName = normalizeCategory(option.getNome());
+            if(enumName.equals(normalized)||displayName.equals(normalized)
+                    ||normalized.endsWith(enumName)||normalized.endsWith(displayName))return option;
+        }
+        return null;
+    }
+    private String normalizeCategory(String value){return java.text.Normalizer.normalize(value==null?"":value,java.text.Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT).replaceAll("[^a-z0-9]","");}
     private com.aula.fixa.domain.enums.Prioridade priority(String value){for(com.aula.fixa.domain.enums.Prioridade p:com.aula.fixa.domain.enums.Prioridade.values())if(p.getNome().equalsIgnoreCase(value)||p.name().equalsIgnoreCase(value))return p;return null;}
     private void updatePhotoSaveState(){if(content!=null){View save=content.findViewById(R.id.occurrenceEditPhotosSave);if(save!=null)save.setEnabled(pendingPhotoUploads==0);}}
 

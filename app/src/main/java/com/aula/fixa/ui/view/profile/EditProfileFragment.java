@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.AppDialogs;
+import com.aula.fixa.ui.config.AppLoading;
 import com.aula.fixa.ui.config.FragmentUi;
 import com.aula.fixa.ui.config.EmptyStateStyler;
 import com.aula.fixa.ui.config.DataChangeNotifier;
@@ -108,8 +109,10 @@ public class EditProfileFragment extends Fragment {
 
     private void loadProfile(View view) {
         EmptyStateStyler.removeFromRoot(view);
+        android.app.Dialog loading = AppLoading.show(requireContext());
         perfilViewModel.obter(new PerfilViewModel.Callback<Perfil>() {
             @Override public void aoConcluir(Perfil profile) {
+                AppLoading.hide(loading);
                 FragmentUi.runIfViewActive(EditProfileFragment.this, view, () -> {
                     EmptyStateStyler.removeFromRoot(view);
                     name.setText(profile.nomeCompleto);
@@ -124,6 +127,7 @@ public class EditProfileFragment extends Fragment {
                 });
             }
             @Override public void aoFalhar(Throwable erro) {
+                AppLoading.hide(loading);
                 FragmentUi.runIfViewActive(EditProfileFragment.this, view, () -> {
                     name.setText(""); birth.setText(""); email.setText(""); phone.setText(""); initial = snapshot();
                     EmptyStateStyler.showBelowBack(view,

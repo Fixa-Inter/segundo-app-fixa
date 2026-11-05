@@ -95,8 +95,11 @@ public final class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.
                     dotInner.setVisibility(View.GONE);
                     check.setVisibility(View.GONE);
                     refused.setVisibility(View.GONE);
-                    // Figma: passo pendente é só o ponto cinza; o card some mas mantém a altura da etapa.
-                    card.setVisibility(View.INVISIBLE);
+                    card.setVisibility(step.mostrarTituloPendente ? View.VISIBLE : View.INVISIBLE);
+                    if (step.mostrarTituloPendente) {
+                        card.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.TRANSPARENT));
+                        title.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.app_status_pending));
+                    }
             }
         }
 

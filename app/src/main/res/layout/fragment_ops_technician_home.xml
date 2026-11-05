@@ -2,10 +2,22 @@
 <!-- Figma 5717:9885 • technician / home. Componentes nativos; dimensões em values e sw400dp. -->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/ops_dp_743_0" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/ops_technician_header_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/app_home_card_side_margin" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/ops_technician_header_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/app_home_card_side_margin" />
         <ImageView
             android:id="@+id/ops_5717_9922"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/app_home_header_icon_size"
+            android:layout_height="@dimen/app_home_header_icon_size"
             android:layout_marginEnd="@dimen/app_home_header_icon_spacing"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
@@ -34,14 +46,14 @@
             android:layout_width="@dimen/app_home_avatar_size"
             android:layout_height="@dimen/app_home_avatar_size"
             android:layout_marginEnd="6dp"
-            android:layout_marginTop="@dimen/app_home_avatar_margin_top"
+            android:layout_marginTop="@dimen/app_home_header_icon_margin_top"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@string/app_user_avatar"
             android:focusable="true"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/ops_technician_header_end"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/figma_e378e"
+            android:src="@drawable/img_avatar_115"
             android:scaleType="centerCrop"
             android:importantForAccessibility="no"
             android:tag="image:image 170"
@@ -49,24 +61,19 @@
         <TextView
             android:id="@+id/ops_5717_9921"
             android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="@dimen/app_home_header_icon_spacing"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_home_greeting_margin_start"
+            android:layout_marginTop="@dimen/app_home_greeting_margin_top"
             android:ellipsize="end"
-            app:layout_constraintBottom_toBottomOf="@id/ops_5717_9958"
-            app:layout_constraintEnd_toStartOf="@id/ops_5717_9922"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ops_5717_9958"
+            app:layout_constraintEnd_toStartOf="@id/ops_5717_9958"
+            app:layout_constraintStart_toStartOf="@id/ops_technician_header_start"
+            app:layout_constraintTop_toTopOf="parent"
             android:text="@string/ops_text_ola_ryan_cursino_86594f"
             android:textAppearance="@style/TextAppearance.FIXA.App.Home.Greeting"
-            android:includeFontPadding="false"
             android:gravity="center_vertical"
-            android:minHeight="56dp"
             android:tag="text:Olá, Ryan Cursino!"
-            android:padding="@dimen/ops_dp_0"
-            android:fontFamily="@font/poppins_bold"
             android:maxLines="2" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9929" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_266_0" android:layout_marginStart="@dimen/app_home_card_side_margin" android:layout_marginTop="@dimen/app_home_card_margin_top" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9958" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Status das OSs">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_9929" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_266_0" android:layout_marginStart="@dimen/app_home_card_side_margin" android:layout_marginTop="@dimen/app_home_card_margin_top" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_9921" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Status das Ordens de Serviço">
             <TextView
                 android:id="@+id/ops_5717_9931"
                 android:layout_width="0dp"
@@ -82,7 +89,7 @@
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_38"
-                android:tag="text:Status das OSs"
+                android:tag="text:Status das Ordens de Serviço"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_semibold"
                 android:maxLines="1" />
@@ -327,11 +334,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/ops_5717_9920"
-            android:layout_width="@dimen/ops_dp_159_9"
+            android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_24"
-            android:layout_marginStart="@dimen/ops_dp_31"
+            android:layout_marginStart="@dimen/app_events_title_margin_start"
             android:layout_marginTop="@dimen/ops_dp_21_0"
+            android:layout_marginEnd="@dimen/app_events_title_margin_start"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_9929"
             android:text="@string/ops_text_os_nao_concluidas_568402"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.7bdf099d67"

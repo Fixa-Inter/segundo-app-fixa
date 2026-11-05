@@ -21,8 +21,6 @@
     <string name="login_register">Cadastre-se</string>
     <string name="login_social_title">Ou entre com</string>
     <string name="login_google">Entrar com Google</string>
-    <string name="login_facebook">Entrar com Facebook</string>
-    <string name="login_apple">Entrar com Apple</string>
     <string name="login_toggle_password">Mostrar ou ocultar senha</string>
     <string name="register_title">Cadastrar</string>
     <string name="register_intro">Para começar selecione sua instituição e unidade</string>

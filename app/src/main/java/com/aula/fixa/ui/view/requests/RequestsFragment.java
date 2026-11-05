@@ -21,6 +21,7 @@ import com.aula.fixa.ui.config.FragmentUi;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.AppText;
 import com.aula.fixa.ui.config.EmptyStateStyler;
+import com.aula.fixa.ui.config.AppLoading;
 import com.aula.fixa.domain.model.solicitacao.ProblemaItem;
 import com.aula.fixa.domain.model.solicitacao.Problema;
 import com.aula.fixa.adapter.solicitacao.SolicitacaoViewModel;
@@ -32,11 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.text.Normalizer;
 import java.util.Locale;
+import android.app.Dialog;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class RequestsFragment extends Fragment implements RequestAdapter.Listener, RequestFiltersSheet.Listener {
+    private final com.aula.fixa.ui.config.SolicitacaoPhotoPicker requestPhotoPicker =
+            new com.aula.fixa.ui.config.SolicitacaoPhotoPicker(this);
 
     private RequestAdapter adapter;
     private View emptyView;
@@ -49,6 +53,8 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
     private String search = "", period = "", location = "", category = "";
     private StatusProblema activeStatusFilter;
     private boolean loadFailed;
+    private final android.os.Handler filterHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+    private Runnable pendingSearch;
 
     public RequestsFragment() {
         super(R.layout.fragment_requests);
@@ -75,7 +81,10 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
 
         ((EditText) view.findViewById(R.id.etSearch)).addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            public void onTextChanged(CharSequence s, int start, int before, int count) { search = s.toString(); render(); }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                search = s.toString();
+                scheduleFilteredLoad();
+            }
             public void afterTextChanged(Editable s) { }
         });
 
@@ -93,12 +102,18 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
     }
 
     private void loadRequests() {
+        loadRequests(buildSearchFilters());
+    }
+
+    private void loadRequests(com.aula.fixa.domain.model.FiltroBusca filters) {
         View requestView = getView();
         if (requestView == null) return;
-        viewModel.listar(new SolicitacaoViewModel.Listener() {
+        Dialog loading = AppLoading.show(requireContext());
+        viewModel.listar(filters, new SolicitacaoViewModel.Listener() {
             @Override public void aoCarregar(boolean carregando) { }
             @Override public void aoCriar(Problema problema) { }
             @Override public void aoListar(List<Problema> values) {
+                AppLoading.hide(loading);
                 loadFailed = false;
                 List<ProblemaItem> items = new ArrayList<>();
                 for (Problema item : values) {
@@ -117,6 +132,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
                         () -> { apiItems.clear(); apiItems.addAll(items); render(); });
             }
             @Override public void aoFalhar(Throwable error) {
+                AppLoading.hide(loading);
                 FragmentUi.runIfViewActive(RequestsFragment.this, requestView,
                         () -> {
                             loadFailed = true;
@@ -221,19 +237,39 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         this.period = period;
         this.location = location;
         this.category = category;
-        if (status != null && !status.trim().isEmpty()) {
-            activeStatusFilter = status.trim().startsWith("Todas") ? null : status(status);
+        if (status != null) {
+            activeStatusFilter = status.trim().isEmpty() || status.trim().startsWith("Todas")
+                    ? null : status(status);
             syncStatusChip(activeStatusFilter);
         }
-        render();
+        loadRequests(buildSearchFilters());
     }
 
     private void bindStatusChips() {
         if (statusChips == null) return;
         statusChips.setOnCheckedChangeListener((group, checkedId) -> {
             activeStatusFilter = statusFor(checkedId);
-            render();
+            loadRequests(buildSearchFilters());
         });
+    }
+
+    private void scheduleFilteredLoad() {
+        if (pendingSearch != null) filterHandler.removeCallbacks(pendingSearch);
+        pendingSearch = () -> loadRequests(buildSearchFilters());
+        filterHandler.postDelayed(pendingSearch, 350);
+    }
+
+    private com.aula.fixa.domain.model.FiltroBusca buildSearchFilters() {
+        String status = activeStatusFilter == null ? null : activeStatusFilter.name();
+        // O chip Aprovadas inclui OS_CRIADA junto com APROVADO; mantém essa regra na projeção local.
+        if (activeStatusFilter == StatusProblema.APROVADO) status = null;
+        return com.aula.fixa.domain.model.FiltroBusca.periodo(period, search, status,
+                location, category, null, null, null);
+    }
+
+    @Override public void onDestroyView() {
+        if (pendingSearch != null) filterHandler.removeCallbacks(pendingSearch);
+        super.onDestroyView();
     }
 
     private void syncStatusChip(@Nullable StatusProblema status) {
@@ -260,6 +296,6 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
 
     @Override
     public void onRequestMenuClick(ProblemaItem item, View anchor) {
-        RequestMenuPopup.show(anchor, item, viewModel, cadastroViewModel);
+        RequestMenuPopup.show(anchor, item, viewModel, cadastroViewModel, requestPhotoPicker::open);
     }
 }

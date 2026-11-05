@@ -33,6 +33,56 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold"
             android:maxLines="1" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/checklist_search_container"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/app_requests_search_height"
+            android:layout_marginStart="@dimen/ops_manager_home_card_side_margin"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin"
+            android:background="@drawable/bg_ops_c5ebb731c9"
+            android:elevation="@dimen/ops_dp_2"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_7930">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/checklist_search_input"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="12dp"
+                android:background="@null"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="start|center_vertical"
+                android:hint="@string/ops_text_pesquisar_d0839a"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="0dp"
+                android:singleLine="true"
+                android:textColor="@color/app_text_black"
+                android:textColorHint="@color/app_text_placeholder_dark"
+                android:textSize="@dimen/app_requests_search_text_size"
+                app:layout_constraintStart_toEndOf="@id/checklist_search_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/checklist_search_button"
+                android:layout_width="@dimen/app_requests_search_height"
+                android:layout_height="@dimen/app_requests_search_height"
+                android:background="@drawable/bg_app_circle_primary"
+                android:contentDescription="@string/app_requests_search"
+                android:elevation="3dp"
+                android:scaleType="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_search_26"
+                app:tint="@color/app_on_primary" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7973" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_160_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_32_6" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7930" android:background="@drawable/bg_ops_e04d888c51" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Checklist de Climatização">
             <View
                 android:id="@+id/ops_5717_7974"

@@ -6,17 +6,32 @@ import com.aula.fixa.domain.repository.solicitacao.SolicitacaoGestorRepository;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 public final class ListarSolicitacoesGestor {
     private final SolicitacaoGestorRepository repository;
     public ListarSolicitacoesGestor(SolicitacaoGestorRepository repository) { this.repository = repository; }
 
     public List<SolicitacaoGestor> executar() throws Exception {
-        return ordenar(repository.listarSolicitacoesDaUnidade(), "PENDENTE");
+        return executar(FiltroBusca.ultimosTresMeses());
+    }
+
+    public List<SolicitacaoGestor> executar(FiltroBusca filtros) throws Exception {
+        return ordenar(repository.listarSolicitacoesDaUnidade(withStatus(filtros, "PENDENTE")), "PENDENTE");
     }
 
     public List<SolicitacaoGestor> executarAprovadas() throws Exception {
-        return ordenar(repository.listarSolicitacoesAprovadasDaUnidade(), "APROVADO");
+        return executarAprovadas(FiltroBusca.ultimosTresMeses());
+    }
+
+    public List<SolicitacaoGestor> executarAprovadas(FiltroBusca filtros) throws Exception {
+        return ordenar(repository.listarSolicitacoesAprovadasDaUnidade(withStatus(filtros, "APROVADO")), "APROVADO");
+    }
+
+    private static FiltroBusca withStatus(FiltroBusca value, String status) {
+        FiltroBusca f = value == null ? FiltroBusca.ultimosTresMeses() : value;
+        return new FiltroBusca(f.termo, f.dataInicio, f.dataFim, status, f.local,
+                f.categoriaEquipamento, f.categoriaProblema, f.prioridade, f.autor);
     }
 
     private static List<SolicitacaoGestor> ordenar(List<SolicitacaoGestor> source, String status) {

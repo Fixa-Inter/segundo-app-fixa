@@ -41,6 +41,7 @@ public class EventsFragment extends Fragment {
     private LocalDate selectedDate;
     private EventoViewModel viewModel;
     private TextView emptyMessage;
+    private final List<EventoItem> allEvents = new ArrayList<>();
 
     public EventsFragment() {
         super(R.layout.fragment_events);
@@ -67,11 +68,16 @@ public class EventsFragment extends Fragment {
     }
 
     private void loadEvents(View view) {
+        // Eventos não usam o recorte padrão de três meses: carrega a coleção completa uma vez
+        // e as mudanças de dia do calendário são aplicadas localmente.
+        com.aula.fixa.domain.model.FiltroBusca filters = new com.aula.fixa.domain.model.FiltroBusca(
+                null, null, null, null, null, null, null, null, null);
         Dialog loading = AppLoading.show(requireContext());
-        viewModel.listar(new EventoViewModel.Listener() {
+        viewModel.listar(filters, new EventoViewModel.Listener() {
             @Override public void aoCarregar(boolean carregando) { }
             @Override public void aoDetalhar(Evento evento) { }
             @Override public void aoListar(List<Evento> response) {
+                AppLoading.hide(loading);
                 if (emptyMessage != null) {
                     emptyMessage.setText(R.string.app_events_empty);
                     emptyMessage.setOnClickListener(null);
@@ -89,11 +95,12 @@ public class EventsFragment extends Fragment {
                 }
 
                 FragmentUi.runIfViewActive(EventsFragment.this, view, () -> {
-                    AppLoading.hide(loading);
-                    bindCalendar(view, items, selectedDate == null ? LocalDate.now() : selectedDate);
+                    allEvents.clear();
+                    allEvents.addAll(items);
+                    bindCalendar(view, allEvents, selectedDate == null ? LocalDate.now() : selectedDate);
                     view.findViewById(R.id.btnCalendar).setOnClickListener(v -> {
                         java.util.Calendar calendar = java.util.Calendar.getInstance();
-                        android.app.DatePickerDialog dialog = new android.app.DatePickerDialog(view.getContext(), R.style.ThemeOverlay_FIXA_App_Events_DatePicker, (picker, year, month, day) -> bindCalendar(view, items, LocalDate.of(year, month + 1, day)), calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH));
+                        android.app.DatePickerDialog dialog = new android.app.DatePickerDialog(view.getContext(), R.style.ThemeOverlay_FIXA_App_Events_DatePicker, (picker, year, month, day) -> bindCalendar(view, allEvents, LocalDate.of(year, month + 1, day)), calendar.get(java.util.Calendar.YEAR), calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH));
                         dialog.setOnShowListener(ignored -> {
                             int color = androidx.core.content.ContextCompat.getColor(view.getContext(), R.color.app_primary);
                             dialog.getButton(android.app.DatePickerDialog.BUTTON_POSITIVE).setTextColor(color);
@@ -105,8 +112,8 @@ public class EventsFragment extends Fragment {
 
             }
             @Override public void aoFalhar(Throwable error) {
+                AppLoading.hide(loading);
                 FragmentUi.runIfViewActive(EventsFragment.this, view, () -> {
-                    AppLoading.hide(loading);
                     if (emptyMessage != null) {
                         emptyMessage.setText("Não foi possível carregar os eventos. Toque para tentar novamente.");
                         emptyMessage.setOnClickListener(v -> loadEvents(view));
@@ -132,14 +139,8 @@ public class EventsFragment extends Fragment {
         int selectedIndex = selectedDate.getDayOfWeek().getValue() % 7;
         RecyclerView dayList = view.findViewById(R.id.rvDays);
         dayList.setAdapter(new DayAdapter(days, labels, selectedIndex, day -> {
-            List<EventoItem> filtered = new ArrayList<>();
             LocalDate chosen = sunday.plusDays(days.indexOf(day));
-            for (EventoItem item : items) {
-                if (item.dateKey.equals(chosen.toString())) {
-                    filtered.add(item);
-                }
-            }
-            showEvents(view, filtered);
+            bindCalendar(view, allEvents, chosen);
         }));
         dayList.post(() -> {
             if (!(dayList.getLayoutManager() instanceof LinearLayoutManager)) return;

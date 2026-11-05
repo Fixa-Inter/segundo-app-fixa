@@ -234,7 +234,7 @@
             android:text="@string/ops_planning_assign_technician"
             android:textAppearance="@style/TextAppearance.FIXA.App.NewRequest.StepTitle"
             android:layout_marginEnd="@dimen/app_new_request_title_margin_start"
-            android:tag="text:Atribuir a um técnico"
+            android:tag="text:Atribuição"
             app:layout_constraintBottom_toBottomOf="@id/ops_manager_planning_step_3_circle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/ops_manager_planning_step_3_label"

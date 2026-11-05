@@ -284,41 +284,21 @@
         app:layout_constraintStart_toEndOf="@id/tvSocialTitle"
         app:layout_constraintTop_toTopOf="@id/tvSocialTitle" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/btnGoogle"
-        android:layout_width="@dimen/login_social_icon_width"
-        android:layout_height="@dimen/login_social_icon_height"
+        android:layout_width="@dimen/login_google_button_size"
+        android:layout_height="@dimen/login_google_button_size"
         android:layout_marginTop="@dimen/login_social_icons_top_margin"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         android:contentDescription="@string/login_google"
+        android:focusable="true"
+        android:padding="@dimen/login_google_icon_padding"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_google"
-        app:layout_constraintEnd_toStartOf="@id/btnFacebook"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSocialTitle" />
-
-    <ImageView
-        android:id="@+id/btnFacebook"
-        android:layout_width="@dimen/login_social_icon_width"
-        android:layout_height="@dimen/login_social_icon_height"
-        android:layout_marginStart="@dimen/login_social_icon_spacing"
-        android:contentDescription="@string/login_facebook"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_facebook"
-        app:layout_constraintEnd_toStartOf="@id/btnApple"
-        app:layout_constraintStart_toEndOf="@id/btnGoogle"
-        app:layout_constraintTop_toTopOf="@id/btnGoogle" />
-
-    <ImageView
-        android:id="@+id/btnApple"
-        android:layout_width="@dimen/login_social_icon_width"
-        android:layout_height="@dimen/login_social_icon_height"
-        android:layout_marginStart="@dimen/login_social_icon_spacing"
-        android:contentDescription="@string/login_apple"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_apple"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnFacebook"
-        app:layout_constraintTop_toTopOf="@id/btnGoogle" />
+        app:layout_constraintTop_toBottomOf="@id/tvSocialTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

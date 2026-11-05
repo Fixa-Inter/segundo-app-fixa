@@ -57,7 +57,7 @@
                 android:layout_marginStart="@dimen/app_confirm_title_margin_start"
                 android:layout_marginTop="@dimen/app_confirm_card_margin_top"
                 android:layout_marginEnd="@dimen/app_confirm_title_margin_start"
-                android:background="@android:color/transparent"
+                android:background="@drawable/bg_ops_ac14c6a492"
                 android:padding="@dimen/app_confirm_card_padding"
                 android:tag="card:Ar-condicionado quebrado"
                 app:layout_constraintEnd_toEndOf="parent"

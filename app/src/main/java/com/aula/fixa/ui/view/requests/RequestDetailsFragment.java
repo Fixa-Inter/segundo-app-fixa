@@ -37,6 +37,8 @@ import com.aula.fixa.domain.model.solicitacao.Problema;
 import java.util.List;
 
 public class RequestDetailsFragment extends Fragment {
+    private final com.aula.fixa.ui.config.SolicitacaoPhotoPicker requestPhotoPicker =
+            new com.aula.fixa.ui.config.SolicitacaoPhotoPicker(this);
     private SolicitacaoViewModel solicitacoes;
     private CadastroViewModel cadastros;
 
@@ -58,7 +60,7 @@ public class RequestDetailsFragment extends Fragment {
 
         view.findViewById(R.id.btnBack).setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v,
-                new ProblemaItem(title, "", "", StatusProblema.PENDENTE), solicitacoes, cadastros));
+                new ProblemaItem(title, "", "", StatusProblema.PENDENTE), solicitacoes, cadastros, requestPhotoPicker::open));
 
         RecyclerView list = view.findViewById(R.id.rvTimeline);
         if (requestId > 0) {
@@ -94,7 +96,7 @@ public class RequestDetailsFragment extends Fragment {
                                 item.descricao,
                                 item.categoria,
                                 0);
-                        view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v, current, solicitacoes, cadastros));
+                        view.findViewById(R.id.btnMore).setOnClickListener(v -> RequestMenuPopup.show(v, current, solicitacoes, cadastros, requestPhotoPicker::open));
                     }
                     list.setAdapter(new TimelineAdapter(timeline(status)));
                 });
@@ -126,7 +128,7 @@ public class RequestDetailsFragment extends Fragment {
     private List<EtapaLinhaTempo> timeline(String status) {
         List<EtapaLinhaTempo> steps = new java.util.ArrayList<>();
         boolean refused = status.equalsIgnoreCase("REPROVADO") || status.equalsIgnoreCase("RECUSADO");
-        boolean approved = status.equalsIgnoreCase("APROVADO");
+        boolean approved = status.equalsIgnoreCase("APROVADO") || status.equalsIgnoreCase("OS_CRIADA");
         boolean concluded = status.equalsIgnoreCase("CONCLUIDO") || status.equalsIgnoreCase("CONCLUÍDO");
         steps.add(new EtapaLinhaTempo(getString(R.string.app_details_step_opened), "", "", StatusProblema.CONCLUIDO, false));
         steps.add(new EtapaLinhaTempo(getString(R.string.app_details_step_analysis), "", "",
@@ -139,7 +141,7 @@ public class RequestDetailsFragment extends Fragment {
         steps.add(new EtapaLinhaTempo(getString(R.string.app_details_step_approved), "", "",
                 approved || concluded ? StatusProblema.APROVADO : StatusProblema.PENDENTE, false));
         steps.add(new EtapaLinhaTempo(getString(R.string.app_details_step_done), "", "",
-                concluded ? StatusProblema.CONCLUIDO : StatusProblema.PENDENTE, false));
+                concluded ? StatusProblema.CONCLUIDO : StatusProblema.PENDENTE, false, approved && !concluded));
         return steps;
     }
 

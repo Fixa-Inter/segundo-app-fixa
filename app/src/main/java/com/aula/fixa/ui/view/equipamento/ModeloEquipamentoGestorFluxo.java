@@ -81,6 +81,10 @@ public final class ModeloEquipamentoGestorFluxo {
         listParams.topToBottom = searchContainer == null ? title.getId() : searchContainer.getId();
         int contentMargin = host.requireContext().getResources()
                 .getDimensionPixelSize(R.dimen.ops_manager_home_card_side_margin);
+        if (searchContainer != null && searchContainer.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams searchParams = (ViewGroup.MarginLayoutParams) searchContainer.getLayoutParams();
+            contentMargin = Math.max(searchParams.getMarginStart(), searchParams.getMarginEnd());
+        }
         listParams.setMarginStart(contentMargin);
         listParams.setMarginEnd(contentMargin);
         listParams.topMargin = dp(host, 22);
@@ -131,7 +135,7 @@ public final class ModeloEquipamentoGestorFluxo {
 
         View back = content.findViewWithTag("image:arrow-left");
         if (back != null) {
-            back.setOnClickListener(v -> activity.backFromModels());
+            back.setOnClickListener(v -> activity.backToEquipmentManagement());
         }
         View.OnClickListener create = v -> activity.open("manager_create_model");
         View plus = content.findViewById(R.id.ops_5717_6730);
@@ -319,6 +323,13 @@ public final class ModeloEquipamentoGestorFluxo {
         EditText brand = content.findViewById(editing ? R.id.ops_5717_7832 : R.id.ops_5717_7848);
         View cancel = content.findViewById(editing ? R.id.ops_5717_7822 : R.id.ops_5717_7838);
         View save = content.findViewById(editing ? R.id.ops_5717_7821 : R.id.ops_5717_7837);
+        styleModelField(name);
+        styleModelField(description);
+        styleModelField(brand);
+        styleModelField(category);
+        if (category.getParent() instanceof View) {
+            ((View) category.getParent()).setBackgroundResource(R.drawable.bg_ops_70aaab1e67);
+        }
         if (editing) {
             name.setText(activity.model.selectedTitle());
             description.setText(activity.model.field("models", "descricao"));
@@ -424,6 +435,16 @@ public final class ModeloEquipamentoGestorFluxo {
         if (field instanceof EditText) {
             ((EditText) field).setCursorVisible(false);
             ((EditText) field).setShowSoftInputOnFocus(false);
+        }
+    }
+
+    private static void styleModelField(TextView field) {
+        if (field == null) return;
+        field.setTextColor(androidx.core.content.ContextCompat.getColor(field.getContext(), R.color.app_text_black));
+        if (field instanceof EditText) {
+            EditText input = (EditText) field;
+            input.setHintTextColor(androidx.core.content.ContextCompat.getColor(field.getContext(), R.color.app_text_placeholder_dark));
+            input.setBackgroundResource(R.drawable.bg_ops_70aaab1e67);
         }
     }
 

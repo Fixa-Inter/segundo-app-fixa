@@ -116,7 +116,6 @@ public class OperationsActivity extends AppCompatActivity {
         WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightStatusBars(true);
 
         role = "technician".equals(getIntent().getStringExtra(EXTRA_ROLE)) ? "technician" : "manager";
-        getLifecycle().addObserver(new com.aula.fixa.ui.config.ConnectivityWatcher(this));
 
         setContentView(R.layout.activity_operations);
         com.aula.fixa.infrastructure.remote.notifications.FcmTokenRegistrar.inicializar(this);
@@ -270,7 +269,7 @@ public class OperationsActivity extends AppCompatActivity {
     public void export() {
         String exportKey = role + "_export:export:";
         String[] types = {ExportacaoRepository.SOLICITACOES, ExportacaoRepository.ORDENS_SERVICO,
-                ExportacaoRepository.OCORRENCIAS, "Checklists"};
+                ExportacaoRepository.OCORRENCIAS, ExportacaoRepository.CHECKLISTS};
         exportType = null;
         for (String type : types) {
             if (model.selected(exportKey + type)) {
@@ -280,10 +279,6 @@ public class OperationsActivity extends AppCompatActivity {
         }
         if (exportType == null) {
             Toast.makeText(this, "Selecione o tipo de dados para exportar.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if ("Checklists".equals(exportType)) {
-            Toast.makeText(this, "A exportação de checklists ainda não está disponível.", Toast.LENGTH_LONG).show();
             return;
         }
         final String selectedType = exportType;
@@ -300,7 +295,8 @@ public class OperationsActivity extends AppCompatActivity {
 
     private String fileName(String type) {
         String base = type.equals(ExportacaoRepository.SOLICITACOES) ? "solicitacoes" :
-                type.equals(ExportacaoRepository.ORDENS_SERVICO) ? "ordens_de_servico" : "ocorrencias";
+                type.equals(ExportacaoRepository.ORDENS_SERVICO) ? "ordens_de_servico" :
+                        type.equals(ExportacaoRepository.CHECKLISTS) ? "checklists" : "ocorrencias";
         return "FIXA_" + base + ".xlsx";
     }
 
@@ -381,6 +377,12 @@ public class OperationsActivity extends AppCompatActivity {
         navigation.navigate(destination(role + "_event_details"), args);
     }
 
+    public void openChecklistInspections(String checklistId) {
+        if (checklistId == null || checklistId.isBlank()) return;
+        model.field("checklist", "checklistId", checklistId);
+        open(role + "_inspections");
+    }
+
     public void openOccurrenceDetails(long id, String title) {
         Bundle args = new Bundle();
         args.putLong("occurrenceId", id);
@@ -448,6 +450,7 @@ public class OperationsActivity extends AppCompatActivity {
             model.field("plan_information", field, "");
         }
         model.selected("planning:first_task_prompt_shown", false);
+        model.field("planning_tasks", "jev_requested", "");
         Bundle args = new Bundle();
         args.putLong("requestId", requestId);
         navigation.navigate(R.id.ops_manager_planning_intro, args);
@@ -470,10 +473,18 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void backFromModels() {
-        if (!navigation.popBackStack(R.id.ops_manager_categories, false)
+        if (!navigation.popBackStack(R.id.ops_manager_equipment, false)
                 && (navigation.getCurrentDestination() == null
-                || navigation.getCurrentDestination().getId() != R.id.ops_manager_categories)) {
-            navigation.navigate(R.id.ops_manager_categories);
+                || navigation.getCurrentDestination().getId() != R.id.ops_manager_equipment)) {
+            navigation.navigate(R.id.ops_manager_equipment);
+        }
+    }
+
+    public void backToEquipmentManagement() {
+        if (!navigation.popBackStack(R.id.ops_manager_equipment, false)
+                && (navigation.getCurrentDestination() == null
+                || navigation.getCurrentDestination().getId() != R.id.ops_manager_equipment)) {
+            navigation.navigate(R.id.ops_manager_equipment);
         }
     }
 
@@ -500,6 +511,7 @@ public class OperationsActivity extends AppCompatActivity {
                 ? new String[]{"home", "management", "team", "equipment", "events"}
                 : new String[]{"home", "management", "checklists", "events", "chatbot"};
         String target = role + "_" + targets[index];
+        com.aula.fixa.ui.config.AppLoading.hideAll();
         navigation.navigate(destination(target), null, new NavOptions.Builder().setLaunchSingleTop(true)
                 .setPopUpTo(destination(role + "_home"), false).build());
     }

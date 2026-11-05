@@ -69,7 +69,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8479"
-            app:layout_constraintBottom_toTopOf="@id/ops_5717_8477"
+            app:layout_constraintBottom_toTopOf="@id/ops_planning_success_order"
             app:layout_constraintWidth_percent="0.78"
             app:layout_constraintWidth_max="320dp">
 
@@ -92,21 +92,39 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/ops_5717_8477"
+            android:id="@+id/ops_planning_success_order"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/poppins_regular"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:tag="text:Voltar"
-            android:text="@string/ops_text_voltar_59dc92"
+            android:tag="text:Ir para ordem de serviço"
+            android:text="@string/ops_planning_success_order"
             android:textColor="@color/app_primary_deep"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8475"
+            app:layout_constraintBottom_toTopOf="@id/ops_5717_8477" />
+
+        <TextView
+            android:id="@+id/ops_5717_8477"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:tag="text:Voltar para planejamento"
+            android:text="@string/ops_planning_success_back_to_planning"
+            android:textColor="@color/app_primary_deep"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_planning_success_order"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

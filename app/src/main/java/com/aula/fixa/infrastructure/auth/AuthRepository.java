@@ -28,6 +28,7 @@ import com.aula.fixa.infrastructure.remote.dto.LoginGoogleResponse;
 import com.aula.fixa.infrastructure.remote.dto.LoginResponse;
 import com.aula.fixa.infrastructure.remote.auth.SessionTokenAuthenticator;
 import com.aula.fixa.infrastructure.remote.dto.RedefinirSenhaResponse;
+import com.aula.fixa.infrastructure.local.OfflineSolicitacaoSyncScheduler;
 
 public final class AuthRepository implements AutenticacaoRepository {
     private final AuthApi api = ApiClient.auth();
@@ -166,6 +167,7 @@ public final class AuthRepository implements AutenticacaoRepository {
         if (accessToken == null || accessToken.isBlank()) return;
         if (refreshToken == null || refreshToken.isBlank()) session.saveToken(accessToken);
         else session.saveTokens(accessToken, refreshToken);
+        OfflineSolicitacaoSyncScheduler.schedule(session.applicationContext());
         SessionTokenAuthenticator.resetLoginRedirect();
     }
 

@@ -8,6 +8,7 @@ import android.security.keystore.KeyProperties;
 import androidx.annotation.Nullable;
 
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.KeyStore;
 import java.util.Base64;
 
@@ -118,6 +119,26 @@ public final class SessionStorage {
         return preferences.getLong(SESSION_GENERATION_KEY, 0L);
     }
 
+    /** Identificador opaco e estável entre refreshes de token para separar dados locais por conta. */
+    public String localDataOwnerKey() {
+        String token = getToken();
+        try {
+            String[] parts = token == null ? new String[0] : token.split("\\.");
+            if (parts.length == 3) {
+                String payload = new String(android.util.Base64.decode(parts[1], android.util.Base64.URL_SAFE | android.util.Base64.NO_WRAP | android.util.Base64.NO_PADDING), StandardCharsets.UTF_8);
+                org.json.JSONObject claims = new org.json.JSONObject(payload);
+                String identity = claims.optString("sub", "");
+                if (identity.isEmpty()) identity = claims.optString("email", "");
+                if (identity.isEmpty()) identity = claims.optString("usuario_id", "");
+                if (!identity.isEmpty()) {
+                    byte[] digest = MessageDigest.getInstance("SHA-256").digest(identity.trim().toLowerCase(java.util.Locale.ROOT).getBytes(StandardCharsets.UTF_8));
+                    return android.util.Base64.encodeToString(digest, android.util.Base64.URL_SAFE | android.util.Base64.NO_WRAP | android.util.Base64.NO_PADDING);
+                }
+            }
+        } catch (Exception ignored) { }
+        return "session-" + sessionGeneration();
+    }
+
     public boolean hasSession() {
         String token = getToken();
         return token != null && !token.trim().isEmpty();
@@ -126,6 +147,30 @@ public final class SessionStorage {
     public void clear() {
         long generation = sessionGeneration();
         preferences.edit().clear().putLong(SESSION_GENERATION_KEY, generation).apply();
+    }
+
+    /** Cifra blobs de cache e de fila local com a mesma chave protegida pelo Android Keystore. */
+    public byte[] encryptLocalData(byte[] value) throws Exception {
+        if (value == null) throw new IllegalArgumentException("Dados locais ausentes.");
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        cipher.init(Cipher.ENCRYPT_MODE, getOrCreateKey());
+        byte[] encrypted = cipher.doFinal(value);
+        byte[] iv = cipher.getIV();
+        java.nio.ByteBuffer result = java.nio.ByteBuffer.allocate(1 + iv.length + encrypted.length);
+        result.put((byte) iv.length).put(iv).put(encrypted);
+        return result.array();
+    }
+
+    public byte[] decryptLocalData(byte[] value) throws Exception {
+        if (value == null || value.length < 2) throw new IllegalArgumentException("Dados locais inválidos.");
+        java.nio.ByteBuffer buffer = java.nio.ByteBuffer.wrap(value);
+        int ivLength = buffer.get() & 0xff;
+        if (ivLength == 0 || buffer.remaining() <= ivLength) throw new IllegalArgumentException("Dados locais inválidos.");
+        byte[] iv = new byte[ivLength]; buffer.get(iv);
+        byte[] encrypted = new byte[buffer.remaining()]; buffer.get(encrypted);
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        cipher.init(Cipher.DECRYPT_MODE, getOrCreateKey(), new GCMParameterSpec(GCM_TAG_LENGTH_BITS, iv));
+        return cipher.doFinal(encrypted);
     }
 
     private SecretKey getOrCreateKey() throws Exception {

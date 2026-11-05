@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.aula.fixa.R;
@@ -22,9 +23,12 @@ import com.aula.fixa.ui.config.DataChangeNotifier;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Consumer;
+import android.net.Uri;
 
 /** Menu de ações da solicitação, mantendo as operações nas camadas de aplicação e adapter. */
 public final class RequestMenuPopup {
+    public interface PhotoPicker { void open(Consumer<List<Uri>> callback); }
     private RequestMenuPopup() { }
 
     public static void show(@NonNull View anchor, @NonNull ProblemaItem item) {
@@ -39,6 +43,12 @@ public final class RequestMenuPopup {
     public static void show(@NonNull View anchor, @NonNull ProblemaItem item,
                             @NonNull SolicitacaoViewModel solicitacoes,
                             @NonNull CadastroViewModel cadastros) {
+        show(anchor, item, solicitacoes, cadastros, null);
+    }
+
+    public static void show(@NonNull View anchor, @NonNull ProblemaItem item,
+                            @NonNull SolicitacaoViewModel solicitacoes,
+                            @NonNull CadastroViewModel cadastros, @Nullable PhotoPicker photoPicker) {
         View content = LayoutInflater.from(anchor.getContext()).inflate(R.layout.popup_app_request_menu, null, false);
         PopupWindow popup = new PopupWindow(content,
                 anchor.getResources().getDimensionPixelSize(R.dimen.app_popup_menu_width),
@@ -47,7 +57,7 @@ public final class RequestMenuPopup {
 
         content.findViewById(R.id.tvPopupEdit).setOnClickListener(v -> {
             popup.dismiss();
-            carregarDadosEdicao(anchor, item, solicitacoes, cadastros);
+            carregarDadosEdicao(anchor, item, solicitacoes, cadastros, photoPicker);
         });
         content.findViewById(R.id.tvPopupDelete).setOnClickListener(v -> {
             popup.dismiss();
@@ -65,7 +75,7 @@ public final class RequestMenuPopup {
 
     private static void carregarDadosEdicao(View anchor, ProblemaItem item,
                                             SolicitacaoViewModel solicitacoes,
-                                            CadastroViewModel cadastros) {
+                                            CadastroViewModel cadastros, @Nullable PhotoPicker photoPicker) {
         final Problema[] details = new Problema[1];
         final List<OpcaoCadastro>[] locations = new List[]{null};
         final List<OpcaoCadastro>[] categories = new List[]{null};
@@ -78,11 +88,12 @@ public final class RequestMenuPopup {
             AppDialogs.showEditRequest(anchor.getContext(), item, details[0],
                     locations[0] == null ? Collections.emptyList() : locations[0],
                     categories[0] == null ? Collections.emptyList() : categories[0],
-                    (title, description, location, category, deletedPhotoIds) -> {
+                    photoPicker == null ? null : photoPicker::open,
+                    (title, description, location, category, deletedPhotoIds, addedPhotoUrls) -> {
                         Long localId = findId(locations[0], location);
                         Long categoryId = findId(categories[0], category);
                         solicitacoes.atualizar(new AtualizacaoSolicitacao(item.id, title, description,
-                                localId, null, categoryId, deletedPhotoIds),
+                                localId, null, categoryId, deletedPhotoIds, addedPhotoUrls),
                                 new SolicitacaoViewModel.Callback<Problema>() {
                                     @Override public void aoConcluir(Problema result) {
                                         DataChangeNotifier.notifyChanged();

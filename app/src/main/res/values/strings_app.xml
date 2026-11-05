@@ -11,6 +11,7 @@
     <string name="app_more_options">Mais opções</string>
     <string name="app_next">Próximo</string>
     <string name="app_finish">Finalizar</string>
+    <string name="app_offline_request_queued">Solicitação salva neste dispositivo e será enviada quando a conexão voltar.</string>
     <string name="app_continue">Continuar</string>
     <string name="app_cancel">Cancelar</string>
     <string name="app_save">Salvar</string>
@@ -30,6 +31,7 @@
     <string name="app_home_status_analysis">Pendente</string>
     <string name="app_home_status_refused">Reprovado</string>
     <string name="app_home_requests_title">Minhas Solicitações</string>
+    <string name="app_home_big_number_caption_requests">Solicitações</string>
     <string name="app_home_open_request">Abrir Solicitação</string>
     <string name="app_home_chart_description">Gráfico de status das solicitações</string>
     <string name="app_home_requests_empty">Sem registros</string>
@@ -93,10 +95,6 @@
     <string name="app_chat_drawer_search">Buscar conversas</string>
     <string name="app_chat_drawer_new">Novo chat</string>
     <string name="app_chat_drawer_recent">Recentes</string>
-    <string-array name="app_chat_recent_items">
-        <item>Ajuda com solicitação</item>
-        <item>Dúvidas sobre o app</item>
-    </string-array>
 
     <!-- Abrir solicitação -->
     <string name="app_new_request_title"><![CDATA[<b><font color="#153D7D">Abra</font></b> sua solicitação]]></string>

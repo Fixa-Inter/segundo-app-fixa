@@ -44,6 +44,8 @@ import java.text.Normalizer;
 import java.util.Locale;
 
 public class HomeFragment extends Fragment implements RequestAdapter.Listener {
+    private final com.aula.fixa.ui.config.SolicitacaoPhotoPicker requestPhotoPicker =
+            new com.aula.fixa.ui.config.SolicitacaoPhotoPicker(this);
     private SolicitacaoViewModel solicitacaoViewModel;
     private PerfilViewModel perfilViewModel;
     private SessaoViewModel sessaoViewModel;
@@ -196,11 +198,13 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
         int color = androidx.core.content.ContextCompat.getColor(requireContext(), colorRes);
         TextView title = card.findViewById(R.id.bigNumberLabel);
         TextView value = card.findViewById(R.id.bigNumberValue);
+        TextView caption = card.findViewById(R.id.bigNumberCaption);
         ImageView image = card.findViewById(R.id.bigNumberIcon);
         title.setText(label);
         title.setTextColor(color);
         value.setText(String.valueOf(count));
         value.setTextColor(color);
+        caption.setText(R.string.app_home_big_number_caption_requests);
         image.setImageResource(icon);
     }
 
@@ -238,6 +242,9 @@ public class HomeFragment extends Fragment implements RequestAdapter.Listener {
 
     @Override
     public void onRequestMenuClick(ProblemaItem item, View anchor) {
-        RequestMenuPopup.show(anchor, item);
+        RequestMenuPopup.show(anchor, item, new androidx.lifecycle.ViewModelProvider(requireActivity(),
+                new SolicitacaoViewModelFactory(requireContext())).get(SolicitacaoViewModel.class),
+                new ViewModelProvider(requireActivity(), new com.aula.fixa.adapter.cadastro.CadastroViewModelFactory(requireContext()))
+                        .get(com.aula.fixa.adapter.cadastro.CadastroViewModel.class), requestPhotoPicker::open);
     }
 }

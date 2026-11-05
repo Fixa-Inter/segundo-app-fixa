@@ -3,12 +3,15 @@ package com.aula.fixa.application.ocorrencia;
 import com.aula.fixa.domain.model.ocorrencia.OcorrenciaItem;
 import com.aula.fixa.domain.repository.ocorrencia.OcorrenciaRepository;
 import java.util.List;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 public final class GerenciarOcorrencias {
     private final OcorrenciaRepository repository;
     public GerenciarOcorrencias(OcorrenciaRepository repository){this.repository=repository;}
     public List<OcorrenciaItem> listar() throws Exception{return repository.listar();}
+    public List<OcorrenciaItem> listar(FiltroBusca filtros) throws Exception{return repository.listar(filtros);}
     public List<OcorrenciaItem> listarMinhas() throws Exception{return repository.listarMinhas();}
+    public List<OcorrenciaItem> listarMinhas(FiltroBusca filtros) throws Exception{return repository.listarMinhas(filtros);}
     public void cadastrar(Long localId, Long equipmentId, com.aula.fixa.domain.enums.CategoriaProblema category,
             com.aula.fixa.domain.enums.Prioridade priority, String title, String description,
             String locationDescription, List<String> photoUrls) throws Exception {

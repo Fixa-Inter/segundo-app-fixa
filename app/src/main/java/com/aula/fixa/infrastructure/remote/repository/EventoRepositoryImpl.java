@@ -6,14 +6,19 @@ import com.aula.fixa.infrastructure.auth.session.SessionStorage;
 import com.aula.fixa.infrastructure.remote.dto.EventoResponse;
 import java.util.ArrayList;
 import java.util.List;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 public final class EventoRepositoryImpl implements EventoRepository {
     private final EventoRemoteRepository remoto;
     public EventoRepositoryImpl(SessionStorage session) { remoto = new EventoRemoteRepository(session); }
 
     @Override public List<Evento> listar() throws Exception {
+        return listar(FiltroBusca.ultimosTresMeses());
+    }
+
+    @Override public List<Evento> listar(FiltroBusca filtros) throws Exception {
         List<Evento> result = new ArrayList<>();
-        for (EventoResponse item : remoto.eventos()) result.add(map(item));
+        for (EventoResponse item : remoto.eventos(filtros)) result.add(map(item));
         return result;
     }
 

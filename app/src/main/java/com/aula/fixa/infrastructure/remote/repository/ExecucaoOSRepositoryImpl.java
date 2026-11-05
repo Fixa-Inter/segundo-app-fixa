@@ -37,6 +37,6 @@ public final class ExecucaoOSRepositoryImpl implements ExecucaoOSRepository {
         body.addProperty("categoriaProblema",categoria);body.addProperty("dataPrevista",data);body.addProperty("prioridade",prioridade);
         check(osApi.atualizar(body).execute());
     }
-    private String statusCode(String s){if(s==null)return "NAO_INICIADA";String n=s.toLowerCase(java.util.Locale.ROOT);if(n.contains("conclu"))return "CONCLUIDA";if(n.contains("andamento"))return "EM_ANDAMENTO";if(n.contains("atras"))return "ATRASADA";return "NAO_INICIADA";}
+    private String statusCode(String s){if(s==null)return "NAO_INICIADA";String n=java.text.Normalizer.normalize(s,java.text.Normalizer.Form.NFD).replaceAll("\\p{M}+","").toUpperCase(java.util.Locale.ROOT).replaceAll("[^A-Z0-9]","");if(n.contains("CONCLUID")||n.equals("DONE")||n.equals("COMPLETED"))return "CONCLUIDA";if(n.contains("ANDAMENTO")||n.equals("EMPROGRESS"))return "EM_ANDAMENTO";if(n.contains("ATRAS"))return "ATRASADA";return "NAO_INICIADA";}
     private void check(Response<?> r)throws Exception{if(!r.isSuccessful())throw new ApiException(r.code(),r.errorBody()==null?"":r.errorBody().string());}
 }

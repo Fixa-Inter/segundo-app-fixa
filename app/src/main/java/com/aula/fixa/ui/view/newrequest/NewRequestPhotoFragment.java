@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.FragmentUi;
+import com.aula.fixa.ui.config.ConnectivityWatcher;
 import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.aula.fixa.adapter.foto.FotoViewModel;
 import com.aula.fixa.adapter.foto.FotoViewModelFactory;
@@ -98,13 +99,17 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
         });
 
         view.findViewById(R.id.btnUpload).setOnClickListener(v -> {
-            if (form.photoUrls.size() >= 3) { Toast.makeText(requireContext(), "Você pode enviar no máximo 3 fotos.", Toast.LENGTH_SHORT).show(); return; }
+            if (photoCount() >= 3) { Toast.makeText(requireContext(), "Você pode enviar no máximo 3 fotos.", Toast.LENGTH_SHORT).show(); return; }
             picker.launch("image/*");
         });
         view.findViewById(R.id.btnTakePhoto).setOnClickListener(v -> takePhoto());
     }
 
     private void upload(Uri uri) {
+        if (!ConnectivityWatcher.isOnline(requireContext())) {
+            savePhotoOffline(uri);
+            return;
+        }
         try {
             fotoViewModel.enviarSolicitacao(uri, new FotoViewModel.Callback() {
                 public void aoSucesso(String url, String publicId) {
@@ -119,7 +124,10 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
                 @Override public void aoReceberTokenExclusao(String token) { form.photoDeleteTokens.add(token); }
 
                 public void aoFalhar(String message) {
-                    FragmentUi.runIfViewActive(NewRequestPhotoFragment.this, rootView, () -> android.widget.Toast.makeText(rootView.getContext(), message, android.widget.Toast.LENGTH_LONG).show());
+                    FragmentUi.runIfViewActive(NewRequestPhotoFragment.this, rootView, () -> {
+                        if (!ConnectivityWatcher.isOnline(rootView.getContext())) savePhotoOffline(uri);
+                        else android.widget.Toast.makeText(rootView.getContext(), message, android.widget.Toast.LENGTH_LONG).show();
+                    });
                 }
             });
         } catch (Exception e) {
@@ -127,12 +135,35 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
         }
     }
 
+    private void savePhotoOffline(Uri uri) {
+        fotoViewModel.guardarSolicitacaoLocalmente(uri, new FotoViewModel.Callback() {
+            @Override public void aoSucesso(String path, String publicId) {
+                form.photoLocalPaths.add(path);
+                FragmentUi.runIfViewActive(NewRequestPhotoFragment.this, rootView, () -> {
+                    viewUploadState(); photosRecyclerView.getAdapter().notifyDataSetChanged();
+                });
+            }
+            @Override public void aoReceberTokenExclusao(String token) { }
+            @Override public void aoFalhar(String message) {
+                FragmentUi.runIfViewActive(NewRequestPhotoFragment.this, rootView,
+                        () -> Toast.makeText(rootView.getContext(), message, Toast.LENGTH_LONG).show());
+            }
+        });
+    }
+
+    private int photoCount() { return form.photoUrls.size() + form.photoLocalPaths.size(); }
+
+    private String photoAt(int position) {
+        return position < form.photoUrls.size() ? form.photoUrls.get(position)
+                : form.photoLocalPaths.get(position - form.photoUrls.size());
+    }
+
     private void viewUploadState() {
         View root = getView();
         if (root == null) return;
-        root.findViewById(R.id.tvUpload).setVisibility(form.photoUrls.isEmpty() ? View.VISIBLE : View.GONE);
-        photosRecyclerView.setVisibility(form.photoUrls.isEmpty() ? View.GONE : View.VISIBLE);
-        if (form.photoUrls.isEmpty()) {
+        root.findViewById(R.id.tvUpload).setVisibility(photoCount() == 0 ? View.VISIBLE : View.GONE);
+        photosRecyclerView.setVisibility(photoCount() == 0 ? View.GONE : View.VISIBLE);
+        if (photoCount() == 0) {
             root.findViewById(R.id.btnUpload).setBackgroundResource(R.drawable.bg_app_upload_area);
         } else {
             root.findViewById(R.id.btnUpload).setBackgroundColor(android.graphics.Color.TRANSPARENT);
@@ -140,7 +171,7 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
     }
 
     private void takePhoto() {
-        if (form.photoUrls.size() >= 3) { Toast.makeText(requireContext(), "Você pode enviar no máximo 3 fotos.", Toast.LENGTH_SHORT).show(); return; }
+        if (photoCount() >= 3) { Toast.makeText(requireContext(), "Você pode enviar no máximo 3 fotos.", Toast.LENGTH_SHORT).show(); return; }
         try {
             File directory = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
@@ -181,12 +212,12 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
             if (getItemViewType(position) == ADD) {
                 holder.itemView.setOnClickListener(v -> picker.launch("image/*"));
             } else {
-                Glide.with(NewRequestPhotoFragment.this).load(form.photoUrls.get(position)).centerCrop().into((ImageView) holder.itemView);
-                holder.itemView.setOnClickListener(v -> showPhoto(form.photoUrls.get(position)));
+                Glide.with(NewRequestPhotoFragment.this).load(photoAt(position)).centerCrop().into((ImageView) holder.itemView);
+                holder.itemView.setOnClickListener(v -> showPhoto(photoAt(position)));
             }
         }
-        @Override public int getItemCount() { return form.photoUrls.isEmpty() ? 0 : form.photoUrls.size() + (form.photoUrls.size() < 3 ? 1 : 0); }
-        @Override public int getItemViewType(int position) { return position < form.photoUrls.size() ? PHOTO : ADD; }
+        @Override public int getItemCount() { return photoCount() == 0 ? 0 : photoCount() + (photoCount() < 3 ? 1 : 0); }
+        @Override public int getItemViewType(int position) { return position < photoCount() ? PHOTO : ADD; }
         final class Holder extends RecyclerView.ViewHolder { Holder(@NonNull View item) { super(item); } }
     }
 
@@ -247,7 +278,7 @@ public class NewRequestPhotoFragment extends NewRequestStepFragment {
             showValidationMessage("Selecione a categoria do equipamento.");
             return false;
         }
-        if (form.photoUrls.isEmpty()) {
+        if (photoCount() == 0) {
             showValidationMessage("Adicione pelo menos uma foto.");
             return false;
         }

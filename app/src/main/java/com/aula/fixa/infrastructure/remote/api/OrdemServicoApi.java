@@ -11,6 +11,7 @@ import retrofit2.http.Query;
 import retrofit2.http.Path;
 import retrofit2.http.PATCH;
 import retrofit2.http.DELETE;
+import retrofit2.http.QueryMap;
 import com.google.gson.JsonObject;
 
 public interface OrdemServicoApi {
@@ -24,6 +25,9 @@ public interface OrdemServicoApi {
             @Query("campo_ordenacao") String campoOrdenacao,
             @Query("direcao_ordenacao") Integer direcaoOrdenacao);
 
+    @GET("api/v1/os/minhas")
+    Call<List<OrdemServicoResponse>> minhasFiltradas(@QueryMap java.util.Map<String, String> filtros);
+
     @GET("api/v1/os") Call<List<OrdemServicoResponse>> listar(
             @Query("titulo") String titulo, @Query("descricao") String descricao,
             @Query("categoria_problema") String categoriaProblema,
@@ -35,6 +39,9 @@ public interface OrdemServicoApi {
             @Query("limite") Integer limite,
             @Query("campo_ordenacao") String campoOrdenacao,
             @Query("direcao_ordenacao") Integer direcaoOrdenacao);
+
+    @GET("api/v1/os")
+    Call<List<OrdemServicoResponse>> listarFiltradas(@QueryMap java.util.Map<String, String> filtros);
 
     @GET("api/v1/os") Call<List<JsonObject>> exportar(
             @Query("titulo") String titulo, @Query("descricao") String descricao,

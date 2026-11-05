@@ -11,6 +11,9 @@ import com.aula.fixa.infrastructure.auth.session.SessionStorage;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import com.aula.fixa.domain.model.FiltroBusca;
 import retrofit2.Response;
 
 /** Acesso remoto exclusivo do fluxo de solicitações. */
@@ -22,7 +25,11 @@ public final class SolicitacaoRemoteRepository {
     }
 
     public List<ProblemaResponse> minhas() throws Exception {
-        Response<List<ProblemaResponse>> response = api.minhas().execute();
+        return minhas(FiltroBusca.ultimosTresMeses());
+    }
+
+    public List<ProblemaResponse> minhas(FiltroBusca filtros) throws Exception {
+        Response<List<ProblemaResponse>> response = api.minhasFiltradas(requestFilters(filtros)).execute();
         if (!response.isSuccessful()) {
             String body = response.errorBody() == null ? "" : response.errorBody().string();
             if (response.code() == 404 && expectedNotFound(body, "Solicitação não encontrada.")) {
@@ -35,17 +42,41 @@ public final class SolicitacaoRemoteRepository {
     }
 
     public List<ProblemaResponse> listarUnidade() throws Exception {
-        return listarUnidade(null);
+        return listarUnidade(FiltroBusca.ultimosTresMeses());
     }
 
     public List<ProblemaResponse> listarUnidade(String statusProblema) throws Exception {
-        Response<List<ProblemaResponse>> response = api.listarUnidade(statusProblema, null, "dataCriacao", -1).execute();
+        return listarUnidade(FiltroBusca.periodo(null, null, statusProblema,
+                null, null, null, null, null));
+    }
+
+    public List<ProblemaResponse> listarUnidade(FiltroBusca filtros) throws Exception {
+        Response<List<ProblemaResponse>> response = api.listarUnidadeFiltrada(requestFilters(filtros)).execute();
         if (!response.isSuccessful()) {
             String body = response.errorBody() == null ? "" : response.errorBody().string();
             throw new ApiException(response.code(), body);
         }
         if (response.body() == null) throw new IOException("A API retornou uma resposta vazia.");
         return response.body();
+    }
+
+    private static Map<String, String> requestFilters(FiltroBusca filtros) {
+        FiltroBusca value = filtros == null ? FiltroBusca.ultimosTresMeses() : filtros;
+        Map<String, String> query = new LinkedHashMap<>();
+        put(query, "titulo", value.termo);
+        put(query, "status_problema", value.status);
+        put(query, "local_unidade", value.local);
+        put(query, "categoria_equipamento", value.categoriaEquipamento);
+        put(query, "nome_usuario", value.autor);
+        put(query, "data_criacao_min", value.dataInicioIso());
+        put(query, "data_criacao_max", value.dataFimIso());
+        query.put("campo_ordenacao", "dataCriacao");
+        query.put("direcao_ordenacao", "-1");
+        return query;
+    }
+
+    private static void put(Map<String, String> target, String key, String value) {
+        if (value != null && !value.trim().isEmpty()) target.put(key, value);
     }
 
     public ProblemaResponse detalhes(long id) throws Exception {

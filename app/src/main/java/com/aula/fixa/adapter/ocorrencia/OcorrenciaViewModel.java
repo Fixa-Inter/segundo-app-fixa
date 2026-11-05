@@ -8,6 +8,7 @@ import com.aula.fixa.domain.model.ocorrencia.OcorrenciaItem;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 public final class OcorrenciaViewModel extends ViewModel {
     public interface Callback<T>{void success(T value);void failure(Throwable error);}
@@ -15,8 +16,10 @@ public final class OcorrenciaViewModel extends ViewModel {
     private final ExecutorService io=Executors.newSingleThreadExecutor();
     private final Handler main=new Handler(Looper.getMainLooper());
     public OcorrenciaViewModel(GerenciarOcorrencias useCase){this.useCase=useCase;}
-    public void listar(Callback<List<OcorrenciaItem>> cb){run(useCase::listar,cb);}
-    public void listarMinhas(Callback<List<OcorrenciaItem>> cb){run(useCase::listarMinhas,cb);}
+    public void listar(Callback<List<OcorrenciaItem>> cb){listar(FiltroBusca.ultimosTresMeses(),cb);}
+    public void listar(FiltroBusca filtros,Callback<List<OcorrenciaItem>> cb){run(()->useCase.listar(filtros),cb);}
+    public void listarMinhas(Callback<List<OcorrenciaItem>> cb){listarMinhas(FiltroBusca.ultimosTresMeses(),cb);}
+    public void listarMinhas(FiltroBusca filtros,Callback<List<OcorrenciaItem>> cb){run(()->useCase.listarMinhas(filtros),cb);}
     public void cadastrar(Long localId,Long equipmentId,com.aula.fixa.domain.enums.CategoriaProblema category,
             com.aula.fixa.domain.enums.Prioridade priority,String title,String description,String locationDescription,
             List<String> photos,Callback<Void> cb){run(()->{useCase.cadastrar(localId,equipmentId,category,priority,title,description,locationDescription,photos);return null;},cb);}

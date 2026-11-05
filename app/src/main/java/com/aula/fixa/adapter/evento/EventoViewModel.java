@@ -10,6 +10,7 @@ import com.aula.fixa.domain.model.Evento;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 public final class EventoViewModel extends ViewModel {
     public interface Listener {
@@ -30,10 +31,14 @@ public final class EventoViewModel extends ViewModel {
     }
 
     public void listar(@NonNull Listener listener) {
+        listar(FiltroBusca.ultimosTresMeses(), listener);
+    }
+
+    public void listar(@NonNull FiltroBusca filtros, @NonNull Listener listener) {
         listener.aoCarregar(true);
         executor.execute(() -> {
             try {
-                List<Evento> result = listar.executar();
+                List<Evento> result = listar.executar(filtros);
                 main.post(() -> { listener.aoCarregar(false); listener.aoListar(result); });
             } catch (Throwable error) {
                 main.post(() -> { listener.aoCarregar(false); listener.aoFalhar(error); });
