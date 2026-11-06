@@ -10,9 +10,10 @@ import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ModeloEquipamentoApi {
-    @GET("api/v1/equipamentos/modelos") Call<List<ModeloEquipamentoResponse>> listar();
+    @GET("api/v1/equipamentos/modelos") Call<List<ModeloEquipamentoResponse>> listar(@Query("campos") String fields);
     @POST("api/v1/equipamentos/modelos") Call<ModeloEquipamentoResponse> criar(@Body ModeloEquipamentoRequest request);
     @PATCH("api/v1/equipamentos/modelos") Call<ModeloEquipamentoResponse> atualizar(@Body ModeloEquipamentoRequest request);
     @DELETE("api/v1/equipamentos/modelos/{modeloId}") Call<ModeloEquipamentoResponse> excluir(@Path("modeloId") long id);

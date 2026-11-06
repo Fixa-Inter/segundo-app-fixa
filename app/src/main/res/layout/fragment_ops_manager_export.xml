@@ -16,12 +16,14 @@
             android:tag="image:arrow-left" />
         <TextView
             android:id="@+id/ops_5717_7538"
-            android:layout_width="@dimen/ops_dp_215_25"
+            android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_40"
             android:layout_marginStart="@dimen/ops_manager_home_card_side_margin"
             android:layout_marginTop="@dimen/ops_dp_51_0"
+            android:layout_marginEnd="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/manager_export_excel_icon"
             android:text="@string/ops_text_exportar_excel_311f78"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.b77bb8c108"
             android:includeFontPadding="false"
@@ -31,6 +33,17 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
+        <ImageView
+            android:id="@+id/manager_export_excel_icon"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin"
+            android:contentDescription="Excel"
+            android:src="@drawable/excel_icon"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_7538"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_7538" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_7540" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_73_0" android:layout_marginStart="@dimen/ops_manager_home_card_side_margin" android:layout_marginTop="@dimen/ops_dp_20_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_manager_home_card_side_margin" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_7538" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Solicitações">
             <TextView
                 android:id="@+id/ops_5717_7541"

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="@dimen/ops_checklist_model_empty_padding"
+    android:text="@string/ops_checklist_models_empty"
+    android:textAppearance="@style/TextAppearance.FIXA.App.Regular" />

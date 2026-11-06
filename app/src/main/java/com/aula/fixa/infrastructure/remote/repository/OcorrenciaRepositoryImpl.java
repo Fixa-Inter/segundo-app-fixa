@@ -15,18 +15,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import retrofit2.Response;
+import com.aula.fixa.domain.model.FiltroBusca;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public final class OcorrenciaRepositoryImpl implements OcorrenciaRepository {
     private final OcorrenciaApi api;
     public OcorrenciaRepositoryImpl(SessionStorage session){api=ApiClient.ocorrencias(session);}
-    @Override public List<OcorrenciaItem> listar()throws Exception{
-        Response<List<OcorrenciaResponse>> response=api.listar().execute();check(response);
+    @Override public List<OcorrenciaItem> listar()throws Exception{return listar(FiltroBusca.ultimosTresMeses());}
+    @Override public List<OcorrenciaItem> listar(FiltroBusca filtros)throws Exception{
+        Response<List<OcorrenciaResponse>> response=api.listarFiltradas(query(filtros)).execute();check(response);
         return mapList(response.body());
     }
-    @Override public List<OcorrenciaItem> listarMinhas()throws Exception{
-        Response<List<OcorrenciaResponse>> response=api.listarMinhas().execute();check(response);
+    @Override public List<OcorrenciaItem> listarMinhas()throws Exception{return listarMinhas(FiltroBusca.ultimosTresMeses());}
+    @Override public List<OcorrenciaItem> listarMinhas(FiltroBusca filtros)throws Exception{
+        Response<List<OcorrenciaResponse>> response=api.listarMinhasFiltradas(query(filtros)).execute();check(response);
         return mapList(response.body());
     }
+    private Map<String,String> query(FiltroBusca filters){
+        FiltroBusca f=filters==null?FiltroBusca.ultimosTresMeses():filters;Map<String,String> q=new LinkedHashMap<>();
+        put(q,"titulo",f.termo);put(q,"local_unidade",f.local);put(q,"categoria_equipamento",f.categoriaEquipamento);
+        put(q,"categoria_problema",f.categoriaProblema);put(q,"prioridade",f.prioridade);put(q,"nome_usuario",f.autor);
+        put(q,"data_criacao_min",f.dataInicioIso());put(q,"data_criacao_max",f.dataFimIso());
+        q.put("campo_ordenacao","dataCriacao");q.put("direcao_ordenacao","-1");return q;
+    }
+    private void put(Map<String,String> q,String k,String v){if(v!=null&&!v.trim().isEmpty())q.put(k,v);}
     private List<OcorrenciaItem> mapList(List<OcorrenciaResponse> body){
         if(body==null)return Collections.emptyList();
         List<OcorrenciaItem> result=new ArrayList<>();

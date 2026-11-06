@@ -117,45 +117,40 @@ public class VerifyEmailActivity extends RecoveryActivity {
         }
 
         findViewById(R.id.btnConfirmCode).setEnabled(false);
-        new Thread(() -> {
-            try {
-                boolean valid = autenticacao.validateRecoveryCode(email, code);
-                runOnUiThread(() -> {
-                    findViewById(R.id.btnConfirmCode).setEnabled(true);
-                    if (!valid) {
-                        Toast.makeText(this, R.string.recovery_code_invalid, Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    startActivity(ResetPasswordActivity.intent(this, email, code,
-                            getIntent().getBooleanExtra(EXTRA_PROFILE_FLOW, false)));
-                    finish();
-                });
-            } catch (Exception error) {
-                runOnUiThread(() -> {
-                    findViewById(R.id.btnConfirmCode).setEnabled(true);
-                    Toast.makeText(this, AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
-                });
+        autenticacao.validateRecoveryCode(email, code, new AutenticacaoViewModel.Listener<Boolean>() {
+            @Override public void onResultado(Boolean valid) {
+                findViewById(R.id.btnConfirmCode).setEnabled(true);
+                if (!Boolean.TRUE.equals(valid)) {
+                    Toast.makeText(VerifyEmailActivity.this, R.string.recovery_code_invalid, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                startActivity(ResetPasswordActivity.intent(VerifyEmailActivity.this, email, code,
+                        getIntent().getBooleanExtra(EXTRA_PROFILE_FLOW, false)));
+                finish();
             }
-        }).start();
+            @Override public void onErro(Throwable error) {
+                findViewById(R.id.btnConfirmCode).setEnabled(true);
+                Toast.makeText(VerifyEmailActivity.this,
+                        AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void requestAnotherCode(TextView resend) {
         String email = getIntent().getStringExtra(EXTRA_EMAIL);
-        new Thread(() -> {
-            try {
-                autenticacao.requestPasswordRecovery(email);
-                runOnUiThread(() -> {
-                    for (EditText digit : digits) digit.setText("");
-                    digits[0].requestFocus();
-                    resend.setEnabled(true);
-                    Toast.makeText(this, R.string.recovery_resend_done, Toast.LENGTH_SHORT).show();
-                });
-            } catch (Exception error) {
-                runOnUiThread(() -> {
-                    resend.setEnabled(true);
-                    Toast.makeText(this, AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
-                });
+        autenticacao.requestPasswordRecovery(email,
+                new AutenticacaoViewModel.Listener<com.aula.fixa.domain.model.ResultadoRecuperacaoSenha>() {
+            @Override public void onResultado(com.aula.fixa.domain.model.ResultadoRecuperacaoSenha resultado) {
+                for (EditText digit : digits) digit.setText("");
+                digits[0].requestFocus();
+                resend.setEnabled(true);
+                Toast.makeText(VerifyEmailActivity.this, R.string.recovery_resend_done, Toast.LENGTH_SHORT).show();
             }
-        }).start();
+            @Override public void onErro(Throwable error) {
+                resend.setEnabled(true);
+                Toast.makeText(VerifyEmailActivity.this,
+                        AutenticacaoViewModel.messageFrom(error), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

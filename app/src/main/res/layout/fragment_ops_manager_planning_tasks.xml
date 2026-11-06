@@ -29,7 +29,7 @@
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_88_0"
-            android:tag="text:Crie todas as tarefas da OS"
+            android:tag="text:Planeje a OS"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_bold" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8520" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:layout_marginStart="@dimen/app_step_title_margin_start" android:layout_marginTop="@dimen/ops_dp_11_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_step_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8499" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Verificar o funcionamento">

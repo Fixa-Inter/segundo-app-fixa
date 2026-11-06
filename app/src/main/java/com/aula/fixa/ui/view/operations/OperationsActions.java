@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.ViewGroup;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import androidx.core.view.ViewCompat;
 
 import com.aula.fixa.R;
@@ -18,6 +16,7 @@ import com.aula.fixa.adapter.auth.SessaoViewModel;
 import com.aula.fixa.adapter.auth.SessaoViewModelFactory;
 import com.aula.fixa.adapter.operations.OperationsViewModel;
 import com.aula.fixa.ui.config.operations.ScreenCatalog;
+import com.aula.fixa.ui.config.AboutDocumentViewer;
 import com.aula.fixa.ui.view.auth.LoginActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -89,6 +88,12 @@ public final class OperationsActions {
             return () -> open("chat_drawer");
         }
         if (kind.equals("card")) {
+            if (name.equals("about")) {
+                String document = text.toLowerCase(Locale.ROOT).contains("guia") ? "guia-de-uso.md"
+                        : text.toLowerCase(Locale.ROOT).contains("privacidade") ? "politica-de-privacidade.md"
+                        : text.toLowerCase(Locale.ROOT).contains("termos") ? "termos-de-uso.md" : null;
+                if (document != null) return () -> AboutDocumentViewer.show(activity, text, document);
+            }
             if (name.equals("export") && java.util.Arrays.asList(
                     "Solicitações", "Ordens de serviço", "Ocorrências", "Checklists").contains(text)) {
                 return () -> selectExportOption(view, text);
@@ -569,10 +574,12 @@ public final class OperationsActions {
                 if (tag instanceof String && ((String) tag).startsWith("card:")) {
                     boolean active = ((String) tag).equals("card:" + option);
                     sibling.setSelected(active && selected);
-                    sibling.setAlpha(!selected || active ? 1f : 0.82f);
-                    ViewCompat.setBackgroundTintList(sibling, active && selected
-                            ? ColorStateList.valueOf(Color.rgb(237, 242, 255)) : null);
-                    sibling.setElevation(active && selected ? dp(5) : dp(2));
+                    sibling.setAlpha(1f);
+                    ViewCompat.setBackgroundTintList(sibling, null);
+                    sibling.setElevation(dp(2));
+                    android.widget.ImageView selector = sibling.findViewWithTag("image:");
+                    if (selector != null) selector.setImageResource(active && selected
+                            ? R.drawable.figma_7d0bc : R.drawable.figma_3f1ed);
                 }
             }
         } else {

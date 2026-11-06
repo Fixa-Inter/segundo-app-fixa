@@ -9,12 +9,18 @@ public class EtapaLinhaTempo {
     public final String time;
     public final StatusProblema status;
     public final boolean atual;
+    public final boolean mostrarTituloPendente;
 
     public EtapaLinhaTempo(String title, String date, String time, StatusProblema status, boolean atual) {
+        this(title, date, time, status, atual, false);
+    }
+
+    public EtapaLinhaTempo(String title, String date, String time, StatusProblema status, boolean atual, boolean mostrarTituloPendente) {
         this.title = title;
         this.date = date;
         this.time = time;
         this.status = status;
         this.atual = atual;
+        this.mostrarTituloPendente = mostrarTituloPendente;
     }
 }

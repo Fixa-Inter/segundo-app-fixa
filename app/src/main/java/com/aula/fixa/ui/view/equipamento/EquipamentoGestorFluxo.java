@@ -63,6 +63,11 @@ public final class EquipamentoGestorFluxo {
         View searchBox = content.findViewById(R.id.ops_5717_6589);
         EditText search = content.findViewById(R.id.ops_5717_6590);
         ViewGroup container = (ViewGroup) title.getParent();
+        int horizontalInset = dp(31);
+        if (searchBox.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams searchParams = (ViewGroup.MarginLayoutParams) searchBox.getLayoutParams();
+            horizontalInset = Math.max(searchParams.getMarginStart(), searchParams.getMarginEnd());
+        }
         for (int i = container.getChildCount() - 1; i >= 0; i--) {
             View child = container.getChildAt(i);
             if (child.getTag() instanceof String && ((String) child.getTag()).startsWith("card:")) container.removeViewAt(i);
@@ -76,8 +81,8 @@ public final class EquipamentoGestorFluxo {
         listParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         listParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         listParams.topToBottom = searchBox.getId();
-        listParams.setMarginStart(dp(31));
-        listParams.setMarginEnd(dp(31));
+        listParams.setMarginStart(horizontalInset);
+        listParams.setMarginEnd(horizontalInset);
         listParams.topMargin = dp(18);
         container.addView(list, listParams);
         list.setLayoutManager(new LinearLayoutManager(host.requireContext()));
@@ -91,8 +96,8 @@ public final class EquipamentoGestorFluxo {
         emptyParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         emptyParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         emptyParams.topToBottom = searchBox.getId();
-        emptyParams.setMarginStart(dp(26));
-        emptyParams.setMarginEnd(dp(26));
+        emptyParams.setMarginStart(horizontalInset);
+        emptyParams.setMarginEnd(horizontalInset);
         emptyParams.topMargin = dp(18);
         container.addView(empty, emptyParams);
 
@@ -107,19 +112,31 @@ public final class EquipamentoGestorFluxo {
         floatingButton.setClickable(true);
         floatingButton.setFocusable(true);
         floatingButton.setContentDescription("Cadastrar equipamento");
-        floatingButton.setElevation(dp(8));
+        floatingButton.setElevation(host.requireContext().getResources().getDimension(R.dimen.app_fab_elevation));
         floatingButton.addView(fab, new android.widget.FrameLayout.LayoutParams(-1, -1));
-        if (plus != null) floatingButton.addView(plus, new android.widget.FrameLayout.LayoutParams(dp(29), dp(29), android.view.Gravity.CENTER));
+        if (plus != null) {
+            if (plus instanceof android.widget.ImageView) {
+                android.widget.ImageView icon = (android.widget.ImageView) plus;
+                icon.setImageResource(R.drawable.ic_plus_24);
+                icon.setColorFilter(androidx.core.content.ContextCompat.getColor(host.requireContext(), R.color.app_on_primary));
+                icon.setScaleType(android.widget.ImageView.ScaleType.CENTER_INSIDE);
+            }
+            int iconSize = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_icon_size);
+            floatingButton.addView(plus, new android.widget.FrameLayout.LayoutParams(iconSize, iconSize, android.view.Gravity.CENTER));
+        }
         View.OnClickListener create = v -> activity.open("manager_create_device");
         floatingButton.setOnClickListener(create);
         fab.setOnClickListener(create);
         if (plus != null) plus.setOnClickListener(create);
         ViewGroup screenHost = (ViewGroup) content.getParent();
-        android.widget.FrameLayout.LayoutParams fabParams = new android.widget.FrameLayout.LayoutParams(dp(70), dp(70), android.view.Gravity.BOTTOM | android.view.Gravity.END);
-        fabParams.setMargins(0, 0, dp(24), dp(24));
+        int fabSize = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_size);
+        int fabEnd = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_margin_end);
+        int fabBottom = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_margin_bottom);
+        android.widget.FrameLayout.LayoutParams fabParams = new android.widget.FrameLayout.LayoutParams(fabSize, fabSize, android.view.Gravity.BOTTOM | android.view.Gravity.END);
+        fabParams.setMargins(0, 0, fabEnd, fabBottom);
         screenHost.addView(floatingButton, fabParams);
         floatingButton.setVisibility(View.INVISIBLE);
-        if (content instanceof ViewGroup) ((ViewGroup) content).setPadding(content.getPaddingLeft(), content.getPaddingTop(), content.getPaddingRight(), dp(96));
+        if (content instanceof ViewGroup) ((ViewGroup) content).setPadding(content.getPaddingLeft(), content.getPaddingTop(), content.getPaddingRight(), fabSize + fabBottom + dp(24));
         if (search != null) search.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { filter(s == null ? "" : s.toString()); }
@@ -280,9 +297,15 @@ public final class EquipamentoGestorFluxo {
         popup.setAnchorView(anchor);
         popup.setWidth(anchor.getWidth());
         popup.setModal(true);
+        popup.setVerticalOffset(dp(dialog, 3));
+        popup.setBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(
+                dialog.requireContext(), R.drawable.bg_app_popup_menu));
         popup.setAdapter(new ArrayAdapter<>(dialog.requireContext(), R.layout.item_app_dropdown, names));
         popup.setOnItemClickListener((parent, row, position, id) -> { field.setText(names[position]); popup.dismiss(); });
         popup.show();
+    }
+    private static int dp(OperationsDialogFragment dialog, int value) {
+        return Math.round(value * dialog.requireContext().getResources().getDisplayMetrics().density);
     }
     private static long optionId(List<OpcaoCadastro> values, String name) {
         if (values != null) for (OpcaoCadastro value : values) if (value.getNome().equalsIgnoreCase(name.trim())) return value.getId();

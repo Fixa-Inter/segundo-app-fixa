@@ -2,10 +2,13 @@ package com.aula.fixa.domain.repository.ocorrencia;
 
 import com.aula.fixa.domain.model.ocorrencia.OcorrenciaItem;
 import java.util.List;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 public interface OcorrenciaRepository {
     List<OcorrenciaItem> listar() throws Exception;
+    List<OcorrenciaItem> listar(FiltroBusca filtros) throws Exception;
     List<OcorrenciaItem> listarMinhas() throws Exception;
+    List<OcorrenciaItem> listarMinhas(FiltroBusca filtros) throws Exception;
     void cadastrar(Long localId, Long equipmentId, com.aula.fixa.domain.enums.CategoriaProblema category,
             com.aula.fixa.domain.enums.Prioridade priority, String title, String description, String locationDescription,
             List<String> photoUrls) throws Exception;

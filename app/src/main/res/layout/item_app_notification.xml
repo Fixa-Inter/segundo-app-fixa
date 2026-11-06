@@ -39,16 +39,16 @@
         android:id="@+id/tvNotificationText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:textAppearance="@style/TextAppearance.FIXA.App.Notification.Text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvNotificationTime"
         app:layout_constraintStart_toEndOf="@id/ivNotificationType"
-        app:layout_goneMarginStart="16dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="16dp"
         tools:text="Sua solicitação foi aprovada!" />
 
     <TextView

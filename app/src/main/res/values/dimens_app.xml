@@ -38,18 +38,24 @@
     <dimen name="app_fab_icon_size">28dp</dimen>
     <dimen name="app_fab_margin_end">26dp</dimen>
     <dimen name="app_fab_margin_bottom">32dp</dimen>
+    <dimen name="app_fab_elevation">8dp</dimen>
+    <dimen name="app_completion_footer_height">80dp</dimen>
+    <dimen name="app_completion_footer_scroll_padding">96dp</dimen>
+    <dimen name="app_completion_action_button_height">48dp</dimen>
+    <dimen name="app_completion_action_side_margin">24dp</dimen>
+    <dimen name="app_completion_action_gap">8dp</dimen>
 
     <!-- Home -->
-    <dimen name="app_home_avatar_size">30dp</dimen>
+    <dimen name="app_home_avatar_size">28dp</dimen>
     <dimen name="app_home_avatar_margin_top">64dp</dimen>
     <dimen name="app_home_header_icon_margin_top">29dp</dimen>
     <dimen name="app_home_header_icon_margin_end">29dp</dimen>
-    <dimen name="app_home_header_icon_spacing">10dp</dimen>
-    <dimen name="app_home_header_icon_size">20dp</dimen>
+    <dimen name="app_home_header_icon_spacing">12dp</dimen>
+    <dimen name="app_home_header_icon_size">18dp</dimen>
     <dimen name="app_home_greeting_margin_top">51dp</dimen>
     <dimen name="app_home_header_margin_top">24dp</dimen>
     <dimen name="app_home_greeting_margin_start">6dp</dimen>
-    <dimen name="app_home_greeting_text_size">24sp</dimen>
+    <dimen name="app_home_greeting_text_size">22sp</dimen>
     <dimen name="app_home_card_margin_top">37dp</dimen>
     <dimen name="app_home_card_side_margin">24dp</dimen>
     <dimen name="app_home_card_height">232dp</dimen>
@@ -98,7 +104,7 @@
     <dimen name="app_request_card_owner_text_size">12sp</dimen>
     <dimen name="app_request_card_status_margin_top">8dp</dimen>
     <dimen name="app_request_card_status_text_size">13sp</dimen>
-    <dimen name="app_request_card_menu_size">12dp</dimen>
+    <dimen name="app_request_card_menu_size">18dp</dimen>
     <dimen name="app_request_card_menu_margin">11dp</dimen>
 
     <!-- Minhas solicitações -->
@@ -118,6 +124,12 @@
     <dimen name="app_requests_search_radius">52dp</dimen>
     <dimen name="app_requests_search_icon_size">16dp</dimen>
     <dimen name="app_requests_search_text_margin_start">62dp</dimen>
+    <dimen name="ops_manager_requests_search_text_margin_start">78dp</dimen>
+    <dimen name="app_member_responsibility_card_height">108dp</dimen>
+    <dimen name="app_member_priority_badge_width">26dp</dimen>
+    <dimen name="app_member_priority_badge_height">18dp</dimen>
+    <dimen name="app_confirm_card_value_text_size">14sp</dimen>
+    <dimen name="app_task_description_text_size">12sp</dimen>
     <dimen name="app_requests_search_text_size">12sp</dimen>
     <dimen name="app_requests_filter_size">21dp</dimen>
     <dimen name="app_requests_filter_margin_end">27dp</dimen>
@@ -255,6 +267,8 @@
     <dimen name="app_chat_drawer_item_width">180dp</dimen>
     <dimen name="app_chat_drawer_item_radius">13dp</dimen>
     <dimen name="app_chat_drawer_item_padding_start">11dp</dimen>
+    <dimen name="app_chat_draft_icon_size">20dp</dimen>
+    <dimen name="app_chat_draft_icon_margin_end">8dp</dimen>
     <dimen name="app_chat_drawer_item_text_size">13sp</dimen>
     <dimen name="app_chat_drawer_item_spacing">3dp</dimen>
 
@@ -518,6 +532,9 @@
     <dimen name="app_dialog_button_width">120dp</dimen>
     <dimen name="app_dialog_button_height">44dp</dimen>
     <dimen name="app_dialog_button_radius">16dp</dimen>
+    <dimen name="app_dialog_action_side_margin">24dp</dimen>
+    <dimen name="app_dialog_action_gap">12dp</dimen>
+    <dimen name="app_dialog_action_margin_top">20dp</dimen>
     <dimen name="app_dialog_button_spacing">21dp</dimen>
     <dimen name="app_dialog_button_text_size">15sp</dimen>
     <dimen name="app_dialog_edit_title_margin_top">35dp</dimen>
@@ -531,8 +548,8 @@
     <dimen name="app_dialog_edit_field_padding_start">13dp</dimen>
     <dimen name="app_dialog_edit_field_text_size">14sp</dimen>
     <dimen name="app_dialog_edit_group_spacing">8dp</dimen>
-    <dimen name="app_dialog_edit_photo_width">87dp</dimen>
-    <dimen name="app_dialog_edit_photo_height">79dp</dimen>
+    <dimen name="app_dialog_edit_photo_width">64dp</dimen>
+    <dimen name="app_dialog_edit_photo_thumb_size">84dp</dimen>
     <dimen name="app_dialog_edit_photo_spacing">7dp</dimen>
     <dimen name="app_dialog_edit_photo_badge_size">10.5dp</dimen>
     <dimen name="app_dialog_edit_photo_badge_offset">2dp</dimen>
@@ -543,11 +560,57 @@
     <dimen name="app_dialog_edit_button_radius">17dp</dimen>
     <dimen name="app_dialog_edit_actions_margin_top">45dp</dimen>
     <dimen name="app_dialog_edit_actions_margin_bottom">50dp</dimen>
-    <dimen name="app_popup_menu_width">157dp</dimen>
+    <dimen name="app_popup_menu_width">140dp</dimen>
     <dimen name="app_popup_menu_radius">26dp</dimen>
-    <dimen name="app_popup_menu_item_height">33dp</dimen>
-    <dimen name="app_popup_menu_padding_vertical">6dp</dimen>
-    <dimen name="app_popup_menu_text_size">14sp</dimen>
+    <dimen name="app_popup_menu_item_height">48dp</dimen>
+    <dimen name="app_popup_menu_padding_vertical">4dp</dimen>
+    <dimen name="app_popup_menu_text_size">16sp</dimen>
+    <dimen name="app_popup_menu_elevation">6dp</dimen>
+    <dimen name="app_chat_attachment_size">42dp</dimen>
+    <dimen name="app_chat_attachment_spacing">7dp</dimen>
+    <dimen name="app_chat_attachment_remove_size">18dp</dimen>
+    <dimen name="app_chat_attachment_remove_icon_padding">2dp</dimen>
+    <dimen name="app_chat_attachment_remove_icon_size">10dp</dimen>
+    <dimen name="app_chat_attachment_radius">10dp</dimen>
+    <dimen name="ops_checklist_card_height">170dp</dimen>
+    <dimen name="ops_checklist_card_spacing">14dp</dimen>
+    <dimen name="ops_checklist_empty_min_height">220dp</dimen>
+    <dimen name="ops_checklist_empty_side_padding">24dp</dimen>
+    <dimen name="ops_checklist_list_bottom_padding">100dp</dimen>
+    <dimen name="ops_checklist_field_spacing">10dp</dimen>
+    <dimen name="ops_checklist_add_field_spacing">12dp</dimen>
+    <dimen name="ops_checklist_option_row_height">56dp</dimen>
+    <dimen name="ops_checklist_option_row_spacing">8dp</dimen>
+    <dimen name="ops_checklist_option_horizontal_padding">8dp</dimen>
+    <dimen name="ops_checklist_option_drag_width">36dp</dimen>
+    <dimen name="ops_checklist_option_remove_width">34dp</dimen>
+    <dimen name="ops_checklist_option_input_padding">8dp</dimen>
+    <dimen name="ops_checklist_option_section_title_height">24dp</dimen>
+    <dimen name="ops_checklist_option_list_spacing">12dp</dimen>
+    <dimen name="ops_checklist_option_list_height">144dp</dimen>
+    <dimen name="ops_checklist_option_add_height">44dp</dimen>
+    <dimen name="ops_checklist_option_add_spacing">8dp</dimen>
+    <dimen name="ops_checklist_model_group_spacing">12dp</dimen>
+    <dimen name="ops_checklist_model_group_height">58dp</dimen>
+    <dimen name="ops_checklist_model_group_padding_horizontal">14dp</dimen>
+    <dimen name="ops_checklist_model_group_padding_vertical">8dp</dimen>
+    <dimen name="ops_checklist_model_expand_icon_size">22dp</dimen>
+    <dimen name="ops_checklist_model_equipment_indent">28dp</dimen>
+    <dimen name="ops_checklist_model_equipment_height">48dp</dimen>
+    <dimen name="ops_checklist_model_empty_padding">24dp</dimen>
+    <dimen name="ops_checklist_model_list_padding_bottom">24dp</dimen>
+    <dimen name="ops_checklist_model_list_margin_top">18dp</dimen>
+    <dimen name="ops_checklist_model_list_margin_bottom">16dp</dimen>
+    <dimen name="ops_checklist_required_switch_width">42dp</dimen>
+    <dimen name="ops_checklist_required_switch_height">28dp</dimen>
+    <dimen name="ops_checklist_dropdown_offset">4dp</dimen>
+    <dimen name="ops_checklist_dialog_button_height">48dp</dimen>
+    <dimen name="ops_checklist_dialog_button_gap">12dp</dimen>
+    <dimen name="ops_checklist_dialog_footer_margin">35dp</dimen>
+    <dimen name="ops_checklist_dialog_footer_spacing">32dp</dimen>
+    <dimen name="ops_checklist_dialog_footer_compact_spacing">16dp</dimen>
+    <dimen name="ops_checklist_dialog_footer_default_spacing">36dp</dimen>
+    <dimen name="ops_checklist_required_value_gap">8dp</dimen>
 
     <!-- Recuperação de senha (Figma 'Esqueceu a senha?' / 'Sucesso') -->
     <dimen name="recovery_side_margin">27dp</dimen>

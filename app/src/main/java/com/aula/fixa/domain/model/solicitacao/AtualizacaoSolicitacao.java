@@ -12,9 +12,16 @@ public final class AtualizacaoSolicitacao {
     public final String descricaoLocal;
     public final Long categoriaId;
     public final List<Long> fotosExcluir;
+    public final List<String> fotosAdicionar;
 
     public AtualizacaoSolicitacao(long id, String titulo, String descricao, Long localId,
                                   String descricaoLocal, Long categoriaId, List<Long> fotosExcluir) {
+        this(id, titulo, descricao, localId, descricaoLocal, categoriaId, fotosExcluir, Collections.emptyList());
+    }
+
+    public AtualizacaoSolicitacao(long id, String titulo, String descricao, Long localId,
+                                  String descricaoLocal, Long categoriaId, List<Long> fotosExcluir,
+                                  List<String> fotosAdicionar) {
         if (id <= 0) throw new IllegalArgumentException("Solicitação inválida.");
         this.id = id;
         this.titulo = titulo == null ? "" : titulo.trim();
@@ -24,5 +31,7 @@ public final class AtualizacaoSolicitacao {
         this.categoriaId = categoriaId;
         this.fotosExcluir = Collections.unmodifiableList(fotosExcluir == null
                 ? new ArrayList<>() : new ArrayList<>(fotosExcluir));
+        this.fotosAdicionar = Collections.unmodifiableList(fotosAdicionar == null
+                ? new ArrayList<>() : new ArrayList<>(fotosAdicionar));
     }
 }

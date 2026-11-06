@@ -11,6 +11,11 @@ import com.cloudinary.android.callback.UploadCallback;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import java.io.File;
+import java.io.IOException;
 
 public final class CloudinaryUploadService {
     private static boolean initialized;
@@ -36,6 +41,37 @@ public final class CloudinaryUploadService {
 
     public static String salvar(Context context, Uri arquivo, UploadCallback callback) {
         return salvar(context, arquivo, BuildConfig.CLOUDINARY_SOLICITACOES_FOLDER, callback);
+    }
+
+    /** Upload síncrono apenas para o worker de sincronização offline, sempre fora da UI thread. */
+    public static String salvarBloqueante(Context context, String caminhoLocal) throws Exception {
+        if (caminhoLocal == null || caminhoLocal.trim().isEmpty()) throw new IOException("Arquivo local ausente.");
+        File file = new File(caminhoLocal);
+        if (!file.isFile()) throw new IOException("A foto local da solicitação não foi encontrada.");
+        CountDownLatch finished = new CountDownLatch(1);
+        AtomicReference<String> url = new AtomicReference<>();
+        AtomicReference<Throwable> failure = new AtomicReference<>();
+        salvar(context, Uri.fromFile(file), new UploadCallback() {
+            @Override public void onStart(String requestId) { }
+            @Override public void onProgress(String requestId, long bytes, long totalBytes) { }
+            @Override public void onSuccess(String requestId, Map resultData) {
+                Object value = resultData == null ? null : resultData.get("secure_url");
+                if (value != null) url.set(String.valueOf(value));
+                else failure.set(new IOException("O Cloudinary não retornou a URL da foto."));
+                finished.countDown();
+            }
+            @Override public void onError(String requestId, ErrorInfo error) {
+                failure.set(new IOException(error == null ? "Falha ao enviar foto." : error.getDescription()));
+                finished.countDown();
+            }
+            @Override public void onReschedule(String requestId, ErrorInfo error) {
+                failure.set(new IOException(error == null ? "O envio da foto será repetido." : error.getDescription()));
+                finished.countDown();
+            }
+        });
+        if (!finished.await(2, TimeUnit.MINUTES)) throw new IOException("Tempo esgotado ao enviar foto pendente.");
+        if (failure.get() != null) throw new IOException("Não foi possível sincronizar uma foto pendente.", failure.get());
+        return url.get();
     }
 
     public static String salvarPerfil(Context context, Uri arquivo, ResultadoCallback callback) {

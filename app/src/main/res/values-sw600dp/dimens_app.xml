@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="ops_checklist_card_height">210dp</dimen>
     <dimen name="app_empty_state_image_size">260dp</dimen>
     <dimen name="app_empty_state_gap">14dp</dimen>
     <dimen name="app_empty_state_text_min_height">56dp</dimen>
@@ -27,11 +28,11 @@
     <dimen name="app_bottom_nav_indicator_width">70dp</dimen>
 
     <dimen name="app_home_card_side_margin">64dp</dimen>
-    <dimen name="app_home_avatar_size">80dp</dimen>
+    <dimen name="app_home_avatar_size">44dp</dimen>
     <dimen name="app_home_greeting_margin_top">82dp</dimen>
-    <dimen name="app_home_greeting_text_size">36sp</dimen>
-    <dimen name="app_home_header_icon_spacing">18dp</dimen>
-    <dimen name="app_home_header_icon_size">32dp</dimen>
+    <dimen name="app_home_greeting_text_size">28sp</dimen>
+    <dimen name="app_home_header_icon_spacing">14dp</dimen>
+    <dimen name="app_home_header_icon_size">21dp</dimen>
     <dimen name="app_home_header_icon_margin_top">36dp</dimen>
     <dimen name="app_home_header_margin_top">36dp</dimen>
     <dimen name="app_home_avatar_margin_top">96dp</dimen>
@@ -49,6 +50,11 @@
     <dimen name="app_requests_title_margin_start">64dp</dimen>
     <dimen name="app_requests_search_text_size">15sp</dimen>
     <dimen name="app_requests_search_height">56dp</dimen>
+    <dimen name="app_requests_search_text_margin_start">70dp</dimen>
+    <dimen name="ops_manager_requests_search_text_margin_start">78dp</dimen>
+    <dimen name="app_member_responsibility_card_height">149.51dp</dimen>
+    <dimen name="app_member_priority_badge_width">28dp</dimen>
+    <dimen name="app_member_priority_badge_height">19dp</dimen>
     <dimen name="app_requests_empty_image_size">420dp</dimen>
     <dimen name="app_fab_margin_end">48dp</dimen>
 
@@ -173,7 +179,7 @@
     <dimen name="app_request_card_subtitle_text_size">16sp</dimen>
     <dimen name="app_request_card_status_margin_top">10dp</dimen>
     <dimen name="app_request_card_status_text_size">14sp</dimen>
-    <dimen name="app_request_card_menu_size">20dp</dimen>
+    <dimen name="app_request_card_menu_size">24dp</dimen>
     <dimen name="app_request_card_menu_margin">14dp</dimen>
     <dimen name="app_request_card_spacing">18dp</dimen>
     <dimen name="app_request_card_title_margin_start">38dp</dimen>

@@ -13,6 +13,10 @@ public final class GerenciarFotos {
         repository.enviarSolicitacao(uri, callback);
     }
 
+    public void guardarSolicitacaoLocalmente(String uri, FotoRepository.Callback callback) {
+        repository.guardarSolicitacaoLocalmente(uri, callback);
+    }
+
     public void enviarPerfil(String uri, FotoRepository.Callback callback) {
         repository.enviarPerfil(uri, callback);
     }

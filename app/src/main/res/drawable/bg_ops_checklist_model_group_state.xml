@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/ops_color_ffeaedf1" />
+            <corners android:radius="@dimen/ops_dp_20_0" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/bg_ops_inspection_field" />
+</selector>

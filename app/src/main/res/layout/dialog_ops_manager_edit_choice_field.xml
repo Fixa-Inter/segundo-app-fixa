@@ -46,7 +46,7 @@
             android:layout_marginEnd="@dimen/ops_dp_35_0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ops_5717_8239"
-            android:background="@drawable/bg_ops_70aaab1e67"
+            android:background="@drawable/bg_ops_category_input"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.c9e7c40f6d"
@@ -81,8 +81,8 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8240" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_7_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8243" android:background="@drawable/bg_ops_70aaab1e67">
-            <androidx.appcompat.widget.AppCompatEditText
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8240" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_7_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8243" android:background="@drawable/bg_ops_category_input">
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/ops_5717_8240_input"
                 android:background="@null"
                 android:clipChildren="false"
@@ -99,7 +99,7 @@
                 android:paddingBottom="@dimen/ops_dp_0"
                 android:text="@string/ops_text_varias_opcoes_03bffb"
                 android:contentDescription="@string/ops_text_tipo_3868d2"
-                android:inputType="textCapSentences"
+                android:inputType="none" android:singleLine="true" android:popupBackground="@drawable/bg_app_popup_menu" android:dropDownVerticalOffset="@dimen/ops_checklist_dropdown_offset"
                 android:importantForAutofill="no"
                 android:tag="field:Tipo"
                 android:layout_width="0dp"
@@ -136,7 +136,7 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8244" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_7_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_70aaab1e67" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8244" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_7_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_category_input" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8253"
                 android:layout_width="@dimen/ops_dp_76"
@@ -177,7 +177,7 @@
                 android:importantForAccessibility="no"
                 android:tag="image:" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8254" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_49_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_70aaab1e67" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8254" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_49_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_category_input" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8263"
                 android:layout_width="@dimen/ops_dp_86_1"
@@ -218,7 +218,7 @@
                 android:importantForAccessibility="no"
                 android:tag="image:" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8264" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_91_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_70aaab1e67" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8264" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_91_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_category_input" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8269"
                 android:layout_width="@dimen/ops_dp_127_1"
@@ -259,7 +259,7 @@
                 android:importantForAccessibility="no"
                 android:tag="image:" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8270" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_133_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_70aaab1e67" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8270" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_133_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_category_input" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8277"
                 android:layout_width="@dimen/ops_dp_61"
@@ -300,7 +300,7 @@
                 android:importantForAccessibility="no"
                 android:tag="image:" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8271" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_175_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_70aaab1e67" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8271" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_35_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_175_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8278" android:background="@drawable/bg_ops_category_input" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8272"
                 android:layout_width="0dp"
@@ -340,31 +340,34 @@
             android:maxLines="1" />
         <TextView
             android:id="@+id/ops_5717_8280"
-            android:layout_width="@dimen/ops_dp_29"
-            android:layout_height="@dimen/ops_dp_21"
-            android:layout_marginStart="@dimen/ops_dp_262"
-            android:layout_marginTop="@dimen/ops_dp_499_0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/ops_text_sim_931345"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.a4a8627d1d"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_21"
             android:tag="text:Sim"
+            app:layout_constraintEnd_toStartOf="@id/ops_5717_8281"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_8279"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_8279"
+            android:layout_marginEnd="@dimen/ops_checklist_required_value_gap"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <ImageView
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/ops_5717_8281"
-            android:layout_width="@dimen/ops_dp_30_01"
-            android:layout_height="@dimen/ops_dp_16_41"
-            android:layout_marginTop="@dimen/ops_dp_500_98"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/figma_8f90d"
-            android:scaleType="fitXY"
-            android:importantForAccessibility="no"
-            android:tag="image:"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
+            android:tag="switch:required"
+            android:layout_width="@dimen/ops_checklist_required_switch_width"
+            android:layout_height="@dimen/ops_checklist_required_switch_height"
+            android:contentDescription="@string/ops_checklist_required_content_description"
+            android:showText="false"
+            app:thumbTint="@color/ops_checklist_switch_thumb"
+            app:trackTint="@color/ops_checklist_switch_track"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_8279"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_8279"
+            android:layout_marginEnd="@dimen/ops_dp_35_0" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8234" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_36_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8279" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8235"
@@ -404,5 +407,15 @@
             android:textAllCaps="false"
             android:tag="action:Salvar"
             app:backgroundTint="@null" />
+        <include
+            android:id="@+id/checklistFieldOptionsSection"
+            layout="@layout/view_ops_checklist_field_options"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_35_0"
+            android:layout_marginEnd="@dimen/ops_dp_35_0"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

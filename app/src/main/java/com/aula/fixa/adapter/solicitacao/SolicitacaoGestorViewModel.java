@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 /** Remote actions available to managers for pending requests. */
 public final class SolicitacaoGestorViewModel extends ViewModel {
@@ -27,11 +28,19 @@ public final class SolicitacaoGestorViewModel extends ViewModel {
     }
 
     public void load(Callback<List<SolicitacaoGestor>> callback) {
-        executor.execute(() -> run(callback, listar::executar));
+        load(FiltroBusca.ultimosTresMeses(), callback);
+    }
+
+    public void load(FiltroBusca filtros, Callback<List<SolicitacaoGestor>> callback) {
+        executor.execute(() -> run(callback, () -> listar.executar(filtros)));
     }
 
     public void loadApproved(Callback<List<SolicitacaoGestor>> callback) {
-        executor.execute(() -> run(callback, listar::executarAprovadas));
+        loadApproved(FiltroBusca.ultimosTresMeses(), callback);
+    }
+
+    public void loadApproved(FiltroBusca filtros, Callback<List<SolicitacaoGestor>> callback) {
+        executor.execute(() -> run(callback, () -> listar.executarAprovadas(filtros)));
     }
 
     public void details(long id, Callback<SolicitacaoGestor> callback) {

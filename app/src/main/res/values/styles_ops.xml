@@ -80,6 +80,11 @@
         <item name="android:textColor">@color/ops_color_ff130943</item>
         <item name="android:letterSpacing">0.0</item>
     </style>
+    <style name="TextAppearance.FIXA.Operations.TaskDescription" parent="TextAppearance.FIXA.App.Light">
+        <item name="android:textSize">@dimen/app_task_description_text_size</item>
+        <item name="android:textColor">@color/ops_color_ff130943</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
     <style name="TextAppearance.FIXA.Operations.6851057a58" parent="TextAppearance.FIXA.App.Bold">
         <item name="android:textSize">@dimen/ops_sp_42_0</item>
         <item name="android:textColor">@color/ops_color_ff153d7d</item>

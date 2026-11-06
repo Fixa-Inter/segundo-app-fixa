@@ -90,23 +90,49 @@
                 <!-- Dados da solicitação empilhados para facilitar a conferência. -->
                 <TextView
                     android:id="@+id/tvSummaryDevice"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/app_confirm_card_meta_margin_top"
-                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
+                    android:text="@string/app_confirm_device_label"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Section"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvSummaryDescription"
-                    tools:text="Aparelho: Projetor" />
+                    tools:text="Categoria do Equipamento" />
+
+                <TextView
+                    android:id="@+id/tvSummaryDeviceValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_meta_spacing_vertical"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Value"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryDevice"
+                    tools:text="Projetor" />
 
                 <TextView
                     android:id="@+id/tvSummaryLocation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_confirm_card_section_margin_top"
+                    android:text="@string/app_confirm_location_label"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Section"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryDeviceValue"
+                    tools:text="Local da Unidade" />
+
+                <TextView
+                    android:id="@+id/tvSummaryLocationValue"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/app_confirm_meta_spacing_vertical"
-                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
+                    android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Value"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvSummaryDevice"
-                    tools:text="Local: Sala T02" />
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryLocation"
+                    tools:text="Sala T02" />
 
                 <TextView
                     android:id="@+id/tvSummaryDescriptionLabel"
@@ -116,7 +142,7 @@
                     android:textAppearance="@style/TextAppearance.FIXA.App.Confirm.Meta"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvSummaryLocation"
+                    app:layout_constraintTop_toBottomOf="@id/tvSummaryLocationValue"
                     tools:text="Descrição:" />
 
                 <TextView

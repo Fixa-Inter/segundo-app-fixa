@@ -13,6 +13,7 @@ import com.aula.fixa.domain.model.solicitacao.AtualizacaoSolicitacao;
 import com.aula.fixa.domain.model.solicitacao.NovaSolicitacao;
 import com.aula.fixa.domain.model.solicitacao.Problema;
 import java.util.List;
+import com.aula.fixa.domain.model.FiltroBusca;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,10 +58,14 @@ public final class SolicitacaoViewModel extends ViewModel {
     }
 
     public void listar(@NonNull Listener listener) {
+        listar(FiltroBusca.ultimosTresMeses(), listener);
+    }
+
+    public void listar(@NonNull FiltroBusca filtros, @NonNull Listener listener) {
         listener.aoCarregar(true);
         executor.execute(() -> {
             try {
-                List<Problema> problemas = listar.executar();
+                List<Problema> problemas = listar.executar(filtros);
                 main.post(() -> { listener.aoCarregar(false); listener.aoListar(problemas); });
             } catch (Throwable error) {
                 main.post(() -> { listener.aoCarregar(false); listener.aoFalhar(error); });

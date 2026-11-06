@@ -24,6 +24,7 @@ import com.aula.fixa.infrastructure.remote.api.ApiClient;
 import com.aula.fixa.infrastructure.remote.api.NotificacaoApi;
 import com.aula.fixa.infrastructure.remote.dto.NotificacaoResponse;
 import com.aula.fixa.ui.view.operations.OperationsActivity;
+import com.aula.fixa.ui.config.AppLoading;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -76,9 +77,11 @@ public class NotificationsFragment extends Fragment {
     }
 
     private void carregar() {
+        android.app.Dialog loading = AppLoading.show(requireContext());
         api.listar().enqueue(new Callback<>() {
             @Override public void onResponse(@NonNull Call<List<NotificacaoResponse>> call,
                                              @NonNull Response<List<NotificacaoResponse>> response) {
+                AppLoading.hide(loading);
                 if (!isAdded()) return;
                 if (!response.isSuccessful()) {
                     String body = "";
@@ -98,12 +101,14 @@ public class NotificationsFragment extends Fragment {
             }
             @Override public void onFailure(@NonNull Call<List<NotificacaoResponse>> call, @NonNull Throwable error) {
                 Log.e(TAG, "Erro de rede ou conversão no GET /api/v1/notificacao", error);
+                AppLoading.hide(loading);
                 if (isAdded()) Toast.makeText(requireContext(), "Não foi possível conectar ao serviço de notificações.", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void render() {
+    private void
+    render() {
         if (adapter == null || list == null) return;
         adapter.rows.clear();
         LocalDate today = LocalDate.now();
@@ -158,11 +163,17 @@ public class NotificationsFragment extends Fragment {
             render();
         }
         if (item.referenciaId == null || item.referenciaId.isBlank()) return;
+        if (item.tipoNotificacao == 4) {
+            if (requireActivity() instanceof OperationsActivity) {
+                ((OperationsActivity) requireActivity()).openChecklistInspections(item.referenciaId);
+            }
+            return;
+        }
+
         long referenceId;
         try {
             referenceId = Long.parseLong(item.referenciaId);
         } catch (NumberFormatException ignored) {
-            // Checklist references are Mongo IDs; their detail navigation is handled by its own flow.
             return;
         }
         if (referenceId <= 0) return;
@@ -178,7 +189,15 @@ public class NotificationsFragment extends Fragment {
         Bundle args = new Bundle();
         if (item.tipoNotificacao == 1) {
             args.putLong("eventId", referenceId);
-            navigation.navigate(R.id.eventInfoFragment, args);
+            int destination = navigation.getCurrentDestination() == null
+                    ? View.NO_ID : navigation.getCurrentDestination().getId();
+            if (destination == R.id.ops_manager_notifications) {
+                navigation.navigate(R.id.action_ops_manager_notifications_to_event_details, args);
+            } else if (destination == R.id.ops_technician_notifications) {
+                navigation.navigate(R.id.action_ops_technician_notifications_to_event_details, args);
+            } else {
+                navigation.navigate(R.id.action_notifications_to_event_info, args);
+            }
         } else if (item.tipoNotificacao == 2) {
             args.putLong("requestId", referenceId);
             args.putString("requestTitle", "");

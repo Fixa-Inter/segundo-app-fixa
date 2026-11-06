@@ -14,11 +14,15 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import com.google.gson.JsonObject;
 
 public interface SolicitacaoApi {
     @GET("api/v1/solicitacoes/minhas")
     Call<List<ProblemaResponse>> minhas();
+
+    @GET("api/v1/solicitacoes/minhas")
+    Call<List<ProblemaResponse>> minhasFiltradas(@QueryMap java.util.Map<String, String> filtros);
 
     @GET("api/v1/solicitacoes")
     Call<List<ProblemaResponse>> listarUnidade(
@@ -26,6 +30,9 @@ public interface SolicitacaoApi {
             @Query("limite") Integer limite,
             @Query("campo_ordenacao") String campoOrdenacao,
             @Query("direcao_ordenacao") Integer direcaoOrdenacao);
+
+    @GET("api/v1/solicitacoes")
+    Call<List<ProblemaResponse>> listarUnidadeFiltrada(@QueryMap java.util.Map<String, String> filtros);
 
     @GET("api/v1/solicitacoes")
     Call<List<JsonObject>> exportarUnidade(

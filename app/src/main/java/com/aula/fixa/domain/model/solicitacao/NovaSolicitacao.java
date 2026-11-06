@@ -14,6 +14,7 @@ public final class NovaSolicitacao {
     public final String descricaoLocal;
     public final long categoriaId;
     public final List<String> fotos;
+    public final List<String> fotosLocais;
 
     public NovaSolicitacao(
             String titulo,
@@ -23,11 +24,24 @@ public final class NovaSolicitacao {
             long categoriaId,
             List<String> fotos
     ) {
+        this(titulo, descricao, localId, descricaoLocal, categoriaId, fotos, Collections.emptyList());
+    }
+
+    public NovaSolicitacao(
+            String titulo,
+            String descricao,
+            long localId,
+            String descricaoLocal,
+            long categoriaId,
+            List<String> fotos,
+            List<String> fotosLocais
+    ) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.localId = localId;
         this.descricaoLocal = descricaoLocal;
         this.categoriaId = categoriaId;
         this.fotos = Collections.unmodifiableList(fotos == null ? new ArrayList<>() : new ArrayList<>(fotos));
+        this.fotosLocais = Collections.unmodifiableList(fotosLocais == null ? new ArrayList<>() : new ArrayList<>(fotosLocais));
     }
 }

@@ -54,6 +54,7 @@
             android:text="Ordens de Serviço"
             android:textColor="#969696"
             android:textSize="10sp"
-            android:fontFamily="@font/poppins_regular" />
+            android:fontFamily="@font/poppins_regular"
+            android:visibility="gone" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

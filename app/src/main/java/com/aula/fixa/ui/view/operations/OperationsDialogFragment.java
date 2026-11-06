@@ -88,16 +88,14 @@ public final class OperationsDialogFragment extends DialogFragment {
             com.aula.fixa.ui.view.task.PlanejamentoTarefasFluxo.bindDialog(
                     (OperationsActivity) requireActivity(), content, key, this);
         }
-        com.aula.fixa.ui.config.PopupFieldStyler.apply(content);
+        boolean checklistFieldDialog = key.equals("manager_create_field") || key.equals("manager_edit_field")
+                || key.equals("manager_create_choice_field") || key.equals("manager_edit_choice_field");
+        if (!checklistFieldDialog) com.aula.fixa.ui.config.PopupFieldStyler.apply(content);
         if (key.equals("manager_request_approved")) {
             View plan = content.findViewById(R.id.ops_5717_7116);
             if (plan != null) plan.setOnClickListener(v -> redirectApprovedRequestToPlanning());
         }
         if (creatingPlanningTask || key.equals("manager_edit_task")) stylePlanningTaskPopup(content);
-        if (key.equals("manager_create_field") || key.equals("manager_edit_field")
-                || key.equals("manager_create_choice_field") || key.equals("manager_edit_choice_field")) {
-            styleChecklistFieldPopup(content, key.startsWith("manager_edit"));
-        }
         if (key.equals("manager_create_category") || key.equals("manager_edit_category")) {
             styleCategoryFields(content, key.equals("manager_create_category"));
         }
@@ -143,6 +141,19 @@ public final class OperationsDialogFragment extends DialogFragment {
             if (value != null) value.setHintTextColor(androidx.core.content.ContextCompat.getColor(
                     requireContext(), R.color.app_text_secondary));
         }
+        boolean drawerContent = ScreenCatalog.get(requireContext()).screen(key).optBoolean("drawer");
+        if (!drawerContent) {
+            DialogContentScrollView scroll = new DialogContentScrollView(requireContext(),
+                    Math.round(getResources().getDisplayMetrics().heightPixels * .88f));
+            scroll.setFillViewport(false);
+            scroll.setClipToPadding(false);
+            scroll.setVerticalScrollBarEnabled(false);
+            content.setLayoutParams(new android.view.ViewGroup.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
+            scroll.addView(content);
+            content = scroll;
+        }
         AlertDialog dialog = new AlertDialog.Builder(requireContext()).setView(content).create();
         return dialog;
     }
@@ -165,38 +176,6 @@ public final class OperationsDialogFragment extends DialogFragment {
         int bottom = Math.round(28 * getResources().getDisplayMetrics().density);
         content.setPadding(content.getPaddingLeft(), content.getPaddingTop(),
                 content.getPaddingRight(), bottom);
-    }
-
-    private void styleChecklistFieldPopup(View content, boolean editing) {
-        int nameId = editing ? R.id.ops_5717_8180 : R.id.ops_5717_8198;
-        int typeId = editing ? R.id.ops_5717_8183_input : R.id.ops_5717_8201_input;
-        EditText name = content.findViewById(nameId);
-        View type = content.findViewById(typeId);
-        if (name != null) {
-            name.setBackgroundResource(R.drawable.bg_ops_category_input);
-            name.setBackgroundTintList(null);
-        }
-        if (type != null) {
-            type.setBackgroundColor(Color.TRANSPARENT);
-            if (type.getParent() instanceof View) {
-                View container = (View) type.getParent();
-                container.setBackgroundResource(R.drawable.bg_ops_category_input);
-                container.setBackgroundTintList(null);
-            }
-        }
-        clearNestedFieldBackgrounds(content, name, type);
-    }
-
-    private void clearNestedFieldBackgrounds(View view, View name, View type) {
-        if (view instanceof EditText && view != name && view != type) {
-            view.setBackgroundColor(Color.TRANSPARENT);
-        }
-        if (view instanceof android.view.ViewGroup) {
-            android.view.ViewGroup group = (android.view.ViewGroup) view;
-            for (int i = 0; i < group.getChildCount(); i++) {
-                clearNestedFieldBackgrounds(group.getChildAt(i), name, type);
-            }
-        }
     }
 
     private void styleCategoryFields(View content, boolean creating) {
@@ -598,5 +577,19 @@ public final class OperationsDialogFragment extends DialogFragment {
         window.setLayout(width, spec.optBoolean("drawer") ? -1 : -2);
         if (spec.optBoolean("drawer")) window.setGravity(Gravity.START);
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    private static final class DialogContentScrollView extends androidx.core.widget.NestedScrollView {
+        private final int maxContentHeight;
+        DialogContentScrollView(android.content.Context context, int maxContentHeight) {
+            super(context);
+            this.maxContentHeight = maxContentHeight;
+        }
+        @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int availableHeight = MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED
+                    ? maxContentHeight : Math.min(maxContentHeight, MeasureSpec.getSize(heightMeasureSpec));
+            int cappedHeightSpec = MeasureSpec.makeMeasureSpec(availableHeight, MeasureSpec.AT_MOST);
+            super.onMeasure(widthMeasureSpec, cappedHeightSpec);
+        }
     }
 }

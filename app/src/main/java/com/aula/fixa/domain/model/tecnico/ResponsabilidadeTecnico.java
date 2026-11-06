@@ -1,6 +1,7 @@
 package com.aula.fixa.domain.model.tecnico;
 
 public final class ResponsabilidadeTecnico {
+    public final long ordemServicoId;
     public final String titulo;
     public final String descricao;
     public final String local;
@@ -8,8 +9,9 @@ public final class ResponsabilidadeTecnico {
     public final String prioridade;
     public final String status;
 
-    public ResponsabilidadeTecnico(String titulo, String descricao, String local,
+    public ResponsabilidadeTecnico(long ordemServicoId, String titulo, String descricao, String local,
                                    String prazo, String prioridade, String status) {
+        this.ordemServicoId = ordemServicoId;
         this.titulo = safe(titulo);
         this.descricao = safe(descricao);
         this.local = safe(local);

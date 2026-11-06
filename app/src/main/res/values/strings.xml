@@ -21,8 +21,6 @@
     <string name="login_register">Cadastre-se</string>
     <string name="login_social_title">Ou entre com</string>
     <string name="login_google">Entrar com Google</string>
-    <string name="login_facebook">Entrar com Facebook</string>
-    <string name="login_apple">Entrar com Apple</string>
     <string name="login_toggle_password">Mostrar ou ocultar senha</string>
     <string name="register_title">Cadastrar</string>
     <string name="register_intro">Para começar selecione sua instituição e unidade</string>
@@ -30,6 +28,13 @@
     <string name="register_institution_hint">Selecione sua instituição</string>
     <string name="register_unit_label">Unidade</string>
     <string name="register_unit_hint">Selecione a unidade</string>
+    <string name="register_unit_required">Selecione uma unidade válida.</string>
+    <string name="register_fields_required">Preencha todos os campos obrigatórios.</string>
+    <string name="register_email_invalid">Informe um e-mail válido.</string>
+    <string name="register_password_mismatch">As senhas não coincidem.</string>
+    <string name="register_password_minimum_length">A senha deve ter pelo menos 4 caracteres.</string>
+    <string name="register_birth_date_invalid">Informe uma data de nascimento válida.</string>
+    <string name="register_minimum_age">É necessário ter pelo menos 12 anos para se cadastrar.</string>
     <string name="register_continue">Continuar</string>
     <string name="register_full_name_label">Nome completo</string>
     <string name="register_full_name_hint">João Silva</string>

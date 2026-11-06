@@ -23,12 +23,21 @@
     android:layout_weight="1"
     tools:text="Nova conversa" />
 
+<ImageView
+    android:id="@+id/ivRecentChatDraft"
+    android:layout_width="@dimen/app_chat_draft_icon_size"
+    android:layout_height="@dimen/app_chat_draft_icon_size"
+    android:layout_marginEnd="@dimen/app_chat_draft_icon_margin_end"
+    android:contentDescription="@string/app_chat_draft_indicator"
+    android:src="@drawable/ic_edit_20"
+    android:visibility="gone" />
+
 <TextView
     android:id="@+id/btnRecentMenu"
     android:layout_width="32dp"
     android:layout_height="32dp"
     android:background="?attr/selectableItemBackgroundBorderless"
-    android:contentDescription="Opções da conversa"
+    android:contentDescription="@string/app_chat_recent_options"
     android:gravity="center"
     android:text="⋮"
     android:textSize="22sp"

@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.aula.fixa.R;
 import com.aula.fixa.ui.config.EmptyStateStyler;
+import com.aula.fixa.ui.view.notifications.NotificationBadge;
 import com.aula.fixa.adapter.operations.OperationsViewModel;
 import com.aula.fixa.domain.model.home.ManagerHomeData;
 import com.bumptech.glide.Glide;
@@ -95,9 +96,11 @@ public final class OperationsData {
 
     public static void bindManagerHome(OperationsActivity activity, View root, ManagerHomeData data) {
         TextView greeting = root.findViewById(R.id.ops_5717_7299);
+        String managerName = data.nomeGestor == null ? "" : data.nomeGestor.trim();
         if (greeting != null) greeting.setText(activity.getString(R.string.ops_home_greeting,
-                data.nomeGestor.trim().isEmpty() ? activity.getString(R.string.ops_home_unknown_manager) : data.nomeGestor.trim()));
+                managerName.isEmpty() ? activity.getString(R.string.ops_home_unknown_manager) : managerName));
         loadAvatar(activity, root.findViewById(R.id.ops_5717_7336), data.fotoGestor);
+        bindManagerHeaderActions(activity, root);
 
         int completed = 0, active = 0, notStarted = 0, overdue = 0;
         for (ManagerHomeData.OrdemServicoHomeItem order : data.ordens) {
@@ -118,11 +121,11 @@ public final class OperationsData {
         String name = profile == null ? "" : profile.nomeCompleto;
         if (greeting != null) greeting.setText(profile == null ? "" : activity.getString(R.string.ops_home_greeting,
                 name.trim().isEmpty() ? "usuário" : name.trim()));
-        if (greeting != null) greeting.setOnClickListener(v -> activity.openName("profile"));
         ImageView avatar = loadAvatar(activity, root.findViewById(R.id.ops_5717_9958), profile == null ? null : profile.urlFotoPerfil);
         if (avatar != null) avatar.setOnClickListener(v -> activity.openName("profile"));
         View notifications = root.findViewById(R.id.ops_5717_9922);
         if (notifications != null) notifications.setOnClickListener(v -> activity.openName("notifications"));
+        NotificationBadge.load(activity, root.findViewById(R.id.viewUnreadNotificationsBadge));
         int completed = 0, active = 0, notStarted = 0, overdue = 0;
         List<com.aula.fixa.domain.model.os.OrdemServicoQuadro> recent = new ArrayList<>();
         List<com.aula.fixa.domain.model.os.OrdemServicoQuadro> sorted = orders == null
@@ -153,7 +156,7 @@ public final class OperationsData {
             list.setAdapter(new com.aula.fixa.ui.adapter.os.QuadroOSAdapter(new com.aula.fixa.ui.adapter.os.QuadroOSAdapter.Listener() {
                 @Override public void onClick(com.aula.fixa.domain.model.os.OrdemServicoQuadro order) { activity.openOrderDetails(order.id, order.titulo); }
                 @Override public void onMenuClick(View anchor, com.aula.fixa.domain.model.os.OrdemServicoQuadro order) { }
-            }, false, R.layout.item_ops_technician_home_order));
+            }, false, R.layout.item_ops_manager_board_order));
             ((com.aula.fixa.ui.adapter.os.QuadroOSAdapter) list.getAdapter()).submit(recent);
             ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.topToBottom = R.id.ops_5717_9920;
@@ -165,6 +168,14 @@ public final class OperationsData {
             lp.setMarginEnd(cardSideMargin);
             parent.addView(list, lp);
         }
+    }
+
+    private static void bindManagerHeaderActions(OperationsActivity activity, View root) {
+        ImageView avatar = root.findViewById(R.id.ops_5717_7336);
+        if (avatar != null) avatar.setOnClickListener(v -> activity.openName("profile"));
+        View notifications = root.findViewById(R.id.ops_5717_7300);
+        if (notifications != null) notifications.setOnClickListener(v -> activity.openName("notifications"));
+        NotificationBadge.load(activity, root.findViewById(R.id.viewUnreadNotificationsBadge));
     }
 
     private static long orderTimestamp(String value) {
@@ -201,7 +212,7 @@ public final class OperationsData {
         card.setElevation(0f);
         ViewGroup.LayoutParams cardParams = card.getLayoutParams();
         if (cardParams != null) {
-            cardParams.height = dp(activity, 318);
+            cardParams.height = dp(activity, 262);
             card.setLayoutParams(cardParams);
         }
 
@@ -222,11 +233,15 @@ public final class OperationsData {
         card.addView(grid, gridParams);
 
         addOrderStatusRow(activity, grid,
-                new OrderStatus(R.string.ops_home_order_not_started_short, R.drawable.bignumber_4, notStarted),
-                new OrderStatus(R.string.ops_home_order_completed, R.drawable.bignumber_1, completed), false);
+                new OrderStatus(R.string.ops_home_order_completed, R.drawable.bignumber_1,
+                        R.color.app_home_big_done, completed),
+                new OrderStatus(R.string.ops_home_order_in_progress_short, R.drawable.bignumber_2,
+                        R.color.app_home_big_approved, active), false);
         addOrderStatusRow(activity, grid,
-                new OrderStatus(R.string.ops_home_order_in_progress_short, R.drawable.bignumber_2, active),
-                new OrderStatus(R.string.ops_home_order_overdue, R.drawable.bignumber_3, overdue), true);
+                new OrderStatus(R.string.ops_home_order_overdue, R.drawable.bignumber_3,
+                        R.color.app_home_big_refused, overdue),
+                new OrderStatus(R.string.ops_home_order_not_started_short, R.drawable.bignumber_4,
+                        R.color.app_home_big_analysis, notStarted), true);
     }
 
     private static void addOrderStatusRow(OperationsActivity activity, LinearLayout grid,
@@ -235,7 +250,7 @@ public final class OperationsData {
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(android.view.Gravity.CENTER_VERTICAL);
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, dp(activity, 148));
+                ViewGroup.LayoutParams.MATCH_PARENT, dp(activity, 120));
         if (secondRow) rowParams.topMargin = dp(activity, 14);
         grid.addView(row, rowParams);
         addOrderStatusCard(activity, row, first, true);
@@ -244,12 +259,19 @@ public final class OperationsData {
 
     private static void addOrderStatusCard(OperationsActivity activity, LinearLayout row,
                                             OrderStatus status, boolean firstColumn) {
-        View card = activity.getLayoutInflater().inflate(R.layout.item_app_home_order_status, row, false);
-        ((ImageView) card.findViewById(R.id.ivOrderStatusIcon)).setImageResource(status.icon);
-        ((TextView) card.findViewById(R.id.tvOrderStatusLabel)).setText(status.label);
-        ((TextView) card.findViewById(R.id.tvOrderStatusValue)).setText(String.valueOf(status.count));
+        View card = activity.getLayoutInflater().inflate(R.layout.view_app_home_big_number_card, row, false);
+        ((ImageView) card.findViewById(R.id.bigNumberIcon)).setImageResource(status.icon);
+        TextView label = card.findViewById(R.id.bigNumberLabel);
+        label.setText(status.label);
+        TextView value = card.findViewById(R.id.bigNumberValue);
+        value.setText(String.valueOf(status.count));
+        ((TextView) card.findViewById(R.id.bigNumberCaption))
+                .setText(R.string.ops_home_big_number_caption_orders);
+        int color = androidx.core.content.ContextCompat.getColor(activity, status.color);
+        label.setTextColor(color);
+        value.setTextColor(color);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                0, dp(activity, 140), 1f);
+                0, dp(activity, 120), 1f);
         params.setMargins(dp(activity, firstColumn ? 0 : 12), 0,
                 dp(activity, firstColumn ? 12 : 0), 0);
         row.addView(card, params);
@@ -262,11 +284,13 @@ public final class OperationsData {
     private static final class OrderStatus {
         @StringRes final int label;
         final int icon;
+        final int color;
         final int count;
 
-        OrderStatus(@StringRes int label, int icon, int count) {
+        OrderStatus(@StringRes int label, int icon, int color, int count) {
             this.label = label;
             this.icon = icon;
+            this.color = color;
             this.count = count;
         }
     }
@@ -311,6 +335,7 @@ public final class OperationsData {
                     activity.getString(R.string.ops_home_request_owner, requester));
             loadAvatar(activity, card.findViewById(R.id.opsHomeRequestAvatar), null);
             card.setContentDescription(request.titulo + ", " + location + ", " + requester);
+            card.setOnClickListener(v -> activity.openRequestDetails(request.id, request.titulo));
             list.addView(card);
         }
     }

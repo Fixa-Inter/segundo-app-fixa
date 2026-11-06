@@ -82,7 +82,7 @@ public final class TecnicoRepositoryImpl implements TecnicoRepository {
             else activeOrders++;
 
             if (!orderCompleted) {
-                responsibilities.add(new ResponsabilidadeTecnico(order.titulo, order.descricao, order.localUnidade,
+                responsibilities.add(new ResponsabilidadeTecnico(order.id, order.titulo, order.descricao, order.localUnidade,
                         order.dataPrevista, order.prioridade, order.status));
             }
         }

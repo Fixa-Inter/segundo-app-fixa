@@ -15,7 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ResponsabilidadesTecnicoAdapter extends RecyclerView.Adapter<ResponsabilidadesTecnicoAdapter.Holder> {
+    public interface OnResponsabilidadeClick {
+        void onClick(ResponsabilidadeTecnico item);
+    }
+
     private final List<ResponsabilidadeTecnico> items = new ArrayList<>();
+    private final OnResponsabilidadeClick listener;
+
+    public ResponsabilidadesTecnicoAdapter(OnResponsabilidadeClick listener) {
+        this.listener = listener;
+    }
 
     public void submit(List<ResponsabilidadeTecnico> values) {
         items.clear();
@@ -42,6 +51,9 @@ public final class ResponsabilidadesTecnicoAdapter extends RecyclerView.Adapter<
         holder.priority.setText(priority == null ? "" : priority);
         holder.priority.setVisibility(priority == null ? View.GONE : View.VISIBLE);
         holder.priorityBadge.setVisibility(priority == null ? View.GONE : View.VISIBLE);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onClick(item);
+        });
     }
 
     @Override

@@ -1,22 +1,32 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
+    <string name="ops_completion_take_photo">Tirar foto</string>
+    <string name="ops_completion_select_images">Selecionar imagens</string>
+    <string name="ops_checklist_model_expand">Expandir ou recolher equipamentos do modelo</string>
+    <string name="ops_filter_responsible">Responsável</string>
+    <string name="ops_filter_all_responsible">Todos</string>
+    <string name="ops_occurrence_hint_location">Selecione o local da unidade</string>
+    <string name="ops_occurrence_hint_equipment">Selecione a categoria do equipamento</string>
+    <string name="ops_occurrence_hint_category">Selecione a categoria do problema</string>
+    <string name="ops_occurrence_hint_priority">Selecione a prioridade</string>
     <string name="ops_home_load_error">Não foi possível carregar os dados da home.</string>
     <string name="ops_home_request_empty">Nenhuma solicitação pendente encontrada.</string>
     <string name="ops_home_untitled_request">Solicitação sem título</string>
     <string name="ops_home_unknown_location">Local não informado</string>
     <string name="ops_home_unknown_requester">Solicitante não informado</string>
-    <string name="ops_home_order_count">%1$d OSs</string>
-    <string name="ops_home_order_not_started_short">Não Inici...</string>
+    <string name="ops_home_order_count">%1$d Ordens de Serviço</string>
+    <string name="ops_home_big_number_caption_orders">Ordens de Serviço</string>
+    <string name="ops_home_order_not_started_short">Não Iniciadas</string>
     <string name="ops_home_order_completed">Concluídas</string>
-    <string name="ops_home_order_in_progress_short">Em Andam...</string>
+    <string name="ops_home_order_in_progress_short">Em Andamento</string>
     <string name="ops_home_order_overdue">Atrasadas</string>
-    <string name="ops_technician_home_status_title">Status das OSs</string>
+    <string name="ops_technician_home_status_title">Status das Ordens de Serviço</string>
     <string name="ops_home_request_owner">Registrado por %1$s (Solicitante)</string>
     <string name="ops_home_unknown_date">Data não informada</string>
     <string name="ops_manager_no_pending_requests">Não existem solicitações pendentes</string>
     <string name="ops_home_greeting">Olá, %1$s!</string>
     <string name="ops_home_unknown_manager">gestor</string>
-    <string name="ops_text_0_ordens_de_s_1a8273" formatted="false">0 OSs</string>
+    <string name="ops_text_0_ordens_de_s_1a8273" formatted="false">0 Ordens de Serviço</string>
     <string name="ops_text_10_00_18_00_bf9db2" formatted="false">10:00 - 18:00</string>
     <string name="ops_text_10_4a44dc" formatted="false">10</string>
     <string name="ops_text_10_8d99e2" formatted="false">_/10</string>
@@ -41,7 +51,7 @@
     <string name="ops_text_18_mar_2026_7e1166" formatted="false">18 Mar 2026</string>
     <string name="ops_text_19_9400f1" formatted="false">19</string>
     <string name="ops_text_1_6b86b2" formatted="false">1</string>
-    <string name="ops_text_1_ordens_de_s_3cffe3" formatted="false">1 OSs</string>
+    <string name="ops_text_1_ordens_de_s_3cffe3" formatted="false">1 Ordem de Serviço</string>
     <string name="ops_text_1o_7b8135" formatted="false">1º</string>
     <string name="ops_text_20_02_2026_f3e646" formatted="false">20/02/2026</string>
     <string name="ops_text_20_f5ca38" formatted="false">20</string>
@@ -57,13 +67,13 @@
     <string name="ops_text_28_59e197" formatted="false">28</string>
     <string name="ops_text_29_35135a" formatted="false">29</string>
     <string name="ops_text_2_d4735e" formatted="false">2</string>
-    <string name="ops_text_2_ordens_de_s_822722" formatted="false">2 OSs</string>
+    <string name="ops_text_2_ordens_de_s_822722" formatted="false">2 Ordens de Serviço</string>
     <string name="ops_text_2o_267c1e" formatted="false">2º</string>
     <string name="ops_text_30_624b60" formatted="false">30</string>
     <string name="ops_text_30_dias_59c86f" formatted="false">30 dias</string>
     <string name="ops_text_3_10_088ae5" formatted="false">3/10</string>
     <string name="ops_text_3_4e0740" formatted="false">3</string>
-    <string name="ops_text_3_ordens_de_s_91e35e" formatted="false">3 OSs</string>
+    <string name="ops_text_3_ordens_de_s_91e35e" formatted="false">3 Ordens de Serviço</string>
     <string name="ops_text_3_tarefas_8af4f5" formatted="false">3 tarefas</string>
     <string name="ops_text_3o_9065d3" formatted="false">3º</string>
     <string name="ops_text_4_4b2277" formatted="false">4</string>
@@ -167,7 +177,7 @@
     <string name="ops_text_criar_tarefa_0a2e86" formatted="false">Criar tarefa</string>
     <string name="ops_text_criar_uma_checklist_d433df" formatted="false">Criar uma checklist</string>
     <string name="ops_text_crie_os_campos_de_inspecao_8040b0" formatted="false">Crie os campos de inspeção</string>
-    <string name="ops_text_crie_todas_as_tarefas_da_os_e31e7a" formatted="false">Crie todas as tarefas da OS</string>
+    <string name="ops_text_crie_todas_as_tarefas_da_os_e31e7a" formatted="false">Planeje a OS</string>
     <string name="ops_text_d_3f39d5" formatted="false">D</string>
     <string name="ops_text_data_4f4f68" formatted="false">Data:</string>
     <string name="ops_text_data_cec3a9" formatted="false">Data</string>
@@ -225,7 +235,7 @@
     <string name="ops_text_escreva_o_motivo_da_exclusao_620987" formatted="false">Escreva o motivo da exclusão</string>
     <string name="ops_text_escreva_o_texto_da_opcao_2507ec" formatted="false">Escreva o texto da opção</string>
     <string name="ops_text_essa_acao_nao_podera_ser_desfeita_ccfb48" formatted="false">Essa ação não poderá ser desfeita.</string>
-    <string name="ops_text_estados_das_os_8d6b5d" formatted="false">Estados das OSs</string>
+    <string name="ops_text_estados_das_os_8d6b5d" formatted="false">Estados das Ordens de Serviço</string>
     <string name="ops_text_event_details_a1955d" formatted="false">event_details</string>
     <string name="ops_text_eventos_aef5bd" formatted="false">Eventos</string>
     <string name="ops_text_events_862417" formatted="false">events</string>
@@ -274,6 +284,8 @@
     <string name="ops_text_instituto_j_f_r_irineu_jose_bordon_365_4e1a7c" formatted="false">Instituto J&amp;F, R. Irineu José Bordon, 365</string>
     <string name="ops_text_ir_para_a_home_419580" formatted="false">Ir para a Home</string>
     <string name="ops_text_ir_para_o_quadro_a49bb8" formatted="false">Ir para o quadro</string>
+    <string name="ops_planning_success_order">Ir para ordem de serviço</string>
+    <string name="ops_planning_success_back_to_planning">Voltar para planejamento</string>
     <string name="ops_text_itens_verificados_2ffe33" formatted="false">Itens verificados</string>
     <string name="ops_text_lampada_de8b9c" formatted="false">Lampâda</string>
     <string name="ops_text_liga_normalmente_7456f1" formatted="false">Liga normalmente</string>
@@ -369,7 +381,7 @@
     <string name="ops_text_planning_intro_1a5a04" formatted="false">planning_intro</string>
     <string name="ops_text_planning_success_a72542" formatted="false">planning_success</string>
     <string name="ops_text_planning_tasks_3cf422" formatted="false">planning_tasks</string>
-    <string name="ops_text_politica_de_privacidade_b4c1c2" formatted="false">Politíca de Privacidade</string>
+    <string name="ops_text_politica_de_privacidade_b4c1c2" formatted="false">Política de Privacidade</string>
     <string name="ops_text_porta_automatica_cab3af" formatted="false">Porta automática</string>
     <string name="ops_text_prazo_18_09_2026_3fc07b" formatted="false">Prazo: 18/09/2026</string>
     <string name="ops_text_prazo_28_09_2026_1f1f8b" formatted="false">Prazo: 28/09/2026</string>
@@ -449,7 +461,7 @@
     <string name="ops_text_solicitacao_recusada_f5aaca" formatted="false">Solicitação recusada!</string>
     <string name="ops_text_solicitacoes_07d0b7" formatted="false">Solicitações</string>
     <string name="ops_text_solicitacoes_para_se_planejar_fc51ec" formatted="false">Solicitações para se planejar</string>
-    <string name="ops_planning_assign_technician">Atribuir a um técnico</string>
+    <string name="ops_planning_assign_technician">Atribuição</string>
     <string name="ops_planning_select_competence_priority">Selecione uma competência e uma prioridade</string>
     <string name="ops_text_selecione_mes">Selecione o mês</string>
     <string name="ops_planning_required_fields">Selecione competência, prioridade, mês e prazo para continuar</string>

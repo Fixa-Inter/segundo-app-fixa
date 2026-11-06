@@ -2,7 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/bg_app_filter_sheet">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,24 +104,24 @@
             app:layout_constraintTop_toBottomOf="@id/tvPeriodLabel" />
 
         <TextView
-            android:id="@+id/tvStatusLabel"
+            android:id="@+id/tvResponsibleLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_filter_group_spacing"
-            android:text="Status"
+            android:text="@string/ops_filter_responsible"
             android:textAppearance="@style/TextAppearance.FIXA.App.Filter.Label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fieldPeriod" />
 
         <include
-            android:id="@+id/fieldStatus"
+            android:id="@+id/fieldResponsible"
             layout="@layout/view_app_filter_dropdown"
             android:layout_width="0dp"
             android:layout_height="@dimen/app_filter_field_height"
             android:layout_marginTop="@dimen/app_filter_field_margin_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStatusLabel" />
+            app:layout_constraintTop_toBottomOf="@id/tvResponsibleLabel" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnApply"
@@ -133,7 +133,7 @@
             android:textSize="@dimen/app_filter_apply_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fieldStatus" />
+            app:layout_constraintTop_toBottomOf="@id/fieldResponsible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnClear"

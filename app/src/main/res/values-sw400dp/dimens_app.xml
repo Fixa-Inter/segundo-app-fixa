@@ -210,6 +210,9 @@
     <dimen name="app_requests_search_radius">60dp</dimen>
     <dimen name="app_requests_search_icon_size">18dp</dimen>
     <dimen name="app_requests_search_text_margin_start">66dp</dimen>
+    <dimen name="ops_manager_requests_search_text_margin_start">78dp</dimen>
+    <dimen name="app_member_priority_badge_width">26dp</dimen>
+    <dimen name="app_member_priority_badge_height">18dp</dimen>
     <dimen name="app_requests_search_text_size">14sp</dimen>
     <dimen name="app_requests_filter_size">24dp</dimen>
     <dimen name="app_requests_filter_margin_end">31dp</dimen>
@@ -527,8 +530,8 @@
     <dimen name="app_dialog_edit_field_padding_start">15dp</dimen>
     <dimen name="app_dialog_edit_field_text_size">14sp</dimen>
     <dimen name="app_dialog_edit_group_spacing">9dp</dimen>
-    <dimen name="app_dialog_edit_photo_width">100dp</dimen>
-    <dimen name="app_dialog_edit_photo_height">90dp</dimen>
+    <dimen name="app_dialog_edit_photo_width">64dp</dimen>
+    <dimen name="app_dialog_edit_photo_thumb_size">84dp</dimen>
     <dimen name="app_dialog_edit_photo_spacing">8dp</dimen>
     <dimen name="app_dialog_edit_photo_badge_size">12dp</dimen>
     <dimen name="app_dialog_edit_photo_badge_offset">2dp</dimen>
@@ -538,10 +541,10 @@
     <dimen name="app_dialog_edit_button_radius">20dp</dimen>
     <dimen name="app_dialog_edit_actions_margin_top">51dp</dimen>
     <dimen name="app_dialog_edit_actions_margin_bottom">57dp</dimen>
-    <dimen name="app_popup_menu_width">180dp</dimen>
+    <dimen name="app_popup_menu_width">160dp</dimen>
     <dimen name="app_popup_menu_radius">30dp</dimen>
-    <dimen name="app_popup_menu_item_height">38dp</dimen>
-    <dimen name="app_popup_menu_padding_vertical">7dp</dimen>
+    <dimen name="app_popup_menu_item_height">48dp</dimen>
+    <dimen name="app_popup_menu_padding_vertical">8dp</dimen>
     <dimen name="app_popup_menu_text_size">16sp</dimen>
     <!-- Header de páginas secundárias -->
     <dimen name="app_page_header_title_inset">86dp</dimen>

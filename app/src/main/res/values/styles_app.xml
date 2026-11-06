@@ -290,6 +290,10 @@
         <item name="android:textColor">@color/app_text_dark</item>
         <item name="android:textSize">@dimen/app_confirm_card_meta_text_size</item>
     </style>
+    <style name="TextAppearance.FIXA.App.Confirm.Value" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_confirm_card_value_text_size</item>
+    </style>
     <!-- "Imagens" no card de confirmação (Figma 700/14 #0B013C) -->
     <style name="TextAppearance.FIXA.App.Confirm.Section" parent="TextAppearance.FIXA.App.Bold">
         <item name="android:textColor">@color/app_primary_deep</item>
@@ -503,6 +507,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowMinWidthMajor">0dp</item>
         <item name="android:windowMinWidthMinor">0dp</item>
+        <item name="android:windowAnimationStyle">@style/AppDialogAnimation</item>
+    </style>
+
+    <style name="AppDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/app_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/app_dialog_exit</item>
     </style>
 
     <!-- Recuperação de senha -->

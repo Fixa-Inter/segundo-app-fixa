@@ -4,7 +4,7 @@ import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.aula.fixa.domain.model.ResultadoLoginGoogle;
 import com.aula.fixa.domain.model.SessaoUsuario;
 import com.aula.fixa.domain.model.ResultadoRecuperacaoSenha;
-import com.aula.fixa.domain.repository.AutenticacaoRepository;
+import com.aula.fixa.domain.repository.auth.AutenticacaoRepository;
 import java.util.List;
 
 /** Casos de uso da autenticação disponíveis à camada de adapters. */

@@ -9,14 +9,13 @@ import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.aula.fixa.domain.model.SessaoUsuario;
 import com.aula.fixa.domain.model.ResultadoLoginGoogle;
 import com.aula.fixa.domain.model.ResultadoRecuperacaoSenha;
-import com.aula.fixa.domain.repository.AutenticacaoRepository;
+import com.aula.fixa.domain.repository.auth.AutenticacaoRepository;
 import com.aula.fixa.infrastructure.remote.dto.OpcaoCadastroResponse;
 import com.aula.fixa.infrastructure.remote.dto.CadastroUsuarioRequest;
 import com.aula.fixa.infrastructure.remote.dto.LoginGoogleRequest;
 import com.aula.fixa.infrastructure.remote.dto.LoginRequest;
 import com.aula.fixa.infrastructure.remote.dto.RedefinirSenhaRequest;
 import com.aula.fixa.infrastructure.remote.dto.ValidarCodigoRequest;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,6 +27,7 @@ import com.aula.fixa.infrastructure.remote.dto.LoginGoogleResponse;
 import com.aula.fixa.infrastructure.remote.dto.LoginResponse;
 import com.aula.fixa.infrastructure.remote.auth.SessionTokenAuthenticator;
 import com.aula.fixa.infrastructure.remote.dto.RedefinirSenhaResponse;
+import com.aula.fixa.infrastructure.local.OfflineSolicitacaoSyncScheduler;
 
 public final class AuthRepository implements AutenticacaoRepository {
     private final AuthApi api = ApiClient.auth();
@@ -166,19 +166,8 @@ public final class AuthRepository implements AutenticacaoRepository {
         if (accessToken == null || accessToken.isBlank()) return;
         if (refreshToken == null || refreshToken.isBlank()) session.saveToken(accessToken);
         else session.saveTokens(accessToken, refreshToken);
+        OfflineSolicitacaoSyncScheduler.schedule(session.applicationContext());
         SessionTokenAuthenticator.resetLoginRedirect();
     }
 
-    public static String messageFrom(Throwable throwable) {
-        if (throwable instanceof ApiException) {
-            try {
-                Object message = new JSONObject(((ApiException) throwable).body).opt("message");
-                if (message instanceof org.json.JSONArray) return ((org.json.JSONArray) message).join("\\n").replace("\"", "");
-                if (message != null && !message.toString().trim().isEmpty()) {
-                    return message.toString();
-                }
-            } catch (Exception ignored) { }
-        }
-        return throwable.getMessage() == null ? "Não foi possível concluir a operação." : throwable.getMessage();
-    }
 }

@@ -61,7 +61,7 @@
             android:paddingBottom="@dimen/ops_dp_0"
             android:textSize="16sp"
             android:fontFamily="@font/poppins_regular"
-            android:textColorHint="@color/ops_color_ff637087"
+            android:textColorHint="@color/app_text_placeholder_dark"
             android:hint="@string/ops_text_coloque_o_nome_cbd678"
             android:inputType="textCapSentences"
             android:importantForAutofill="no"
@@ -84,7 +84,7 @@
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8201" android:layout_width="0dp" android:layout_height="56dp" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="10dp" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_35_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8204" android:background="@drawable/bg_ops_category_input">
-            <androidx.appcompat.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/ops_5717_8201_input"
                 android:background="@null"
                 android:clipChildren="false"
@@ -100,7 +100,7 @@
                 android:paddingTop="@dimen/ops_dp_0"
                 android:paddingBottom="@dimen/ops_dp_0"
                 android:hint="@string/ops_text_selecione_um_tipo_de_campo_ef24f2"
-                android:inputType="textCapSentences"
+                android:inputType="none" android:singleLine="true" android:popupBackground="@drawable/bg_app_popup_menu" android:dropDownVerticalOffset="@dimen/ops_checklist_dropdown_offset"
                 android:importantForAutofill="no"
                 android:tag="field:Tipo"
                 android:layout_width="0dp"
@@ -139,31 +139,34 @@
             android:maxLines="1" />
         <TextView
             android:id="@+id/ops_5717_8206"
-            android:layout_width="@dimen/ops_dp_29"
-            android:layout_height="@dimen/ops_dp_21"
-            android:layout_marginStart="@dimen/ops_dp_262"
-            android:layout_marginTop="@dimen/ops_dp_275_0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/ops_text_sim_931345"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.a4a8627d1d"
             android:includeFontPadding="false"
             android:gravity="start|center_vertical"
             android:minHeight="@dimen/ops_dp_21"
             android:tag="text:Sim"
+            app:layout_constraintEnd_toStartOf="@id/ops_5717_8207"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_8205"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_8205"
+            android:layout_marginEnd="@dimen/ops_checklist_required_value_gap"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1" />
-        <ImageView
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/ops_5717_8207"
-            android:layout_width="@dimen/ops_dp_30_01"
-            android:layout_height="@dimen/ops_dp_16_41"
-            android:layout_marginTop="@dimen/ops_dp_276_99"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/figma_8f90d"
-            android:scaleType="fitXY"
-            android:importantForAccessibility="no"
-            android:tag="image:"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
+            android:tag="switch:required"
+            android:layout_width="@dimen/ops_checklist_required_switch_width"
+            android:layout_height="@dimen/ops_checklist_required_switch_height"
+            android:contentDescription="@string/ops_checklist_required_content_description"
+            android:showText="false"
+            app:thumbTint="@color/ops_checklist_switch_thumb"
+            app:trackTint="@color/ops_checklist_switch_track"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ops_5717_8205"
+            app:layout_constraintBottom_toBottomOf="@id/ops_5717_8205"
+            android:layout_marginEnd="@dimen/ops_dp_35_0" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_8195" android:layout_width="@dimen/ops_dp_140_0" android:layout_height="@dimen/ops_dp_40_0" android:layout_marginStart="@dimen/ops_dp_35_0" android:layout_marginTop="@dimen/ops_dp_37_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_8205" android:background="@drawable/bg_ops_53caa68a0a" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_8196"
@@ -203,5 +206,15 @@
             android:textAllCaps="false"
             android:tag="action:Salvar"
             app:backgroundTint="@null" />
+        <include
+            android:id="@+id/checklistFieldOptionsSection"
+            layout="@layout/view_ops_checklist_field_options"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ops_dp_35_0"
+            android:layout_marginEnd="@dimen/ops_dp_35_0"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

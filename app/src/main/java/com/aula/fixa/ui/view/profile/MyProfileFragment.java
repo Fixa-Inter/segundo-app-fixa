@@ -19,7 +19,9 @@ import com.aula.fixa.adapter.perfil.PerfilViewModelFactory;
 import com.aula.fixa.domain.model.Perfil;
 import com.aula.fixa.ui.config.DataChangeNotifier;
 import com.aula.fixa.ui.config.EmptyStateStyler;
+import com.aula.fixa.ui.config.AppLoading;
 import com.bumptech.glide.Glide;
+import android.app.Dialog;
 
 public class MyProfileFragment extends Fragment {
     private PerfilViewModel viewModel;
@@ -53,8 +55,10 @@ public class MyProfileFragment extends Fragment {
 
     private void loadProfile(View view) {
         EmptyStateStyler.removeFromRoot(view);
+        Dialog loading = AppLoading.show(requireContext());
         viewModel.obter(new PerfilViewModel.Callback<Perfil>() {
             @Override public void aoConcluir(Perfil profile) {
+                AppLoading.hide(loading);
                 if (!isAdded() || getView() != view) return;
                 EmptyStateStyler.removeFromRoot(view);
                 bindRow(view, R.id.rowName, R.drawable.ic_user_24, profile.nomeCompleto);
@@ -67,6 +71,7 @@ public class MyProfileFragment extends Fragment {
                         .circleCrop().into((ImageView) view.findViewById(R.id.ivAvatar));
             }
             @Override public void aoFalhar(Throwable erro) {
+                AppLoading.hide(loading);
                 if (isAdded() && getView() == view) {
                     ((ImageView) view.findViewById(R.id.ivAvatar)).setImageResource(R.drawable.img_avatar_115);
                     EmptyStateStyler.showBelowBack(view,

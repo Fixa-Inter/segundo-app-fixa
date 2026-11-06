@@ -21,6 +21,8 @@ import com.aula.fixa.adapter.home.ManagerHomeViewModelFactory;
 import com.aula.fixa.R;
 import com.aula.fixa.adapter.planejamento.PlanejamentoOSViewModel;
 import com.aula.fixa.adapter.planejamento.PlanejamentoOSViewModelFactory;
+import com.aula.fixa.adapter.planejamento.RecomendacaoCategoriaViewModel;
+import com.aula.fixa.adapter.planejamento.RecomendacaoCategoriaViewModelFactory;
 import com.aula.fixa.adapter.tecnico.TecnicoViewModel;
 import com.aula.fixa.adapter.tecnico.TecnicoViewModelFactory;
 import com.aula.fixa.domain.enums.CategoriaProblema;
@@ -62,18 +64,15 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     private com.aula.fixa.ui.view.equipamento.ModeloEquipamentoGestorFluxo modeloEquipamentoGestorFluxo;
     private com.aula.fixa.ui.view.equipamento.EquipamentoGestorFluxo equipamentoGestorFluxo;
     private com.aula.fixa.ui.view.checklist.ChecklistFlow checklistFlow;
-    private final ActivityResultLauncher<String> occurrenceEditPhotoPicker = registerForActivityResult(
+    private com.aula.fixa.ui.view.chatbot.ChatbotFlow chatbotFlow;
+    private final ActivityResultLauncher<String> chatbotPhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(), uris -> {
-                if (ocorrenciaGestorFluxo != null && uris != null) {
-                    ocorrenciaGestorFluxo.uploadNewPhotos(uris);
-                }
+                if (chatbotFlow != null && uris != null) chatbotFlow.onPhotoUris(uris);
             });
-    private final ActivityResultLauncher<String> completionPhotoPicker = registerForActivityResult(
-            new ActivityResultContracts.GetMultipleContents(), uris -> {
-                if (conclusaoOSFluxo != null && uris != null) {
-                    conclusaoOSFluxo.uploadPhotos(uris);
-                }
-            });
+    private final com.aula.fixa.ui.config.SolicitacaoPhotoPicker occurrencePhotoPicker =
+            new com.aula.fixa.ui.config.SolicitacaoPhotoPicker(this);
+    private final com.aula.fixa.ui.config.SolicitacaoPhotoPicker completionPhotoPicker =
+            new com.aula.fixa.ui.config.SolicitacaoPhotoPicker(this);
     private final ActivityResultLauncher<String> profilePhotoPicker = registerForActivityResult(
             new ActivityResultContracts.GetContent(), uri -> {
                 if (uri != null && profileFlow != null) {
@@ -121,6 +120,10 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if ("manager_board".equals(screen)) {
             ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId", "");
         }
+        if (chatbotFlow != null) {
+            chatbotFlow.close();
+            chatbotFlow = null;
+        }
         host.removeAllViews();
         boolean managerOccurrenceCreate = isManagerOccurrenceCreateScreen(screen);
         boolean managerCategories = "manager_categories".equals(screen);
@@ -137,7 +140,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         View inflatedContent = getLayoutInflater().inflate(screenLayout, host, false);
         String editingOrderId = ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId");
         boolean creatingPlanningStep = "manager_planning_tasks".equals(screen)
-                || (("manager_plan_information".equals(screen) || "manager_assign_member".equals(screen))
+                || ("manager_assign_member".equals(screen)
                 && (editingOrderId == null || editingOrderId.trim().isEmpty()));
         View content = creatingPlanningStep ? wrapPlanningStepWithFixedFooter(inflatedContent, screen) : inflatedContent;
         host.addView(content);
@@ -149,7 +152,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 OperationsActivity managerActivity = (OperationsActivity) requireActivity();
                 chatBack = managerActivity::backFromManagerChatbot;
             }
-            com.aula.fixa.ui.view.chatbot.ChatbotFragment.bindUi(content, managerChatbot, chatBack);
+            chatbotFlow = new com.aula.fixa.ui.view.chatbot.ChatbotFlow(
+                    this, content, () -> chatbotPhotoPicker.launch("image/*"), managerChatbot, chatBack);
         }
         if ("manager_home".equals(screen) || "technician_home".equals(requestedScreen)) {
             content.setVisibility(View.INVISIBLE);
@@ -194,6 +198,14 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         } else {
             modeloEquipamentoGestorFluxo = null;
         }
+        if ("manager_equipment".equals(screen)) {
+            View categories = content.findViewById(R.id.ops_5717_6683);
+            View models = content.findViewById(R.id.ops_5717_6705);
+            View checklists = content.findViewById(R.id.ops_5717_6694);
+            if (categories != null) categories.setOnClickListener(v -> ((OperationsActivity) requireActivity()).openName("categories"));
+            if (models != null) models.setOnClickListener(v -> ((OperationsActivity) requireActivity()).openName("models"));
+            if (checklists != null) checklists.setOnClickListener(v -> ((OperationsActivity) requireActivity()).openName("checklists"));
+        }
         if ("manager_devices".equals(screen)) {
             equipamentoGestorFluxo = new com.aula.fixa.ui.view.equipamento.EquipamentoGestorFluxo(
                     this, (OperationsActivity) requireActivity());
@@ -235,6 +247,9 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             planejamentoTarefasFluxo.bind();
         } else {
             planejamentoTarefasFluxo = null;
+        }
+        if ("manager_planning_success".equals(screen)) {
+            bindPlanningSuccess(content, (OperationsActivity) requireActivity());
         }
         if ("manager_requests".equals(screen)) {
             solicitacaoGestorFluxo = new SolicitacaoGestorFluxo(this, (OperationsActivity) requireActivity());
@@ -1004,7 +1019,51 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if ("manager_planning_tasks".equals(screen)) {
             positionPlanningTaskFlow(content);
         }
-        positionPlanningFixedFooter(content, indicator, actions[0], actions[1], screen);
+        if ("manager_plan_information".equals(screen)) {
+            positionPlanningInformationActions(content, indicator, actions[0], actions[1]);
+        } else {
+            positionPlanningFixedFooter(content, indicator, actions[0], actions[1], screen);
+        }
+    }
+
+    /** Keeps the calendar, progress indicator, and actions in one scrollable order on phones. */
+    private void positionPlanningInformationActions(View content, View indicator, int cancelId, int primaryId) {
+        View page = content instanceof androidx.core.widget.NestedScrollView
+                ? ((androidx.core.widget.NestedScrollView) content).getChildAt(0) : content;
+        if (!(page instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
+        androidx.constraintlayout.widget.ConstraintLayout parent =
+                (androidx.constraintlayout.widget.ConstraintLayout) page;
+        View cancel = parent.findViewById(cancelId);
+        View primary = parent.findViewById(primaryId);
+        if (cancel == null || primary == null) return;
+        int margin = getResources().getDimensionPixelSize(R.dimen.app_step_title_margin_start);
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams cancelParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancel.getLayoutParams();
+        cancelParams.width = 0;
+        cancelParams.height = dp(48);
+        cancelParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.bottomToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        cancelParams.endToStart = primaryId;
+        cancelParams.topToBottom = indicator.getId();
+        cancelParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.setMarginStart(margin);
+        cancelParams.setMarginEnd(dp(8));
+        cancelParams.topMargin = dp(20);
+        cancel.setLayoutParams(cancelParams);
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams primaryParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) primary.getLayoutParams();
+        primaryParams.width = 0;
+        primaryParams.height = dp(48);
+        primaryParams.startToEnd = cancelId;
+        primaryParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        primaryParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        primaryParams.bottomToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        primaryParams.topToTop = cancelId;
+        primaryParams.bottomToBottom = cancelId;
+        primaryParams.setMarginStart(dp(8));
+        primaryParams.setMarginEnd(margin);
+        primary.setLayoutParams(primaryParams);
     }
 
     /** Reparents the progress and action controls so all planning steps share a fixed footer. */
@@ -1046,13 +1105,14 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         page.setClipToPadding(false);
         scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
 
-        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
-                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
         androidx.constraintlayout.widget.ConstraintLayout.LayoutParams cancelParams =
                 (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancel.getLayoutParams();
         androidx.constraintlayout.widget.ConstraintLayout.LayoutParams primaryParams =
                 (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) primary.getLayoutParams();
-        ((ViewGroup) footerParent).removeView(indicator);
+        boolean timelineStaysInScroll = "manager_plan_information".equals(screen);
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
+        if (!timelineStaysInScroll) ((ViewGroup) footerParent).removeView(indicator);
         ((ViewGroup) footerParent).removeView(cancel);
         ((ViewGroup) footerParent).removeView(primary);
 
@@ -1061,10 +1121,10 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         scrollParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
         scrollParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
         scrollParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
-        scrollParams.bottomToTop = indicator.getId();
+        scrollParams.bottomToTop = timelineStaysInScroll ? cancelId : indicator.getId();
         scroll.setLayoutParams(scrollParams);
         page.addView(scroll, scrollParams);
-        page.addView(indicator, indicatorParams);
+        if (!timelineStaysInScroll) page.addView(indicator, indicatorParams);
         page.addView(cancel, cancelParams);
         page.addView(primary, primaryParams);
         return page;
@@ -1097,26 +1157,29 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     private void positionPlanningFixedFooter(View content, View indicator, int cancelId, int primaryId, String screen) {
-        if (!(content instanceof androidx.constraintlayout.widget.ConstraintLayout)
-                || !(indicator.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        if (!(content instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
         int parentId = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
         int footerGap = getResources().getDimensionPixelSize(R.dimen.app_step_section_margin_top);
         int bottomGap = "manager_plan_information".equals(screen)
                 ? dp(24) : getResources().getDimensionPixelSize(R.dimen.app_step_actions_margin_bottom);
 
-        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
-                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
-        indicatorParams.width = 0;
-        indicatorParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        indicatorParams.startToStart = parentId;
-        indicatorParams.endToEnd = parentId;
-        indicatorParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
-        indicatorParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
-        indicatorParams.bottomToTop = cancelId;
-        indicatorParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
-        indicatorParams.topMargin = 0;
-        indicatorParams.bottomMargin = footerGap;
-        indicator.setLayoutParams(indicatorParams);
+        boolean timelineInScrollableContent = "manager_plan_information".equals(screen);
+        if (!timelineInScrollableContent
+                && indicator.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
+            indicatorParams.width = 0;
+            indicatorParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            indicatorParams.startToStart = parentId;
+            indicatorParams.endToEnd = parentId;
+            indicatorParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            indicatorParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            indicatorParams.bottomToTop = cancelId;
+            indicatorParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            indicatorParams.topMargin = 0;
+            indicatorParams.bottomMargin = footerGap;
+            indicator.setLayoutParams(indicatorParams);
+        }
 
         View cancel = content.findViewById(cancelId);
         View primary = content.findViewById(primaryId);
@@ -1149,7 +1212,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 && scroll.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
             androidx.constraintlayout.widget.ConstraintLayout.LayoutParams scrollParams =
                     (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) scroll.getLayoutParams();
-            scrollParams.bottomToTop = indicator.getId();
+            scrollParams.bottomToTop = timelineInScrollableContent ? cancelId : indicator.getId();
             scroll.setLayoutParams(scrollParams);
         }
     }
@@ -1262,6 +1325,12 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                     return;
                 }
                 currentTechnicians = technicians == null ? java.util.Collections.emptyList() : technicians;
+                boolean editingOrder = !isBlank(activity.model.field("execution", "editOrderId"));
+                if (!editingOrder && selectedTechnicianId(activity) == null && !currentTechnicians.isEmpty()) {
+                    // A recomendação da API vem ordenada; o primeiro técnico é o recomendado.
+                    activity.model.field("plan_information", "tecnicoId",
+                            String.valueOf(currentTechnicians.get(0).id));
+                }
                 adapter.submit(currentTechnicians, selectedTechnicianId(activity));
                 list.setVisibility(View.VISIBLE);
                 if (currentTechnicians.isEmpty()) {
@@ -1386,7 +1455,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             }
         }
         RecyclerView responsibilities = content.findViewById(R.id.ops_manager_member_responsibilities);
-        ResponsabilidadesTecnicoAdapter responsibilityAdapter = new ResponsabilidadesTecnicoAdapter();
+        ResponsabilidadesTecnicoAdapter responsibilityAdapter = new ResponsabilidadesTecnicoAdapter(item ->
+                activity.openOrderDetails(item.ordemServicoId, item.titulo));
         if (responsibilities != null) {
             responsibilities.setLayoutManager(new LinearLayoutManager(requireContext()));
             responsibilities.setNestedScrollingEnabled(false);
@@ -1534,11 +1604,17 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if (raw == null) {
             return "";
         }
+        String normalized = java.text.Normalizer.normalize(raw.trim(), java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "").replaceAll("[^a-zA-Z0-9]", "")
+                .toLowerCase(java.util.Locale.ROOT);
         for (CategoriaProblema category : CategoriaProblema.values()) {
-            if (category.name().equalsIgnoreCase(raw) || category.getNome().equalsIgnoreCase(raw)) {
-                if (category == CategoriaProblema.REDE_CONECTIVIDADE) return "Rede";
-                if (category == CategoriaProblema.LIMPEZA_CONSERVACAO) return "Limpeza";
-                if (category == CategoriaProblema.CLIMATIZACAO) return "Clima";
+            String enumName = java.text.Normalizer.normalize(category.name(), java.text.Normalizer.Form.NFD)
+                    .replaceAll("\\p{M}+", "").replaceAll("[^a-zA-Z0-9]", "")
+                    .toLowerCase(java.util.Locale.ROOT);
+            String displayName = java.text.Normalizer.normalize(category.getNome(), java.text.Normalizer.Form.NFD)
+                    .replaceAll("\\p{M}+", "").replaceAll("[^a-zA-Z0-9]", "")
+                    .toLowerCase(java.util.Locale.ROOT);
+            if (enumName.equals(normalized) || displayName.equals(normalized)) {
                 return category.getNome();
             }
         }
@@ -1572,8 +1648,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     private void bindPlanningOptions(View root, OperationsActivity activity) {
-        android.widget.EditText competenceState = root.findViewById(com.aula.fixa.R.id.ops_5717_6260_input);
-        android.widget.EditText priorityState = root.findViewById(com.aula.fixa.R.id.ops_5717_6263_input);
+        android.widget.AutoCompleteTextView competenceState = root.findViewById(com.aula.fixa.R.id.ops_5717_6260_input);
+        android.widget.AutoCompleteTextView priorityState = root.findViewById(com.aula.fixa.R.id.ops_5717_6263_input);
         android.view.View competenceField = root.findViewById(com.aula.fixa.R.id.ops_5717_6260);
         android.view.View priorityField = root.findViewById(com.aula.fixa.R.id.ops_5717_6263);
         android.view.View competenceArrow = root.findViewById(com.aula.fixa.R.id.ops_5717_6262);
@@ -1587,25 +1663,133 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         String savedCompetence = activity.model.field("plan_information", "Competência");
         String savedPriority = activity.model.field("plan_information", "Prioridade");
         if (savedCompetence != null) {
-            competenceState.setText(savedCompetence);
+            competenceState.setText(savedCompetence, false);
         }
         if (savedPriority != null) {
-            priorityState.setText(savedPriority);
+            priorityState.setText(savedPriority, false);
         }
-        competenceState.setFocusable(false);
-        priorityState.setFocusable(false);
-        competenceState.setShowSoftInputOnFocus(false);
-        priorityState.setShowSoftInputOnFocus(false);
-        View.OnClickListener competenceClick = anchor -> showPlanningDropdown(anchor, competenceState, activity,
+        configurePlanningDropdown(competenceState, competenceField, competenceArrow, activity,
                 "Competência", com.aula.fixa.domain.enums.CategoriaProblema.values());
-        View.OnClickListener priorityClick = anchor -> showPlanningDropdown(anchor, priorityState, activity,
+        configurePlanningDropdown(priorityState, priorityField, priorityArrow, activity,
                 "Prioridade", com.aula.fixa.domain.enums.Prioridade.values());
-        competenceField.setOnClickListener(competenceClick);
-        competenceState.setOnClickListener(competenceClick);
-        competenceArrow.setOnClickListener(competenceClick);
-        priorityField.setOnClickListener(priorityClick);
-        priorityState.setOnClickListener(priorityClick);
-        priorityArrow.setOnClickListener(priorityClick);
+        recommendProblemCategory(root, activity, competenceState);
+    }
+
+    private void configurePlanningDropdown(
+            android.widget.AutoCompleteTextView field, View container, View arrow,
+            OperationsActivity activity, String label, Enum<?>[] options) {
+        java.util.List<String> names = new java.util.ArrayList<>();
+        for (Enum<?> option : options) {
+            if (option instanceof CategoriaProblema) names.add(((CategoriaProblema) option).getNome());
+            else names.add(((com.aula.fixa.domain.enums.Prioridade) option).getNome());
+        }
+        field.setAdapter(new android.widget.ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown, names));
+        field.setDropDownBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(requireContext(), R.drawable.bg_app_popup_menu));
+        field.setDropDownVerticalOffset(dp(3));
+        field.setThreshold(0);
+        field.setKeyListener(null);
+        field.setFocusable(false);
+        field.setShowSoftInputOnFocus(false);
+        field.setOnItemClickListener((parent, view, position, id) -> {
+            Enum<?> option = options[position];
+            String name;
+            int valueId;
+            if (option instanceof CategoriaProblema) {
+                CategoriaProblema category = (CategoriaProblema) option;
+                name = category.getNome();
+                valueId = category.getId();
+            } else {
+                com.aula.fixa.domain.enums.Prioridade priority = (com.aula.fixa.domain.enums.Prioridade) option;
+                name = priority.getNome();
+                valueId = priority.getId();
+            }
+            field.setText(name, false);
+            activity.model.field("plan_information", label, name);
+            activity.model.field("plan_information", label + "Id", String.valueOf(valueId));
+        });
+        View.OnClickListener open = v -> field.showDropDown();
+        field.setOnClickListener(open);
+        container.setOnClickListener(open);
+        if (arrow != null) arrow.setOnClickListener(open);
+    }
+
+    private void recommendProblemCategory(View root, OperationsActivity activity,
+                                          android.widget.AutoCompleteTextView competenceField) {
+        String jevState = activity.model.field("planning_tasks", "jev_requested");
+        if ("true".equals(jevState) || "pending".equals(jevState)) return;
+        String title = activity.model.field("planning_tasks", "source_title");
+        String description = activity.model.field("planning_tasks", "source_description");
+        String equipmentCategory = activity.model.field("planning_tasks", "source_equipment_category");
+        if (isBlank(title) || isBlank(description) || isBlank(equipmentCategory)) return;
+
+        activity.model.field("planning_tasks", "jev_requested", "pending");
+        RecomendacaoCategoriaViewModel viewModel = new ViewModelProvider(this,
+                new RecomendacaoCategoriaViewModelFactory(requireContext()))
+                .get(RecomendacaoCategoriaViewModel.class);
+        viewModel.recomendar(title, description, equipmentCategory,
+                new RecomendacaoCategoriaViewModel.Callback() {
+                    @Override public void success(String classification) {
+                        if (!isAdded() || !root.isAttachedToWindow()) {
+                            activity.model.field("planning_tasks", "jev_requested", "");
+                            return;
+                        }
+                        if (!isBlank(activity.model.field("plan_information", "Competência"))) {
+                            activity.model.field("planning_tasks", "jev_requested", "true");
+                            return;
+                        }
+                        CategoriaProblema category = matchProblemCategory(classification);
+                        if (category == null) {
+                            activity.model.field("planning_tasks", "jev_requested", "");
+                            return;
+                        }
+                        activity.model.field("planning_tasks", "jev_requested", "true");
+                        competenceField.setText(category.getNome(), false);
+                        activity.model.field("plan_information", "Competência", category.getNome());
+                        activity.model.field("plan_information", "CompetênciaId", String.valueOf(category.getId()));
+                    }
+                    @Override public void failure(Throwable error) {
+                        activity.model.field("planning_tasks", "jev_requested", "");
+                        // Recomendação é assistiva; falhas podem ser tentadas novamente ao retornar à etapa.
+                    }
+                });
+    }
+
+    private CategoriaProblema matchProblemCategory(String value) {
+        if (isBlank(value)) return null;
+        String normalized = normalizeCategory(value);
+        for (CategoriaProblema category : CategoriaProblema.values()) {
+            String enumName = normalizeCategory(category.name());
+            String displayName = normalizeCategory(category.getNome());
+            if (enumName.equals(normalized) || displayName.equals(normalized)
+                    || normalized.endsWith(enumName) || normalized.endsWith(displayName)) return category;
+        }
+        return null;
+    }
+
+    private String normalizeCategory(String value) {
+        return java.text.Normalizer.normalize(value == null ? "" : value, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "").toLowerCase(java.util.Locale.ROOT)
+                .replaceAll("[^a-z0-9]", "");
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+    private void bindPlanningSuccess(View content, OperationsActivity activity) {
+        View board = content.findViewById(R.id.ops_5717_8475);
+        View orderDetails = content.findViewById(R.id.ops_planning_success_order);
+        View backToPlanning = content.findViewById(R.id.ops_5717_8477);
+        if (board != null) board.setOnClickListener(v -> activity.openName("board"));
+        if (orderDetails != null) orderDetails.setOnClickListener(v -> {
+            String rawId = activity.model.field("planning_tasks", "ordemServicoId");
+            try {
+                long orderId = rawId == null ? 0 : Long.parseLong(rawId);
+                if (orderId > 0) activity.openOrderDetails(orderId,
+                        activity.model.field("planning_tasks", "source_title"));
+            } catch (NumberFormatException ignored) { }
+        });
+        if (backToPlanning != null) backToPlanning.setOnClickListener(v -> activity.openName("planning"));
     }
 
     private void applyCompactPlaceholder(android.widget.EditText field) {
@@ -1617,35 +1801,6 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         compactHint.setSpan(new android.text.style.RelativeSizeSpan(0.9f), 0, compactHint.length(),
                 android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         field.setHint(compactHint);
-    }
-
-    private void showPlanningDropdown(
-            View anchor, android.widget.EditText field, OperationsActivity activity,
-            String label, Enum<?>[] options) {
-        android.widget.PopupMenu menu = new android.widget.PopupMenu(requireContext(), anchor);
-        for (int i = 0; i < options.length; i++) {
-            Enum<?> option = options[i];
-            String display;
-            int id;
-            if (option instanceof com.aula.fixa.domain.enums.CategoriaProblema) {
-                com.aula.fixa.domain.enums.CategoriaProblema category = (com.aula.fixa.domain.enums.CategoriaProblema) option;
-                display = category.getNome();
-                id = category.getId();
-            } else {
-                com.aula.fixa.domain.enums.Prioridade priority = (com.aula.fixa.domain.enums.Prioridade) option;
-                display = priority.getNome();
-                id = priority.getId();
-            }
-            final String selectedName = display;
-            final int selectedId = id;
-            menu.getMenu().add(0, i, i, display).setOnMenuItemClickListener(item -> {
-                field.setText(selectedName);
-                activity.model.field("plan_information", label, selectedName);
-                activity.model.field("plan_information", label + "Id", String.valueOf(selectedId));
-                return true;
-            });
-        }
-        menu.show();
     }
 
     private void bindPlanningCalendar(View root, OperationsActivity activity) {
@@ -1683,24 +1838,34 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             java.util.Calendar today = java.util.Calendar.getInstance();
             java.util.Calendar current = (java.util.Calendar) today.clone();
             current.set(java.util.Calendar.DAY_OF_MONTH, 1);
-            android.widget.PopupMenu menu = new android.widget.PopupMenu(requireContext(), anchor);
+            java.util.List<String> monthOptions = new java.util.ArrayList<>();
             java.text.DateFormatSymbols symbols = new java.text.DateFormatSymbols(new java.util.Locale("pt", "BR"));
             for (int offset = 0; offset < 24; offset++) {
                 java.util.Calendar option = (java.util.Calendar) current.clone();
                 option.add(java.util.Calendar.MONTH, offset);
                 String monthName = symbols.getMonths()[option.get(java.util.Calendar.MONTH)];
                 monthName = monthName.substring(0, 1).toUpperCase(new java.util.Locale("pt", "BR")) + monthName.substring(1);
-                String value = String.format(java.util.Locale.ROOT, "%04d-%02d", option.get(java.util.Calendar.YEAR), option.get(java.util.Calendar.MONTH) + 1);
-                menu.getMenu().add(0, offset, offset, monthName + " - " + option.get(java.util.Calendar.YEAR))
-                        .setOnMenuItemClickListener(item -> {
-                            activity.model.field("plan_information", "mes", value);
-                            activity.model.field("plan_information", "prazo", "");
-                            setMonthText(monthLabel, option);
-                            renderPlanningCalendar(calendar, option, today, activity);
-                            return true;
-                        });
+                monthOptions.add(monthName + " - " + option.get(java.util.Calendar.YEAR));
             }
-            menu.show();
+            android.widget.ListPopupWindow popup = new android.widget.ListPopupWindow(requireContext());
+            popup.setAnchorView(monthSelector);
+            popup.setWidth(monthSelector.getWidth());
+            popup.setHeight(android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+            popup.setBackgroundDrawable(androidx.core.content.ContextCompat.getDrawable(requireContext(), R.drawable.bg_app_popup_menu));
+            popup.setVerticalOffset(dp(3));
+            popup.setAdapter(new android.widget.ArrayAdapter<>(requireContext(), R.layout.item_app_dropdown, monthOptions));
+            popup.setOnItemClickListener((parent, itemView, position, id) -> {
+                java.util.Calendar option = (java.util.Calendar) current.clone();
+                option.add(java.util.Calendar.MONTH, position);
+                String value = String.format(java.util.Locale.ROOT, "%04d-%02d",
+                        option.get(java.util.Calendar.YEAR), option.get(java.util.Calendar.MONTH) + 1);
+                activity.model.field("plan_information", "mes", value);
+                activity.model.field("plan_information", "prazo", "");
+                setMonthText(monthLabel, option);
+                renderPlanningCalendar(calendar, option, today, activity);
+                popup.dismiss();
+            });
+            popup.show();
         };
         monthSelector.setOnClickListener(chooseMonth);
         monthLabel.setOnClickListener(chooseMonth);
@@ -1907,11 +2072,25 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     public void selectCompletionPhotos() {
-        completionPhotoPicker.launch("image/*");
+        completionPhotoPicker.openGallery(uris -> {
+            if (conclusaoOSFluxo != null && uris != null) conclusaoOSFluxo.uploadPhotos(uris);
+        });
+    }
+
+    public void captureCompletionPhoto() {
+        completionPhotoPicker.openCamera(uris -> {
+            if (conclusaoOSFluxo != null && uris != null) conclusaoOSFluxo.uploadPhotos(uris);
+        });
     }
 
     public void selectOccurrenceEditPhotos() {
-        occurrenceEditPhotoPicker.launch("image/*");
+        occurrencePhotoPicker.open(uris -> {
+            if (ocorrenciaGestorFluxo != null && uris != null) ocorrenciaGestorFluxo.uploadNewPhotos(uris);
+        });
+    }
+
+    public void selectOccurrencePhotos(java.util.function.Consumer<List<Uri>> callback) {
+        occurrencePhotoPicker.open(callback);
     }
 
     @Override
@@ -1932,6 +2111,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     @Override
     public void onResume() {
         super.onResume();
+        if (chatbotFlow != null) chatbotFlow.onResume();
         boolean initialResume = firstResume;
         firstResume = false;
         String screen = requireArguments().getString("screen", "");
@@ -1972,6 +2152,10 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
 
     @Override
     public void onDestroyView() {
+        if (chatbotFlow != null) {
+            chatbotFlow.close();
+            chatbotFlow = null;
+        }
         AppLoading.hide(homeLoading);
         homeLoading = null;
         if (solicitacaoGestorFluxo != null) {

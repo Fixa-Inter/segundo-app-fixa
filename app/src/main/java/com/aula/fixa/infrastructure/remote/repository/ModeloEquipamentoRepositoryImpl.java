@@ -7,6 +7,7 @@ import com.aula.fixa.infrastructure.auth.session.SessionStorage;
 import com.aula.fixa.infrastructure.remote.ApiException;
 import com.aula.fixa.infrastructure.remote.api.ApiClient;
 import com.aula.fixa.infrastructure.remote.api.CategoriaEquipamentoApi;
+import com.aula.fixa.infrastructure.remote.api.EquipamentoApi;
 import com.aula.fixa.infrastructure.remote.api.MarcaEquipamentoApi;
 import com.aula.fixa.infrastructure.remote.api.ModeloEquipamentoApi;
 import com.aula.fixa.infrastructure.remote.dto.ModeloEquipamentoRequest;
@@ -20,17 +21,39 @@ public final class ModeloEquipamentoRepositoryImpl implements ModeloEquipamentoR
     private final ModeloEquipamentoApi modelos;
     private final MarcaEquipamentoApi marcas;
     private final CategoriaEquipamentoApi categorias;
+    private final EquipamentoApi equipamentos;
     public ModeloEquipamentoRepositoryImpl(SessionStorage session) {
         modelos = ApiClient.modelosEquipamento(session);
         marcas = ApiClient.marcasEquipamento(session);
         categorias = ApiClient.categorias(session);
+        equipamentos = ApiClient.equipamentos(session);
     }
     @Override public List<ModeloEquipamentoItem> listar() throws Exception {
-        Response<List<ModeloEquipamentoResponse>> response = modelos.listar().execute();
+        Response<List<ModeloEquipamentoResponse>> response = modelos.listar(
+                "id,nome,descricao,marca,categoria,quantidadeAparelhos").execute();
         if (response.code() == 404) return new ArrayList<>();
         if (!response.isSuccessful()) throw apiError(response);
         List<ModeloEquipamentoItem> result = new ArrayList<>();
-        if (response.body() != null) for (ModeloEquipamentoResponse item : response.body()) if (item != null) result.add(map(item));
+        if (response.body() != null) {
+            for (ModeloEquipamentoResponse item : response.body()) {
+                if (item == null) continue;
+                ModeloEquipamentoItem mapped = map(item);
+                if (mapped.id > 0) {
+                    try {
+                        Response<List<com.aula.fixa.infrastructure.remote.dto.EquipamentoResponse>> devices =
+                                equipamentos.listar(mapped.id).execute();
+                        if (devices.isSuccessful() || devices.code() == 404) {
+                            int total = devices.body() == null ? 0 : devices.body().size();
+                            mapped = new ModeloEquipamentoItem(mapped.id, mapped.nome, mapped.categoria, mapped.marca,
+                                    total, mapped.marcaId, mapped.categoriaId, mapped.descricao);
+                        }
+                    } catch (Exception ignored) {
+                        // Mantém a contagem resumida da API se a listagem detalhada falhar.
+                    }
+                }
+                result.add(mapped);
+            }
+        }
         return result;
     }
     @Override public List<OpcaoCadastro> categorias() throws Exception { return options(categorias.categorias().execute()); }

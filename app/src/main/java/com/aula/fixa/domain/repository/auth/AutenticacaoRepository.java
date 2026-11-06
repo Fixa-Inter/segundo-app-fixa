@@ -1,4 +1,4 @@
-package com.aula.fixa.domain.repository;
+package com.aula.fixa.domain.repository.auth;
 
 import com.aula.fixa.domain.model.OpcaoCadastro;
 import com.aula.fixa.domain.model.ResultadoLoginGoogle;

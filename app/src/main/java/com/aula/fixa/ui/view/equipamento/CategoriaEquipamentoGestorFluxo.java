@@ -51,7 +51,7 @@ public final class CategoriaEquipamentoGestorFluxo {
                 .get(CategoriaEquipamentoViewModel.class);
         ViewGroup container = content.findViewById(R.id.category_content_root);
         View back = content.findViewById(R.id.ops_5717_6467);
-        if (back != null) back.setOnClickListener(v -> activity.back());
+        if (back != null) back.setOnClickListener(v -> activity.backToEquipmentManagement());
         int searchId = R.id.ops_5717_6497, fabId = R.id.ops_5717_6509;
         RecyclerView recycler = new RecyclerView(host.requireContext());
         recycler.setId(View.generateViewId()); recycler.setClipToPadding(false);

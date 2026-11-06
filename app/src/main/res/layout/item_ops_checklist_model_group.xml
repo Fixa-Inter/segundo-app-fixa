@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/checklistModelRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/ops_checklist_model_group_spacing"
+    android:background="@drawable/bg_ops_checklist_model_group_state"
+    android:clickable="true"
+    android:focusable="true"
+    android:minHeight="@dimen/ops_checklist_model_group_height"
+    android:paddingStart="@dimen/ops_checklist_model_group_padding_horizontal"
+    android:paddingTop="@dimen/ops_checklist_model_group_padding_vertical"
+    android:paddingEnd="@dimen/ops_checklist_model_group_padding_horizontal"
+    android:paddingBottom="@dimen/ops_checklist_model_group_padding_vertical">
+
+    <TextView
+        android:id="@+id/checklistModelTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/ops_checklist_model_text_state"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/checklistModelExpand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/checklistModelExpand"
+        android:layout_width="@dimen/ops_checklist_model_expand_icon_size"
+        android:layout_height="@dimen/ops_checklist_model_expand_icon_size"
+        android:contentDescription="@string/ops_checklist_model_expand"
+        android:src="@drawable/ic_chevron_down_22"
+        android:tint="@color/ops_checklist_model_button_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

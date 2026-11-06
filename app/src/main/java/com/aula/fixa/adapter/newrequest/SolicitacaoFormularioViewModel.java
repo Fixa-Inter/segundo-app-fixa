@@ -15,12 +15,14 @@ public class SolicitacaoFormularioViewModel extends ViewModel {
     public long localId = -1;
     public long categoryId = -1;
     public final List<String> photoUrls = new ArrayList<>();
+    public final List<String> photoLocalPaths = new ArrayList<>();
     public final List<String> photoDeleteTokens = new ArrayList<>();
 
     public void clear() {
         title = description = location = locationDescription = device = "";
         localId = categoryId = -1;
         photoUrls.clear();
+        photoLocalPaths.clear();
         photoDeleteTokens.clear();
     }
 }

@@ -24,7 +24,7 @@ public final class CriarSolicitacao {
         if (solicitacao.localId <= 0 || solicitacao.categoriaId <= 0) {
             throw new IllegalArgumentException("Selecione o local e a categoria.");
         }
-        if (solicitacao.fotos.isEmpty()) {
+        if (solicitacao.fotos.isEmpty() && solicitacao.fotosLocais.isEmpty()) {
             throw new IllegalArgumentException("Anexe pelo menos uma foto.");
         }
         return repository.criar(solicitacao);

@@ -27,7 +27,7 @@ public final class FotoRepositoryImpl implements FotoRepository {
         }
         CloudinaryUploadService.salvar(context, Uri.parse(uri), CloudinaryUploadService.callback(adaptar(callback)));
     }
-    public void guardarSolicitacaoLocalmente(String uri, Callback callback) {
+    @Override public void guardarSolicitacaoLocalmente(String uri, Callback callback) {
         io.execute(() -> {
             try {
                 File directory = new File(context.getFilesDir(), "offline_requests/images");

@@ -65,13 +65,13 @@ public class NewRequestConfirmFragment extends Fragment {
                 .get(SolicitacaoViewModel.class);
         finish.setText(R.string.app_finish);
         finish.setOnClickListener(v -> {
-            if (form.localId <= 0 || form.categoryId <= 0 || form.photoUrls.isEmpty()) {
+            if (form.localId <= 0 || form.categoryId <= 0 || (form.photoUrls.isEmpty() && form.photoLocalPaths.isEmpty())) {
                 android.widget.Toast.makeText(requireContext(), "Selecione o local, a categoria e pelo menos uma foto.", android.widget.Toast.LENGTH_LONG).show();
                 return;
             }
 
             NovaSolicitacao solicitacao = new NovaSolicitacao(form.title, form.description,
-                    form.localId, form.locationDescription, form.categoryId, form.photoUrls);
+                    form.localId, form.locationDescription, form.categoryId, form.photoUrls, form.photoLocalPaths);
             viewModel.criar(solicitacao, new SolicitacaoViewModel.Listener() {
                 @Override public void aoCarregar(boolean carregando) {
                     FragmentUi.runIfViewActive(NewRequestConfirmFragment.this, view,
@@ -80,6 +80,8 @@ public class NewRequestConfirmFragment extends Fragment {
                 @Override public void aoCriar(Problema problema) {
                     FragmentUi.runIfViewActive(NewRequestConfirmFragment.this, view, () -> {
                         DataChangeNotifier.notifyChanged();
+                        if (problema.id < 0) android.widget.Toast.makeText(view.getContext(),
+                                R.string.app_offline_request_queued, android.widget.Toast.LENGTH_LONG).show();
                         form.clear();
                         Navigation.findNavController(v).navigate(R.id.action_confirm_to_success);
                     });
@@ -101,14 +103,16 @@ public class NewRequestConfirmFragment extends Fragment {
         ((TextView) view.findViewById(R.id.tvSummaryDescription)).setText(form.description);
         ((TextView) view.findViewById(R.id.tvSummaryLocationDescription)).setText(form.locationDescription);
 
-        AppText.setHtml(view.findViewById(R.id.tvSummaryDevice), R.string.app_confirm_device, form.device);
-        AppText.setHtml(view.findViewById(R.id.tvSummaryLocation), R.string.app_confirm_location, form.location);
+        ((android.widget.TextView) view.findViewById(R.id.tvSummaryDeviceValue)).setText(form.device);
+        ((android.widget.TextView) view.findViewById(R.id.tvSummaryLocationValue)).setText(form.location);
 
         RecyclerView photos = view.findViewById(R.id.rvSummaryPhotos);
         photos.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-        photos.setAdapter(new PhotoAdapter(form.photoUrls));
-        view.findViewById(R.id.tvSummaryImagesLabel).setVisibility(form.photoUrls.isEmpty() ? View.GONE : View.VISIBLE);
-        photos.setVisibility(form.photoUrls.isEmpty() ? View.GONE : View.VISIBLE);
+        java.util.List<String> photoItems = new java.util.ArrayList<>(form.photoUrls);
+        photoItems.addAll(form.photoLocalPaths);
+        photos.setAdapter(new PhotoAdapter(photoItems));
+        view.findViewById(R.id.tvSummaryImagesLabel).setVisibility(photoItems.isEmpty() ? View.GONE : View.VISIBLE);
+        photos.setVisibility(photoItems.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
     private void deletePendingPhotos(SolicitacaoFormularioViewModel form) {

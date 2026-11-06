@@ -68,6 +68,9 @@ public final class OperationsExport {
         if ("Ordens de serviço".equals(type)) {
             return List.of("id", "titulo", "descricao", "categoriaProblema", "categoriaEquipamento", "prioridade", "dataPrevista", "status", "nomeUsuario", "dataCriacao", "localUnidade", "descricaoLocal", "solicitante");
         }
+        if ("Checklists".equals(type)) {
+            return List.of("id", "nome", "periodicidadeDias", "obrigatorio", "primeiraAbertura", "campos", "modelosEquipamento");
+        }
         return List.of("id", "localUnidadeId", "categoriaEquipamentoId", "titulo", "descricaoOcorrencia", "categoriaProblema", "prioridade", "localUnidade", "descricaoLocal", "dataCriacao", "categoriaEquipamento", "nomeUsuario", "fotos");
     }
 }

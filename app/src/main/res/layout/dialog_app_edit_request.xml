@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Editar solicitação (Figma "Pop-up 4"): card 360dp r=30 #F6F9FC; título 600/24 #130943 @ top 40;
-  labels 500/14; campos 288x35 r=10 brancos com borda #33130943 (texto 300/12); descrição 65dp; fotos 100x90 + botão "+";
+  labels 500/14; campos 288x35 r=10 brancos com borda #33130943 (texto 300/12); descrição 65dp; fotos compactas sobre o campo, no padrão do chatbot;
   botões 140x40 r=20 (Cancelar #C4CFE0 / Salvar #153D7D), padding inferior 57.
 -->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -152,7 +152,7 @@
         <LinearLayout
             android:id="@+id/layoutPhotos"
             android:layout_width="0dp"
-            android:layout_height="@dimen/app_dialog_edit_photo_height"
+            android:layout_height="@dimen/app_dialog_edit_photo_thumb_size"
             android:layout_marginTop="@dimen/app_dialog_edit_field_margin_top"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"

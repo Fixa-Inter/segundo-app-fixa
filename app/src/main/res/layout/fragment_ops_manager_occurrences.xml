@@ -32,7 +32,7 @@
                     app:tint="@color/app_on_primary" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
                 <androidx.appcompat.widget.AppCompatEditText android:id="@+id/managerOccurrencesSearch"
-                    android:layout_width="0dp" android:layout_height="@dimen/ops_dp_21" android:layout_marginStart="@dimen/ops_dp_14_0"
+                    android:layout_width="0dp" android:layout_height="@dimen/ops_dp_21" android:layout_marginStart="@dimen/ops_dp_18_0"
                     android:layout_marginEnd="@dimen/ops_dp_14_0" android:background="@null" android:singleLine="true"
                     android:hint="@string/ops_text_pesquisar_d0839a" android:inputType="text" android:imeOptions="actionSearch"
                     android:textAppearance="@style/TextAppearance.FIXA.Operations.532bcc5bfe" android:fontFamily="@font/poppins_regular"

@@ -53,7 +53,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:maxLines="1" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6260" android:layout_width="0dp" android:layout_height="52dp" android:layout_marginStart="@dimen/ops_dp_36_0" android:layout_marginTop="@dimen/ops_dp_9_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_36_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6259" android:background="@drawable/bg_ops_d8729dd0eb">
-            <androidx.appcompat.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/ops_5717_6260_input"
                 android:background="@null"
                 android:clipChildren="false"
@@ -111,7 +111,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:maxLines="1" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6263" android:layout_width="0dp" android:layout_height="52dp" android:layout_marginStart="@dimen/ops_dp_36_0" android:layout_marginTop="@dimen/ops_dp_9_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_36_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6239" android:background="@drawable/bg_ops_d8729dd0eb">
-            <androidx.appcompat.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/ops_5717_6263_input"
                 android:background="@null"
                 android:clipChildren="false"

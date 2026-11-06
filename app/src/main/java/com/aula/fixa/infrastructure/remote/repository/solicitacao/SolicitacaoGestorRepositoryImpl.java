@@ -11,6 +11,7 @@ import com.aula.fixa.infrastructure.remote.repository.SolicitacaoRemoteRepositor
 
 import java.util.ArrayList;
 import java.util.List;
+import com.aula.fixa.domain.model.FiltroBusca;
 
 /** API adapter for the manager's pending request workflow. */
 public final class SolicitacaoGestorRepositoryImpl implements SolicitacaoGestorRepository {
@@ -21,11 +22,19 @@ public final class SolicitacaoGestorRepositoryImpl implements SolicitacaoGestorR
     }
 
     @Override public List<SolicitacaoGestor> listarSolicitacoesDaUnidade() throws Exception {
-        return mapAll(remote.listarUnidade());
+        return listarSolicitacoesDaUnidade(FiltroBusca.ultimosTresMeses());
+    }
+
+    @Override public List<SolicitacaoGestor> listarSolicitacoesDaUnidade(FiltroBusca filtros) throws Exception {
+        return mapAll(remote.listarUnidade(filtros));
     }
 
     @Override public List<SolicitacaoGestor> listarSolicitacoesAprovadasDaUnidade() throws Exception {
-        return mapAll(remote.listarUnidade("APROVADO"));
+        return listarSolicitacoesAprovadasDaUnidade(FiltroBusca.ultimosTresMeses());
+    }
+
+    @Override public List<SolicitacaoGestor> listarSolicitacoesAprovadasDaUnidade(FiltroBusca filtros) throws Exception {
+        return mapAll(remote.listarUnidade(filtros));
     }
 
     private static List<SolicitacaoGestor> mapAll(List<ProblemaResponse> values) {

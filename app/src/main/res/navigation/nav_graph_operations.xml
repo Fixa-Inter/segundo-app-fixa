@@ -76,6 +76,7 @@
     </fragment>
     <fragment android:id="@+id/ops_manager_notifications" android:name="com.aula.fixa.ui.view.notifications.NotificationsFragment" android:label="@string/ops_text_notifications_8bb692">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_notifications" />
+        <action android:id="@+id/action_ops_manager_notifications_to_event_details" app:destination="@id/ops_manager_event_details" />
     </fragment>
     <fragment android:id="@+id/ops_manager_edit_profile" android:name="com.aula.fixa.ui.view.profile.EditProfileFragment" android:label="@string/ops_text_edit_profile_6ee2e4">
         <argument android:name="screen" app:argType="string" android:defaultValue="manager_edit_profile" />
@@ -270,6 +271,7 @@
     </fragment>
     <fragment android:id="@+id/ops_technician_notifications" android:name="com.aula.fixa.ui.view.notifications.NotificationsFragment" android:label="@string/ops_text_notifications_8bb692">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_notifications" />
+        <action android:id="@+id/action_ops_technician_notifications_to_event_details" app:destination="@id/ops_technician_event_details" />
     </fragment>
     <fragment android:id="@+id/ops_technician_occurrence_details" android:name="com.aula.fixa.ui.view.operations.OperationsScreenFragment" android:label="@string/ops_text_occurrence_details_35f190">
         <argument android:name="screen" app:argType="string" android:defaultValue="technician_occurrence_details" />

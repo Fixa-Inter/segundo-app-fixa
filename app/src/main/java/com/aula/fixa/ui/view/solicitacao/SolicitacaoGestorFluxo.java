@@ -41,6 +41,8 @@ public final class SolicitacaoGestorFluxo {
     private String categoryFilter = "";
     private String authorFilter = "";
     private boolean planningSelection;
+    private final android.os.Handler filterHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+    private Runnable pendingSearch;
 
     public SolicitacaoGestorFluxo(OperationsScreenFragment host, OperationsActivity activity) {
         this.host = host;
@@ -71,6 +73,7 @@ public final class SolicitacaoGestorFluxo {
                         if (planningSelection) {
                             activity.model.field("planning_tasks", "source_title", request.titulo);
                             activity.model.field("planning_tasks", "source_description", request.descricao);
+                            activity.model.field("planning_tasks", "source_equipment_category", request.categoria);
                             activity.openPlanningIntro(request.id);
                         } else activity.openRequestDetails(request.id, request.titulo);
                     }, approvedForPlanning ? R.string.ops_manager_no_approved_requests
@@ -101,7 +104,11 @@ public final class SolicitacaoGestorFluxo {
         if (search != null) {
             search.addTextChangedListener(new TextWatcher() {
                 @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-                @Override public void onTextChanged(CharSequence s, int start, int before, int count) { renderList(content); }
+                @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (pendingSearch != null) filterHandler.removeCallbacks(pendingSearch);
+                    pendingSearch = () -> loadList(content, approvedForPlanning);
+                    filterHandler.postDelayed(pendingSearch, 350);
+                }
                 @Override public void afterTextChanged(Editable s) { }
             });
         }
@@ -129,7 +136,7 @@ public final class SolicitacaoGestorFluxo {
         authorFilter = author == null ? "" : author;
         if (host.getView() instanceof android.widget.FrameLayout) {
             View content = ((android.widget.FrameLayout) host.getView()).getChildAt(0);
-            if (content != null) renderList(content);
+            if (content != null) loadList(content, planningSelection);
         }
     }
 
@@ -168,8 +175,18 @@ public final class SolicitacaoGestorFluxo {
                 finishLoading(content);
             }
         };
-        if (approvedForPlanning) viewModel.loadApproved(callback);
-        else viewModel.load(callback);
+        com.aula.fixa.domain.model.FiltroBusca filters = buildFilters(content);
+        if (approvedForPlanning) viewModel.loadApproved(filters, callback);
+        else viewModel.load(filters, callback);
+    }
+
+    private com.aula.fixa.domain.model.FiltroBusca buildFilters(View content) {
+        EditText search = content.findViewById(R.id.ops_5717_6869);
+        String term = search == null ? null : search.getText().toString();
+        String selectedPeriod = periodFilter;
+        if (selectedPeriod == null || selectedPeriod.trim().isEmpty()) selectedPeriod = null;
+        return com.aula.fixa.domain.model.FiltroBusca.periodo(selectedPeriod, term, null,
+                locationFilter, categoryFilter, null, null, authorFilter);
     }
 
     private void renderList(View content) {
@@ -219,8 +236,8 @@ public final class SolicitacaoGestorFluxo {
                 if (!isCurrent(content)) return;
                 ((android.widget.TextView) content.findViewById(R.id.tvSummaryTitle)).setText(item.titulo);
                 ((android.widget.TextView) content.findViewById(R.id.tvSummaryDescription)).setText(item.descricao);
-                AppText.setHtml(content.findViewById(R.id.tvSummaryDevice), R.string.app_confirm_device, item.categoria);
-                AppText.setHtml(content.findViewById(R.id.tvSummaryLocation), R.string.app_confirm_location, item.local);
+                ((android.widget.TextView) content.findViewById(R.id.tvSummaryDeviceValue)).setText(item.categoria);
+                ((android.widget.TextView) content.findViewById(R.id.tvSummaryLocationValue)).setText(item.local);
                 AppText.setHtml(content.findViewById(R.id.tvSummaryDescriptionLabel), R.string.app_confirm_description);
                 ((android.widget.TextView) content.findViewById(R.id.tvSummaryLocationDescription)).setText(item.descricaoLocal);
                 RecyclerView photosList = content.findViewById(R.id.rvSummaryPhotos);

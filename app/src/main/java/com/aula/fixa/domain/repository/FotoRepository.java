@@ -7,6 +7,7 @@ public interface FotoRepository {
         void aoFalhar(String mensagem);
     }
     void enviarSolicitacao(String uri, Callback callback);
+    void guardarSolicitacaoLocalmente(String uri, Callback callback);
     void enviarPerfil(String uri, Callback callback);
     void excluir(String token, Callback callback);
 }

@@ -2,6 +2,7 @@ package com.aula.fixa.infrastructure.remote.repository.home;
 
 import com.aula.fixa.domain.model.home.ManagerHomeData;
 import com.aula.fixa.domain.repository.home.ManagerHomeRepository;
+import com.aula.fixa.domain.model.FiltroBusca;
 import com.aula.fixa.infrastructure.auth.session.SessionStorage;
 import com.aula.fixa.infrastructure.remote.ApiException;
 import com.aula.fixa.infrastructure.remote.api.ApiClient;
@@ -15,6 +16,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import retrofit2.Response;
 
 /** Carrega os dados remotos usados exclusivamente pela homepage do gestor. */
@@ -24,10 +27,16 @@ public final class ManagerHomeRepositoryImpl implements ManagerHomeRepository {
 
     @Override public ManagerHomeData carregar() throws Exception {
         PerfilResponse perfil = requireBody(ApiClient.perfil(session).perfil().execute());
+        FiltroBusca recent = FiltroBusca.ultimosTresMeses();
+        Map<String, String> orderFilters = new LinkedHashMap<>();
+        orderFilters.put("data_criacao_min", recent.dataInicioIso());
+        orderFilters.put("data_criacao_max", recent.dataFimIso());
+        orderFilters.put("campo_ordenacao", "dataCriacao");
+        orderFilters.put("direcao_ordenacao", "-1");
         List<OrdemServicoResponse> ordens = optionalList(
-                ApiClient.ordensServico(session).minhas(null, null, null, null).execute());
-        List<ProblemaResponse> solicitacoes = new ArrayList<>(optionalList(
-                ApiClient.solicitacoes(session).listarUnidade(null, null, "dataCriacao", -1).execute()));
+                ApiClient.ordensServico(session).minhasFiltradas(orderFilters).execute());
+        List<ProblemaResponse> solicitacoes = new ArrayList<>(
+                new SolicitacaoRemoteRepository(session).listarUnidade(recent));
 
         solicitacoes.removeIf(item -> item == null || !"PENDENTE".equals(normalize(item.status)));
         solicitacoes.sort(Comparator
