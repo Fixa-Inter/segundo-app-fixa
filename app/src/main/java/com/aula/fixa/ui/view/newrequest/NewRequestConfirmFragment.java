@@ -103,8 +103,8 @@ public class NewRequestConfirmFragment extends Fragment {
         ((TextView) view.findViewById(R.id.tvSummaryDescription)).setText(form.description);
         ((TextView) view.findViewById(R.id.tvSummaryLocationDescription)).setText(form.locationDescription);
 
-        AppText.setHtml(view.findViewById(R.id.tvSummaryDevice), R.string.app_confirm_device, form.device);
-        AppText.setHtml(view.findViewById(R.id.tvSummaryLocation), R.string.app_confirm_location, form.location);
+        ((android.widget.TextView) view.findViewById(R.id.tvSummaryDeviceValue)).setText(form.device);
+        ((android.widget.TextView) view.findViewById(R.id.tvSummaryLocationValue)).setText(form.location);
 
         RecyclerView photos = view.findViewById(R.id.rvSummaryPhotos);
         photos.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));

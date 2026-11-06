@@ -210,6 +210,9 @@
     <dimen name="app_requests_search_radius">60dp</dimen>
     <dimen name="app_requests_search_icon_size">18dp</dimen>
     <dimen name="app_requests_search_text_margin_start">66dp</dimen>
+    <dimen name="ops_manager_requests_search_text_margin_start">78dp</dimen>
+    <dimen name="app_member_priority_badge_width">26dp</dimen>
+    <dimen name="app_member_priority_badge_height">18dp</dimen>
     <dimen name="app_requests_search_text_size">14sp</dimen>
     <dimen name="app_requests_filter_size">24dp</dimen>
     <dimen name="app_requests_filter_margin_end">31dp</dimen>

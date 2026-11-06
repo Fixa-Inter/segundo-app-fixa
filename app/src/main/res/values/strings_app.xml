@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_confirm_device_label">Categoria do Equipamento</string>
+    <string name="app_confirm_location_label">Local da Unidade</string>
     <!-- Bottom nav -->
     <string name="app_nav_home">Início</string>
     <string name="app_nav_requests">Minhas solicitações</string>
@@ -93,11 +95,64 @@
     <string name="app_chat_discard_draft_message">A mensagem não será reenviada. Confirme que você já verificou o histórico antes de descartá-la.</string>
     <string name="app_chat_keep_draft">Manter</string>
     <string name="app_chat_discard_draft">Descartar</string>
+    <string name="app_chat_new_conversation">Nova conversa</string>
+    <string name="app_chat_error_photo_limit">É possível anexar até 3 imagens por mensagem.</string>
+    <string name="app_chat_error_session_access">Entre novamente para acessar a Manu.</string>
+    <string name="app_chat_error_wait_send">Aguarde o envio atual terminar.</string>
+    <string name="app_chat_error_draft_other_thread">Há um envio sem confirmação separado deste histórico. Confira as conversas antes de descartá-lo.</string>
+    <string name="app_chat_error_wait_upload">Aguarde o envio das imagens terminar.</string>
+    <string name="app_chat_error_unconfirmed_draft">Confira a conversa no histórico antes de enviar outra mensagem. Toque no aviso para descartar o rascunho após conferir.</string>
+    <string name="app_chat_error_session_chat">Entre novamente para conversar com a Manu.</string>
+    <string name="app_chat_error_empty_message">Escreva uma mensagem para enviar.</string>
+    <string name="app_chat_error_message_too_long">A mensagem pode ter até 4.000 caracteres.</string>
+    <string name="app_chat_error_clear_confirmed_draft">A resposta foi confirmada, mas não foi possível limpar o rascunho local. Confira o histórico antes de descartá-lo.</string>
+    <string name="app_chat_error_send_uncertain">Não foi possível confirmar o envio. A mensagem ficou preservada; atualize o histórico antes de tentar novamente.</string>
+    <string name="app_chat_images_attached">Imagem(ns) anexada(s).</string>
+    <string name="app_chat_error_image_url_too_long">A URL retornada para a imagem ultrapassa o limite aceito pelo chat.</string>
+    <string name="app_chat_error_image_upload">Não foi possível enviar a imagem.</string>
+    <string name="app_chat_error_wait_operation">Aguarde a operação atual terminar.</string>
+    <string name="app_chat_error_finish_unconfirmed">Confira o histórico antes de finalizar esta conversa.</string>
+    <string name="app_chat_error_delete_unconfirmed">Confira o histórico antes de excluir esta conversa.</string>
+    <string name="app_chat_error_general">Não foi possível acessar a Manu. Verifique sua conexão e atualize a conversa.</string>
+    <string name="app_chat_status_sending">Enviando</string>
+    <string name="app_chat_status_send_confirmed">Envio confirmado; descarte o rascunho após conferir o histórico</string>
+    <string name="app_chat_status_send_unconfirmed">Envio não confirmado</string>
+    <string name="app_chat_date_divider">────────  %1$s  ────────</string>
+    <string name="app_chat_date_format" formatted="false">dd MMMM \'de\' yyyy</string>
+    <string name="app_chat_new_conversation_date">Nova conversa · %1$s</string>
     <string name="app_chat_recent_empty">Você ainda não possui conversas.</string>
     <string name="app_chat_recent_no_matches">Nenhuma conversa encontrada.</string>
     <string name="app_chat_recent_draft_only">Conversa com rascunho não confirmado</string>
     <string name="app_chat_draft_indicator">Esta conversa tem uma mensagem não confirmada</string>
     <string name="app_chat_recent_options">Opções da conversa</string>
+    <string name="app_checklist_inspection_done">Inspeção Realizada</string>
+    <string name="app_checklist_inspection_pending">Inspeção Pendente</string>
+    <string name="ops_checklist_period_days">%1$d dias</string>
+    <string name="ops_checklist_category_missing">Categoria não informada</string>
+    <string name="ops_checklist_status_in_progress">Em andamento</string>
+    <string name="ops_checklist_status_completed">Concluído</string>
+    <string name="ops_checklist_empty">Não existem checklists cadastrados.</string>
+    <string name="ops_checklist_no_matches">Nenhum checklist encontrado.</string>
+    <string name="ops_checklist_load_failed">Não foi possível carregar os checklists. Toque para tentar novamente.</string>
+    <string name="ops_checklist_equipment_empty">Não existem equipamentos neste status.</string>
+    <string name="ops_checklist_equipment_load_failed">Não foi possível carregar os equipamentos. Toque para tentar novamente.</string>
+    <string name="ops_checklist_field_required">%1$s · Obrigatório</string>
+    <string name="ops_checklist_field_optional">%1$s · Opcional</string>
+    <string name="ops_checklist_field_drag">Reordenar campo</string>
+    <string name="ops_checklist_field_menu">Editar ou excluir campo</string>
+    <string name="ops_checklist_options_title">Opções</string>
+    <string name="ops_checklist_option_add">+ Adicionar opção</string>
+    <string name="ops_checklist_option_title_hint">Título da opção</string>
+    <string name="ops_checklist_option_remove">Remover opção</string>
+    <string name="ops_checklist_option_reorder">Reordenar opção</string>
+    <string name="ops_checklist_models_empty">Não existem modelos disponíveis.</string>
+    <string name="ops_checklist_invalid">Checklist inválido.</string>
+    <string name="ops_checklist_field_name_required">Informe o nome do campo.</string>
+    <string name="ops_checklist_field_type_required">Selecione o tipo de campo.</string>
+    <string name="ops_checklist_options_incomplete">Preencha ou remova todas as opções.</string>
+    <string name="ops_checklist_option_required">Adicione ao menos uma opção.</string>
+    <string name="ops_checklist_field_not_found">Campo não encontrado.</string>
+    <string name="ops_checklist_required_content_description">Campo obrigatório</string>
     <string name="app_chat_remove_attachment">Remover anexo</string>
     <string name="app_chat_warning_unconfirmed">Envio não confirmado: “%1$s”. Confira o histórico; toque aqui para descartar o rascunho.</string>
     <string name="app_chat_warning_unconfirmed_short">Envio não confirmado. Toque após conferir o histórico para descartar o rascunho.</string>
@@ -140,8 +195,6 @@
     <string name="app_step_photo_or">ou</string>
     <string name="app_step_photo_take">Tirar foto</string>
     <string name="app_confirm_title"><![CDATA[Confirme <u><font color="#0B013C">as informações</font></u>]]></string>
-    <string name="app_confirm_device"><![CDATA[<b><font color="#0B013C">Categoria do Equipamento:</font></b> <i>%1$s</i>]]></string>
-    <string name="app_confirm_location"><![CDATA[<b><font color="#0B013C">Local da Unidade:</font></b> <i>%1$s</i>]]></string>
     <string name="app_confirm_description"><![CDATA[<b><font color="#0B013C">Descrição:</font></b>]]></string>
     <string name="app_confirm_images">Imagens</string>
     <string name="app_confirm_image_description">Imagem anexada</string>

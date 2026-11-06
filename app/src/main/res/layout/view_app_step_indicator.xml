@@ -11,19 +11,32 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/stepIndicatorStartGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/stepIndicatorEndGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.88" />
+
     <TextView
         android:id="@+id/tvStep1"
         android:includeFontPadding="false"
         android:layout_width="@dimen/app_step_indicator_circle_size"
         android:layout_height="@dimen/app_step_indicator_circle_size"
-        android:layout_marginStart="@dimen/app_step_indicator_side_margin"
         android:background="@drawable/bg_app_circle_primary"
         android:gravity="center"
         android:text="1"
         android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorNumber"
         app:layout_constraintEnd_toStartOf="@id/tvStep2"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/stepIndicatorStartGuide"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
@@ -46,12 +59,11 @@
         android:includeFontPadding="false"
         android:layout_width="@dimen/app_step_indicator_circle_size"
         android:layout_height="@dimen/app_step_indicator_circle_size"
-        android:layout_marginEnd="@dimen/app_step_indicator_side_margin"
         android:background="@drawable/bg_app_circle_muted"
         android:gravity="center"
         android:text="3"
         android:textAppearance="@style/TextAppearance.FIXA.App.Step.IndicatorNumber"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/stepIndicatorEndGuide"
         app:layout_constraintStart_toEndOf="@id/tvStep2"
         app:layout_constraintTop_toTopOf="@id/tvStep1"
         tools:ignore="HardcodedText" />

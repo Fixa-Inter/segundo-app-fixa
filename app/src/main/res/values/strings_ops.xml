@@ -1,5 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
+    <string name="ops_completion_take_photo">Tirar foto</string>
+    <string name="ops_completion_select_images">Selecionar imagens</string>
+    <string name="ops_checklist_model_expand">Expandir ou recolher equipamentos do modelo</string>
+    <string name="ops_filter_responsible">Responsável</string>
+    <string name="ops_filter_all_responsible">Todos</string>
+    <string name="ops_occurrence_hint_location">Selecione o local da unidade</string>
+    <string name="ops_occurrence_hint_equipment">Selecione a categoria do equipamento</string>
+    <string name="ops_occurrence_hint_category">Selecione a categoria do problema</string>
+    <string name="ops_occurrence_hint_priority">Selecione a prioridade</string>
     <string name="ops_home_load_error">Não foi possível carregar os dados da home.</string>
     <string name="ops_home_request_empty">Nenhuma solicitação pendente encontrada.</string>
     <string name="ops_home_untitled_request">Solicitação sem título</string>

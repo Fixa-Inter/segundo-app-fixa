@@ -31,7 +31,7 @@ public final class QuadroOSFluxo {
     private final OperationsScreenFragment host; private final OperationsActivity activity;
     private QuadroOSViewModel model; private QuadroOSAdapter adapter; private RecyclerView list;
     private final List<OrdemServicoQuadro> all=new ArrayList<>(); private View content; private Dialog loading;
-    private String status,filterStatus,query="",equipment="",problem="",priority="",period=""; private boolean loadFailed;
+    private String status,filterResponsible,query="",equipment="",problem="",priority="",period=""; private boolean loadFailed;
     private boolean technician;
     public QuadroOSFluxo(OperationsScreenFragment host,OperationsActivity activity){this.host=host;this.activity=activity;}
     public void bind(View root){
@@ -54,7 +54,7 @@ public final class QuadroOSFluxo {
         ConstraintLayout.LayoutParams lp=new ConstraintLayout.LayoutParams(0,ViewGroup.LayoutParams.WRAP_CONTENT);lp.topToBottom=anchor;lp.startToStart=ConstraintLayout.LayoutParams.PARENT_ID;lp.endToEnd=ConstraintLayout.LayoutParams.PARENT_ID;lp.setMargins(sideMargin,dp(20),sideMargin,dp(90));list.setLayoutParams(lp);
         View funnel=root.findViewById(technician?R.id.technician_board_filter_button:R.id.ops_5717_8595);if(funnel!=null)funnel.setOnClickListener(v->showFilters());load();
     }
-    private void load(){if(model==null)return;content.setVisibility(View.INVISIBLE);AppLoading.hide(loading);loading=AppLoading.show(host.requireContext());com.aula.fixa.domain.model.FiltroBusca filters=com.aula.fixa.domain.model.FiltroBusca.quadroOS(period,null,filterStatus,equipment,problem,priority,null);model.carregar(filters,new QuadroOSViewModel.Callback(){
+    private void load(){if(model==null)return;content.setVisibility(View.INVISIBLE);AppLoading.hide(loading);loading=AppLoading.show(host.requireContext());com.aula.fixa.domain.model.FiltroBusca filters=com.aula.fixa.domain.model.FiltroBusca.quadroOS(period,null,null,equipment,problem,priority,filterResponsible);model.carregar(filters,new QuadroOSViewModel.Callback(){
         @Override public void success(List<OrdemServicoQuadro> values){if(!current())return;loadFailed=false;all.clear();if(values!=null)all.addAll(values);renderList();finish();}
         @Override public void failure(Throwable error){if(!current())return;loadFailed=true;all.clear();renderList();finish();}
     });}
@@ -95,8 +95,8 @@ public final class QuadroOSFluxo {
             chip.setLayoutParams(params);start+=width+spacing;
         }
     }
-    private void showFilters(){QuadroOSFiltersSheet sheet=new QuadroOSFiltersSheet();android.os.Bundle args=new android.os.Bundle();args.putString("equipment",equipment);args.putString("problem",problem);args.putString("priority",priority);args.putString("period",period);args.putString("status",filterStatus==null?"":filterStatus);sheet.setArguments(args);sheet.setTargetFragment(host,0);sheet.show(host.getParentFragmentManager(),QuadroOSFiltersSheet.TAG);}
-    public void filters(String e,String p,String pr,String pe,String st){equipment=clean(e);problem=clean(p);priority=clean(pr);period=clean(pe);filterStatus=st==null?null:clean(st);load();}
+    private void showFilters(){QuadroOSFiltersSheet sheet=new QuadroOSFiltersSheet();android.os.Bundle args=new android.os.Bundle();args.putString("equipment",equipment);args.putString("problem",problem);args.putString("priority",priority);args.putString("period",period);args.putString("responsible",filterResponsible==null?"":filterResponsible);sheet.setArguments(args);sheet.setTargetFragment(host,0);sheet.show(host.getParentFragmentManager(),QuadroOSFiltersSheet.TAG);}
+    public void filters(String e,String p,String pr,String pe,String responsible){equipment=clean(e);problem=clean(p);priority=clean(pr);period=clean(pe);filterResponsible=responsible==null?null:clean(responsible);load();}
     private void updateStatusChips(View root,String selected,int[] ids,int[] labelIds){int activeBg=R.drawable.bg_ops_c27365e123,inactiveBg=R.drawable.bg_ops_11863650ea;int activeText=ContextCompat.getColor(host.requireContext(),R.color.ops_color_ffffffff),inactiveText=ContextCompat.getColor(host.requireContext(),R.color.ops_color_ff0b013c);String[] labels={"","Não iniciada","Em andamento","Concluída","Atrasada"};for(int i=0;i<ids.length;i++){View chip=root.findViewById(ids[i]);boolean active=(selected==null&&i==0)||(selected!=null&&i>0&&norm(selected).equals(norm(labels[i])));if(chip==null)continue;chip.setBackgroundResource(active?activeBg:inactiveBg);if(chip instanceof TextView)((TextView)chip).setTextColor(active?activeText:inactiveText);if(labelIds[i]!=0){View label=root.findViewById(labelIds[i]);if(label instanceof TextView)((TextView)label).setTextColor(active?activeText:inactiveText);}}}
     private String clean(String s){return s==null||s.equalsIgnoreCase("Todos")||s.equalsIgnoreCase("Todas")?"":s;}
     private String normalize(String value){return value==null?"":Normalizer.normalize(value,Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT).replace('_',' ').replace('-',' ').replaceAll("[^a-z0-9 ]"," ").replaceAll("\\s+"," ").trim();}

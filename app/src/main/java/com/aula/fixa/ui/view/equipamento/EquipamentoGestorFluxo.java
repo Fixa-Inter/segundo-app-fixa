@@ -112,19 +112,31 @@ public final class EquipamentoGestorFluxo {
         floatingButton.setClickable(true);
         floatingButton.setFocusable(true);
         floatingButton.setContentDescription("Cadastrar equipamento");
-        floatingButton.setElevation(dp(8));
+        floatingButton.setElevation(host.requireContext().getResources().getDimension(R.dimen.app_fab_elevation));
         floatingButton.addView(fab, new android.widget.FrameLayout.LayoutParams(-1, -1));
-        if (plus != null) floatingButton.addView(plus, new android.widget.FrameLayout.LayoutParams(dp(29), dp(29), android.view.Gravity.CENTER));
+        if (plus != null) {
+            if (plus instanceof android.widget.ImageView) {
+                android.widget.ImageView icon = (android.widget.ImageView) plus;
+                icon.setImageResource(R.drawable.ic_plus_24);
+                icon.setColorFilter(androidx.core.content.ContextCompat.getColor(host.requireContext(), R.color.app_on_primary));
+                icon.setScaleType(android.widget.ImageView.ScaleType.CENTER_INSIDE);
+            }
+            int iconSize = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_icon_size);
+            floatingButton.addView(plus, new android.widget.FrameLayout.LayoutParams(iconSize, iconSize, android.view.Gravity.CENTER));
+        }
         View.OnClickListener create = v -> activity.open("manager_create_device");
         floatingButton.setOnClickListener(create);
         fab.setOnClickListener(create);
         if (plus != null) plus.setOnClickListener(create);
         ViewGroup screenHost = (ViewGroup) content.getParent();
-        android.widget.FrameLayout.LayoutParams fabParams = new android.widget.FrameLayout.LayoutParams(dp(70), dp(70), android.view.Gravity.BOTTOM | android.view.Gravity.END);
-        fabParams.setMargins(0, 0, dp(24), dp(24));
+        int fabSize = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_size);
+        int fabEnd = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_margin_end);
+        int fabBottom = host.requireContext().getResources().getDimensionPixelSize(R.dimen.app_fab_margin_bottom);
+        android.widget.FrameLayout.LayoutParams fabParams = new android.widget.FrameLayout.LayoutParams(fabSize, fabSize, android.view.Gravity.BOTTOM | android.view.Gravity.END);
+        fabParams.setMargins(0, 0, fabEnd, fabBottom);
         screenHost.addView(floatingButton, fabParams);
         floatingButton.setVisibility(View.INVISIBLE);
-        if (content instanceof ViewGroup) ((ViewGroup) content).setPadding(content.getPaddingLeft(), content.getPaddingTop(), content.getPaddingRight(), dp(96));
+        if (content instanceof ViewGroup) ((ViewGroup) content).setPadding(content.getPaddingLeft(), content.getPaddingTop(), content.getPaddingRight(), fabSize + fabBottom + dp(24));
         if (search != null) search.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { filter(s == null ? "" : s.toString()); }

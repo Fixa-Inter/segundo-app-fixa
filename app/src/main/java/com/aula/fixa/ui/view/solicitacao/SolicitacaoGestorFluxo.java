@@ -71,10 +71,10 @@ public final class SolicitacaoGestorFluxo {
             listAdapter = new SolicitacaoGestorListAdapter(
                     request -> {
                         if (planningSelection) {
-                            activity.openPlanningIntro(request.id);
                             activity.model.field("planning_tasks", "source_title", request.titulo);
                             activity.model.field("planning_tasks", "source_description", request.descricao);
                             activity.model.field("planning_tasks", "source_equipment_category", request.categoria);
+                            activity.openPlanningIntro(request.id);
                         } else activity.openRequestDetails(request.id, request.titulo);
                     }, approvedForPlanning ? R.string.ops_manager_no_approved_requests
                             : R.string.app_requests_empty);
@@ -236,8 +236,8 @@ public final class SolicitacaoGestorFluxo {
                 if (!isCurrent(content)) return;
                 ((android.widget.TextView) content.findViewById(R.id.tvSummaryTitle)).setText(item.titulo);
                 ((android.widget.TextView) content.findViewById(R.id.tvSummaryDescription)).setText(item.descricao);
-                AppText.setHtml(content.findViewById(R.id.tvSummaryDevice), R.string.app_confirm_device, item.categoria);
-                AppText.setHtml(content.findViewById(R.id.tvSummaryLocation), R.string.app_confirm_location, item.local);
+                ((android.widget.TextView) content.findViewById(R.id.tvSummaryDeviceValue)).setText(item.categoria);
+                ((android.widget.TextView) content.findViewById(R.id.tvSummaryLocationValue)).setText(item.local);
                 AppText.setHtml(content.findViewById(R.id.tvSummaryDescriptionLabel), R.string.app_confirm_description);
                 ((android.widget.TextView) content.findViewById(R.id.tvSummaryLocationDescription)).setText(item.descricaoLocal);
                 RecyclerView photosList = content.findViewById(R.id.rvSummaryPhotos);

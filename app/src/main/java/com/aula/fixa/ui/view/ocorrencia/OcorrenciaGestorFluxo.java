@@ -91,6 +91,7 @@ public final class OcorrenciaGestorFluxo {
         if ("manager_occurrence_service".equals(screen)) {
             android.widget.AutoCompleteTextView local = editField(root, R.id.occurrenceCreateLocal);
             styleOccurrenceDropdown(root.findViewById(R.id.occurrenceCreateLocal), local);
+            local.setHint(R.string.ops_occurrence_hint_location);
             EditText locationDescription = root.findViewById(R.id.occurrenceCreateLocationDescription);
             locationDescription.setText(value(scope, "locationDescription"));
             setOptions(local, new ArrayList<>());
@@ -124,6 +125,9 @@ public final class OcorrenciaGestorFluxo {
             styleOccurrenceDropdown(root.findViewById(R.id.occurrenceCreateEquipment), equipment);
             styleOccurrenceDropdown(root.findViewById(R.id.occurrenceCreateCategory), category);
             styleOccurrenceDropdown(root.findViewById(R.id.occurrenceCreatePriority), priority);
+            equipment.setHint(R.string.ops_occurrence_hint_equipment);
+            category.setHint(R.string.ops_occurrence_hint_category);
+            priority.setHint(R.string.ops_occurrence_hint_priority);
             setOptions(category, enumNames(com.aula.fixa.domain.enums.CategoriaProblema.values()));
             setOptions(priority, enumNames(com.aula.fixa.domain.enums.Prioridade.values()));
             category.setText(value(scope, "categoryName"), false); priority.setText(value(scope, "priorityName"), false);
@@ -175,7 +179,15 @@ public final class OcorrenciaGestorFluxo {
         photosList.setAdapter(createPhotoAdapter); createPhotoAdapter.submit(selectedPhotos);
         photosCount.setText(selectedPhotos.isEmpty() ? "Nenhuma foto adicionada" : host.getString(R.string.ops_photos_added, selectedPhotos.size()));
         root.findViewById(R.id.occurrenceCreateBack).setOnClickListener(v -> activity.back());
-        root.findViewById(R.id.occurrenceCreateAddPhotos).setOnClickListener(v -> activity.photos());
+        root.findViewById(R.id.occurrenceCreateAddPhotos).setOnClickListener(v -> host.selectOccurrencePhotos(uris -> {
+            if (!host.isAdded() || uris == null || uris.isEmpty()) return;
+            for (android.net.Uri uri : uris) selectedPhotos.add(new OcorrenciaFoto(0, uri.toString()));
+            org.json.JSONArray saved = new org.json.JSONArray();
+            for (OcorrenciaFoto photo : selectedPhotos) saved.put(photo.url);
+            activity.model.field(scope, "photos", saved.toString());
+            photosCount.setText(host.getString(R.string.ops_photos_added, selectedPhotos.size()));
+            createPhotoAdapter.submit(selectedPhotos);
+        }));
         fotoModel=new ViewModelProvider(host,new com.aula.fixa.adapter.foto.FotoViewModelFactory(host.requireContext())).get(com.aula.fixa.adapter.foto.FotoViewModel.class);
         root.findViewById(R.id.occurrenceCreateFinish).setOnClickListener(v -> submitCreation(scope, selectedPhotos, photosCount));
     }
@@ -242,21 +254,30 @@ public final class OcorrenciaGestorFluxo {
         viewModel.recomendar(title, description, equipmentCategory,
                 new com.aula.fixa.adapter.planejamento.RecomendacaoCategoriaViewModel.Callback() {
                     @Override public void success(String classification) {
-                        if (!host.isAdded() || !root.isAttachedToWindow()
-                                || !requestKey.equals(activity.model.field(scope, "jev_request_key"))) return;
+                        if (!host.isAdded() || !root.isAttachedToWindow()) {
+                            if (requestKey.equals(activity.model.field(scope, "jev_request_key")))
+                                activity.model.field(scope, "jev_request_key", "");
+                            return;
+                        }
+                        if (!requestKey.equals(activity.model.field(scope, "jev_request_key"))) return;
                         String selected = category.getText().toString().trim();
                         String currentRecommendation = activity.model.field(scope, "jev_recommended_category");
                         if (!selected.isEmpty() && (currentRecommendation == null
                                 || !currentRecommendation.equalsIgnoreCase(selected))) return;
                         com.aula.fixa.domain.enums.CategoriaProblema recommended = matchProblemCategory(classification);
-                        if (recommended == null) return;
+                        if (recommended == null) {
+                            activity.model.field(scope, "jev_request_key", "");
+                            return;
+                        }
                         category.setText(recommended.getNome(), false);
                         activity.model.field(scope, "category", recommended.name());
                         activity.model.field(scope, "categoryName", recommended.getNome());
                         activity.model.field(scope, "jev_recommended_category", recommended.getNome());
                     }
                     @Override public void failure(Throwable error) {
-                        // A recomendação é opcional; o usuário ainda pode escolher manualmente.
+                        if (requestKey.equals(activity.model.field(scope, "jev_request_key")))
+                            activity.model.field(scope, "jev_request_key", "");
+                        // A recomendação é opcional; falhas podem ser tentadas novamente ao retornar à etapa.
                     }
                 });
     }
@@ -345,6 +366,7 @@ public final class OcorrenciaGestorFluxo {
         content=root;android.os.Bundle args=host.getArguments();if(args==null)return;
         View back=root.findViewById(R.id.occurrenceEditInfoBack);if(back!=null)back.setOnClickListener(v->activity.finishOccurrenceEdit());
         android.widget.AutoCompleteTextView local=editField(root,R.id.occurrenceEditFieldLocation),equipmentField=editField(root,R.id.occurrenceEditFieldEquipment),categoryField=editField(root,R.id.occurrenceEditFieldCategory),priorityField=editField(root,R.id.occurrenceEditFieldPriority);
+        local.setHint(R.string.ops_occurrence_hint_location); equipmentField.setHint(R.string.ops_occurrence_hint_equipment); categoryField.setHint(R.string.ops_occurrence_hint_category); priorityField.setHint(R.string.ops_occurrence_hint_priority);
         styleOccurrenceDropdown(root.findViewById(R.id.occurrenceEditFieldLocation),local);styleOccurrenceDropdown(root.findViewById(R.id.occurrenceEditFieldEquipment),equipmentField);styleOccurrenceDropdown(root.findViewById(R.id.occurrenceEditFieldCategory),categoryField);styleOccurrenceDropdown(root.findViewById(R.id.occurrenceEditFieldPriority),priorityField);
         local.setHint(R.string.app_filter_location_default);equipmentField.setHint(R.string.app_filter_location_default);categoryField.setHint(R.string.app_filter_location_default);priorityField.setHint(R.string.app_filter_location_default);
         List<String> categories=new ArrayList<>(),priorities=new ArrayList<>();for(com.aula.fixa.domain.enums.CategoriaProblema c:com.aula.fixa.domain.enums.CategoriaProblema.values())categories.add(c.getNome());for(com.aula.fixa.domain.enums.Prioridade p:com.aula.fixa.domain.enums.Prioridade.values())priorities.add(p.getNome());

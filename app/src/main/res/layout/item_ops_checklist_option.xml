@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ops_checklist_option_row_height"
+    android:layout_marginBottom="@dimen/ops_checklist_option_row_spacing"
+    android:background="@drawable/bg_ops_category_input"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/ops_checklist_option_horizontal_padding"
+    android:paddingEnd="@dimen/ops_checklist_option_horizontal_padding">
+
+    <TextView
+        android:id="@+id/checklistOptionDrag"
+        android:layout_width="@dimen/ops_checklist_option_drag_width"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/ops_checklist_option_reorder"
+        android:gravity="center"
+        android:text="≡"
+        android:textColor="@color/app_primary_dark"
+        android:textSize="21sp" />
+
+    <EditText
+        android:id="@+id/checklistOptionInput"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:hint="@string/ops_checklist_option_title_hint"
+        android:inputType="textCapSentences"
+        android:paddingStart="@dimen/ops_checklist_option_input_padding"
+        android:paddingEnd="@dimen/ops_checklist_option_input_padding"
+        android:singleLine="true"
+        android:textColor="@color/app_text_black"
+        android:textColorHint="@color/ops_color_ff637087"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/checklistOptionRemove"
+        android:layout_width="@dimen/ops_checklist_option_remove_width"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/ops_checklist_option_remove"
+        android:gravity="center"
+        android:text="×"
+        android:textColor="@color/app_primary_dark"
+        android:textSize="22sp" />
+</LinearLayout>

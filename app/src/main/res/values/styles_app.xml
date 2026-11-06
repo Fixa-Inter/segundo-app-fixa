@@ -290,6 +290,10 @@
         <item name="android:textColor">@color/app_text_dark</item>
         <item name="android:textSize">@dimen/app_confirm_card_meta_text_size</item>
     </style>
+    <style name="TextAppearance.FIXA.App.Confirm.Value" parent="TextAppearance.FIXA.App.Regular">
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="android:textSize">@dimen/app_confirm_card_value_text_size</item>
+    </style>
     <!-- "Imagens" no card de confirmação (Figma 700/14 #0B013C) -->
     <style name="TextAppearance.FIXA.App.Confirm.Section" parent="TextAppearance.FIXA.App.Bold">
         <item name="android:textColor">@color/app_primary_deep</item>

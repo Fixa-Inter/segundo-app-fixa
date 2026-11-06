@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Figma 5717:6297 • manager / occurrence_result. Componentes nativos; dimensões em values e sw400dp. -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" android:fillViewport="true" android:clipToPadding="false" tools:context=".ui.view.operations.OperationsScreenFragment">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/ops_color_fff5f7fa" tools:context=".ui.view.operations.OperationsScreenFragment">
+    <androidx.core.widget.NestedScrollView android:id="@+id/completionObservationScroll" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:clipToPadding="false">
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="0dp" android:clipChildren="false" android:clipToPadding="false">
         <ImageView
             android:id="@+id/ops_5717_6320"
@@ -35,7 +36,7 @@
         <TextView
             android:id="@+id/ops_5717_6327"
             android:layout_width="0dp"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/ops_dp_41"
             android:layout_marginTop="@dimen/ops_dp_15_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +51,10 @@
             android:tag="text:Grau de dificuldade"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_semibold"
-            android:maxLines="1" />
+            android:maxLines="2"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="15sp" />
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6328" android:layout_width="0dp" android:layout_height="48dp" android:layout_marginStart="@dimen/ops_dp_36_0" android:layout_marginTop="@dimen/ops_dp_14_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_36_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6327" android:background="@drawable/bg_ops_d8729dd0eb">
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/ops_5717_6328_input"
@@ -81,8 +85,8 @@
                 android:id="@+id/ops_5717_6330"
                 android:layout_width="@dimen/ops_dp_11_47"
                 android:layout_height="@dimen/ops_dp_6_48"
-                android:layout_marginTop="@dimen/ops_dp_14_26"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/figma_ce4d4"
                 android:scaleType="fitXY"
                 android:importantForAccessibility="no"
@@ -91,13 +95,13 @@
         <TextView
             android:id="@+id/ops_5717_6331"
             android:layout_width="0dp"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/ops_dp_41"
-            android:layout_marginTop="@dimen/ops_dp_66_0"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="@dimen/ops_dp_69"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ops_5717_6327"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_6328"
             android:text="@string/ops_text_solucao_aplicada_423f3c"
             android:textAppearance="@style/TextAppearance.FIXA.Operations.7317a3c514"
             android:includeFontPadding="false"
@@ -106,11 +110,14 @@
             android:tag="text:Solução aplicada"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_semibold"
-            android:maxLines="1" />
+            android:maxLines="2"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="15sp" />
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ops_5717_6332"
             android:layout_width="0dp"
-            android:layout_height="92dp"
+            android:layout_height="72dp"
             android:layout_marginStart="@dimen/ops_dp_36_0"
             android:layout_marginTop="@dimen/ops_dp_14_0"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,9 +144,9 @@
         <TextView
             android:id="@+id/ops_5717_6334"
             android:layout_width="0dp"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/ops_dp_41"
-            android:layout_marginTop="@dimen/ops_dp_18_0"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="@dimen/ops_dp_45"
             app:layout_constraintEnd_toEndOf="parent"
@@ -152,13 +159,16 @@
             android:tag="text:Dificuldades encontradas (opcional)"
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_semibold"
-            android:maxLines="1" />
+            android:maxLines="2"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="15sp" />
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ops_5717_6336"
             android:layout_width="0dp"
-            android:layout_height="92dp"
+            android:layout_height="72dp"
             android:layout_marginStart="@dimen/ops_dp_36_0"
-            android:layout_marginTop="@dimen/ops_dp_13_0"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="@dimen/ops_dp_36_0"
             app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +195,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/ops_dp_24"
             android:layout_marginStart="@dimen/ops_dp_41"
-            android:layout_marginTop="@dimen/ops_dp_23_0"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="@dimen/ops_dp_45"
             app:layout_constraintEnd_toEndOf="parent"
@@ -199,17 +209,14 @@
             android:padding="@dimen/ops_dp_0"
             android:fontFamily="@font/poppins_semibold"
             android:maxLines="1" />
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6298" android:layout_width="0dp" android:layout_height="48dp" android:layout_marginStart="@dimen/ops_dp_36_0" android:layout_marginTop="@dimen/ops_dp_16_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/ops_dp_36_0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6335" android:background="@drawable/bg_ops_d2a2e32d66" android:clipChildren="false" android:clipToPadding="false">
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6298" android:layout_width="0dp" android:layout_height="48dp" android:layout_marginStart="@dimen/ops_dp_36_0" android:layout_marginTop="12dp" android:layout_marginEnd="@dimen/ops_dp_36_0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6335" android:background="@drawable/bg_ops_d2a2e32d66" android:clipChildren="false" android:clipToPadding="false">
             <TextView
                 android:id="@+id/ops_5717_6299"
-                android:layout_width="@dimen/ops_dp_182_45"
-                android:layout_height="@dimen/ops_dp_19_6"
-                android:layout_marginStart="@dimen/ops_dp_83_0"
-                android:layout_marginTop="@dimen/ops_dp_9_7"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/ops_text_adicionar_fotos_e7820f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ops_completion_select_images"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.907a5f5605"
+                android:textColor="@color/app_on_primary"
                 android:includeFontPadding="false"
                 android:gravity="center|center_vertical"
                 android:minHeight="@dimen/ops_dp_19_6"
@@ -219,16 +226,51 @@
                 android:maxLines="1" />
             <ImageView
                 android:id="@+id/ops_5717_6301"
-                android:layout_width="@dimen/ops_dp_15_67"
-                android:layout_height="@dimen/ops_dp_13_01"
-                android:layout_marginStart="@dimen/ops_dp_87_51"
-                android:layout_marginTop="@dimen/ops_dp_12_48"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/figma_92ddb"
-                android:scaleType="fitXY"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_image_upload"
+                android:scaleType="centerInside"
+                android:tint="@color/app_on_primary"
                 android:importantForAccessibility="no"
                 android:tag="image:" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/completionTakePhoto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="@dimen/ops_dp_36_0"
+            android:layout_marginEnd="@dimen/ops_dp_36_0"
+            android:background="@drawable/bg_ops_d2a2e32d66"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ops_5717_6298">
+            <ImageView
+                android:id="@+id/completionTakePhotoIcon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_camera_20"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            <TextView
+                android:id="@+id/completionTakePhotoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ops_completion_take_photo"
+                android:textColor="@color/app_on_primary"
+                android:textAppearance="@style/TextAppearance.FIXA.Operations.907a5f5605"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toEndOf="@id/completionTakePhotoIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ops_5717_6325"
@@ -269,3 +311,11 @@
             android:maxLines="1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/completionObservationFooter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_completion_footer_height"
+        android:layout_gravity="bottom"
+        android:background="@color/ops_color_fff5f7fa"
+        android:elevation="4dp" />
+</FrameLayout>

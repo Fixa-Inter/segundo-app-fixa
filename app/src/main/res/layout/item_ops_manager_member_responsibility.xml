@@ -1,7 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/ops_dp_110_0"
+    android:layout_height="@dimen/app_member_responsibility_card_height"
     android:layout_marginBottom="@dimen/ops_dp_12_0"
     android:background="@drawable/bg_ops_9a20d877fd"
     android:elevation="2dp"
@@ -16,8 +16,8 @@
         app:layout_constraintTop_toTopOf="parent" />
     <View
         android:id="@+id/memberResponsibilityPriorityBadge"
-        android:layout_width="@dimen/ops_dp_30_0"
-        android:layout_height="@dimen/ops_dp_20_0"
+        android:layout_width="@dimen/app_member_priority_badge_width"
+        android:layout_height="@dimen/app_member_priority_badge_height"
         android:layout_marginEnd="@dimen/ops_dp_10_0"
         android:layout_marginTop="@dimen/ops_dp_8_0"
         android:background="@drawable/bg_ops_39dc043443"
@@ -76,9 +76,10 @@
 
     <TextView
         android:id="@+id/memberResponsibilityDue"
-        android:layout_width="@dimen/ops_dp_86_1"
+        android:layout_width="0dp"
         android:layout_height="@dimen/ops_dp_14"
         android:layout_marginStart="@dimen/ops_dp_30_0"
+        android:layout_marginEnd="@dimen/ops_dp_10_0"
         android:layout_marginTop="@dimen/ops_dp_7_6"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center_vertical"
@@ -86,5 +87,6 @@
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.FIXA.Operations.8f6932507c"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/memberResponsibilityLocation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

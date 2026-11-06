@@ -123,11 +123,13 @@
                 android:translationZ="@dimen/ops_dp_3"  android:layout_marginEnd="@dimen/ops_action_end_margin" app:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                 android:id="@+id/ops_5717_6697"
-                android:layout_width="@dimen/ops_dp_209_1"
-                android:layout_height="@dimen/ops_dp_40"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/ops_dp_29_0"
+                android:layout_marginEnd="@dimen/ops_dp_12_0"
                 android:layout_marginTop="@dimen/ops_dp_56_0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ops_5717_6699"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/ops_text_acompanhe_as_verificacoes_9a69da"
                 android:textAppearance="@style/TextAppearance.FIXA.Operations.dcf7565c8e"
@@ -137,7 +139,7 @@
                 android:tag="text:Acompanhe as verificações"
                 android:padding="@dimen/ops_dp_0"
                 android:fontFamily="@font/poppins_medium"
-                android:maxLines="1" />
+                android:maxLines="2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ops_5717_6705" android:layout_width="0dp" android:layout_height="@dimen/ops_dp_120_0" android:layout_marginStart="@dimen/app_events_title_margin_start" android:layout_marginTop="@dimen/ops_dp_12_0" app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/app_events_title_margin_start" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/ops_5717_6683" android:background="@drawable/bg_ops_892fe1afbe" android:elevation="@dimen/ops_dp_2" android:clipChildren="false" android:clipToPadding="false" android:tag="card:Modelos">
             <View

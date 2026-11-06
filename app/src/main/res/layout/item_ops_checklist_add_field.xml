@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:layout_marginBottom="@dimen/ops_checklist_add_field_spacing"
     android:background="@drawable/bg_ops_892fe1afbe"
     android:clickable="true"
     android:focusable="true"

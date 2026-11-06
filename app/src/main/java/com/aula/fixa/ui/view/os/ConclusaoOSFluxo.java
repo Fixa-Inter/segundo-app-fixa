@@ -68,10 +68,20 @@ public final class ConclusaoOSFluxo {
             }
             host.selectCompletionPhotos();
         });
+        View takePhoto = root.findViewById(R.id.completionTakePhoto);
+        if (takePhoto != null) takePhoto.setOnClickListener(v -> {
+            if (photoCount() >= MAX_PHOTOS) {
+                Toast.makeText(host.requireContext(), "É possível adicionar no máximo 3 fotos.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            host.captureCompletionPhoto();
+        });
 
         TextView photoLabel = root.findViewById(R.id.ops_5717_6299);
-        if (photoLabel != null) photoLabel.setText("Adicionar fotos (1 a 3 obrigatórias)");
-        centerPhotoAction(photoLabel);
+        if (photoLabel != null) photoLabel.setText(R.string.ops_completion_select_images);
+        centerPhotoAction(photoLabel, R.id.ops_5717_6298, R.id.ops_5717_6301);
+        TextView takePhotoLabel = root.findViewById(R.id.completionTakePhotoLabel);
+        centerPhotoAction(takePhotoLabel, R.id.completionTakePhoto, R.id.completionTakePhotoIcon);
         View cancel = root.findViewById(R.id.ops_5717_6323);
         View submit = root.findViewById(R.id.ops_5717_6325);
         bindBottomButtons(cancel, submit);
@@ -86,14 +96,14 @@ public final class ConclusaoOSFluxo {
         String[] labels = {"Grau de dificuldade", "Solução aplicada", "Dificuldades encontradas (opcional)", "Fotos"};
         for (String label : labels) {
             TextView view = root.findViewWithTag("text:" + label);
-            if (view != null) view.setTextSize(17);
+            if (view != null) view.setTextSize(14);
         }
         TextView photoAction = root.findViewById(R.id.ops_5717_6299);
-        if (photoAction != null) photoAction.setTextSize(15);
+        if (photoAction != null) photoAction.setTextSize(14);
         EditText solution = root.findViewById(R.id.ops_5717_6332);
         EditText issues = root.findViewById(R.id.ops_5717_6336);
-        if (solution != null) solution.setTextSize(15);
-        if (issues != null) issues.setTextSize(15);
+        if (solution != null) solution.setTextSize(14);
+        if (issues != null) issues.setTextSize(14);
     }
 
     private void bindDifficultyDropdown(AutoCompleteTextView difficulty) {
@@ -105,7 +115,7 @@ public final class ConclusaoOSFluxo {
             container.setLayoutParams(params);
         }
         String[] choices = {"Fácil", "Médio", "Difícil"};
-        difficulty.setTextSize(15);
+        difficulty.setTextSize(14);
         difficulty.setKeyListener(null);
         difficulty.setFocusable(false);
         difficulty.setThreshold(0);
@@ -124,9 +134,9 @@ public final class ConclusaoOSFluxo {
         if (arrow != null) arrow.setOnClickListener(v -> difficulty.showDropDown());
     }
 
-    private void centerPhotoAction(TextView label) {
-        View container = root.findViewById(R.id.ops_5717_6298);
-        View icon = root.findViewById(R.id.ops_5717_6301);
+    private void centerPhotoAction(TextView label, int containerId, int iconId) {
+        View container = root.findViewById(containerId);
+        View icon = root.findViewById(iconId);
         if (container == null || label == null || icon == null) return;
         ConstraintLayout.LayoutParams iconParams = new ConstraintLayout.LayoutParams(dp(18), dp(18));
         iconParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
@@ -147,15 +157,32 @@ public final class ConclusaoOSFluxo {
     }
 
     private void bindBottomButtons(View cancel, View submit) {
-        if (cancel == null || submit == null || !(submit.getParent() instanceof ConstraintLayout)) return;
-        ConstraintLayout parent = (ConstraintLayout) submit.getParent();
-        int buttonHeight = dp(48);
+        if (cancel == null || submit == null || !(submit.getParent() instanceof ViewGroup)) return;
+        View footerView = root.findViewById(R.id.completionObservationFooter);
+        if (!(footerView instanceof ConstraintLayout)) return;
+        ViewGroup oldParent = (ViewGroup) submit.getParent();
+        oldParent.removeView(cancel);
+        oldParent.removeView(submit);
+        ConstraintLayout parent = (ConstraintLayout) footerView;
+        int buttonHeight = getDimen(R.dimen.app_completion_action_button_height);
+        parent.addView(cancel, new ConstraintLayout.LayoutParams(0, buttonHeight));
+        parent.addView(submit, new ConstraintLayout.LayoutParams(0, buttonHeight));
+        View scrollView = root.findViewById(R.id.completionObservationScroll);
+        if (scrollView instanceof androidx.core.widget.NestedScrollView) {
+            androidx.core.widget.NestedScrollView scroll =
+                    (androidx.core.widget.NestedScrollView) scrollView;
+            int bottomSpace = getDimen(R.dimen.app_completion_footer_scroll_padding);
+            scroll.setClipToPadding(false);
+            scroll.setPadding(scroll.getPaddingLeft(), scroll.getPaddingTop(), scroll.getPaddingRight(), bottomSpace);
+        }
         ConstraintLayout.LayoutParams cancelParams = new ConstraintLayout.LayoutParams(0, buttonHeight);
         cancelParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         cancelParams.endToStart = submit.getId();
-        cancelParams.topToBottom = R.id.ops_5717_6298;
+        cancelParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+        cancelParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
         cancelParams.horizontalChainStyle = ConstraintLayout.LayoutParams.CHAIN_SPREAD;
-        cancelParams.setMargins(dp(36), dp(18), dp(8), 0);
+        cancelParams.setMargins(getDimen(R.dimen.app_completion_action_side_margin), 0,
+                getDimen(R.dimen.app_completion_action_gap), 0);
         cancel.setLayoutParams(cancelParams);
         cancel.setBackgroundResource(R.drawable.bg_ops_6fc7f4db18);
         if (cancel instanceof TextView) {
@@ -170,7 +197,8 @@ public final class ConclusaoOSFluxo {
         submitParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         submitParams.topToTop = cancel.getId();
         submitParams.bottomToBottom = cancel.getId();
-        submitParams.setMargins(dp(8), 0, dp(36), 0);
+        submitParams.setMargins(getDimen(R.dimen.app_completion_action_gap), 0,
+                getDimen(R.dimen.app_completion_action_side_margin), 0);
         submit.setLayoutParams(submitParams);
         if (submit instanceof TextView) {
             TextView text = (TextView) submit;
@@ -178,6 +206,10 @@ public final class ConclusaoOSFluxo {
             text.setTextSize(16);
         }
         cancel.setOnClickListener(v -> activity.back());
+    }
+
+    private int getDimen(int resource) {
+        return host.requireContext().getResources().getDimensionPixelSize(resource);
     }
 
     public void uploadPhotos(List<Uri> uris) {

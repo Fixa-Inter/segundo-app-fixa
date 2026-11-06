@@ -53,13 +53,17 @@
         android:id="@+id/eventInfoFragment"
         android:name="com.aula.fixa.ui.view.events.EventInfoFragment"
         android:label="@string/app_event_info_title"
-        tools:layout="@layout/fragment_event_info" />
+        tools:layout="@layout/fragment_event_info">
+        <argument android:name="eventId" app:argType="long" android:defaultValue="0L" />
+    </fragment>
 
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.aula.fixa.ui.view.notifications.NotificationsFragment"
         android:label="@string/app_notifications_title"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications">
+        <action android:id="@+id/action_notifications_to_event_info" app:destination="@id/eventInfoFragment" />
+    </fragment>
 
     <!-- Abrir solicitação -->
     <fragment

@@ -107,7 +107,8 @@ public class NotificationsFragment extends Fragment {
         });
     }
 
-    private void render() {
+    private void
+    render() {
         if (adapter == null || list == null) return;
         adapter.rows.clear();
         LocalDate today = LocalDate.now();
@@ -168,6 +169,7 @@ public class NotificationsFragment extends Fragment {
             }
             return;
         }
+
         long referenceId;
         try {
             referenceId = Long.parseLong(item.referenciaId);
@@ -187,7 +189,15 @@ public class NotificationsFragment extends Fragment {
         Bundle args = new Bundle();
         if (item.tipoNotificacao == 1) {
             args.putLong("eventId", referenceId);
-            navigation.navigate(R.id.eventInfoFragment, args);
+            int destination = navigation.getCurrentDestination() == null
+                    ? View.NO_ID : navigation.getCurrentDestination().getId();
+            if (destination == R.id.ops_manager_notifications) {
+                navigation.navigate(R.id.action_ops_manager_notifications_to_event_details, args);
+            } else if (destination == R.id.ops_technician_notifications) {
+                navigation.navigate(R.id.action_ops_technician_notifications_to_event_details, args);
+            } else {
+                navigation.navigate(R.id.action_notifications_to_event_info, args);
+            }
         } else if (item.tipoNotificacao == 2) {
             args.putLong("requestId", referenceId);
             args.putString("requestTitle", "");

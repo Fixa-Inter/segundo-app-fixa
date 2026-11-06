@@ -45,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/planningTaskTitle"
-        android:textAppearance="@style/TextAppearance.FIXA.Operations.c9e7c40f6d"
+        android:textAppearance="@style/TextAppearance.FIXA.Operations.TaskDescription"
         android:fontFamily="@font/poppins_light"
         android:includeFontPadding="false"
         android:maxLines="2"

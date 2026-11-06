@@ -44,6 +44,16 @@ public final class SolicitacaoPhotoPicker {
                 }).show();
     }
 
+    public void openGallery(Consumer<List<Uri>> callback) {
+        this.callback = callback;
+        gallery.launch("image/*");
+    }
+
+    public void openCamera(Consumer<List<Uri>> callback) {
+        this.callback = callback;
+        takePhoto();
+    }
+
     private void takePhoto() {
         try {
             File directory = fragment.requireContext().getExternalFilesDir(android.os.Environment.DIRECTORY_PICTURES);

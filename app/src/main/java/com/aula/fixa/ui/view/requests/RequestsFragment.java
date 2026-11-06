@@ -249,7 +249,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
         if (statusChips == null) return;
         statusChips.setOnCheckedChangeListener((group, checkedId) -> {
             activeStatusFilter = statusFor(checkedId);
-            loadRequests(buildSearchFilters());
+            render();
         });
     }
 
@@ -260,10 +260,8 @@ public class RequestsFragment extends Fragment implements RequestAdapter.Listene
     }
 
     private com.aula.fixa.domain.model.FiltroBusca buildSearchFilters() {
-        String status = activeStatusFilter == null ? null : activeStatusFilter.name();
-        // O chip Aprovadas inclui OS_CRIADA junto com APROVADO; mantém essa regra na projeção local.
-        if (activeStatusFilter == StatusProblema.APROVADO) status = null;
-        return com.aula.fixa.domain.model.FiltroBusca.periodo(period, search, status,
+        // Status chips filtram a coleção já carregada em render(), sem nova consulta remota.
+        return com.aula.fixa.domain.model.FiltroBusca.periodo(period, search, null,
                 location, category, null, null, null);
     }
 

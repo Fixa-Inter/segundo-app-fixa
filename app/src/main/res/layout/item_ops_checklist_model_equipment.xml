@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/checklistModelOption"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/ops_checklist_model_equipment_indent"
+    android:background="@drawable/bg_ops_checklist_equipment_state"
+    android:buttonTint="@color/ops_checklist_equipment_button_state"
+    android:fontFamily="@font/poppins_regular"
+    android:minHeight="@dimen/ops_checklist_model_equipment_height"
+    android:textColor="@color/ops_checklist_equipment_text_state"
+    android:textSize="18sp" />

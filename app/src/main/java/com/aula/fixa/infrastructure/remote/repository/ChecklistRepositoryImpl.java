@@ -73,10 +73,16 @@ public final class ChecklistRepositoryImpl implements ChecklistRepository {
     }
 
     @Override public List<EquipmentModelOption> modelosDisponiveis(List<ChecklistTemplate> existentes, String checklistEditadoId) throws Exception {
-        Set<Long> usados = new HashSet<>();
+        Set<Long> equipamentosEmUso = new HashSet<>();
+        // A checklist cannot reserve an equipment item already assigned to a different checklist.
         if (existentes != null) for (ChecklistTemplate template : existentes) {
             if (template == null || (checklistEditadoId != null && checklistEditadoId.equals(template.id)) || template.modelos == null) continue;
-            for (ChecklistEquipmentModel model : template.modelos) if (model != null) usados.add(model.modeloEquipamentoId);
+            for (ChecklistEquipmentModel model : template.modelos) {
+                if (model == null || model.equipamentos == null) continue;
+                for (ChecklistEquipment equipment : model.equipamentos) {
+                    if (equipment != null) equipamentosEmUso.add(equipment.id);
+                }
+            }
         }
         Response<List<ModeloEquipamentoResponse>> response = modelosEquipamento.listar(
                 "id,nome,descricao,marca,categoria,quantidadeAparelhos").execute();
@@ -85,15 +91,26 @@ public final class ChecklistRepositoryImpl implements ChecklistRepository {
         List<EquipmentModelOption> result = new ArrayList<>();
         if (response.body() == null) return result;
         for (ModeloEquipamentoResponse model : response.body()) {
-            if (model == null || model.id == null || usados.contains(model.id)) continue;
+            if (model == null || model.id == null) continue;
             Response<List<EquipamentoResponse>> equipmentResponse = equipamentos.listar(model.id).execute();
-            if (equipmentResponse.code() == 404) continue;
+            if (equipmentResponse.code() == 404) {
+                EquipmentModelOption option = new EquipmentModelOption(model.id, model.nome, new ArrayList<>());
+                option.disponivel = false;
+                result.add(option);
+                continue;
+            }
             if (!equipmentResponse.isSuccessful()) throw apiError(equipmentResponse);
             List<ChecklistEquipment> attached = new ArrayList<>();
             if (equipmentResponse.body() != null) for (EquipamentoResponse equipment : equipmentResponse.body()) {
-                if (equipment != null && equipment.id != null) attached.add(new ChecklistEquipment(equipment.id, equipment.codigo, null, false));
+                if (equipment != null && equipment.id != null) {
+                    ChecklistEquipment item = new ChecklistEquipment(equipment.id, equipment.codigo, null, false);
+                    item.disponivel = !equipamentosEmUso.contains(equipment.id);
+                    attached.add(item);
+                }
             }
-            if (!attached.isEmpty()) result.add(new EquipmentModelOption(model.id, model.nome, attached));
+            EquipmentModelOption option = new EquipmentModelOption(model.id, model.nome, attached);
+            option.disponivel = attached.stream().anyMatch(item -> item.disponivel);
+            result.add(option);
         }
         return result;
     }

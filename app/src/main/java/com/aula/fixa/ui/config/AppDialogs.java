@@ -397,6 +397,14 @@ public final class AppDialogs {
             int desired = context.getResources().getDimensionPixelSize(widthRes);
             int max = (int) (context.getResources().getDisplayMetrics().widthPixels * 0.9f);
             dialog.getWindow().setLayout(Math.min(desired, max), WindowManager.LayoutParams.WRAP_CONTENT);
+            // Keep the established dialog layout and soften its entrance without shifting its contents.
+            content.setAlpha(0f);
+            content.setScaleX(.97f);
+            content.setScaleY(.97f);
+            content.animate().alpha(1f).scaleX(1f).scaleY(1f)
+                    .setDuration(180L)
+                    .setInterpolator(new android.view.animation.DecelerateInterpolator())
+                    .start();
         });
         return dialog;
     }

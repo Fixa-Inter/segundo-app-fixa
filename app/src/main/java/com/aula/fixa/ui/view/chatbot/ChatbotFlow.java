@@ -56,8 +56,9 @@ public final class ChatbotFlow {
     private final List<String> attachedUrls = new ArrayList<>();
     private final List<Uri> pendingPhotoUris = new ArrayList<>();
     private ChatMessageAdapter messageAdapter;
-    private RecentChatsAdapter recentAdapter;
+    private ChatRecentListController recentController;
     private ChatAttachmentAdapter attachmentAdapter;
+    private ChatAttachmentPreview attachmentRenderer;
     private RecyclerView messageList, recentList;
     private TextView greeting;
     private TextView headerTitle;
@@ -97,7 +98,7 @@ public final class ChatbotFlow {
                 root.findViewById(R.id.btnSend).setEnabled(!pending && !uploadingImages);
                 renderWarning();
                 submitRecentItems();
-                updateRecentEmptyState();
+
             }); }
             @Override public void onErro(Throwable error) { post(() -> {
                 root.findViewById(R.id.btnSend).setEnabled(!pending && !uploadingImages);
@@ -120,14 +121,15 @@ public final class ChatbotFlow {
         headerTitle = root.findViewById(R.id.tvTitle);
         renderWarning();
         messageList.setLayoutManager(new LinearLayoutManager(fragment.requireContext())); messageList.setAdapter(messageAdapter);
-        recentAdapter = new RecentChatsAdapter(this::displayTitle, new RecentChatsAdapter.Callbacks() {
-            @Override public void onSelect(ChatHistory history) { select(history); }
-            @Override public void onMenu(ChatHistory history, View anchor) { menu(history, anchor); }
-        }, fragment.getString(R.string.app_chat_recent_draft_only));
-        recentList.setLayoutManager(new LinearLayoutManager(fragment.requireContext())); recentList.setAdapter(recentAdapter);
+        recentController = new ChatRecentListController(fragment, recentList, recentEmpty, histories,
+                new ChatRecentListController.Actions() {
+                    @Override public void onSelect(ChatHistory history) { select(history); }
+                    @Override public void onMenu(ChatHistory history, View anchor) { menu(history, anchor); }
+                });
         attachmentAdapter = new ChatAttachmentAdapter(url -> { attachedUrls.remove(url); updateAttachmentsLabel(); });
         attachmentPreview.setLayoutManager(new LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false));
         attachmentPreview.setAdapter(attachmentAdapter);
+        attachmentRenderer = new ChatAttachmentPreview(attachmentPreview, attachmentAdapter);
 
         View drawerContent = root.findViewById(R.id.drawerMenu);
         if (managerMode) {
@@ -161,7 +163,7 @@ public final class ChatbotFlow {
         warning.setOnClickListener(v -> confirmDiscardDraft());
         search.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s,int st,int count,int after) { }
-            @Override public void onTextChanged(CharSequence s,int st,int before,int count) { recentAdapter.filter(s.toString()); updateRecentEmptyState(); }
+            @Override public void onTextChanged(CharSequence s,int st,int before,int count) { recentController.filter(s.toString()); }
             @Override public void afterTextChanged(Editable e) { }
         });
     }
@@ -169,16 +171,16 @@ public final class ChatbotFlow {
     public void onPhotoUris(List<Uri> uris) {
         if (destroyed || uris == null || uris.isEmpty()) return;
         int remaining = 3 - attachedUrls.size();
-        if (uris.size() > remaining) { toast("É possível anexar até 3 imagens por mensagem."); return; }
+        if (uris.size() > remaining) { toast(fragment.getString(R.string.app_chat_error_photo_limit)); return; }
         pendingPhotoUris.addAll(uris);
         renderAttachedPreviews();
         uploadNext(new ArrayList<>(uris), 0);
     }
 
     public void reload() {
-        if (!viewModel.hasSession()) { toast("Entre novamente para acessar a Manu."); return; }
+        if (!viewModel.hasSession()) { toast(fragment.getString(R.string.app_chat_error_session_access)); return; }
         viewModel.listar(new ChatViewModel.Listener<List<ChatHistory>>() {
-            @Override public void onResultado(List<ChatHistory> data) { post(() -> { histories.clear(); histories.addAll(data); submitRecentItems(); updateRecentEmptyState(); }); }
+            @Override public void onResultado(List<ChatHistory> data) { post(() -> { histories.clear(); histories.addAll(data); submitRecentItems();  }); }
             @Override public void onErro(Throwable error) { post(() -> toast(message(error))); }
         });
     }
@@ -187,15 +189,15 @@ public final class ChatbotFlow {
     public void close() { destroyed = true; }
 
     private void startNewChat() {
-        if (pending) { toast("Aguarde o envio atual terminar."); return; }
+        if (pending) { toast(fragment.getString(R.string.app_chat_error_wait_send)); return; }
         selectedThreadId = null; selectedRecentId = null; messages.clear(); attachedUrls.clear(); pendingPhotoUris.clear(); lastLiveDayKey = null; updateAttachmentsLabel();
         headerTitle.setText(R.string.app_chat_title);
-        messageAdapter.notifyDataSetChanged(); recentAdapter.setSelectedThreadId(null); showConversation(false); drawer.closeDrawers();
+        messageAdapter.notifyDataSetChanged(); recentController.select(null); showConversation(false); drawer.closeDrawers();
         input.setText("");
     }
 
     private void select(ChatHistory history) {
-        if (pending) { toast("Aguarde o envio atual terminar."); return; }
+        if (pending) { toast(fragment.getString(R.string.app_chat_error_wait_send)); return; }
         if (RecentChatsAdapter.LOCAL_DRAFT_ID.equals(history.sessionId)) {
             selectedThreadId = null;
             selectedRecentId = RecentChatsAdapter.LOCAL_DRAFT_ID;
@@ -203,7 +205,7 @@ public final class ChatbotFlow {
             lastLiveDayKey = null;
             if (unresolvedEntry != null) appendLive(unresolvedEntry);
             headerTitle.setText(R.string.app_chat_recent_draft_only);
-            recentAdapter.setSelectedThreadId(selectedRecentId);
+            recentController.select(selectedRecentId);
             messageAdapter.notifyDataSetChanged();
             showConversation(!messages.isEmpty());
             scrollToBottom();
@@ -216,8 +218,8 @@ public final class ChatbotFlow {
         String previousRecentId = selectedRecentId;
         selectedThreadId = sessionId;
         selectedRecentId = sessionId;
-        headerTitle.setText(displayTitle(history));
-        recentAdapter.setSelectedThreadId(selectedRecentId);
+        headerTitle.setText(recentController.title(history));
+        recentController.select(selectedRecentId);
         drawer.closeDrawers();
         setLoading(true);
         viewModel.recuperar(sessionId, new ChatViewModel.Listener<ChatHistory>() {
@@ -225,36 +227,36 @@ public final class ChatbotFlow {
                 post(() -> {
                     selectedThreadId = fresh.sessionId; setHistoryMessages(fresh.messages);
                     selectedRecentId = fresh.sessionId;
-                    headerTitle.setText(displayTitle(fresh));
-                    recentAdapter.setSelectedThreadId(selectedRecentId);
+                    headerTitle.setText(recentController.title(fresh));
+                    recentController.select(selectedRecentId);
                     if (unresolvedDraft != null && sessionId.equals(unresolvedDraft.threadId) && unresolvedEntry != null)
                         appendLive(unresolvedEntry);
                     messageAdapter.notifyDataSetChanged(); showConversation(!messages.isEmpty()); scrollToBottom(); setLoading(false);
                     if (unresolvedDraft != null && unresolvedDraft.threadId == null)
-                        toast("Há um envio sem confirmação separado deste histórico. Confira as conversas antes de descartá-lo.");
+                        toast(fragment.getString(R.string.app_chat_error_draft_other_thread));
                 });
             }
             @Override public void onErro(Throwable error) { post(() -> {
                 if (sessionId.equals(selectedThreadId)) selectedThreadId = previousThreadId;
                 selectedRecentId = previousRecentId;
-                headerTitle.setText(titleForThread(previousThreadId));
-                recentAdapter.setSelectedThreadId(selectedRecentId); setLoading(false); toast(message(error));
+                headerTitle.setText(recentController.titleForThread(previousThreadId));
+                recentController.select(selectedRecentId); setLoading(false); toast(message(error));
             }); }
         });
     }
 
     private void send() {
         if (pending) return;
-        if (uploadingImages) { toast("Aguarde o envio das imagens terminar."); return; }
-        if (unresolvedDraft != null) { toast("Confira a conversa no histórico antes de enviar outra mensagem. Toque no aviso para descartar o rascunho após conferir."); return; }
-        if (!viewModel.hasSession()) { toast("Entre novamente para conversar com a Manu."); return; }
+        if (uploadingImages) { toast(fragment.getString(R.string.app_chat_error_wait_upload)); return; }
+        if (unresolvedDraft != null) { toast(fragment.getString(R.string.app_chat_error_unconfirmed_draft)); return; }
+        if (!viewModel.hasSession()) { toast(fragment.getString(R.string.app_chat_error_session_chat)); return; }
         String text = input.getText() == null ? "" : input.getText().toString().trim();
-        if (text.isEmpty()) { toast("Escreva uma mensagem para enviar."); input.requestFocus(); return; }
-        if (text.length() > 4000) { toast("A mensagem pode ter até 4.000 caracteres."); return; }
+        if (text.isEmpty()) { toast(fragment.getString(R.string.app_chat_error_empty_message)); input.requestFocus(); return; }
+        if (text.length() > 4000) { toast(fragment.getString(R.string.app_chat_error_message_too_long)); return; }
         String originThread = selectedThreadId;
         long thisGeneration = ++sendGeneration;
         List<String> urls = new ArrayList<>(attachedUrls);
-        ChatEntry draft = new ChatEntry(); draft.role="human"; draft.text=text; draft.images.addAll(urls); draft.localTimestamp=System.currentTimeMillis(); draft.localStatus="Enviando";
+        ChatEntry draft = new ChatEntry(); draft.role="human"; draft.text=text; draft.images.addAll(urls); draft.localTimestamp=System.currentTimeMillis(); draft.localStatus=fragment.getString(R.string.app_chat_status_sending);
         unresolvedDraft = new ChatPendingDraft(); unresolvedDraft.threadId=originThread;
         unresolvedDraft.message=text; unresolvedDraft.images=new ArrayList<>(urls); unresolvedDraft.timestamp=draft.localTimestamp;
         unresolvedEntry=draft;
@@ -290,9 +292,9 @@ public final class ChatbotFlow {
                         @Override public void onErro(Throwable error) { post(() -> {
                             if (generation != sendGeneration) return;
                             if (unresolvedDraft != null) unresolvedDraft.threadId=turn.threadId;
-                            draft.localStatus="Envio confirmado; descarte o rascunho após conferir o histórico";
+                            draft.localStatus=fragment.getString(R.string.app_chat_status_send_confirmed);
                             completeConfirmedSend(turn);
-                            toast("A resposta foi confirmada, mas não foi possível limpar o rascunho local. Confira o histórico antes de descartá-lo.");
+                            toast(fragment.getString(R.string.app_chat_error_clear_confirmed_draft));
                         }); }
                     });
                 });
@@ -302,8 +304,8 @@ public final class ChatbotFlow {
                     if (!sameOrigin(originThread)) return;
                     removeTypingIndicator();
                     setPending(false);
-                    toast("Não foi possível confirmar o envio. A mensagem ficou preservada; atualize o histórico antes de tentar novamente.");
-                    draft.localStatus = "Envio não confirmado";
+                    toast(fragment.getString(R.string.app_chat_error_send_uncertain));
+                    draft.localStatus = fragment.getString(R.string.app_chat_status_send_unconfirmed);
                     if (unresolvedDraft != null) unresolvedDraft.threadId=originThread;
                     viewModel.saveDraft(unresolvedDraft, new ChatViewModel.Listener<Void>() {
                         @Override public void onResultado(Void ignored) { post(() -> { renderWarning(); submitRecentItems(); }); }
@@ -356,7 +358,7 @@ public final class ChatbotFlow {
     }
 
     private void uploadNext(List<Uri> uris, int index) {
-        if (index >= uris.size()) { uploadingImages=false; setPending(pending); updateAttachmentsLabel(); toast("Imagem(ns) anexada(s)."); return; }
+        if (index >= uris.size()) { uploadingImages=false; setPending(pending); updateAttachmentsLabel(); toast(fragment.getString(R.string.app_chat_images_attached)); return; }
         uploadingImages=true;
         setLoading(true);
         try {
@@ -366,12 +368,12 @@ public final class ChatbotFlow {
                         pendingPhotoUris.remove(uris.get(index));
                         if (url == null || url.trim().length() > 255) {
                             discardPendingUris(uris, index + 1); uploadingImages=false; updateAttachmentsLabel(); setPending(pending);
-                            toast("A URL retornada para a imagem ultrapassa o limite aceito pelo chat."); return;
+                            toast(fragment.getString(R.string.app_chat_error_image_url_too_long)); return;
                         }
                         attachedUrls.add(url.trim()); updateAttachmentsLabel(); uploadNext(uris, index + 1);
                     });
                 }
-                @Override public void aoFalhar(String error) { post(() -> { discardPendingUris(uris, index); uploadingImages=false; setPending(pending); updateAttachmentsLabel(); toast("Não foi possível enviar a imagem."); }); }
+                @Override public void aoFalhar(String error) { post(() -> { discardPendingUris(uris, index); uploadingImages=false; setPending(pending); updateAttachmentsLabel(); toast(fragment.getString(R.string.app_chat_error_image_upload)); }); }
                 @Override public void aoReceberTokenExclusao(String token) { }
             });
         } catch (Exception e) { discardPendingUris(uris, index); uploadingImages=false; setPending(pending); updateAttachmentsLabel(); toast(message(e)); }
@@ -382,8 +384,8 @@ public final class ChatbotFlow {
     }
 
     private void openPhotoPicker() {
-        if (pending || uploadingImages) { toast("Aguarde a operação atual terminar."); return; }
-        if (attachedUrls.size() >= 3) { toast("O limite é 3 imagens por mensagem."); return; }
+        if (pending || uploadingImages) { toast(fragment.getString(R.string.app_chat_error_wait_operation)); return; }
+        if (attachedUrls.size() >= 3) { toast(fragment.getString(R.string.app_chat_error_photo_limit)); return; }
         if (photoPicker != null) photoPicker.open();
     }
 
@@ -415,8 +417,8 @@ public final class ChatbotFlow {
     }
 
     private void finishConversation(ChatHistory history) {
-        if (pending) { toast("Aguarde o envio atual terminar."); return; }
-        if (unresolvedDraft != null && history.sessionId.equals(unresolvedDraft.threadId)) { toast("Confira o histórico antes de finalizar esta conversa."); return; }
+        if (pending) { toast(fragment.getString(R.string.app_chat_error_wait_send)); return; }
+        if (unresolvedDraft != null && history.sessionId.equals(unresolvedDraft.threadId)) { toast(fragment.getString(R.string.app_chat_error_finish_unconfirmed)); return; }
         setLoading(true);
         viewModel.encerrar(history.sessionId, new ChatViewModel.Listener<Void>() {
             @Override public void onResultado(Void ignored) { post(() -> { setLoading(false); reload(); if (history.sessionId.equals(selectedThreadId)) select(history); }); }
@@ -441,7 +443,7 @@ public final class ChatbotFlow {
                                 selectedRecentId=null; selectedThreadId=null; messages.clear(); lastLiveDayKey=null;
                                 headerTitle.setText(R.string.app_chat_title);
                             }
-                            renderWarning(); submitRecentItems(); updateRecentEmptyState();
+                            renderWarning(); submitRecentItems();
                             messageAdapter.notifyDataSetChanged(); showConversation(!messages.isEmpty());
                         }); }
                         @Override public void onErro(Throwable error) { post(() -> toast(message(error))); }
@@ -464,21 +466,18 @@ public final class ChatbotFlow {
         unresolvedEntry.text = unresolvedDraft.message;
         unresolvedEntry.images.addAll(unresolvedDraft.images == null ? new ArrayList<>() : unresolvedDraft.images);
         unresolvedEntry.localTimestamp = unresolvedDraft.timestamp;
-        unresolvedEntry.localStatus = "Envio não confirmado";
+        unresolvedEntry.localStatus = fragment.getString(R.string.app_chat_status_send_unconfirmed);
     }
     private void submitRecentItems() {
-        if (recentAdapter == null) return;
-        recentAdapter.submitList(histories, unresolvedDraft);
-        recentAdapter.setSelectedThreadId(selectedRecentId);
-        updateRecentEmptyState();
+        if (recentController != null) recentController.submit(unresolvedDraft, selectedRecentId);
     }
     private void delete(ChatHistory history) {
-        if (pending) { toast("Aguarde o envio atual terminar."); return; }
-        if (unresolvedDraft != null && history.sessionId.equals(unresolvedDraft.threadId)) { toast("Confira o histórico antes de excluir esta conversa."); return; }
+        if (pending) { toast(fragment.getString(R.string.app_chat_error_wait_send)); return; }
+        if (unresolvedDraft != null && history.sessionId.equals(unresolvedDraft.threadId)) { toast(fragment.getString(R.string.app_chat_error_delete_unconfirmed)); return; }
         setLoading(true);
         viewModel.excluir(history.sessionId, new ChatViewModel.Listener<Void>() {
             @Override public void onResultado(Void ignored) { post(() -> {
-                setLoading(false); histories.removeIf(h -> history.sessionId.equals(h.sessionId)); submitRecentItems(); updateRecentEmptyState();
+                setLoading(false); histories.removeIf(h -> history.sessionId.equals(h.sessionId)); submitRecentItems();
                 if (history.sessionId.equals(selectedThreadId)) startNewChat();
             }); }
             @Override public void onErro(Throwable error) { post(() -> { setLoading(false); reload(); toast(message(error)); }); }
@@ -520,7 +519,7 @@ public final class ChatbotFlow {
         String dayKey = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
         if (dayKey.equals(lastLiveDayKey)) return;
         ChatEntry divider = new ChatEntry(); divider.role="system"; divider.localStatus="date-divider";
-        divider.text = "────────  " + new SimpleDateFormat("dd MMMM 'de' yyyy", new Locale("pt", "BR")).format(date) + "  ────────";
+        divider.text = fragment.getString(R.string.app_chat_date_divider, new SimpleDateFormat(fragment.getString(R.string.app_chat_date_format), new Locale("pt", "BR")).format(date));
         messages.add(divider);
         if (notify) messageAdapter.notifyItemInserted(messages.size()-1);
         lastLiveDayKey = dayKey;
@@ -532,42 +531,12 @@ public final class ChatbotFlow {
         renderAttachedPreviews();
     }
     private void renderAttachedPreviews() {
-        if (attachmentAdapter == null || attachmentPreview == null) return;
-        List<ChatAttachmentAdapter.Item> items = new ArrayList<>();
-        for (String url : attachedUrls) items.add(ChatAttachmentAdapter.Item.uploaded(url));
-        for (Uri uri : pendingPhotoUris) items.add(ChatAttachmentAdapter.Item.pending(uri));
-        attachmentAdapter.submitList(items);
-        attachmentPreview.setVisibility(items.isEmpty() ? View.GONE : View.VISIBLE);
+        if (attachmentRenderer != null) attachmentRenderer.render(attachedUrls, pendingPhotoUris);
     }
     private void post(Runnable action) { if (destroyed) return; fragment.requireActivity().runOnUiThread(() -> { if (!destroyed && fragment.getView()!=null) action.run(); }); }
     private void toast(String text) { if (!destroyed && fragment.getContext()!=null) Toast.makeText(fragment.requireContext(), text, Toast.LENGTH_LONG).show(); }
     private String message(Throwable e) {
         if (e instanceof IllegalArgumentException || e instanceof ChatException) return e.getMessage();
-        return "Não foi possível acessar a Manu. Verifique sua conexão e atualize a conversa.";
-    }
-    private void updateRecentEmptyState() {
-        if (recentEmpty == null || recentAdapter == null) return;
-        recentEmpty.setVisibility(recentAdapter.isEmpty() ? View.VISIBLE : View.GONE);
-        recentEmpty.setText(recentAdapter.hasSourceItems() ? R.string.app_chat_recent_no_matches : R.string.app_chat_recent_empty);
-    }
-    private String displayTitle(ChatHistory h) {
-        if(h.title!=null&&!h.title.trim().isEmpty()) return h.title.trim();
-        String date=sessionDate(h.updatedAt);
-        return date.isEmpty()?"Nova conversa":"Nova conversa · "+date;
-    }
-    private String titleForThread(String threadId) {
-        if (threadId == null) return fragment.getString(R.string.app_chat_title);
-        for (ChatHistory history : histories) {
-            if (threadId.equals(history.sessionId)) return displayTitle(history);
-        }
-        return fragment.getString(R.string.app_chat_title);
-    }
-    private String sessionDate(String iso) {
-        if(iso==null||iso.trim().isEmpty()) return "";
-        try {
-            String normalized=iso.trim(); if(!normalized.endsWith("Z")&&!normalized.matches(".*[+-]\\d\\d:\\d\\d$")) normalized += "Z";
-            java.time.Instant instant=java.time.OffsetDateTime.parse(normalized).toInstant();
-            return new SimpleDateFormat("dd MMM yyyy",Locale.getDefault()).format(Date.from(instant));
-        } catch(Exception ignored) { return ""; }
+        return fragment.getString(R.string.app_chat_error_general);
     }
 }

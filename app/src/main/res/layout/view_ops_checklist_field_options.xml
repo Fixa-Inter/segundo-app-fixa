@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/checklistFieldOptionsSection"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/checklistFieldOptionsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ops_checklist_option_section_title_height"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center_vertical"
+        android:text="@string/ops_checklist_options_title"
+        android:textColor="@color/ops_color_ff130943"
+        android:textSize="14sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/checklistOptionList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ops_checklist_option_list_spacing"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never" />
+
+    <TextView
+        android:id="@+id/checklistAddOption"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ops_checklist_option_add_height"
+        android:layout_marginTop="@dimen/ops_checklist_option_add_spacing"
+        android:background="@drawable/bg_ops_70aaab1e67"
+        android:gravity="center"
+        android:text="@string/ops_checklist_option_add"
+        android:textColor="@color/ops_color_ff153d7d"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_medium" />
+</LinearLayout>

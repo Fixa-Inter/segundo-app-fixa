@@ -69,12 +69,8 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
             new ActivityResultContracts.GetMultipleContents(), uris -> {
                 if (chatbotFlow != null && uris != null) chatbotFlow.onPhotoUris(uris);
             });
-    private final ActivityResultLauncher<String> occurrenceEditPhotoPicker = registerForActivityResult(
-            new ActivityResultContracts.GetMultipleContents(), uris -> {
-                if (ocorrenciaGestorFluxo != null && uris != null) {
-                    ocorrenciaGestorFluxo.uploadNewPhotos(uris);
-                }
-            });
+    private final com.aula.fixa.ui.config.SolicitacaoPhotoPicker occurrencePhotoPicker =
+            new com.aula.fixa.ui.config.SolicitacaoPhotoPicker(this);
     private final com.aula.fixa.ui.config.SolicitacaoPhotoPicker completionPhotoPicker =
             new com.aula.fixa.ui.config.SolicitacaoPhotoPicker(this);
     private final ActivityResultLauncher<String> profilePhotoPicker = registerForActivityResult(
@@ -144,7 +140,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         View inflatedContent = getLayoutInflater().inflate(screenLayout, host, false);
         String editingOrderId = ((OperationsActivity) requireActivity()).model.field("execution", "editOrderId");
         boolean creatingPlanningStep = "manager_planning_tasks".equals(screen)
-                || (("manager_plan_information".equals(screen) || "manager_assign_member".equals(screen))
+                || ("manager_assign_member".equals(screen)
                 && (editingOrderId == null || editingOrderId.trim().isEmpty()));
         View content = creatingPlanningStep ? wrapPlanningStepWithFixedFooter(inflatedContent, screen) : inflatedContent;
         host.addView(content);
@@ -1023,7 +1019,51 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         if ("manager_planning_tasks".equals(screen)) {
             positionPlanningTaskFlow(content);
         }
-        positionPlanningFixedFooter(content, indicator, actions[0], actions[1], screen);
+        if ("manager_plan_information".equals(screen)) {
+            positionPlanningInformationActions(content, indicator, actions[0], actions[1]);
+        } else {
+            positionPlanningFixedFooter(content, indicator, actions[0], actions[1], screen);
+        }
+    }
+
+    /** Keeps the calendar, progress indicator, and actions in one scrollable order on phones. */
+    private void positionPlanningInformationActions(View content, View indicator, int cancelId, int primaryId) {
+        View page = content instanceof androidx.core.widget.NestedScrollView
+                ? ((androidx.core.widget.NestedScrollView) content).getChildAt(0) : content;
+        if (!(page instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
+        androidx.constraintlayout.widget.ConstraintLayout parent =
+                (androidx.constraintlayout.widget.ConstraintLayout) page;
+        View cancel = parent.findViewById(cancelId);
+        View primary = parent.findViewById(primaryId);
+        if (cancel == null || primary == null) return;
+        int margin = getResources().getDimensionPixelSize(R.dimen.app_step_title_margin_start);
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams cancelParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancel.getLayoutParams();
+        cancelParams.width = 0;
+        cancelParams.height = dp(48);
+        cancelParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.bottomToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        cancelParams.endToStart = primaryId;
+        cancelParams.topToBottom = indicator.getId();
+        cancelParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        cancelParams.setMarginStart(margin);
+        cancelParams.setMarginEnd(dp(8));
+        cancelParams.topMargin = dp(20);
+        cancel.setLayoutParams(cancelParams);
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams primaryParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) primary.getLayoutParams();
+        primaryParams.width = 0;
+        primaryParams.height = dp(48);
+        primaryParams.startToEnd = cancelId;
+        primaryParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        primaryParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        primaryParams.bottomToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        primaryParams.topToTop = cancelId;
+        primaryParams.bottomToBottom = cancelId;
+        primaryParams.setMarginStart(dp(8));
+        primaryParams.setMarginEnd(margin);
+        primary.setLayoutParams(primaryParams);
     }
 
     /** Reparents the progress and action controls so all planning steps share a fixed footer. */
@@ -1065,13 +1105,14 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         page.setClipToPadding(false);
         scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
 
-        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
-                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
         androidx.constraintlayout.widget.ConstraintLayout.LayoutParams cancelParams =
                 (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) cancel.getLayoutParams();
         androidx.constraintlayout.widget.ConstraintLayout.LayoutParams primaryParams =
                 (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) primary.getLayoutParams();
-        ((ViewGroup) footerParent).removeView(indicator);
+        boolean timelineStaysInScroll = "manager_plan_information".equals(screen);
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
+                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
+        if (!timelineStaysInScroll) ((ViewGroup) footerParent).removeView(indicator);
         ((ViewGroup) footerParent).removeView(cancel);
         ((ViewGroup) footerParent).removeView(primary);
 
@@ -1080,10 +1121,10 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
         scrollParams.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
         scrollParams.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
         scrollParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
-        scrollParams.bottomToTop = indicator.getId();
+        scrollParams.bottomToTop = timelineStaysInScroll ? cancelId : indicator.getId();
         scroll.setLayoutParams(scrollParams);
         page.addView(scroll, scrollParams);
-        page.addView(indicator, indicatorParams);
+        if (!timelineStaysInScroll) page.addView(indicator, indicatorParams);
         page.addView(cancel, cancelParams);
         page.addView(primary, primaryParams);
         return page;
@@ -1116,26 +1157,29 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     private void positionPlanningFixedFooter(View content, View indicator, int cancelId, int primaryId, String screen) {
-        if (!(content instanceof androidx.constraintlayout.widget.ConstraintLayout)
-                || !(indicator.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)) return;
+        if (!(content instanceof androidx.constraintlayout.widget.ConstraintLayout)) return;
         int parentId = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
         int footerGap = getResources().getDimensionPixelSize(R.dimen.app_step_section_margin_top);
         int bottomGap = "manager_plan_information".equals(screen)
                 ? dp(24) : getResources().getDimensionPixelSize(R.dimen.app_step_actions_margin_bottom);
 
-        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
-                (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
-        indicatorParams.width = 0;
-        indicatorParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        indicatorParams.startToStart = parentId;
-        indicatorParams.endToEnd = parentId;
-        indicatorParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
-        indicatorParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
-        indicatorParams.bottomToTop = cancelId;
-        indicatorParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
-        indicatorParams.topMargin = 0;
-        indicatorParams.bottomMargin = footerGap;
-        indicator.setLayoutParams(indicatorParams);
+        boolean timelineInScrollableContent = "manager_plan_information".equals(screen);
+        if (!timelineInScrollableContent
+                && indicator.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams indicatorParams =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) indicator.getLayoutParams();
+            indicatorParams.width = 0;
+            indicatorParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            indicatorParams.startToStart = parentId;
+            indicatorParams.endToEnd = parentId;
+            indicatorParams.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            indicatorParams.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            indicatorParams.bottomToTop = cancelId;
+            indicatorParams.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+            indicatorParams.topMargin = 0;
+            indicatorParams.bottomMargin = footerGap;
+            indicator.setLayoutParams(indicatorParams);
+        }
 
         View cancel = content.findViewById(cancelId);
         View primary = content.findViewById(primaryId);
@@ -1168,7 +1212,7 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                 && scroll.getLayoutParams() instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) {
             androidx.constraintlayout.widget.ConstraintLayout.LayoutParams scrollParams =
                     (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) scroll.getLayoutParams();
-            scrollParams.bottomToTop = indicator.getId();
+            scrollParams.bottomToTop = timelineInScrollableContent ? cancelId : indicator.getId();
             scroll.setLayoutParams(scrollParams);
         }
     }
@@ -1571,9 +1615,6 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
                     .replaceAll("\\p{M}+", "").replaceAll("[^a-zA-Z0-9]", "")
                     .toLowerCase(java.util.Locale.ROOT);
             if (enumName.equals(normalized) || displayName.equals(normalized)) {
-                if (category == CategoriaProblema.REDE_CONECTIVIDADE) return "Rede";
-                if (category == CategoriaProblema.LIMPEZA_CONSERVACAO) return "Limpeza";
-                if (category == CategoriaProblema.CLIMATIZACAO) return "Clima";
                 return category.getNome();
             }
         }
@@ -1674,29 +1715,41 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
 
     private void recommendProblemCategory(View root, OperationsActivity activity,
                                           android.widget.AutoCompleteTextView competenceField) {
-        if ("true".equals(activity.model.field("planning_tasks", "jev_requested"))) return;
+        String jevState = activity.model.field("planning_tasks", "jev_requested");
+        if ("true".equals(jevState) || "pending".equals(jevState)) return;
         String title = activity.model.field("planning_tasks", "source_title");
         String description = activity.model.field("planning_tasks", "source_description");
         String equipmentCategory = activity.model.field("planning_tasks", "source_equipment_category");
         if (isBlank(title) || isBlank(description) || isBlank(equipmentCategory)) return;
 
-        activity.model.field("planning_tasks", "jev_requested", "true");
+        activity.model.field("planning_tasks", "jev_requested", "pending");
         RecomendacaoCategoriaViewModel viewModel = new ViewModelProvider(this,
                 new RecomendacaoCategoriaViewModelFactory(requireContext()))
                 .get(RecomendacaoCategoriaViewModel.class);
         viewModel.recomendar(title, description, equipmentCategory,
                 new RecomendacaoCategoriaViewModel.Callback() {
                     @Override public void success(String classification) {
-                        if (!isAdded() || !root.isAttachedToWindow()
-                                || !isBlank(activity.model.field("plan_information", "Competência"))) return;
+                        if (!isAdded() || !root.isAttachedToWindow()) {
+                            activity.model.field("planning_tasks", "jev_requested", "");
+                            return;
+                        }
+                        if (!isBlank(activity.model.field("plan_information", "Competência"))) {
+                            activity.model.field("planning_tasks", "jev_requested", "true");
+                            return;
+                        }
                         CategoriaProblema category = matchProblemCategory(classification);
-                        if (category == null) return;
+                        if (category == null) {
+                            activity.model.field("planning_tasks", "jev_requested", "");
+                            return;
+                        }
+                        activity.model.field("planning_tasks", "jev_requested", "true");
                         competenceField.setText(category.getNome(), false);
                         activity.model.field("plan_information", "Competência", category.getNome());
                         activity.model.field("plan_information", "CompetênciaId", String.valueOf(category.getId()));
                     }
                     @Override public void failure(Throwable error) {
-                        // Recomendação é assistiva; o gestor ainda pode escolher manualmente.
+                        activity.model.field("planning_tasks", "jev_requested", "");
+                        // Recomendação é assistiva; falhas podem ser tentadas novamente ao retornar à etapa.
                     }
                 });
     }
@@ -2019,13 +2072,25 @@ public final class OperationsScreenFragment extends Fragment implements ManagerR
     }
 
     public void selectCompletionPhotos() {
-        completionPhotoPicker.open(uris -> {
+        completionPhotoPicker.openGallery(uris -> {
+            if (conclusaoOSFluxo != null && uris != null) conclusaoOSFluxo.uploadPhotos(uris);
+        });
+    }
+
+    public void captureCompletionPhoto() {
+        completionPhotoPicker.openCamera(uris -> {
             if (conclusaoOSFluxo != null && uris != null) conclusaoOSFluxo.uploadPhotos(uris);
         });
     }
 
     public void selectOccurrenceEditPhotos() {
-        occurrenceEditPhotoPicker.launch("image/*");
+        occurrencePhotoPicker.open(uris -> {
+            if (ocorrenciaGestorFluxo != null && uris != null) ocorrenciaGestorFluxo.uploadNewPhotos(uris);
+        });
+    }
+
+    public void selectOccurrencePhotos(java.util.function.Consumer<List<Uri>> callback) {
+        occurrencePhotoPicker.open(callback);
     }
 
     @Override
